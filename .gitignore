@@ -6,3 +6,4 @@ data/*.pdf
 data/dense_index/
 data/chroma_db/
 data/processed/taxonomy_embeddings.json
+graph/.env

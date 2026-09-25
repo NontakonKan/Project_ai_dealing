@@ -1,0 +1,2 @@
+# Only needed for Neo4j import/exploration; building the graph uses the stdlib.
+neo4j>=5.28,<6
