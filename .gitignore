@@ -4,3 +4,5 @@ __pycache__/
 .DS_Store
 data/*.pdf
 graph/.env
+data/dense_index/
+data/chroma_db/

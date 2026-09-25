@@ -15,6 +15,17 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m pipelines.ingest.run            # สร้าง data/processed/ ใหม่
 ```
 
+ส่วน Dense ใช้ ChromaDB เก็บเวกเตอร์แบบถาวรใน `data/chroma_db/` (โฟลเดอร์นี้ไม่ขึ้น Git):
+
+```bash
+python -m pip install -r requirements-dense.txt
+python -m pipelines.dense.run build
+python -m pipelines.dense.run match U002 --top-k 5
+python -m pipelines.dense.run evaluate
+```
+
+รายละเอียดการค้นและการตั้งค่า LLM ดูที่ [pipelines/dense/README.md](pipelines/dense/README.md)
+
 ไม่ต้องรันก็ได้ ไฟล์ผลลัพธ์อยู่ใน repo แล้ว รันใหม่เมื่อ taxonomy หรือ config เปลี่ยน
 
 ---
