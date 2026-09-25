@@ -3,5 +3,6 @@ __pycache__/
 *.pyc
 .DS_Store
 data/*.pdf
+graph/.env
 data/dense_index/
 data/chroma_db/
