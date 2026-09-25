@@ -43,7 +43,10 @@ def rank(user_id, index, users=None, events=None, top_k=10, threshold=-1.0, pena
                user_id in (e["from_user"], e["about_user"])}
     past = [n for n in negatives[user_id] if n in index.positions["persona"]]
     results = []
-    for candidate_id, candidate in users.items():
+    for candidate_id in index.candidate_ids(user_id):
+        if candidate_id not in users:
+            continue
+        candidate = users[candidate_id]
         if candidate_id in blocked or not eligible(users[user_id], candidate, ()):
             continue
         if candidate_id not in index.positions["persona"] or user_id not in index.positions["preference"]:

@@ -1,6 +1,6 @@
 # Dense retrieval experiment (2026-09-26)
 
-This is a real BGE-M3 embedding run on the repository's synthetic data, not the deterministic smoke test. The vectors were generated from 292 consenting personas, 292 preferences, 231 nonempty avoids, and 44 knowledge chunks. The evaluation uses 292 ground-truth query users. Model: `BAAI/bge-m3` through Sentence Transformers 5.7.0, cosine similarity on normalized embeddings.
+This is a real BGE-M3 embedding run on the repository's synthetic data, not the deterministic smoke test. The vectors were generated from 292 consenting personas, 292 preferences, 231 nonempty avoids, and 44 knowledge chunks. The evaluation uses 292 ground-truth query users. Model: `BAAI/bge-m3` through Sentence Transformers 5.7.0, cosine similarity on normalized embeddings. The data was rebuilt into four ChromaDB 1.5.9 collections; the K=5, threshold=0 rows below were reproduced exactly after migration.
 
 Command (after `python -m pipelines.dense.run build`):
 

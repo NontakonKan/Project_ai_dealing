@@ -1,3 +1,4 @@
 -r requirements.txt
 numpy>=1.26,<3
 sentence-transformers>=3.0,<6
+chromadb>=1.5,<2
