@@ -18,7 +18,8 @@ def build_graph(taxonomy, users, events, chunks, provenance=None):
     graph = Graph()
     for group, label in GROUP_LABELS.items():
         for concept in taxonomy[group]:
-            graph.node(concept["id"], label, **pick(concept, ("label_th", "aliases", "framework", "source", "effect")))
+            graph.node(concept["id"], label, **pick(concept, ("label_th", "aliases", "framework", "source", "effect",
+                                                              "self_declared_only", "sensitive")))
     for rule in taxonomy["compatibility_rules"]:
         graph.edge(rule["a"], rule["relation"], rule["b"],
                    **pick(rule, ("weight", "reason", "source")), symmetric=True,
@@ -36,6 +37,7 @@ def build_graph(taxonomy, users, events, chunks, provenance=None):
         props.update(pick(user["demographic"], ("age", "gender", "seeking", "faculty", "campus")))
         props.update({f"lifestyle_{k}": v for k, v in pick(persona.get("lifestyle", {}), ("sleep", "social_energy", "weekend")).items()})
         props.update(pick(user["preferences"], ("age_range",)))
+        props.update(sensitive_consent=user.get("appearance", {}).get("consent_sensitive") is True)
         props.update(user_id=uid, matching_consent=user["consent"]["matching"],
                      consent_updated_at=user["consent"].get("updated_at", ""),
                      data_origin="synthetic", provenance="data/mock/users.json")
@@ -60,6 +62,13 @@ def build_graph(taxonomy, users, events, chunks, provenance=None):
             for item in user["preferences"].get(field, []):
                 graph.edge(uid, relation, item["id"], **pick(item, ("weight", "count", "source")),
                            provenance=f"users:{uid}:preferences.{field}")
+        appearance = user.get("appearance", {})
+        consent_sensitive = appearance.get("consent_sensitive") is True
+        for item in appearance.get("self_described", []):
+            if item["id"].startswith("skin:") and not consent_sensitive:
+                continue  # สีผิวเป็นข้อมูลอ่อนไหว (PDPA ม.26) ใช้ได้เมื่อเจ้าตัวยินยอมเท่านั้น
+            graph.edge(uid, "SELF_DESCRIBED", item["id"], source="self", assertion="self_declared",
+                       provenance=f"users:{uid}:appearance.self_described")
         for report in user.get("reported_traits", []):
             if report.get("usable") is not True or report.get("report_count", 0) < 3:
                 skipped_reports += 1

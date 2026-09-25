@@ -7,7 +7,10 @@ GROUP_LABELS = {
     "attachment_styles": "Attachment", "love_languages": "LoveLanguage",
     "love_components": "LoveComponent", "red_flags": "RedFlag",
     "research_factors": "ResearchFactor",
+    # รูปลักษณ์ = สเปกส่วนตัว (appearance_policy ใน taxonomy): ข้อมูลของผู้สมัครมาจาก SELF_DESCRIBED เท่านั้น
+    "body_types": "BodyType", "skin_tones": "SkinTone", "hygiene": "Hygiene",
 }
+APPEARANCE_LABELS = {"BodyType", "SkinTone", "Hygiene"}
 CONCEPT_LABELS = set(GROUP_LABELS.values())
 FEATURE_LABELS = {"Trait", "CommStyle", "Attachment"}
 LABELS = CONCEPT_LABELS | {"User", "Source", "BookChunk"}
@@ -18,9 +21,10 @@ RELATIONS = {
     "HAS_LOVE_LANGUAGE": ({"User"}, {"LoveLanguage"}),
     "HAS_LOVE_COMPONENT": ({"User"}, {"LoveComponent"}),
     "HAS_FACTOR": ({"User"}, {"ResearchFactor"}),
-    "PREFERS": ({"User"}, {"Trait"}),
-    "AVOIDS": ({"User"}, {"RedFlag"}),
-    "REPORTED_AS": ({"User"}, {"RedFlag"}),
+    "PREFERS": ({"User"}, {"Trait"} | APPEARANCE_LABELS),
+    "AVOIDS": ({"User"}, {"RedFlag", "BodyType", "SkinTone"}),
+    "REPORTED_AS": ({"User"}, {"RedFlag"}),                 # รายงานจากคนอื่นเป็นพฤติกรรมเท่านั้น ไม่มีรูปลักษณ์
+    "SELF_DESCRIBED": ({"User"}, {"BodyType", "SkinTone"}),  # เจ้าตัวระบุเอง (สีผิวต้องมี consent_sensitive)
     "UNMATCHED": ({"User"}, {"User"}),
     "MATCHED": ({"User"}, {"User"}),
     "PASSED": ({"User"}, {"User"}),

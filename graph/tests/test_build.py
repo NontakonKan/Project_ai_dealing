@@ -97,5 +97,24 @@ class BuildTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Forbidden"):
             validate(graph)
 
+    def test_appearance_policy(self):
+        appearance = {n["id"] for n in self.graph["nodes"] if n["label"] in ("BodyType", "SkinTone", "Hygiene")}
+        self.assertTrue(appearance)
+        reported = {e["target"] for e in self.graph["relationships"] if e["type"] == "REPORTED_AS"}
+        self.assertFalse(reported & appearance, "รูปลักษณ์ต้องไม่ถูกรายงานโดยคนอื่น")
+        users = {u["user_id"]: u for u in self.inputs["users"]}
+        for e in (e for e in self.graph["relationships"] if e["type"] == "SELF_DESCRIBED"):
+            declared = {x["id"] for x in users[e["source"]]["appearance"]["self_described"]}
+            self.assertIn(e["target"], declared)
+            if e["target"].startswith("skin:"):
+                self.assertTrue(users[e["source"]]["appearance"]["consent_sensitive"])
+
+    def test_skin_without_consent_is_dropped(self):
+        inputs = copy.deepcopy(self.inputs)
+        inputs["users"][0]["appearance"] = {"self_described": [{"id": "skin:tan", "source": "self"}], "consent_sensitive": False}
+        result, _ = build_graph(**inputs)
+        self.assertFalse(any(e["source"] == "U001" and e["type"] == "SELF_DESCRIBED" for e in result["relationships"]))
+
+
 if __name__ == "__main__":
     unittest.main()
