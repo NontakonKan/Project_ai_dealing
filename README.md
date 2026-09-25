@@ -243,3 +243,11 @@ pipelines/
 - ✅ Taxonomy, mock users/events/chats, ground truth, ingest งานวิจัย (44 chunks)
 - ⏳ OCR หนังสือ: ต้องติดตั้ง `brew install tesseract tesseract-lang` แล้วรัน ingest ใหม่
 - ⏳ Pipeline สกัดข้อมูลจากแชทจริง (LINE → LLM → JSON → merge เข้าโปรไฟล์)
+
+## ส่วน Graph
+
+โค้ดสร้าง Knowledge Graph และสำรวจ Neo4j อยู่ใน [`graph/`](graph/README.md)
+รัน `python3 -m graph.build` เพื่อตรวจข้อมูล และ `python3 -m graph.import_neo4j` เพื่อนำเข้าฐานข้อมูลโดยตรง
+ดูกราฟและ export ภาพหรือข้อมูลผ่าน Neo4j Browser โดยใช้ `graph/queries.cypher`
+มี schema, validation, การนำเข้าแบบ snapshot และคำสั่ง Cypher พร้อมเลขหน้าเอกสารอ้างอิง
+ส่วนนี้ยังไม่มี RAG, embeddings หรือระบบจัดอันดับคู่
