@@ -1,0 +1,223 @@
+{
+  "research_cu2561": [
+    {
+      "chapter": 0,
+      "chapter_title": "บทคัดย่อ",
+      "section_title": "บทคัดย่อ",
+      "category": "abstract",
+      "pages": [
+        3
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "ความสำคัญและที่มาของปัญหา (Background and rationale)",
+      "category": "background",
+      "pages": [
+        11,
+        12,
+        13
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "วัตถุประสงค์ของการวิจัย (Objectives) / คำถามของการวิจัย (Research questions)",
+      "category": "background",
+      "pages": [
+        13,
+        14
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "กรอบแนวคิดในการวิจัย (Conceptual framework)",
+      "category": "background",
+      "pages": [
+        14,
+        15
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "ข้อตกลงเบื้องต้น (Assumption) / คำสำคัญ (Keywords)",
+      "category": "background",
+      "pages": [
+        15
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "การให้คำนิยามเชิงปฏิบัติการ (Operation definition)",
+      "category": "background",
+      "pages": [
+        15,
+        16
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "ประโยชน์ที่คาดว่าจะได้รับ (Expected or anticipated benefit)",
+      "category": "background",
+      "pages": [
+        16,
+        17,
+        18
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": 2,
+      "chapter_title": "เอกสารและงานวิจัยที่เกี่ยวข้อง",
+      "section_title": "ความหมายของคู่รัก (Couple)",
+      "category": "theory",
+      "pages": [
+        18
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": 2,
+      "chapter_title": "เอกสารและงานวิจัยที่เกี่ยวข้อง",
+      "section_title": "ความหมายของความพึงพอใจในความสัมพันธ์กับคู่รัก (Relationship satisfaction)",
+      "category": "theory",
+      "pages": [
+        18,
+        19
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": 2,
+      "chapter_title": "เอกสารและงานวิจัยที่เกี่ยวข้อง",
+      "section_title": "ทฤษฎีสามเหลี่ยมความรัก (Triangular theory of love)",
+      "category": "theory",
+      "pages": [
+        19,
+        20,
+        21
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": 2,
+      "chapter_title": "เอกสารและงานวิจัยที่เกี่ยวข้อง",
+      "section_title": "การแบ่งระยะของความสัมพันธ์แบบคู่รัก (Phases of love relationship)",
+      "category": "theory",
+      "pages": [
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": 2,
+      "chapter_title": "เอกสารและงานวิจัยที่เกี่ยวข้อง",
+      "section_title": "งานวิจัยเกี่ยวกับความพึงพอใจในความสัมพันธ์",
+      "category": "theory",
+      "pages": [
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": 5,
+      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
+      "section_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
+      "category": "finding_discussion",
+      "pages": [
+        56
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": 5,
+      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
+      "section_title": "สรุปผลการวิจัย",
+      "category": "finding_discussion",
+      "pages": [
+        56,
+        57,
+        58
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": 5,
+      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
+      "section_title": "อภิปรายผลการวิจัย",
+      "category": "finding_discussion",
+      "pages": [
+        58,
+        59,
+        60,
+        61,
+        62
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": 5,
+      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
+      "section_title": "ข้อได้เปรียบของการวิจัยในครั้งนี้",
+      "category": "finding_discussion",
+      "pages": [
+        62,
+        63
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": 5,
+      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
+      "section_title": "ข้อจำกัดในการวิจัย",
+      "category": "finding_discussion",
+      "pages": [
+        63
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": 5,
+      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
+      "section_title": "ข้อเสนอแนะในการนำไปประยุกต์ใช้",
+      "category": "finding_discussion",
+      "pages": [
+        63,
+        64
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": 5,
+      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
+      "section_title": "ข้อเสนอแนะสำหรับงานวิจัยในอนาคต",
+      "category": "finding_discussion",
+      "pages": [
+        64,
+        65,
+        66
+      ],
+      "n_paragraphs": 2
+    }
+  ],
+  "book_whonotlove": []
+}

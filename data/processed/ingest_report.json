@@ -1,0 +1,111 @@
+{
+  "config": {
+    "chunk_size": 300,
+    "overlap": 0.15,
+    "min_section_words": 80,
+    "source": null
+  },
+  "sources": [
+    {
+      "source_id": "research_cu2561",
+      "status": "ok (text)",
+      "pages_total": 71,
+      "pages_used": 31,
+      "n_sections": 19,
+      "n_chunks": 44,
+      "chunk_words": {
+        "min": 96,
+        "p25": 194.75,
+        "median": 289.0,
+        "p75": 300.0,
+        "max": 348,
+        "mean": 242
+      },
+      "chunks_with_concepts_pct": 81.8,
+      "category_dist": {
+        "abstract": 2,
+        "background": 8,
+        "theory": 18,
+        "finding_discussion": 16
+      },
+      "top_concepts": [
+        [
+          "love:commitment",
+          19
+        ],
+        [
+          "love:intimacy",
+          17
+        ],
+        [
+          "factor:life_satisfaction",
+          10
+        ],
+        [
+          "attach:secure",
+          10
+        ],
+        [
+          "love:passion",
+          9
+        ],
+        [
+          "factor:relationship_duration",
+          8
+        ],
+        [
+          "factor:living_status",
+          6
+        ],
+        [
+          "comm:direct",
+          6
+        ],
+        [
+          "factor:disclose_friends",
+          5
+        ],
+        [
+          "factor:disclose_family",
+          5
+        ],
+        [
+          "trait:emotional",
+          4
+        ],
+        [
+          "rf:possessive",
+          4
+        ],
+        [
+          "attach:avoidant",
+          3
+        ]
+      ],
+      "cleaning": {
+        "sara_am_fixed": 491,
+        "noise_lines_removed": 289,
+        "citations_removed": 60
+      }
+    },
+    {
+      "source_id": "book_whonotlove",
+      "status": "skipped: scanned PDF, OCR not installed",
+      "pages_total": 27,
+      "pages_used": 0,
+      "n_sections": 0,
+      "n_chunks": 0,
+      "chunk_words": {},
+      "chunks_with_concepts_pct": 0,
+      "category_dist": {},
+      "top_concepts": [],
+      "cleaning": {}
+    }
+  ],
+  "before_after": {
+    "research_cu2561": {
+      "before": " \nCU iThesis 6074091030 thesis / recv: 30072562 12:17:37 / seq: 4\n \nง \n \nบทคัดย่อภาษาไทย \n \nจิรันธนิน เจริญธีระนันท์ : ความพึงพอใจในความสัมพันธ์แบบคู่รักและปัจจัยที่เกี่ยวข้องของนิสิตจุฬาลงกรณ์\nมหาวิทยาลัย . ( Love relationship satisfaction and related-factors of Chulalongkorn University \nstudents) อ.ที่ปรึกษาหลัก : อ. นพ.ธีรยุทธ รุ่งนิรันดร \n  \nเหตุผลของการท าวิจัย: การมีความสัมพันธ์แบบคู่รักเป็น",
+      "after": "บทคัดย่อภาษาไทย\nจิรันธนิน เจริญธีระนันท์ : ความพึงพอใจในความสัมพันธ์แบบคู่รักและปัจจัยที่เกี่ยวข้องของนิสิตจุฬาลงกรณ์\nมหาวิทยาลัย . ( Love relationship satisfaction and related-factors of Chulalongkorn University\nstudents) อ.ที่ปรึกษาหลัก : อ. นพ.ธีรยุทธ รุ่งนิรันดร\nเหตุผลของการทำวิจัย: การมีความสัมพันธ์แบบคู่รักเป็นขั้นตอนสำคัญอย่างหนึ่งในพัฒนาการของมนุษย์สำหรับวัย\nผู้ใหญ่ตอนต้นตามทฤษฎีพัฒนาการทา"
+    }
+  }
+}

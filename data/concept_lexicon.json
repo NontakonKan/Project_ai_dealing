@@ -1,0 +1,30 @@
+{
+  "description": "คีย์เวิร์ดสำหรับ tag concept ลงใน book chunk (เสริมจาก aliases ใน taxonomy.json) — id ต้องอยู่ใน taxonomy",
+  "concepts": {
+    "love:intimacy": ["ความใกล้ชิด", "Intimacy", "ความสนิทสนม"],
+    "love:passion": ["ความหลงใหล", "Passion", "แรงดึงดูด"],
+    "love:commitment": ["ความผูกมัด", "Commitment", "ความมุ่งมั่นในความสัมพันธ์"],
+    "attach:secure": ["Secure", "แบบมั่นใจ", "ความผูกพันแบบมั่นคง"],
+    "attach:anxious": ["Anxious", "Preoccupied", "กลัวถูกทอดทิ้ง", "วิตกกังวล"],
+    "attach:avoidant": ["Avoidant", "Dismissing", "หลีกเลี่ยง"],
+    "attach:fearful": ["Fearful"],
+    "factor:life_satisfaction": ["ความพึงพอใจในชีวิต", "Life satisfaction"],
+    "factor:relationship_duration": ["ระยะเวลาของความสัมพันธ์", "ระยะเวลาคบหา"],
+    "factor:disclose_friends": ["เปิดเผยความสัมพันธ์ต่อเพื่อน"],
+    "factor:disclose_family": ["เปิดเผยความสัมพันธ์ต่อครอบครัว"],
+    "factor:living_status": ["สถานภาพการพักอาศัย", "พักอาศัย"],
+    "comm:direct": ["การสื่อสาร", "สื่อสารอย่างเปิดเผย", "พูดคุยปัญหา"],
+    "rf:dishonest": ["นอกใจ", "ความไม่ซื่อสัตย์"],
+    "rf:possessive": ["หึงหวง", "ควบคุม"],
+    "trait:emotional": ["ความเครียด", "ภาวะซึมเศร้า", "อารมณ์อ่อนไหว"]
+  },
+  "topic_keywords": {
+    "relationship_satisfaction": ["ความพึงพอใจในความสัมพันธ์", "Relationship satisfaction"],
+    "love_theory": ["ทฤษฎีสามเหลี่ยมความรัก", "Triangular", "Sternberg"],
+    "attachment_theory": ["รูปแบบความผูกพัน", "Attachment"],
+    "relationship_phase": ["ระยะของความสัมพันธ์", "ตกหลุมรัก", "Phases of love"],
+    "development": ["Erikson", "พัฒนาการทางจิตสังคม", "วัยผู้ใหญ่ตอนต้น"],
+    "breakup_recovery": ["อกหัก", "เลิกรา", "Move on", "เจ็บปวด"],
+    "toxic_relationship": ["ความสัมพันธ์ที่ไม่ดี", "toxic", "ท็อกซิก"]
+  }
+}

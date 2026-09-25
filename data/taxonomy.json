@@ -1,0 +1,101 @@
+{
+  "version": "1.0",
+  "description": "Controlled vocabulary กลาง ใช้ร่วมกันทั้ง User Profile, Book Chunk metadata และ Knowledge Graph",
+  "sources": {
+    "research": "งานวิจัยการหาคู่.pdf (ความพึงพอใจในความสัมพันธ์แบบคู่รักฯ นิสิตจุฬาฯ 2561)",
+    "book": "หนังสือใครไม่รักช่างแม่ง_ใช้ตอนอกหัก.pdf"
+  },
+  "hobbies": [
+    {"id": "hobby:cooking", "label_th": "ทำอาหาร", "aliases": ["ทำกับข้าว", "เข้าครัว", "ทำอาหารกินเอง"]},
+    {"id": "hobby:baking", "label_th": "ทำขนม", "aliases": ["อบขนม", "ทำเบเกอรี่"]},
+    {"id": "hobby:lofi_music", "label_th": "ฟังเพลง Lo-Fi / เพลงชิล", "aliases": ["เพลงชิล", "lofi", "ฟังเพลงเบาๆ"]},
+    {"id": "hobby:concert", "label_th": "ไปคอนเสิร์ต", "aliases": ["ไปคอน", "ดูคอนเสิร์ต", "เทศกาลดนตรี"]},
+    {"id": "hobby:reading", "label_th": "อ่านหนังสือ", "aliases": ["อ่านนิยาย", "อ่านการ์ตูน"]},
+    {"id": "hobby:gaming", "label_th": "เล่นเกม", "aliases": ["เกม", "ROV", "เล่นเกมออนไลน์"]},
+    {"id": "hobby:movies", "label_th": "ดูหนัง/ซีรีส์", "aliases": ["ดูซีรีส์", "ดู Netflix", "ดูหนัง"]},
+    {"id": "hobby:cafe", "label_th": "คาเฟ่ฮอปปิ้ง", "aliases": ["นั่งคาเฟ่", "ตระเวนคาเฟ่"]},
+    {"id": "hobby:travel", "label_th": "เที่ยว", "aliases": ["เดินทาง", "ไปทะเล", "เที่ยวต่างจังหวัด"]},
+    {"id": "hobby:hiking", "label_th": "เดินป่า/ธรรมชาติ", "aliases": ["เดินป่า", "กางเต็นท์", "แคมป์ปิ้ง"]},
+    {"id": "hobby:gym", "label_th": "ออกกำลังกาย/ฟิตเนส", "aliases": ["เข้ายิม", "ยกเวท", "ฟิตเนส"]},
+    {"id": "hobby:running", "label_th": "วิ่ง", "aliases": ["วิ่งจ๊อกกิ้ง", "วิ่งมาราธอน"]},
+    {"id": "hobby:football", "label_th": "ฟุตบอล", "aliases": ["เตะบอล", "ดูบอล"]},
+    {"id": "hobby:photography", "label_th": "ถ่ายรูป", "aliases": ["ถ่ายภาพ", "กล้องฟิล์ม"]},
+    {"id": "hobby:drawing", "label_th": "วาดรูป", "aliases": ["วาดภาพ", "ดิจิทัลอาร์ต"]},
+    {"id": "hobby:pets", "label_th": "เลี้ยงสัตว์", "aliases": ["ทาสแมว", "เลี้ยงหมา"]},
+    {"id": "hobby:volunteer", "label_th": "จิตอาสา", "aliases": ["ทำกิจกรรมอาสา", "ค่ายอาสา"]},
+    {"id": "hobby:party", "label_th": "ปาร์ตี้/สังสรรค์", "aliases": ["ไปผับ", "แฮงเอาท์", "สังสรรค์กับเพื่อน"]}
+  ],
+  "traits": [
+    {"id": "trait:introvert", "label_th": "เก็บตัว ชอบความสงบ", "aliases": ["อินโทรเวิร์ต", "ไม่ชอบที่คนเยอะ"], "framework": "Big Five: Extraversion(low)"},
+    {"id": "trait:extrovert", "label_th": "ชอบเข้าสังคม", "aliases": ["เอ็กซ์โทรเวิร์ต", "สายปาร์ตี้", "เฟรนด์ลี่"], "framework": "Big Five: Extraversion(high)"},
+    {"id": "trait:calm", "label_th": "ใจเย็น", "aliases": ["ใจเย็น", "ไม่ขี้เหวี่ยง", "นิ่ง"], "framework": "Big Five: Neuroticism(low)"},
+    {"id": "trait:emotional", "label_th": "อ่อนไหวง่าย", "aliases": ["ขี้น้อยใจ", "อารมณ์ขึ้นลง", "ขี้เหวี่ยง"], "framework": "Big Five: Neuroticism(high)"},
+    {"id": "trait:logical", "label_th": "มีเหตุผล", "aliases": ["คุยด้วยเหตุผล", "มีตรรกะ"]},
+    {"id": "trait:funny", "label_th": "ตลก อารมณ์ดี", "aliases": ["ขี้เล่น", "ตลก", "มีอารมณ์ขัน"], "framework": "Big Five: Agreeableness"},
+    {"id": "trait:kind", "label_th": "ใจดี ขี้เกรงใจ", "aliases": ["ใจดี", "อบอุ่น", "เอาใจใส่"], "framework": "Big Five: Agreeableness(high)"},
+    {"id": "trait:responsible", "label_th": "รับผิดชอบ มีวินัย", "aliases": ["มีวินัย", "ตรงต่อเวลา", "รับผิดชอบ"], "framework": "Big Five: Conscientiousness(high)"},
+    {"id": "trait:spontaneous", "label_th": "ชอบลุยแบบไม่วางแผน", "aliases": ["ชิลๆ ไม่วางแผน", "ฉับพลัน"], "framework": "Big Five: Conscientiousness(low)"},
+    {"id": "trait:adventurous", "label_th": "ชอบลองของใหม่", "aliases": ["ชอบผจญภัย", "ชอบลองอะไรใหม่ๆ"], "framework": "Big Five: Openness(high)"},
+    {"id": "trait:ambitious", "label_th": "มุ่งมั่น ทะเยอทะยาน", "aliases": ["เป้าหมายชัด", "สายโฟกัสงาน"]},
+    {"id": "trait:homebody", "label_th": "ติดบ้าน", "aliases": ["อยู่บ้านเก่ง", "ไม่ค่อยออกไปไหน"]}
+  ],
+  "comm_styles": [
+    {"id": "comm:direct", "label_th": "พูดตรง เคลียร์ปัญหาทันที", "aliases": ["พูดตรงๆ", "เคลียร์กันเลย"]},
+    {"id": "comm:gentle", "label_th": "พูดอ้อม ถนอมน้ำใจ", "aliases": ["พูดนุ่มนวล", "ค่อยๆ พูด"]},
+    {"id": "comm:frequent_texter", "label_th": "ทักแชทบ่อย ตอบไว", "aliases": ["ตอบไว", "แชททั้งวัน"]},
+    {"id": "comm:slow_texter", "label_th": "ตอบแชทช้า ชอบคุยเป็นช่วง", "aliases": ["ตอบช้า", "ไม่ค่อยเล่นมือถือ"]}
+  ],
+  "attachment_styles": [
+    {"id": "attach:secure", "label_th": "มั่นคง", "source": "research บทที่ 1-2 (Attachment styles)"},
+    {"id": "attach:anxious", "label_th": "วิตกกังวล กลัวถูกทิ้ง", "source": "research บทที่ 2"},
+    {"id": "attach:avoidant", "label_th": "หลีกเลี่ยงความใกล้ชิด", "source": "research บทที่ 2"},
+    {"id": "attach:fearful", "label_th": "กลัวทั้งการใกล้ชิดและการถูกทิ้ง", "source": "research บทที่ 2"}
+  ],
+  "love_languages": [
+    {"id": "ll:words", "label_th": "คำพูดชื่นชม"},
+    {"id": "ll:quality_time", "label_th": "เวลาคุณภาพ"},
+    {"id": "ll:gifts", "label_th": "ของขวัญ"},
+    {"id": "ll:acts_of_service", "label_th": "การกระทำ/ช่วยเหลือ"},
+    {"id": "ll:touch", "label_th": "การสัมผัส"}
+  ],
+  "love_components": [
+    {"id": "love:intimacy", "label_th": "ความใกล้ชิด", "source": "research: Sternberg Triangular Theory (1986) — ตัวทำนายความพึงพอใจ"},
+    {"id": "love:passion", "label_th": "ความหลงใหล", "source": "research: Sternberg Triangular Theory (1986)"},
+    {"id": "love:commitment", "label_th": "ความผูกมัด", "source": "research: Sternberg Triangular Theory (1986) — ตัวทำนายความพึงพอใจ"}
+  ],
+  "red_flags": [
+    {"id": "rf:stonewalling", "label_th": "เงียบใส่/หายไปเวลามีปัญหา", "aliases": ["หายเงียบ", "เงียบใส่", "ไม่อธิบาย", "ปล่อยให้เดา", "silent treatment"], "source": "book: อกหักได้ ทั้งที่ดีขนาดนี้ (รูปแบบความสัมพันธ์ที่ไม่ดี)"},
+    {"id": "rf:friend_priority", "label_th": "ติดเพื่อน แบ่งเวลาไม่เป็น", "aliases": ["ติดเพื่อน", "แบ่งเวลาไม่ได้", "เพื่อนมาก่อนตลอด"], "source": "book: อกหักได้ ทั้งที่ดีขนาดนี้"},
+    {"id": "rf:possessive", "label_th": "หึงหวง ควบคุม", "aliases": ["หึงเกิน", "ขอดูมือถือ", "คุมทุกอย่าง", "ขี้หึง"], "source": "book: รูปแบบความสัมพันธ์ที่ไม่ดี"},
+    {"id": "rf:ghosting", "label_th": "หายไปเฉยๆ ไม่บอกลา", "aliases": ["ghost", "โกสต์", "อ่านไม่ตอบ", "หายไปเลย"], "source": "book: การเลิกราอย่างมีสติ"},
+    {"id": "rf:gaslighting", "label_th": "บิดเบือนให้เราผิด", "aliases": ["บอกว่าเราคิดไปเอง", "โทษเราตลอด", "gaslight"], "source": "book: รูปแบบความสัมพันธ์ที่ไม่ดี"},
+    {"id": "rf:disrespect", "label_th": "พูดจาไม่ให้เกียรติ", "aliases": ["พูดแรง", "ด่า", "ดูถูก", "เหยียด"], "source": "book: รูปแบบความสัมพันธ์ที่ไม่ดี"},
+    {"id": "rf:dishonest", "label_th": "โกหก ไม่จริงใจ", "aliases": ["โกหก", "คุยหลายคน", "ไม่จริงใจ", "นอกใจ"], "source": "book: อกหักได้ ทั้งที่ดีขนาดนี้"},
+    {"id": "rf:hot_temper", "label_th": "ขี้เหวี่ยง อารมณ์ร้อน", "aliases": ["ขี้เหวี่ยง", "วีน", "โมโหง่าย"], "source": "book: การสร้างรักที่มีสุขภาพจิตดี"},
+    {"id": "rf:inconsistent", "label_th": "เดี๋ยวร้อนเดี๋ยวเย็น", "aliases": ["เดี๋ยวดีเดี๋ยวร้าย", "ไม่สม่ำเสมอ", "เทบ่อย"], "source": "book: รูปแบบความสัมพันธ์ที่ไม่ดี"},
+    {"id": "rf:no_boundaries", "label_th": "ไม่เคารพพื้นที่ส่วนตัว", "aliases": ["ตามติดเกิน", "ไม่ให้พื้นที่", "โทรจิกตลอด"], "source": "book: การสร้างรักที่มีสุขภาพจิตดี (การตั้งขอบเขต)"}
+  ],
+  "compatibility_rules": [
+    {"a": "attach:secure", "b": "attach:anxious", "relation": "COMPATIBLE_WITH", "weight": 0.8, "reason": "ฝ่าย secure ช่วยให้ฝ่าย anxious รู้สึกปลอดภัย", "source": "research บทที่ 2 (Madey 2009)"},
+    {"a": "attach:secure", "b": "attach:secure", "relation": "COMPATIBLE_WITH", "weight": 1.0, "reason": "ความพึงพอใจสูงสุด", "source": "research บทที่ 2"},
+    {"a": "attach:secure", "b": "attach:avoidant", "relation": "COMPATIBLE_WITH", "weight": 0.6, "reason": "พอไปได้ถ้าให้พื้นที่", "source": "research บทที่ 2"},
+    {"a": "attach:anxious", "b": "attach:avoidant", "relation": "CONFLICTS_WITH", "weight": 0.9, "reason": "วงจรไล่-หนี (pursue-withdraw)", "source": "research บทที่ 2"},
+    {"a": "attach:fearful", "b": "attach:avoidant", "relation": "CONFLICTS_WITH", "weight": 0.7, "reason": "ต่างฝ่ายต่างถอยห่าง", "source": "research บทที่ 2"},
+    {"a": "trait:calm", "b": "trait:emotional", "relation": "COMPATIBLE_WITH", "weight": 0.6, "reason": "ฝ่ายใจเย็นช่วยประคองอารมณ์", "source": "book: การสร้างรักที่มีสุขภาพจิตดี"},
+    {"a": "trait:introvert", "b": "trait:introvert", "relation": "COMPATIBLE_WITH", "weight": 0.8, "reason": "จังหวะชีวิตและพลังสังคมใกล้กัน"},
+    {"a": "trait:introvert", "b": "trait:extrovert", "relation": "CONFLICTS_WITH", "weight": 0.4, "reason": "ความต้องการเวลาสังคมต่างกัน ต้องตกลงกัน"},
+    {"a": "comm:direct", "b": "comm:direct", "relation": "COMPATIBLE_WITH", "weight": 0.9, "reason": "เคลียร์ปัญหาได้เร็ว"},
+    {"a": "comm:frequent_texter", "b": "comm:slow_texter", "relation": "CONFLICTS_WITH", "weight": 0.6, "reason": "ความคาดหวังเรื่องการตอบแชทต่างกัน"},
+    {"a": "trait:responsible", "b": "trait:spontaneous", "relation": "CONFLICTS_WITH", "weight": 0.3, "reason": "สไตล์การวางแผนต่างกัน"},
+    {"a": "rf:stonewalling", "b": "comm:direct", "relation": "OPPOSITE_OF", "weight": 1.0, "reason": "การหนีปัญหา ตรงข้ามกับการเคลียร์ปัญหา"},
+    {"a": "rf:hot_temper", "b": "trait:calm", "relation": "OPPOSITE_OF", "weight": 1.0},
+    {"a": "rf:no_boundaries", "b": "attach:avoidant", "relation": "CONFLICTS_WITH", "weight": 0.8}
+  ],
+  "research_factors": [
+    {"id": "factor:life_satisfaction", "label_th": "ความพึงพอใจในชีวิต", "effect": "สัมพันธ์เชิงบวกกับความพึงพอใจในความสัมพันธ์ (ตัวทำนาย)"},
+    {"id": "factor:relationship_duration", "label_th": "ระยะเวลาคบหา", "effect": "ตัวทำนายความพึงพอใจ"},
+    {"id": "factor:disclose_friends", "label_th": "เปิดเผยความสัมพันธ์ต่อเพื่อน", "effect": "เกี่ยวข้องกับความพึงพอใจ"},
+    {"id": "factor:disclose_family", "label_th": "เปิดเผยความสัมพันธ์ต่อครอบครัว", "effect": "เกี่ยวข้องกับความพึงพอใจ"},
+    {"id": "factor:living_status", "label_th": "สถานภาพการพักอาศัย", "effect": "เกี่ยวข้องกับความพึงพอใจ"}
+  ]
+}

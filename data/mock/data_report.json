@@ -1,0 +1,69 @@
+{
+  "n_users": 300,
+  "n_consented": 292,
+  "archetype_dist": {
+    "gamer_chill": 49,
+    "quiet_home": 45,
+    "active_outdoor": 60,
+    "achiever": 55,
+    "social_butterfly": 47,
+    "creative": 44
+  },
+  "gender_dist": {
+    "M": 120,
+    "F": 115,
+    "NB": 65
+  },
+  "attachment_dist": {
+    "attach:secure": 151,
+    "attach:avoidant": 51,
+    "attach:anxious": 65,
+    "attach:fearful": 33
+  },
+  "trait_dist": {
+    "trait:homebody": 86,
+    "trait:funny": 113,
+    "trait:logical": 89,
+    "trait:extrovert": 101,
+    "trait:kind": 29,
+    "trait:introvert": 96,
+    "trait:calm": 62,
+    "trait:adventurous": 107,
+    "trait:responsible": 132,
+    "trait:ambitious": 68,
+    "trait:spontaneous": 53,
+    "trait:emotional": 62
+  },
+  "hobby_dist": {
+    "hobby:gaming": 49,
+    "hobby:lofi_music": 95,
+    "hobby:movies": 101,
+    "hobby:football": 72,
+    "hobby:reading": 55,
+    "hobby:cooking": 25,
+    "hobby:baking": 28,
+    "hobby:drawing": 57,
+    "hobby:photography": 60,
+    "hobby:travel": 74,
+    "hobby:hiking": 44,
+    "hobby:running": 76,
+    "hobby:cafe": 92,
+    "hobby:gym": 85,
+    "hobby:party": 39,
+    "hobby:volunteer": 43,
+    "hobby:pets": 26,
+    "hobby:concert": 26
+  },
+  "users_with_hidden_flags": 116,
+  "event_type_dist": {
+    "unmatch": 154,
+    "matched": 82,
+    "pass": 232
+  },
+  "avg_profile_completeness": 0.935,
+  "usable_reported_traits": 17,
+  "n_chats": 100,
+  "chats_with_pii": 9,
+  "gt_avg_relevant": 5.0,
+  "gt_avg_must_exclude": 15.86
+}
