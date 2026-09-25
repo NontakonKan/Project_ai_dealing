@@ -40,8 +40,12 @@ def _write_snapshot(tx, graph):
     groups, edges = defaultdict(list), defaultdict(list)
     key = lambda node_id: f"{dataset}|{snapshot}|{node_id}"
     for node in graph["nodes"]:
+        props = dict(node["properties"])
+        # Human-readable fallback caption for Neo4j Browser and graph exports.
+        props["display_name"] = (props.get("display_name") or props.get("label_th")
+                                 or props.get("section_title") or props.get("source_id") or node["id"])
         groups[node["label"]].append({"key": key(node["id"]), "properties": {
-            **node["properties"], "key": key(node["id"]), "id": node["id"],
+            **props, "key": key(node["id"]), "id": node["id"],
             "dataset": dataset, "snapshot": snapshot}})
     for edge in graph["relationships"]:
         edges[edge["type"]].append({"source": key(edge["source"]), "target": key(edge["target"]),
