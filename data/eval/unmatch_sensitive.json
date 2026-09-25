@@ -1,0 +1,22 @@
+[
+  {"id": "S01", "input": "อยากเลิกคุยเพราะอ้วนไป ดำด้วย กลิ่นตัวแรงไป", "gold": {"red_flags": [], "appearance": ["body:curvy", "skin:dark"], "hygiene": ["hygiene:self_care"]}},
+  {"id": "S02", "input": "ผอมไปหน่อย ไม่ใช่สเปก", "gold": {"red_flags": [], "appearance": ["body:slim"], "hygiene": []}},
+  {"id": "S03", "input": "ขาวไป ไม่ค่อยชอบ", "gold": {"red_flags": [], "appearance": ["skin:fair"], "hygiene": []}},
+  {"id": "S04", "input": "ตัวเหม็นมาก ไม่อาบน้ำหรือเปล่า", "gold": {"red_flags": [], "appearance": [], "hygiene": ["hygiene:self_care"]}},
+  {"id": "S05", "input": "ล่ำเกินไป ดูน่ากลัว", "gold": {"red_flags": [], "appearance": ["body:athletic"], "hygiene": []}},
+  {"id": "S06", "input": "ผิวคล้ำไป แล้วก็ชอบหายเงียบ", "gold": {"red_flags": ["rf:stonewalling"], "appearance": ["skin:dark"], "hygiene": []}},
+  {"id": "S07", "input": "หุ่นหมีไปนิด แต่ที่รับไม่ได้คือโกหกบ่อย", "gold": {"red_flags": ["rf:dishonest"], "appearance": ["body:curvy"], "hygiene": []}},
+  {"id": "S08", "input": "ท้วมไป ไม่ใช่แนว", "gold": {"red_flags": [], "appearance": ["body:curvy"], "hygiene": []}},
+  {"id": "S09", "input": "ขี้หึงมาก ขอดูมือถือทุกวัน", "gold": {"red_flags": ["rf:possessive"], "appearance": [], "hygiene": []}},
+  {"id": "S10", "input": "พูดจาดูถูกคนอื่น แล้วก็ตัวเล็กไปด้วย", "gold": {"red_flags": ["rf:disrespect"], "appearance": ["body:slim"], "hygiene": []}},
+  {"id": "S11", "input": "ผิวดำไป ไม่ใช่สเปกจริงๆ", "gold": {"red_flags": [], "appearance": ["skin:dark"], "hygiene": []}},
+  {"id": "S12", "input": "อ้วนแล้วก็ไม่ดูแลตัวเองเลย ตัวเหม็น", "gold": {"red_flags": [], "appearance": ["body:curvy"], "hygiene": ["hygiene:self_care"]}},
+  {"id": "S13", "input": "เวลาโมโหชอบวีนใส่ ผอมไปด้วย", "gold": {"red_flags": ["rf:hot_temper"], "appearance": ["body:slim"], "hygiene": []}},
+  {"id": "S14", "input": "อ่านไม่ตอบ หายไปเลย 3 วัน", "gold": {"red_flags": ["rf:ghosting"], "appearance": [], "hygiene": []}},
+  {"id": "S15", "input": "จ้ำม่ำไปหน่อย", "gold": {"red_flags": [], "appearance": ["body:curvy"], "hygiene": []}},
+  {"id": "S16", "input": "ผิวสองสี ไม่ใช่ที่ชอบ", "gold": {"red_flags": [], "appearance": ["skin:tan"], "hygiene": []}},
+  {"id": "S17", "input": "ติดเพื่อนมาก นัดทีไรเทตลอด", "gold": {"red_flags": ["rf:friend_priority", "rf:inconsistent"], "appearance": [], "hygiene": []}},
+  {"id": "S18", "input": "ดำไป อ้วนไป พูดไม่เพราะด้วย", "gold": {"red_flags": ["rf:disrespect"], "appearance": ["skin:dark", "body:curvy"], "hygiene": []}},
+  {"id": "S19", "input": "กินข้าวด้วยกันแล้วเขาเงียบใส่ทั้งมื้อ", "gold": {"red_flags": ["rf:stonewalling"], "appearance": [], "hygiene": []}},
+  {"id": "S20", "input": "หน้าตาไม่ใช่สเปก", "gold": {"red_flags": [], "appearance": [], "hygiene": []}}
+]

@@ -1,0 +1,12 @@
+[
+  {"qid": "Q01", "question": "ความรักตามทฤษฎีของ Sternberg มีองค์ประกอบอะไรบ้าง", "expected_keywords": ["ความใกล้ชิด", "ความหลงใหล", "ความผูกมัด"], "answerable": true, "needs": "chunk"},
+  {"qid": "Q02", "question": "ปัจจัยใดทำนายความพึงพอใจในความสัมพันธ์ของนิสิตได้", "expected_keywords": ["ความใกล้ชิด", "ความผูกมัด", "ความพึงพอใจในชีวิต", "ระยะเวลา"], "answerable": true, "needs": "chunk"},
+  {"qid": "Q03", "question": "คนที่เป็น anxious กับ avoidant คบกันจะเป็นอย่างไร", "expected_keywords": ["ไล่", "หนี"], "answerable": true, "needs": "graph_fact"},
+  {"qid": "Q04", "question": "คนใจเย็นเข้ากับคนแบบไหน", "expected_keywords": ["อ่อนไหว", "ประคอง"], "answerable": true, "needs": "graph_fact"},
+  {"qid": "Q05", "question": "การเปิดเผยความสัมพันธ์ต่อเพื่อนและครอบครัวเกี่ยวข้องกับความพึงพอใจในความสัมพันธ์ไหม", "expected_keywords": ["เพื่อน", "ครอบครัว", "เกี่ยวข้อง"], "answerable": true, "needs": "chunk"},
+  {"qid": "Q06", "question": "รูปแบบความผูกพันแบบมั่นใจ (Secure) ส่งผลต่อความพึงพอใจในความสัมพันธ์อย่างไร", "expected_keywords": ["Secure", "ความใกล้ชิด", "ความผูกมัด"], "answerable": true, "needs": "both"},
+  {"qid": "Q07", "question": "งานวิจัยนี้มีกลุ่มตัวอย่างกี่คน", "expected_keywords": ["433"], "answerable": true, "needs": "chunk"},
+  {"qid": "Q08", "question": "ถ้าแฟนชอบเงียบใส่เวลามีปัญหา ตรงข้ามกับสไตล์การสื่อสารแบบไหน", "expected_keywords": ["พูดตรง", "เคลียร์"], "answerable": true, "needs": "graph_fact"},
+  {"qid": "Q09", "question": "คนที่ตอบแชทไวกับคนที่ตอบแชทช้าจะมีปัญหาอะไร", "expected_keywords": ["คาดหวัง", "ตอบแชท"], "answerable": true, "needs": "graph_fact"},
+  {"qid": "Q10", "question": "ค่าเทอมคณะวิศวกรรมศาสตร์ ม.อ. เท่าไร", "expected_keywords": [], "answerable": false, "needs": "none"}
+]

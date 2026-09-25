@@ -7,7 +7,7 @@ LINE OA chatbot หาคู่: ผู้ใช้คุยเล่นกั�
 
 ---
 
-## 1. เริ่มต้นใช้งาน
+## 1. เริ่มต้นใช้งาน (คำสั่งทีละขั้นอยู่ใน [RUN.md](RUN.md))
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
@@ -56,18 +56,18 @@ python -m pipelines.dense.run evaluate
 
 | ไฟล์ | จำนวน | คืออะไร | ส่วน 2 ใช้ | ส่วน 3 ใช้ |
 |---|---|---|---|---|
-| `data/taxonomy.json` | 61 รหัส + 14 กฎ | รหัสกลาง + กฎความเข้ากันได้ | – | ✅ node ของ Trait/RedFlag + edge ระหว่าง Trait |
+| `data/taxonomy.json` | 69 รหัส + 14 กฎ | รหัสกลาง + กฎความเข้ากันได้ | – | ✅ node ของ Trait/RedFlag + edge ระหว่าง Trait |
 | `data/mock/users.json` | 300 คน | โปรไฟล์ผู้ใช้ | ✅ embed `summaries` | ✅ node User + edge |
-| `data/mock/events.jsonl` | 468 | เลิกคุย / แมตช์ / กดผ่าน | ✅ negative examples | ✅ edge UNMATCHED |
+| `data/mock/events.jsonl` | 432 | เลิกคุย / แมตช์ / กดผ่าน | ✅ negative examples | ✅ edge UNMATCHED |
 | `data/processed/book_chunks.jsonl` | 44 chunk | ความรู้จากงานวิจัย | ✅ embed `text` | ✅ node BookChunk |
-| `data/mock/ground_truth_pairs.json` | 292 คน | **เฉลย** การจับคู่ | 📏 ใช้วัดผลเท่านั้น | 📏 ใช้วัดผลเท่านั้น |
+| `data/mock/ground_truth_pairs.json` | 286 คน | **เฉลย** การจับคู่ | 📏 ใช้วัดผลเท่านั้น | 📏 ใช้วัดผลเท่านั้น |
 | `data/mock/chats.jsonl` | 100 | แชทจำลอง + เฉลยการสกัด | – | – (ใช้ทดสอบ extractor) |
 
 ---
 
 ## 4. กติกาสำคัญ ⚠️
 
-1. **ห้ามใช้ field ที่ขึ้นต้นด้วย `_`** (`_ground_truth_flags`, `_archetype`) ในการ retrieval
+1. **ห้ามใช้ field ที่ขึ้นต้นด้วย `_`** (`_ground_truth_flags`, `_ground_truth_appearance`, `_archetype`) ในการ retrieval
    field กลุ่มนี้คือคำตอบที่ซ่อนไว้ ถ้านำมาใช้ ผลทดลองจะดีเกินจริงและนับไม่ได้
 2. **`reported_traits` (สิ่งที่คนอื่นรายงานว่าผู้ใช้คนนี้มี) ใช้ได้เฉพาะรายการที่ `usable: true`** คือมีคนรายงานตั้งแต่ 3 คนขึ้นไป เพื่อกันการกลั่นแกล้ง
 3. **Hard filter ก่อนจัดอันดับเสมอ:**
@@ -75,6 +75,11 @@ python -m pipelines.dense.run evaluate
    - เพศตรงกันทั้งสองทาง: `A.gender ∈ B.seeking` และ `B.gender ∈ A.seeking`
    - ไม่เอาตัวเอง และไม่เอาคนที่เคยมี event `unmatch` / `pass` กับเราแล้ว
 4. **ห้าม `ground_truth_pairs.json` เข้าไปอยู่ใน pipeline** ใช้แค่ตอน evaluate
+5. **รูปลักษณ์ (รูปร่าง/สีผิว/สุขอนามัย) = สเปกส่วนตัว** ดู `appearance_policy` ใน taxonomy.json และ [feedback/policy.py](pipelines/feedback/policy.py)
+   - ข้อมูลรูปลักษณ์ของผู้สมัคร: ใช้ได้เฉพาะ `appearance.self_described` (เจ้าตัวบอกเอง สีผิวต้องมี `consent_sensitive`)
+   - สเปกรูปลักษณ์ของผู้ใช้ (`wants`/`avoids` ที่ขึ้นต้นด้วย `body:` `skin:` `hygiene:`) ใช้เป็น **soft score** ผ่าน `policy.appearance_score()` น้ำหนัก `w_appearance` เท่านั้น ห้ามใช้เป็น hard filter
+   - **ห้าม embed รูปลักษณ์ลง Vector** (`summaries` ถูกกรองรูปลักษณ์ออกแล้ว) ไม่อย่างนั้น Dense penalty จะเรียนรู้รูปลักษณ์แบบตรวจสอบไม่ได้
+   - `reported_traits` มีได้แค่ `rf:*` ไม่มีทางมีรูปลักษณ์ (เหตุผลเลิกคุยเรื่องรูปลักษณ์เก็บที่ผู้พูดเท่านั้น)
 
 ---
 
@@ -96,8 +101,14 @@ python -m pipelines.dense.run evaluate
     "life_satisfaction": 5
   },
   "preferences": {
-    "wants":  [{ "id": "trait:funny", "weight": 0.94 }],                     // สเปกที่อยากได้
-    "avoids": [{ "id": "rf:stonewalling", "weight": 0.99, "source": "breakup:E0001", "count": 1 }]
+    "wants":  [{ "id": "trait:funny", "weight": 0.94 },                      // สเปกที่อยากได้
+               { "id": "skin:fair", "weight": 0.6 }],                         // สเปกรูปลักษณ์ (soft score)
+    "avoids": [{ "id": "rf:stonewalling", "weight": 0.99, "source": "breakup:E0001", "count": 1 },
+               { "id": "body:curvy", "weight": 0.58, "source": "breakup:E0036", "count": 1 }]
+  },
+  "appearance": {                                                             // เจ้าตัวระบุเอง
+    "self_described": [{ "id": "body:average", "source": "self" }, { "id": "skin:tan", "source": "self" }],
+    "consent_sensitive": true                                                 // ยินยอมเปิดเผยสีผิว (PDPA ม.26)
   },
   "reported_traits": [{ "id": "rf:stonewalling", "report_count": 2, "usable": false }],
   "summaries": {
@@ -114,9 +125,11 @@ python -m pipelines.dense.run evaluate
 
 ### 5.2 Event (`events.jsonl`)
 ```json
-{"event_id": "E0001", "type": "unmatch", "from_user": "U002", "about_user": "U221",
- "timestamp": "2026-07-01T19:00:00", "raw_reason": "เลิกคุยแล้วนะ รู้สึกไม่โอเค หายเงียบ",
- "gold_extracted": [{"id": "rf:stonewalling", "severity": 0.99}]}
+{"event_id": "E0036", "type": "unmatch", "from_user": "U026", "about_user": "U251",
+ "timestamp": "2026-08-30T08:00:00", "raw_reason": "ไม่ไปต่อละ ขี้เหวี่ยง มีกล้ามไป แบบนี้ไม่ใช่เลย",
+ "gold_extracted": {"red_flags":  [{"id": "rf:hot_temper", "severity": 0.67}],   // -> A.avoids + B.reported_traits
+                    "appearance": [{"id": "body:athletic", "severity": 0.58}], // -> A.avoids เท่านั้น
+                    "hygiene":    []}}                                          // -> A.wants (ดูแลตัวเอง)
 ```
 `type` มี 3 ค่า: `unmatch` (เลิกคุย) / `matched` (คุยกันได้ดี) / `pass` (กดผ่าน)
 
@@ -170,6 +183,7 @@ final = score − λ · penalty        # λ คือค่าที่ต้อ
 
 ### สิ่งที่ต้องทดลอง (เพื่อ Level 5)
 Top-K ∈ {5, 10, 20} × similarity threshold × มี/ไม่มี Cross-Encoder rerank × λ ของ penalty
+(สเปกรูปลักษณ์ไม่ใช่งานของ Dense ให้ส่วน 4 บวกเพิ่มด้วย `policy.appearance_score()` ตอน fusion และลองหลายค่า `w_appearance` เช่น 0 / 0.1 / 0.2 / 0.3)
 วัดด้วย Precision@K, Recall@K, MRR เทียบกับ `ground_truth_pairs.json`
 
 ---
@@ -181,6 +195,7 @@ Top-K ∈ {5, 10, 20} × similarity threshold × มี/ไม่มี Cross-En
 |---|---|---|
 | `User` | users.json | `user_id, age, gender, seeking, consent` |
 | `Trait` `Hobby` `CommStyle` `Attachment` `LoveLanguage` `RedFlag` `LoveComponent` | taxonomy.json | `id, label_th, source` |
+| `BodyType` `SkinTone` `Hygiene` | taxonomy.json | `id, label_th, sensitive` |
 | `BookChunk` | book_chunks.jsonl | `chunk_id, category, section_title` (text เก็บใน Vector DB แล้วอ้างถึงด้วย chunk_id) |
 
 ### Edge
@@ -191,6 +206,8 @@ Top-K ∈ {5, 10, 20} × similarity threshold × มี/ไม่มี Cross-En
 | `(User)-[:PREFERS]->(Trait)` | `preferences.wants` | `weight` |
 | `(User)-[:AVOIDS]->(RedFlag)` | `preferences.avoids` | `weight, count, source` |
 | `(User)-[:REPORTED_AS]->(RedFlag)` | `reported_traits` **เฉพาะ usable** | `report_count` |
+| `(User)-[:SELF_DESCRIBED]->(BodyType/SkinTone)` | `appearance.self_described` (**แหล่งเดียว**ของรูปลักษณ์ผู้สมัคร) | `source: "self"` |
+| `(User)-[:PREFERS / AVOIDS {kind:"appearance"}]->(BodyType/SkinTone/Hygiene)` | `wants`/`avoids` ที่เป็นรูปลักษณ์ | `weight` (ใช้เป็น soft score เท่านั้น) |
 | `(User)-[:UNMATCHED / MATCHED / PASSED]->(User)` | events.jsonl | `event_id, timestamp` |
 | `(X)-[:COMPATIBLE_WITH / CONFLICTS_WITH / OPPOSITE_OF]->(Y)` | `taxonomy.compatibility_rules` | `weight, reason, source` |
 | `(BookChunk)-[:ABOUT]->(Trait/RedFlag/Attachment/LoveComponent)` | `chunk.concepts` | `count` จาก `concept_counts` |
@@ -233,6 +250,19 @@ MATCH (a:User {user_id:$uid})-[:AVOIDS]->(rf)<-[:ABOUT]-(c:BookChunk) RETURN c.c
 
 ---
 
+## 8.5 สัญญากลางของ Retrieval (ส่วน 2/3/4 ต้องทำตาม) ⚠️
+
+Local LLM (ส่วน 5) รับ context จาก retriever ทุกตัวในรูปแบบเดียวกัน ดู [pipelines/retrieval/contract.py](pipelines/retrieval/contract.py)
+```python
+class DenseRetriever:            # หรือ GraphRetriever / HybridRetriever
+    mode = "dense"
+    def retrieve(self, query: str, k: int = 8) -> RetrievalResult: ...
+# item: RetrievalItem(id, kind="chunk"|"candidate"|"graph_fact", text, score, source, meta)
+```
+- Graph ให้คืน `graph_fact` เป็นประโยคที่อ่านรู้เรื่อง เช่น `(วิตกกังวล) -[CONFLICTS_WITH]-> (หลีกเลี่ยง): วงจรไล่-หนี`
+- ระหว่างที่ของจริงยังไม่เสร็จ ใช้ตัวแทนชั่วคราวใน [pipelines/retrieval/stubs/](pipelines/retrieval/stubs/)
+- รายละเอียดฝั่ง LLM และ benchmark: [pipelines/llm/README.md](pipelines/llm/README.md)
+
 ## 9. โครงสร้างโค้ด
 
 ```
@@ -242,9 +272,13 @@ data/
   mock/        users, events, chats, ground_truth_pairs, data_report
   processed/   book_chunks, sections, ingest_report
 pipelines/
-  common/   paths, io_utils, taxonomy                  ใช้ร่วมกัน
+  common/   paths, io_utils, taxonomy, validate_taxonomy   ใช้ร่วมกัน (+ ตัวตรวจ taxonomy)
+  feedback/ sensitive, policy, apply                  เหตุผลเลิกคุย -> เก็บที่ไหน (พฤติกรรม vs รูปลักษณ์)
+  profile/  normalize                                 คำอิสระ -> รหัส taxonomy (alias -> embedding -> unmapped)
   mock/     config, users, events, summaries, chats, compat, ground_truth, report, run
   ingest/   sources, extract, ocr, clean, sectioner, chunker, tagger, report, run
+  retrieval/ contract (สัญญากลาง) + stubs/ (dense, graph, hybrid ชั่วคราว)
+  llm/      config, hardware, ollama_client, resources, schemas, prompts, parsing, context, tasks, run + bench/
 ```
 - โหลดข้อมูลด้วย helper เดิมได้: `from pipelines.common.io_utils import read_json, read_jsonl`
 - รายละเอียดแต่ละโมดูลดูที่ [pipelines/README.md](pipelines/README.md)

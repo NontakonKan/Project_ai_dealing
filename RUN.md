@@ -1,0 +1,107 @@
+# คำสั่งรันทีละขั้นตอน
+
+รันจากโฟลเดอร์โปรเจกต์ทุกคำสั่ง ขั้นที่มี ✅ LLM ต้องเปิด `ollama serve` ไว้ และ**ห้ามรันพร้อมกับ benchmark** (ตัวเลขเวลาและ RAM จะเพี้ยน)
+
+```bash
+cd "/Users/develop-nontakon/Documents/ai for social/Project_dealing_psu"
+```
+
+## 0. เตรียมเครื่อง (ครั้งแรก)
+```bash
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+ollama list          # ต้องมี typhoon2 3b/8b, qwen2.5, gemma3, bge-m3
+```
+
+## 1. ตรวจ Taxonomy (ทุกครั้งที่แก้ taxonomy.json / concept_lexicon.json)
+```bash
+.venv/bin/python -m pipelines.common.validate_taxonomy
+```
+ควรได้ `69 ids, 0 errors, 0 warnings` ถ้ามี ERROR ต้องแก้ก่อนไปขั้นต่อไป
+
+## 2. สร้าง Mock Data
+```bash
+.venv/bin/python -m pipelines.mock.run --n 300 --seed 42
+```
+ดู: `unmatch_reason_dist` (red_flags / appearance), `self_described_body/skin`, **`reported_appearance_on_target: 0`** (ต้องเป็น 0 เสมอ)
+
+## 3. Ingest PDF เป็น Chunks
+```bash
+.venv/bin/python -m pipelines.ingest.run --chunk-size 300 --overlap 0.15
+```
+ดู: `data/processed/ingest_report.json` → `cleaning`, `before_after`
+
+## 4. ตรวจคำรูปลักษณ์ + Policy (ไม่ใช้ LLM)
+```bash
+.venv/bin/python -c "
+from pipelines.feedback import sensitive, policy
+for t in ['อยากเลิกคุยเพราะอ้วนไป ดำด้วย กลิ่นตัวแรงไป', 'กินข้าวขาวกับไข่', 'หายเงียบ ไม่อธิบาย']:
+    print(t, '->', sensitive.detect(t, 'unmatch'))
+ex = {'red_flags':[{'id':'rf:stonewalling','severity':0.9}], 'appearance':[{'id':'body:curvy','severity':0.6}], 'hygiene':[]}
+print(policy.route_unmatch(ex))
+"
+```
+ดู: "ข้าวขาว" ต้องไม่ถูกจับ และใน `report_target` ต้องมีแค่ `rf:*`
+
+## 5. Normalize คำเป็นรหัส
+```bash
+.venv/bin/python -c "
+from pipelines.profile.normalize import normalize
+for t in ['ฟังเพลงชิล', 'หุ่นหมี', 'ชอบเล่นบอร์ดเกม', 'ขี่ม้า']: print(normalize(t))
+"   # ✅ LLM (ใช้ bge-m3 เมื่อ alias ไม่ตรง)
+```
+ดู: `method` (exact / contains / embedding / unmapped) คำที่ไม่เจอจะไปอยู่ใน `data/processed/unmapped_terms.jsonl`
+
+## 6. Retrieval ชั่วคราว 3 โหมด
+```bash
+.venv/bin/python -c "
+from pipelines.retrieval.stubs import DenseStub, GraphStub, HybridStub
+q = 'คนที่เป็น anxious กับ avoidant คบกันจะเป็นอย่างไร'
+for r in (DenseStub(), GraphStub(), HybridStub()):
+    res = r.retrieve(q, 5); print(f'\n== {res.mode} ==')
+    for it in res.items: print(f'  {it.kind:10} {it.score:<8} {it.text[:70]}')
+"
+```
+
+## 7. Local LLM ✅
+```bash
+.venv/bin/python -m pipelines.llm.run hardware       # สเปก + โมเดลที่รันได้
+.venv/bin/python -m pipelines.llm.run calibrate      # ตัวอักษรไทย/token
+.venv/bin/python -m pipelines.llm.run demo           # สกัดข้อมูล + เหตุผลเลิกคุย + RAG 3 โหมด
+```
+ลองเหตุผลเลิกคุยเอง:
+```bash
+.venv/bin/python -c "
+import json; from pipelines.llm import tasks
+r = tasks.extract_unmatch('อยากเลิกคุยเพราะอ้วนไป ดำด้วย กลิ่นตัวแรงไป')
+print('RAW   :', r['raw']); print('CLEAN :', json.dumps(r['extracted'], ensure_ascii=False))
+print('ROUTED:', json.dumps(r['routed'], ensure_ascii=False)); print('STATS :', r['validation'])
+"
+```
+ดู: `validation.misclassified_appearance` (จำนวนที่ด่านกันตัดออก), `fallback_added` (จำนวนที่ keyword เติมให้), `routed.report_target` (ต้องไม่มีรูปลักษณ์)
+
+## 8. Benchmark ✅ (ใช้เวลานาน ให้รันทีละ task)
+```bash
+# 8.1 สกัดโปรไฟล์: โมเดล × config
+.venv/bin/python -u -m pipelines.llm.run bench --task extract_profile \
+  --models scb10x/llama3.2-typhoon2-3b-instruct,qwen2.5:latest \
+  --variants "fmt=schema,prompt=few_shot;fmt=json,prompt=zero_shot" --limit 25
+
+# 8.2 เหตุผลเลิกคุย (mock) และชุดที่ปนรูปลักษณ์ (วัด false_rf ต้องเป็น 0)
+.venv/bin/python -u -m pipelines.llm.run bench --task extract_unmatch --models scb10x/llama3.2-typhoon2-3b-instruct --limit 30
+.venv/bin/python -u -m pipelines.llm.run bench --task extract_unmatch_sensitive \
+  --models scb10x/llama3.2-typhoon2-3b-instruct,qwen2.5:latest,scb10x/llama3.1-typhoon2-8b-instruct
+
+# 8.3 RAG: โมเดล × Dense/Graph/Hybrid × งบ context
+.venv/bin/python -u -m pipelines.llm.run bench --task rag_answer --modes dense,graph,hybrid \
+  --models scb10x/llama3.1-typhoon2-8b-instruct --variants "context_budget=1500;context_budget=3000"
+```
+ดูผลล่าสุด:
+```bash
+cat "$(ls -td data/eval/llm_bench/*/ | head -1)summary.md"
+```
+
+| ขั้น | ใช้ LLM | เวลาโดยประมาณ |
+|---|---|---|
+| 1–4, 6 | – | ไม่กี่วินาที |
+| 5, 7 | ✅ | 10–60 วินาที |
+| 8 | ✅ | 5–40 นาทีต่อ task |

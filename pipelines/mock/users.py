@@ -2,6 +2,7 @@
 from datetime import timedelta
 
 from .config import ALL_TRAITS, ARCHETYPES, ATTACH_DIST, FACULTIES, HOBBIES, LOVE_LANGS, NICKNAMES
+from .appearance import make_appearance, make_appearance_prefs
 from .sampling import conf, pick_weighted
 
 
@@ -61,17 +62,23 @@ def make_user(i, rng, today):
         "love_components": {"intimacy": rng.randint(3, 5), "passion": rng.randint(2, 5), "commitment": rng.randint(2, 5)},
         "life_satisfaction": rng.randint(2, 5),
     }
+    appearance, appearance_truth = make_appearance(rng)
+    app_wants, app_avoids = make_appearance_prefs(rng)
+    wants += app_wants
+    avoids += app_avoids
     user = {
         "user_id": f"U{i:03d}",
         "display_name": rng.choice(NICKNAMES),
         "demographic": {"age": rng.randint(19, 26), "gender": gender, "seeking": seeking,
                         "faculty": rng.choice(FACULTIES), "campus": "หาดใหญ่"},
         "persona": persona,
+        "appearance": appearance,
         "preferences": {"wants": wants, "avoids": avoids, "age_range": [18, 30]},
         "reported_traits": [],
         "summaries": {},
         "consent": {"matching": rng.random() > 0.03, "updated_at": str(today - timedelta(days=rng.randint(0, 90)))},
         "_archetype": arch_name,
         "_ground_truth_flags": hidden_flags,
+        "_ground_truth_appearance": appearance_truth,
     }
     return user

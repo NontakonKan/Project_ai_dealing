@@ -1,0 +1,26 @@
+| model | mode | variant | keyword_recall | cite_rate | abstain_acc | ctx_tokens | p50_ms | p95_ms | gen_tok_s | cold_load_ms | peak_rss_mb | gpu_mem_gb |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| scb10x/llama3.2-typhoon2-3b-instruct | hybrid | context_budget=1500 | 0.824 | 0.889 | 1.0 | 1195.8 | 969.9 | 3409.8 | 102.89 | 1058.9 | 4556 | 2.85 |
+| scb10x/llama3.1-typhoon2-8b-instruct | hybrid | context_budget=1500 | 0.824 | 1.0 | 1.0 | 1195.8 | 1403.4 | 1989.4 | 52.5 | 2315.7 | 7419 | 5.94 |
+| scb10x/llama3.1-typhoon2-8b-instruct | hybrid | context_budget=3000 | 0.806 | 1.0 | 1.0 | 2658.6 | 2209.9 | 3013.4 | 52.13 | 847.0 | 8469 | 5.94 |
+| gemma3:4b | hybrid | context_budget=1500 | 0.75 | 0.889 | 1.0 | 1195.8 | 798.1 | 3863.3 | 82.69 | 2087.6 | 8472 | 3.89 |
+| gemma3:4b | hybrid | context_budget=3000 | 0.75 | 1.0 | 1.0 | 2658.6 | 1184.7 | 5098.6 | 81.29 | 1134.4 | 8884 | 3.89 |
+| scb10x/llama3.2-typhoon2-3b-instruct | hybrid | context_budget=3000 | 0.75 | 0.556 | 0.9 | 2658.6 | 1560.0 | 2853.0 | 97.81 | 576.3 | 6647 | 2.85 |
+| qwen2.5:latest | hybrid | context_budget=1500 | 0.75 | 1.0 | 0.9 | 1195.8 | 1624.1 | 3909.8 | 53.84 | 1298.1 | 6081 | 5.0 |
+| qwen2.5:latest | hybrid | context_budget=3000 | 0.75 | 1.0 | 0.9 | 2658.6 | 2911.9 | 10445.8 | 52.88 | 560.9 | 6750 | 5.0 |
+| scb10x/llama3.1-typhoon2-8b-instruct | graph | context_budget=3000 | 0.722 | 0.889 | 0.9 | 1070.8 | 1116.1 | 3893.6 | 52.59 | 847.0 | 8469 | 5.94 |
+| gemma3:4b | graph | context_budget=1500 | 0.611 | 0.667 | 0.7 | 406.2 | 372.0 | 2855.5 | 88.01 | 2087.6 | 8472 | 3.89 |
+| scb10x/llama3.2-typhoon2-3b-instruct | graph | context_budget=1500 | 0.611 | 0.889 | 0.8 | 406.2 | 769.0 | 2204.9 | 105.61 | 1058.9 | 4556 | 2.85 |
+| scb10x/llama3.1-typhoon2-8b-instruct | graph | context_budget=1500 | 0.611 | 0.778 | 0.9 | 406.2 | 984.3 | 2365.0 | 52.88 | 2315.7 | 7419 | 5.94 |
+| qwen2.5:latest | graph | context_budget=1500 | 0.611 | 1.0 | 0.7 | 406.2 | 1101.9 | 5226.0 | 55.29 | 1298.1 | 6081 | 5.0 |
+| qwen2.5:latest | graph | context_budget=3000 | 0.611 | 1.0 | 0.7 | 1070.8 | 1158.1 | 5115.2 | 54.93 | 560.9 | 6750 | 5.0 |
+| gemma3:4b | dense | context_budget=3000 | 0.583 | 1.0 | 1.0 | 2704.2 | 1546.2 | 7200.0 | 80.38 | 1134.4 | 8884 | 3.89 |
+| gemma3:4b | graph | context_budget=3000 | 0.574 | 0.778 | 0.7 | 1070.8 | 520.1 | 2673.1 | 87.09 | 1134.4 | 8884 | 3.89 |
+| scb10x/llama3.2-typhoon2-3b-instruct | graph | context_budget=3000 | 0.574 | 0.889 | 0.8 | 1070.8 | 1462.4 | 4432.4 | 104.96 | 576.3 | 6647 | 2.85 |
+| scb10x/llama3.2-typhoon2-3b-instruct | dense | context_budget=3000 | 0.528 | 0.333 | 0.9 | 2704.2 | 2095.8 | 3277.1 | 98.67 | 576.3 | 6647 | 2.85 |
+| scb10x/llama3.1-typhoon2-8b-instruct | dense | context_budget=3000 | 0.528 | 0.778 | 1.0 | 2704.2 | 2843.7 | 3688.1 | 51.78 | 847.0 | 8469 | 5.94 |
+| gemma3:4b | dense | context_budget=1500 | 0.509 | 0.778 | 1.0 | 1180.2 | 1344.2 | 2353.8 | 82.58 | 2087.6 | 8472 | 3.89 |
+| qwen2.5:latest | dense | context_budget=3000 | 0.472 | 0.889 | 0.7 | 2704.2 | 3218.1 | 9902.2 | 52.18 | 560.9 | 6750 | 5.0 |
+| scb10x/llama3.2-typhoon2-3b-instruct | dense | context_budget=1500 | 0.417 | 0.889 | 1.0 | 1180.2 | 1207.9 | 3887.9 | 102.61 | 1058.9 | 4556 | 2.85 |
+| scb10x/llama3.1-typhoon2-8b-instruct | dense | context_budget=1500 | 0.417 | 0.667 | 1.0 | 1180.2 | 1412.0 | 3726.6 | 52.59 | 2315.7 | 7419 | 5.94 |
+| qwen2.5:latest | dense | context_budget=1500 | 0.398 | 1.0 | 0.6 | 1180.2 | 1437.6 | 3888.3 | 54.87 | 1298.1 | 6081 | 5.0 |

@@ -1,5 +1,6 @@
 """คะแนนความเข้ากันได้แบบ oracle (ใช้ ground truth ทั้งหมด) — ใช้สร้างเฉลยเท่านั้น ไม่ใช่ตัว matcher จริง"""
 from ..common import taxonomy
+from ..feedback.policy import appearance_score
 
 
 def ids(xs):
@@ -23,11 +24,14 @@ def compat(a, b):
     pa, pb = a["persona"], b["persona"]
     s = 0.0
     s += 0.25 * len(ids(pa["hobbies"]) & ids(pb["hobbies"])) / max(1, len(ids(pa["hobbies"]) | ids(pb["hobbies"])))
-    s += 0.25 * (len(ids(a["preferences"]["wants"]) & ids(pb["traits"])) / len(a["preferences"]["wants"])
-                 + len(ids(b["preferences"]["wants"]) & ids(pa["traits"])) / len(b["preferences"]["wants"])) / 2
+    trait_wants = lambda u: {x["id"] for x in u["preferences"]["wants"] if x["id"].startswith("trait:")} or {"-"}
+    s += 0.25 * (len(trait_wants(a) & ids(pb["traits"])) / len(trait_wants(a))
+                 + len(trait_wants(b) & ids(pa["traits"])) / len(trait_wants(b))) / 2
     feats_a = ids(pa["traits"]) | ids(pa["comm_style"]) | {pa["attachment_style"]["id"]}
     feats_b = ids(pb["traits"]) | ids(pb["comm_style"]) | {pb["attachment_style"]["id"]}
     s += 0.2 * max(-1, min(1, sum(RULES.get((x, y), 0) for x in feats_a for y in feats_b) / 2))
     s += 0.1 * (pa["lifestyle"]["sleep"] == pb["lifestyle"]["sleep"]) + 0.1 * (pa["lifestyle"]["weekend"] == pb["lifestyle"]["weekend"])
     s += 0.1 * len(ids(pa["love_language"]) & ids(pb["love_language"])) / 2
+    # สเปกรูปลักษณ์: soft score จากข้อมูลที่อีกฝ่ายระบุเอง (น้ำหนัก w_appearance ใน taxonomy)
+    s += (appearance_score(a, b) + appearance_score(b, a)) / 2
     return round(s, 4), "ok"

@@ -1,69 +1,78 @@
 {
   "n_users": 300,
-  "n_consented": 292,
+  "n_consented": 286,
   "archetype_dist": {
-    "gamer_chill": 49,
-    "quiet_home": 45,
-    "active_outdoor": 60,
-    "achiever": 55,
-    "social_butterfly": 47,
-    "creative": 44
+    "gamer_chill": 51,
+    "social_butterfly": 48,
+    "quiet_home": 54,
+    "achiever": 54,
+    "active_outdoor": 43,
+    "creative": 50
   },
   "gender_dist": {
-    "M": 120,
-    "F": 115,
-    "NB": 65
+    "M": 116,
+    "F": 135,
+    "NB": 49
   },
   "attachment_dist": {
-    "attach:secure": 151,
-    "attach:avoidant": 51,
+    "attach:secure": 155,
     "attach:anxious": 65,
-    "attach:fearful": 33
+    "attach:fearful": 33,
+    "attach:avoidant": 47
   },
   "trait_dist": {
-    "trait:homebody": 86,
-    "trait:funny": 113,
-    "trait:logical": 89,
-    "trait:extrovert": 101,
-    "trait:kind": 29,
-    "trait:introvert": 96,
-    "trait:calm": 62,
-    "trait:adventurous": 107,
-    "trait:responsible": 132,
-    "trait:ambitious": 68,
-    "trait:spontaneous": 53,
-    "trait:emotional": 62
+    "trait:homebody": 100,
+    "trait:funny": 112,
+    "trait:logical": 95,
+    "trait:extrovert": 87,
+    "trait:spontaneous": 46,
+    "trait:adventurous": 98,
+    "trait:introvert": 108,
+    "trait:calm": 65,
+    "trait:ambitious": 69,
+    "trait:responsible": 112,
+    "trait:emotional": 65,
+    "trait:kind": 28
   },
   "hobby_dist": {
-    "hobby:gaming": 49,
-    "hobby:lofi_music": 95,
-    "hobby:movies": 101,
-    "hobby:football": 72,
-    "hobby:reading": 55,
-    "hobby:cooking": 25,
-    "hobby:baking": 28,
-    "hobby:drawing": 57,
-    "hobby:photography": 60,
-    "hobby:travel": 74,
-    "hobby:hiking": 44,
-    "hobby:running": 76,
-    "hobby:cafe": 92,
-    "hobby:gym": 85,
-    "hobby:party": 39,
-    "hobby:volunteer": 43,
-    "hobby:pets": 26,
-    "hobby:concert": 26
+    "hobby:gaming": 42,
+    "hobby:lofi_music": 106,
+    "hobby:movies": 92,
+    "hobby:football": 71,
+    "hobby:reading": 69,
+    "hobby:travel": 56,
+    "hobby:drawing": 62,
+    "hobby:pets": 33,
+    "hobby:party": 36,
+    "hobby:cafe": 94,
+    "hobby:running": 66,
+    "hobby:volunteer": 37,
+    "hobby:hiking": 36,
+    "hobby:gym": 55,
+    "hobby:photography": 64,
+    "hobby:baking": 25,
+    "hobby:concert": 39,
+    "hobby:cooking": 30
   },
   "users_with_hidden_flags": 116,
   "event_type_dist": {
-    "unmatch": 154,
-    "matched": 82,
-    "pass": 232
+    "matched": 72,
+    "pass": 198,
+    "unmatch": 162
   },
-  "avg_profile_completeness": 0.935,
+  "unmatch_reason_dist": {
+    "red_flags": 143,
+    "appearance": 25
+  },
+  "self_described_body": 195,
+  "self_described_skin": 151,
+  "consent_sensitive": 189,
+  "users_with_appearance_prefs": 190,
+  "reported_appearance_on_target": 0,
+  "avg_profile_completeness": 0.948,
   "usable_reported_traits": 17,
   "n_chats": 100,
-  "chats_with_pii": 9,
+  "chats_with_pii": 11,
   "gt_avg_relevant": 5.0,
-  "gt_avg_must_exclude": 15.86
+  "gt_avg_must_exclude": 13.7
 }
