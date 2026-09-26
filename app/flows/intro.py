@@ -54,6 +54,8 @@ def request(line_user, target):
 def _send_request(a, b):
     intro_id = "IN" + event_id()[2:]
     storage.create_intro(intro_id, a["user_id"], b["user_id"])
+    from .. import log
+    log.note(f"ส่งคำขอทำความรู้จัก {a['user_id']} → {b['user_id']} ({intro_id})")
     info = scorer.pair(live.ctx().graph, b["user_id"], a["user_id"], facts=True)   # มุมมองของ B
     reasons = [_you(f["text"]) for f in info["facts"] if not f["text"].startswith("⚠️")][:3] or ["ไลฟ์สไตล์ใกล้เคียงกัน"]
     pct = max(50, round(100 * min(1.0, info["graph_score"] / 0.8)))
@@ -71,6 +73,8 @@ def decide(line_user, intro_id, accept: bool):
         return [text("คำขอนี้ไม่มีอยู่แล้วครับ")]
     if req["status"] != "pending":
         return [text("คุณตอบคำขอนี้ไปแล้วครับ 🙂")]
+    from .. import log
+    log.note(f"{b['user_id']} {'ยินยอม' if accept else 'ไม่สะดวก'} คำขอจาก {req['from_user']}")
     if not accept:
         storage.decide_intro(intro_id, "declined")
         live.add_event({"event_id": event_id(), "type": "pass", "from_user": b["user_id"], "about_user": req["from_user"]})
@@ -87,6 +91,8 @@ def decide(line_user, intro_id, accept: bool):
 
 def _finalize(req):
     storage.decide_intro(req["id"], "accepted")
+    from .. import log
+    log.note(f"✅ แลก LINE ID สำเร็จ {req['from_user']} ↔ {req['to_user']}")
     a_id, b_id = req["from_user"], req["to_user"]
     for x, y in ((a_id, b_id), (b_id, a_id)):
         live.add_event({"event_id": event_id(), "type": "matched", "from_user": x, "about_user": y})

@@ -67,6 +67,9 @@ def answer(line_user, msg):
         save(p)
         storage.set_state(uid, "ready")
         live.register(p)
+        from .. import log
+        d = p["demographic"]
+        log.note(f"✅ ลงทะเบียนเสร็จ {d['gender']}→{d['seeking']} อายุ {d['age']} {d['faculty']} (เข้า pool จับคู่แล้ว)")
         return [text("เรียบร้อยครับ 🎉 ตอนนี้เล่าเรื่องวันนี้ งานอดิเรก หรือสเปกที่ชอบให้ผมฟังได้เลย "
                      "ยิ่งเล่ามาก ยิ่งหาคนที่เข้ากันได้แม่นขึ้นครับ", MENU)]
     return []

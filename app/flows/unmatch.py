@@ -33,6 +33,9 @@ def reason(line_user, msg):
     save(p)
     live.add_event({"event_id": eid, "type": "unmatch", "from_user": p["user_id"], "about_user": target,
                     "extracted_ids": {k: [x["id"] for x in v] for k, v in out["extracted"].items()}})
+    from .. import log
+    log.note(f"เลิกคุย {target}: รายงาน={[x['id'] for x in routed['report_target']]} "
+             f"สเปกผู้พูด={[x['id'] for x in routed['speaker_avoids'] + routed['speaker_wants']]}")
     labels = taxonomy.labels()
     behaviors = [labels[x["id"]] for x in routed["report_target"]]
     lines = ["รับทราบครับ ระบบจะไม่แนะนำคนนี้ให้อีกนะครับ 🙏"]

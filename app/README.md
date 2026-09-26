@@ -63,6 +63,24 @@ simulator ใช้ฐานข้อมูลแยก `data/app/simulate.db` �
 6. LINE Official Account Manager → Response settings: **ปิด Auto-reply** และ **Greeting message** (บอทตอบเอง)
 7. สแกน QR ของ OA เพื่อเพิ่มเพื่อน → เริ่มคุยได้เลย ตรวจสถานะได้ที่ `http://localhost:8000/health`
 
+## ดู log และผู้ใช้ในระบบ
+
+terminal ที่รัน uvicorn จะแสดง 1 บรรทัดต่อ 1 event:
+```
+19:09:13 │ L0002 น้องมิ้น │ 💬 chat       │ "วันนี้ไปอ่านหนังสือ…" → จำได้: hobby:reading, trait:funny → ตอบ "…" │ 8.5s
+19:09:36 │ L0002 น้องมิ้น │ 💞 find_match │ "หาคู่ให้หน่อย" → แนะนำ U027 (จำลอง) graph=0.27 dense=0.62 74% → [การ์ด] … │ 22.4s
+19:10:02 │ L0001 Nont     │ 👆 postback   │ กดปุ่ม intro → L0002 → ส่งคำขอทำความรู้จัก … → 📨 push ถึง L0002 │ 1.2s
+```
+LINE ID ที่ผู้ใช้ส่งมาไม่ถูกแสดงใน log / ตั้ง `LOG_TEXT=0` ใน `app/.env` เพื่อซ่อนข้อความที่ผู้ใช้พิมพ์
+
+อีกหน้าต่าง (ไม่ต้องหยุด bot):
+```bash
+.venv/bin/python -m app.admin users        # รายชื่อผู้ใช้จริง สถานะ ยินยอม จำนวนข้อความ
+.venv/bin/python -m app.admin user L0002   # สิ่งที่ระบบจำ + ข้อความล่าสุดของคนนั้น
+.venv/bin/python -m app.admin stats        # สรุป: เจตนา การ์ด events คำขอทำความรู้จัก
+.venv/bin/python -m app.admin tail         # ข้อความใหม่แบบ realtime
+```
+
 ## Error handling
 
 | สถานการณ์ | การจัดการ |
@@ -97,4 +115,6 @@ simulator ใช้ฐานข้อมูลแยก `data/app/simulate.db` �
 | `storage.py` | SQLite: ผู้ใช้ ข้อความ โปรไฟล์ events คำแนะนำ รายงาน |
 | `flex.py` | ข้อความ / quick reply / Flex การ์ด |
 | `replies.py` | ตอบคุยเล่นด้วย Local LLM + fallback |
-| `simulate.py` | จำลอง LINE ในเครื่อง + เดโม 3 ซีน |
+| `simulate.py` | จำลอง LINE ในเครื่อง + เดโม 3 ซีน / ทำความรู้จักแบบยินยอมทั้งสองฝ่าย |
+| `log.py` | log 1 บรรทัดต่อ event ใน terminal ของ uvicorn |
+| `admin.py` | ดูผู้ใช้ / สถิติ / ข้อความแบบ realtime |

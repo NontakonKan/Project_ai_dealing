@@ -42,6 +42,9 @@ def reply(reply_token, messages, to=None):
 
 
 def push(to, messages):
+    from . import log, storage
+    u = storage.get_line_user(to)
+    log.note(f"📨 push ถึง {u['user_id'] if u else '?'} ({len(messages)} ข้อความ)")
     if not LINE_CHANNEL_ACCESS_TOKEN:
         outbox.append({"to": to, "messages": messages})
         return

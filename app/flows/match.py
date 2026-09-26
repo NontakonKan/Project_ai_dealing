@@ -67,6 +67,9 @@ def find(line_user):
         explanation = "เริ่มจากถามเรื่องงานอดิเรกที่ชอบเหมือนกันก่อนก็ได้ครับ"
     pct = round(100 * min(1.0, (top["graph"] + max(top["dense"], 0.0)) / 1.2))
     storage.add_suggestion(p["user_id"], cand["user_id"], top["score"])
+    from .. import log
+    log.note(f"แนะนำ {cand['user_id']} ({'ผู้ใช้จริง' if cand.get('source') == 'line' else 'จำลอง'}) "
+             f"graph={top['graph']:.2f} dense={top['dense']:.2f} {pct}% จาก {len(ranked)} คน")
     return [match_card(cand, max(pct, 50), reasons or ["ไลฟ์สไตล์และสเปกใกล้เคียงกัน"], _tip(explanation))]
 
 

@@ -7,7 +7,7 @@ import json
 
 from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Request
 
-from . import handlers, line_api, live
+from . import handlers, line_api, live, log
 from .config import LINE_CHANNEL_ACCESS_TOKEN, LINE_CHANNEL_SECRET
 
 api = FastAPI(title="PSU Dealing LINE bot")
@@ -15,7 +15,11 @@ api = FastAPI(title="PSU Dealing LINE bot")
 
 @api.on_event("startup")
 def warmup():
-    live.ctx()   # โหลด Hybrid context ล่วงหน้า (ข้อความแรกจะได้ไม่ช้า)
+    log.setup()
+    c = live.ctx()   # โหลด Hybrid context ล่วงหน้า (ข้อความแรกจะได้ไม่ช้า)
+    n_live = sum(u.get("source") == "line" for u in c.users.values())
+    log.logger.info(f"🚀 bot พร้อม │ LINE {'เชื่อมแล้ว' if LINE_CHANNEL_SECRET and LINE_CHANNEL_ACCESS_TOKEN else 'ยังไม่ตั้งค่า (โหมดจำลอง)'}"
+                    f" │ ผู้ใช้ในระบบ {len(c.users)} (จริง {n_live}, จำลอง {len(c.users) - n_live})")
 
 
 @api.get("/health")

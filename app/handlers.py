@@ -7,7 +7,7 @@ import time
 import traceback
 from urllib.parse import parse_qs
 
-from . import intent, line_api, storage
+from . import intent, line_api, log, storage
 from .flex import MENU, text
 from .flows import account, advice, chat, intro, match, onboarding, unmatch
 
@@ -18,19 +18,33 @@ def _user(line_user_id):
     return storage.get_line_user(line_user_id) or storage.create_line_user(line_user_id, line_api.get_display_name(line_user_id))
 
 
+def _summary(msgs):
+    out = []
+    for m in msgs:
+        out.append(f"[การ์ด] {m.get('altText', '')[:40]}" if m["type"] == "flex" else f"ตอบ {log.clip(m.get('text', ''), 35)}")
+    return " / ".join(out)
+
+
+_trace = {}
+
+
 def dispatch(event) -> list:
     etype = event.get("type")
     lid = event.get("source", {}).get("userId")
     if not lid:
         return []
     if etype == "follow":
-        return onboarding.follow(_user(lid))
+        u = _user(lid)
+        _trace.update(user=u, kind="follow", input="เพิ่มเพื่อน OA")
+        return onboarding.follow(u)
     u = _user(lid)
+    _trace.update(user=u, kind=etype, input="")
     if etype == "unfollow":
         return onboarding.unfollow(u)
     if etype == "postback":
         q = {k: v[0] for k, v in parse_qs(event["postback"]["data"]).items()}
         act, target = q.get("action"), q.get("target")
+        _trace.update(kind="postback", input=f"กดปุ่ม {act}" + (f" → {target}" if target else ""))
         if act == "consent":
             return onboarding.consent(u, q.get("v") == "yes")
         if act == "sensitive":
@@ -51,6 +65,7 @@ def dispatch(event) -> list:
         if msg.strip() in ("ยินยอม", "ยินยอมให้หาคู่") and u["state"] != "onboard_consent":
             return onboarding.consent(u, True)
         kind = intent.classify(msg, u["state"])
+        _trace.update(kind=kind, input=log.clip(msg) if kind != "contact" else "(ส่ง LINE ID — ไม่แสดงใน log)")
         storage.add_message(u["user_id"], "user", msg, kind)
         out = {"onboarding": lambda: onboarding.answer(u, msg), "unmatch_reason": lambda: unmatch.reason(u, msg),
                "contact": lambda: intro.contact(u, msg),
@@ -70,11 +85,18 @@ def handle(event):
     """เรียกจาก webhook (background) — ห้ามให้ exception หลุด; ตอบภายในเวลาของ replyToken ถ้าทำได้ ไม่งั้น push"""
     t0 = time.time()
     lid = event.get("source", {}).get("userId")
+    _trace.clear()
+    log.start()
     try:
         msgs = dispatch(event)
-    except Exception:
+        kind = _trace.get("kind", event.get("type"))
+    except Exception as e:
         traceback.print_exc(file=sys.stderr)
-        msgs = [text(ERROR_TEXT, MENU)]
+        msgs, kind = [text(ERROR_TEXT, MENU)], "error"
+        log.note(f"{type(e).__name__}: {e}")
+    if _trace.get("user") or kind == "error":
+        parts = [p for p in (_trace.get("input"), log.notes(), _summary(msgs)) if p]
+        log.event(_trace.get("user"), kind, " → ".join(parts), time.time() - t0)
     if not msgs:
         return msgs
     if event.get("replyToken") and time.time() - t0 < 50:

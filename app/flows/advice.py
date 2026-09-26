@@ -18,6 +18,9 @@ def handle(line_user, msg):
     if not res.items:
         return [text(NO_INFO, MENU)]
     out = tasks.rag_answer(msg, res)
+    from .. import log
+    log.note(f"route={res.items[0].meta.get('route', '-')} ctx={len(out['refs'])} อ้างอิง={out['citations']['cited']}"
+             + (" (ตอบไม่ได้)" if out["citations"]["abstained"] else ""))
     if out["citations"]["abstained"]:
         return [text(NO_INFO, MENU)]
     g = live.ctx().graph

@@ -31,6 +31,10 @@ def handle(line_user, msg):
                 except Exception:
                     pass
     save(p)
+    from .. import log
+    log.note("จำได้: " + (", ".join(dict.fromkeys(learned)) if learned else "-"))
+    if p["values"]["self"] or p["values"]["wants"]:
+        log.note(f"ค่านิยม self={p['values']['self']} wants={p['values']['wants']}")
     history = storage.recent_messages(p["user_id"], HISTORY_TURNS)[:-1]
     out = [text(chat_reply(msg, history, learned), MENU if ready_to_match(p) else None)]
     new_pending = set(p["appearance"]["pending_consent"]) - before
