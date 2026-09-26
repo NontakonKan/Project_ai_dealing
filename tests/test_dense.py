@@ -11,12 +11,13 @@ from unittest.mock import patch
 import numpy as np
 
 from pipelines.dense import index as index_module
+from pipelines.dense.embedding import prepare_texts, resolve_model_name
 from pipelines.dense.evaluation import evaluate
 from pipelines.dense.matching import load_matching_data, rank
 from pipelines.dense.rag import context_for_match
 
 
-def deterministic_embedding(texts, model_name=None):
+def deterministic_embedding(texts, model_name=None, role="document"):
     """Exercise index wiring without downloading model weights."""
     vectors = []
     for value in texts:
@@ -27,8 +28,15 @@ def deterministic_embedding(texts, model_name=None):
 
 def run_case(directory):
     # Run in a child process so Windows can close Chroma's database files before cleanup.
-    with patch.object(index_module, "encode", deterministic_embedding):
+    roles = []
+
+    def recording_embedding(texts, model_name=None, role="document"):
+        roles.append(role)
+        return deterministic_embedding(texts, model_name, role)
+
+    with patch.object(index_module, "encode", recording_embedding):
         manifest = index_module.build(Path(directory), "test-embedding")
+        assert roles == ["document", "query", "document", "document"]
         index = index_module.DenseIndex(directory)
         assert manifest["counts"]["persona"] > 0
         assert manifest["counts"]["knowledge"] > 0
@@ -43,6 +51,7 @@ def run_case(directory):
                            {e["from_user"], e["about_user"]} == {"U001", item["user_id"]}
                            for e in events)
         assert index.search("knowledge", "ความรัก", top_k=3)
+        assert roles[-1] == "query"
         tagged = next(row for row in index.rows["knowledge"] if row["concepts"])
         filtered = index.search("knowledge", "ความรัก", top_k=3,
                                 category=tagged["category"], concept=tagged["concepts"][0])
@@ -54,6 +63,13 @@ def run_case(directory):
 
 
 class DenseSmokeTest(unittest.TestCase):
+    def test_e5_uses_retrieval_prefixes(self):
+        model = "intfloat/multilingual-e5-base"
+        self.assertEqual(resolve_model_name("e5-base"), model)
+        self.assertEqual(prepare_texts(["ข้อความ"], model, "query"), ["query: ข้อความ"])
+        self.assertEqual(prepare_texts(["ข้อความ"], model, "document"), ["passage: ข้อความ"])
+        self.assertEqual(prepare_texts(["ข้อความ"], "BAAI/bge-m3", "query"), ["ข้อความ"])
+
     def test_chroma_matching_knowledge_and_metrics(self):
         with tempfile.TemporaryDirectory() as directory:
             env = os.environ.copy()

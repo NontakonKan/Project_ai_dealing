@@ -1,0 +1,12 @@
+{
+  "view": "00_full_graph",
+  "nodes": 406,
+  "relationships": 6619,
+  "snapshot": "22515caa90bb706f8fa8871d5a9c66315edca3a833b9a2b500721063b6fc6037",
+  "query": "MATCH (d:DealingDataset {id:'psu_dealing_mock'})\nMATCH (a:DealingEntity {dataset:d.id, snapshot:d.active_snapshot})-[r]->(b:DealingEntity {dataset:d.id, snapshot:d.active_snapshot})\nRETURN a,r,b",
+  "exporter": "Neo4j Browser native export",
+  "formats": [
+    "svg",
+    "png"
+  ]
+}

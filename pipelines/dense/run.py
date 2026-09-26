@@ -2,7 +2,7 @@
 import argparse
 import json
 
-from .embedding import DEFAULT_MODEL
+from .embedding import DEFAULT_MODEL, MODEL_ALIASES
 from .index import DEFAULT_INDEX, DenseIndex, build
 from .matching import rank
 from .evaluation import evaluate
@@ -13,8 +13,10 @@ def main():
     parser = argparse.ArgumentParser(description="Dense RAG for Project_ai_dealing")
     parser.add_argument("--index", default=str(DEFAULT_INDEX))
     commands = parser.add_subparsers(dest="command", required=True)
+    commands.add_parser("models", help="List tested embedding model choices")
     b = commands.add_parser("build")
-    b.add_argument("--model", default=DEFAULT_MODEL)
+    b.add_argument("--model", default=DEFAULT_MODEL,
+                   help="Embedding alias or full Sentence Transformers model ID")
     m = commands.add_parser("match")
     m.add_argument("user_id")
     m.add_argument("--top-k", type=int, default=5)
@@ -34,7 +36,9 @@ def main():
     e.add_argument("--thresholds", type=float, nargs="+", default=[0.0, 0.2])
     e.add_argument("--penalty-weights", type=float, nargs="+", default=[0.0, 0.15])
     args = parser.parse_args()
-    if args.command == "build":
+    if args.command == "models":
+        output = MODEL_ALIASES
+    elif args.command == "build":
         output = build(args.index, args.model)
     else:
         index = DenseIndex(args.index)

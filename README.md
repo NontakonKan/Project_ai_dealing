@@ -24,7 +24,7 @@ python -m pipelines.dense.run match U002 --top-k 5
 python -m pipelines.dense.run evaluate
 ```
 
-รายละเอียดการค้นและการตั้งค่า LLM ดูที่ [pipelines/dense/README.md](pipelines/dense/README.md)
+รายละเอียดการเลือกโมเดล embedding และการค้นดูที่ [pipelines/dense/README.md](pipelines/dense/README.md) ส่วนผลเปรียบเทียบโมเดลอยู่ใน [MODEL_COMPARISON.md](pipelines/dense/MODEL_COMPARISON.md) (โมเดล embedding เป็นคนละส่วนกับ LLM ตอบแชต)
 
 ไม่ต้องรันก็ได้ ไฟล์ผลลัพธ์อยู่ใน repo แล้ว รันใหม่เมื่อ taxonomy หรือ config เปลี่ยน
 
@@ -299,6 +299,7 @@ app/        ส่วน 7 LINE OA: server (webhook), handlers, intent, flows/, 
 โค้ดสร้าง Knowledge Graph และสำรวจ Neo4j อยู่ใน [`graph/`](graph/README.md)
 รัน `python3 -m graph.build` เพื่อตรวจข้อมูล และ `python3 -m graph.import_neo4j` เพื่อนำเข้าฐานข้อมูลโดยตรง
 ดูกราฟและ export ภาพหรือข้อมูลผ่าน Neo4j Browser โดยใช้ `graph/queries.cypher`
+ไฟล์ SVG/PNG ที่ export จาก Neo4j Browser อยู่ใน [`graph/exports/`](graph/exports/)
 มี schema, validation, การนำเข้าแบบ snapshot และคำสั่ง Cypher พร้อมเลขหน้าเอกสารอ้างอิง
 ส่วนนี้ยังไม่มี RAG, embeddings หรือระบบจัดอันดับคู่
 

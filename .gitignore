@@ -5,8 +5,9 @@ __pycache__/
 data/*.pdf
 data/dense_index/
 data/chroma_db/
+data/dense_benchmarks/
 data/processed/taxonomy_embeddings.json
-graph/.env
 data/raw/
 data/app/
+graph/.env
 app/.env

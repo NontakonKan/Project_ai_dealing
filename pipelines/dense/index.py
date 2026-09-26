@@ -1,4 +1,4 @@
-"""Build and query a persistent ChromaDB index using BGE embeddings."""
+"""Build and query persistent ChromaDB indexes with multilingual embeddings."""
 import json
 from pathlib import Path
 
@@ -7,7 +7,7 @@ import numpy as np
 
 from pipelines.common.io_utils import read_json, read_jsonl
 from pipelines.common.paths import MOCK, PROCESSED, DATA
-from .embedding import DEFAULT_MODEL, encode
+from .embedding import DEFAULT_MODEL, encode, resolve_model_name
 
 DEFAULT_INDEX = DATA / "chroma_db"
 COLLECTIONS = {"persona": "persona_vec", "preference": "preference_vec",
@@ -73,10 +73,12 @@ def _row(kind, uid, text, metadata):
 
 
 def build(directory=DEFAULT_INDEX, model_name=DEFAULT_MODEL):
+    model_name = resolve_model_name(model_name)
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
     docs = documents()
     manifest = {"model": model_name, "store": "chromadb", "space": "cosine",
+                "query_collection": "preference_vec",
                 "counts": {kind: len(rows) for kind, rows in docs.items()}}
     client = chromadb.PersistentClient(path=str(directory))
     existing = {collection.name for collection in client.list_collections()}
@@ -88,7 +90,8 @@ def build(directory=DEFAULT_INDEX, model_name=DEFAULT_MODEL):
             client.delete_collection(name)
         collection = client.create_collection(
             name=name, configuration={"hnsw": {"space": "cosine"}}, embedding_function=None)
-        vectors = encode([row["text"] for row in rows], model_name)
+        role = "query" if kind == "preference" else "document"
+        vectors = encode([row["text"] for row in rows], model_name, role=role)
         collection.add(ids=[row["id"] for row in rows], embeddings=vectors.tolist(),
                        documents=[row["text"] for row in rows],
                        metadatas=[_metadata(kind, row) for row in rows])
@@ -148,7 +151,7 @@ class DenseIndex:
         if concept:
             filters.append({_concept_key(concept): True})
         where = filters[0] if len(filters) == 1 else {"$and": filters} if filters else None
-        vector = encode([query], self.manifest["model"])[0]
+        vector = encode([query], self.manifest["model"], role="query")[0]
         result = self.collections[kind].query(
             query_embeddings=[vector.tolist()], n_results=min(top_k, len(self.rows[kind])),
             where=where, include=["distances"])
