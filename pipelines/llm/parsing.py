@@ -10,7 +10,7 @@ import re
 from collections import Counter
 
 RE_JSON = re.compile(r"\{.*\}", re.S)
-RE_CITE = re.compile(r"\[(\d+)\]")
+RE_CITE = re.compile(r"\[(\d+(?:\s*,\s*\d+)*)\]")   # [3] และ [1, 5]
 
 
 def parse_json(text: str):
@@ -58,7 +58,7 @@ def validate(obj, source_text, allowed: dict, require_evidence=True):
 
 
 def citations(answer: str, n_refs: int) -> dict:
-    cited = [int(x) for x in RE_CITE.findall(answer)]
+    cited = [int(n) for grp in RE_CITE.findall(answer) for n in grp.split(",")]
     return {"cited": sorted(set(cited)), "n_cited": len(set(cited)),
             "invalid": sorted({c for c in cited if not 1 <= c <= n_refs}),
             "abstained": "ไม่มีข้อมูลเพียงพอ" in answer}

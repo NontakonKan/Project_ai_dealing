@@ -1,0 +1,45 @@
+{
+  "hardware": {
+    "os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "chip": "Apple M5 Pro",
+    "cpu_cores": 15,
+    "ram_gb": 24.0,
+    "gpu": "Apple Silicon (Metal, unified memory)"
+  },
+  "task": "explain_match",
+  "models": [
+    "scb10x/llama3.1-typhoon2-8b-instruct",
+    "qwen2.5:latest"
+  ],
+  "retrievers": "stub",
+  "variants": [
+    {}
+  ],
+  "limit": 15,
+  "results": [
+    {
+      "model": "scb10x/llama3.1-typhoon2-8b-instruct",
+      "n": 15,
+      "faithfulness": 4.6,
+      "helpfulness": 3.53,
+      "tone": 4.8,
+      "unsupported_per_card": 0.07,
+      "cite_rate": 0.8,
+      "appearance_leak": 0,
+      "report_leak": 0,
+      "p50_ms": 8929.4
+    },
+    {
+      "model": "qwen2.5:latest",
+      "n": 15,
+      "faithfulness": 4.53,
+      "helpfulness": 3.8,
+      "tone": 5.0,
+      "unsupported_per_card": 0.0,
+      "cite_rate": 1.0,
+      "appearance_leak": 0,
+      "report_leak": 0,
+      "p50_ms": 10312.0
+    }
+  ]
+}

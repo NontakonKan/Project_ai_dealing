@@ -79,9 +79,11 @@ def merge_small(sections, min_words, count_words) -> list:
     out, carry = [], None
     for sec in sections:
         if carry and carry["chapter"] == sec["chapter"]:
-            sec = {**sec, "section_title": f"{carry['section_title']} / {sec['section_title']}",
+            titles = [t for t in (carry["section_title"], sec["section_title"]) if t]
+            sec = {**sec, "section_title": " / ".join(titles) or None,
                    "pages": sorted(set(carry["pages"] + sec["pages"])),
-                   "paragraphs": [carry["section_title"]] + carry["paragraphs"] + [sec["section_title"]] + sec["paragraphs"]}
+                   "paragraphs": [t for t in [carry["section_title"]] if t] + carry["paragraphs"]
+                   + [t for t in [sec["section_title"]] if t] + sec["paragraphs"]}
         elif carry:
             out.append(carry)
         carry = None

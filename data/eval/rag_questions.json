@@ -1,12 +1,335 @@
 [
-  {"qid": "Q01", "question": "ความรักตามทฤษฎีของ Sternberg มีองค์ประกอบอะไรบ้าง", "expected_keywords": ["ความใกล้ชิด", "ความหลงใหล", "ความผูกมัด"], "answerable": true, "needs": "chunk"},
-  {"qid": "Q02", "question": "ปัจจัยใดทำนายความพึงพอใจในความสัมพันธ์ของนิสิตได้", "expected_keywords": ["ความใกล้ชิด", "ความผูกมัด", "ความพึงพอใจในชีวิต", "ระยะเวลา"], "answerable": true, "needs": "chunk"},
-  {"qid": "Q03", "question": "คนที่เป็น anxious กับ avoidant คบกันจะเป็นอย่างไร", "expected_keywords": ["ไล่", "หนี"], "answerable": true, "needs": "graph_fact"},
-  {"qid": "Q04", "question": "คนใจเย็นเข้ากับคนแบบไหน", "expected_keywords": ["อ่อนไหว", "ประคอง"], "answerable": true, "needs": "graph_fact"},
-  {"qid": "Q05", "question": "การเปิดเผยความสัมพันธ์ต่อเพื่อนและครอบครัวเกี่ยวข้องกับความพึงพอใจในความสัมพันธ์ไหม", "expected_keywords": ["เพื่อน", "ครอบครัว", "เกี่ยวข้อง"], "answerable": true, "needs": "chunk"},
-  {"qid": "Q06", "question": "รูปแบบความผูกพันแบบมั่นใจ (Secure) ส่งผลต่อความพึงพอใจในความสัมพันธ์อย่างไร", "expected_keywords": ["Secure", "ความใกล้ชิด", "ความผูกมัด"], "answerable": true, "needs": "both"},
-  {"qid": "Q07", "question": "งานวิจัยนี้มีกลุ่มตัวอย่างกี่คน", "expected_keywords": ["433"], "answerable": true, "needs": "chunk"},
-  {"qid": "Q08", "question": "ถ้าแฟนชอบเงียบใส่เวลามีปัญหา ตรงข้ามกับสไตล์การสื่อสารแบบไหน", "expected_keywords": ["พูดตรง", "เคลียร์"], "answerable": true, "needs": "graph_fact"},
-  {"qid": "Q09", "question": "คนที่ตอบแชทไวกับคนที่ตอบแชทช้าจะมีปัญหาอะไร", "expected_keywords": ["คาดหวัง", "ตอบแชท"], "answerable": true, "needs": "graph_fact"},
-  {"qid": "Q10", "question": "ค่าเทอมคณะวิศวกรรมศาสตร์ ม.อ. เท่าไร", "expected_keywords": [], "answerable": false, "needs": "none"}
+  {
+    "qid": "Q01",
+    "question": "ความรักตามทฤษฎีของ Sternberg มีองค์ประกอบอะไรบ้าง",
+    "expected_keywords": [
+      "ความใกล้ชิด",
+      "ความหลงใหล",
+      "ความผูกมัด"
+    ],
+    "answerable": true,
+    "needs": "chunk"
+  },
+  {
+    "qid": "Q02",
+    "question": "ปัจจัยใดทำนายความพึงพอใจในความสัมพันธ์ของนิสิตได้",
+    "expected_keywords": [
+      "ความใกล้ชิด",
+      "ความผูกมัด",
+      "ความพึงพอใจในชีวิต",
+      "ระยะเวลา"
+    ],
+    "answerable": true,
+    "needs": "chunk"
+  },
+  {
+    "qid": "Q03",
+    "question": "คนที่เป็น anxious กับ avoidant คบกันจะเป็นอย่างไร",
+    "expected_keywords": [
+      "ไล่",
+      "หนี"
+    ],
+    "answerable": true,
+    "needs": "graph_fact"
+  },
+  {
+    "qid": "Q04",
+    "question": "คนใจเย็นเข้ากับคนแบบไหน",
+    "expected_keywords": [
+      "อ่อนไหว",
+      "ประคอง"
+    ],
+    "answerable": true,
+    "needs": "graph_fact"
+  },
+  {
+    "qid": "Q05",
+    "question": "การเปิดเผยความสัมพันธ์ต่อเพื่อนและครอบครัวเกี่ยวข้องกับความพึงพอใจในความสัมพันธ์ไหม",
+    "expected_keywords": [
+      "เพื่อน",
+      "ครอบครัว",
+      "เกี่ยวข้อง"
+    ],
+    "answerable": true,
+    "needs": "chunk"
+  },
+  {
+    "qid": "Q06",
+    "question": "รูปแบบความผูกพันแบบมั่นใจ (Secure) ส่งผลต่อความพึงพอใจในความสัมพันธ์อย่างไร",
+    "expected_keywords": [
+      "Secure",
+      "ความใกล้ชิด",
+      "ความผูกมัด"
+    ],
+    "answerable": true,
+    "needs": "both"
+  },
+  {
+    "qid": "Q07",
+    "question": "งานวิจัยนี้มีกลุ่มตัวอย่างกี่คน",
+    "expected_keywords": [
+      "433"
+    ],
+    "answerable": true,
+    "needs": "chunk"
+  },
+  {
+    "qid": "Q08",
+    "question": "ถ้าแฟนชอบเงียบใส่เวลามีปัญหา ตรงข้ามกับสไตล์การสื่อสารแบบไหน",
+    "expected_keywords": [
+      "พูดตรง",
+      "เคลียร์"
+    ],
+    "answerable": true,
+    "needs": "graph_fact"
+  },
+  {
+    "qid": "Q09",
+    "question": "คนที่ตอบแชทไวกับคนที่ตอบแชทช้าจะมีปัญหาอะไร",
+    "expected_keywords": [
+      "คาดหวัง",
+      "ตอบแชท"
+    ],
+    "answerable": true,
+    "needs": "graph_fact"
+  },
+  {
+    "qid": "Q10",
+    "question": "ค่าเทอมคณะวิศวกรรมศาสตร์ ม.อ. เท่าไร",
+    "expected_keywords": [],
+    "answerable": false,
+    "needs": "none"
+  },
+  {
+    "qid": "Q11",
+    "question": "ถ้าแฟนหายไปเฉยๆ ไม่ทิ้งคำอธิบาย แบบนี้เรียกว่าอะไร และส่งผลต่ออีกฝ่ายอย่างไร",
+    "expected_keywords": [
+      "Ghosting",
+      "สับสน",
+      "เจ็บปวด"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "book"
+  },
+  {
+    "qid": "Q12",
+    "question": "การเลิกราแบบให้สัญญาณคลุมเครือ เช่น บอกว่าขอเวลาพัก มีผลอย่างไร",
+    "expected_keywords": [
+      "หวัง",
+      "ยึดติด",
+      "ปล่อยวาง"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "book"
+  },
+  {
+    "qid": "Q13",
+    "question": "ในการวิเคราะห์การปฏิสัมพันธ์ระหว่างบุคคล บุคลิกภาพแบ่งเป็นกี่สภาวะ อะไรบ้าง",
+    "expected_keywords": [
+      "พ่อ",
+      "ผู้ใหญ่",
+      "เด็ก"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "slides"
+  },
+  {
+    "qid": "Q14",
+    "question": "Stroke หรือความเอาใจใส่ระหว่างบุคคลที่ให้ผลทางบวกคืออะไร",
+    "expected_keywords": [
+      "Positive",
+      "บวก"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "slides"
+  },
+  {
+    "qid": "Q15",
+    "question": "ทฤษฎีความรักสามเหลี่ยมทำให้เกิดรูปแบบความรักกี่แบบ",
+    "expected_keywords": [
+      "8"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "book"
+  },
+  {
+    "qid": "Q16",
+    "question": "ถ้าเจอคนที่ทำให้เราสงสัยในความคิดตัวเองตลอด ควรปกป้องตัวเองอย่างไร",
+    "expected_keywords": [
+      "เว้นระยะ",
+      "หลักฐาน"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "web",
+    "style": "paraphrase"
+  },
+  {
+    "qid": "Q17",
+    "question": "Gaslighting คืออะไร",
+    "expected_keywords": [
+      "สงสัย",
+      "ความมั่นใจ"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "web",
+    "style": "direct"
+  },
+  {
+    "qid": "Q18",
+    "question": "มีวิธีทางจิตวิทยาอะไรบ้างที่ช่วยจัดการตอนโกรธแฟน",
+    "expected_keywords": [
+      "หยุดความคิด",
+      "เบี่ยงเบน"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "web",
+    "style": "paraphrase"
+  },
+  {
+    "qid": "Q19",
+    "question": "Guilt trip ในความสัมพันธ์มีรูปแบบอย่างไรบ้าง",
+    "expected_keywords": [
+      "บีบบังคับ",
+      "หลีกเลี่ยง"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "web",
+    "style": "direct"
+  },
+  {
+    "qid": "Q20",
+    "question": "แฟนชอบอ้างว่าเหนื่อยจากงานเพื่อไม่ต้องคุยเรื่องปัญหา แบบนี้คืออะไร",
+    "expected_keywords": [
+      "หลีกเลี่ยง",
+      "Conflict Avoidance"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "web",
+    "style": "paraphrase"
+  },
+  {
+    "qid": "Q21",
+    "question": "ทำไมคนที่มีความวิตกกังวลในความผูกพันถึงอาจใช้ความรุนแรงกับคู่รัก",
+    "expected_keywords": [
+      "กลัวถูกทอดทิ้ง",
+      "ควบคุม"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "web",
+    "style": "direct"
+  },
+  {
+    "qid": "Q22",
+    "question": "ความสัมพันธ์ที่ดีต้องมีขอบเขตที่ประกอบด้วยอะไรบ้าง",
+    "expected_keywords": [
+      "เคารพจุดยืน",
+      "อีกฝ่าย"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "web",
+    "style": "direct"
+  },
+  {
+    "qid": "Q23",
+    "question": "สัญญาณอะไรบอกว่าอีกฝ่ายไม่เคารพขอบเขตของเรา",
+    "expected_keywords": [
+      "ตื้อ",
+      "ควบคุม"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "web",
+    "style": "direct"
+  },
+  {
+    "qid": "Q24",
+    "question": "ถ้ามีนัดกับเพื่อนและแฟนวันเดียวกัน ควรทำอย่างไร",
+    "expected_keywords": [
+      "จัดสรร",
+      "เวลา"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "web",
+    "style": "paraphrase"
+  },
+  {
+    "qid": "Q25",
+    "question": "คนที่มองทั้งตัวเองและคนอื่นในแง่ลบ มีรูปแบบความผูกพันแบบไหน",
+    "expected_keywords": [
+      "Fearful",
+      "หวาดกลัว"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "web",
+    "style": "paraphrase"
+  },
+  {
+    "qid": "Q26",
+    "question": "รูปแบบความผูกพันแบบหมางเมิน (Dismissing) เป็นอย่างไร",
+    "expected_keywords": [
+      "บวก",
+      "อิสระ"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "web",
+    "style": "direct"
+  },
+  {
+    "qid": "Q27",
+    "question": "การเลิกราแบบทำร้ายจิตใจส่งผลอย่างไร",
+    "expected_keywords": [
+      "ด้อยค่า",
+      "เชื่อมั่น"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "book",
+    "style": "direct"
+  },
+  {
+    "qid": "Q28",
+    "question": "ทฤษฎีกำหนดตนเองบอกว่าความสัมพันธ์ที่ดีต้องตอบสนองความต้องการอะไร",
+    "expected_keywords": [
+      "Competence",
+      "Relatedness",
+      "Autonomy"
+    ],
+    "answerable": true,
+    "needs": "chunk",
+    "source": "book",
+    "style": "direct"
+  },
+  {
+    "qid": "Q29",
+    "question": "ร้านอาหารแถวหาดใหญ่ร้านไหนอร่อย",
+    "expected_keywords": [],
+    "answerable": false,
+    "needs": "none",
+    "source": "none",
+    "style": "unanswerable"
+  },
+  {
+    "qid": "Q30",
+    "question": "ราคาทองวันนี้เท่าไร",
+    "expected_keywords": [],
+    "answerable": false,
+    "needs": "none",
+    "source": "none",
+    "style": "unanswerable"
+  }
 ]

@@ -30,6 +30,13 @@ ollama list          # ต้องมี typhoon2 3b/8b, qwen2.5, gemma3, bge-m
 ```
 ดู: `data/processed/ingest_report.json` → `cleaning`, `before_after`
 
+### 3.1 ชุดทดสอบ held-out (สำนวนที่ระบบไม่เคยเห็น) ✅ LLM
+```bash
+.venv/bin/python -m pipelines.eval_data.heldout_unmatch --per 2     # gemma3:12b เขียน -> ต้องตรวจ review ในไฟล์ก่อนใช้
+.venv/bin/python -u -m pipelines.llm.run bench --task extract_unmatch_heldout --models qwen2.5:latest
+```
+หมายเหตุ: ingest จะดาวน์โหลดบทความเว็บครั้งแรก (cache ที่ `data/raw/web/`) และ OCR หนังสือครั้งแรก (cache ที่ `data/processed/ocr/`)
+
 ## 4. ตรวจคำรูปลักษณ์ + Policy (ไม่ใช้ LLM)
 ```bash
 .venv/bin/python -c "
@@ -98,6 +105,29 @@ print('ROUTED:', json.dumps(r['routed'], ensure_ascii=False)); print('STATS :', 
 ดูผลล่าสุด:
 ```bash
 cat "$(ls -td data/eval/llm_bench/*/ | head -1)summary.md"
+```
+
+## 9. Hybrid + Neo4j
+```bash
+.venv/bin/pip install -r requirements-dense.txt -r graph/requirements.txt
+.venv/bin/python -m pipelines.dense.run build                     # Dense index (ChromaDB)
+.venv/bin/python -m pipelines.hybrid.values_extract               # ✅ LLM ค่านิยม -> โครงสร้าง (~10 นาที)
+.venv/bin/python -m pipelines.hybrid.run evaluate                 # จับคู่: Dense vs Graph vs Hybrid
+.venv/bin/python -m pipelines.hybrid.run knowledge-eval           # ดึงความรู้ทุกโหมด
+.venv/bin/python -m pipelines.hybrid.cases                        # เคสจริง -> data/eval/hybrid/cases.md
+docker compose -f graph/compose.yaml --env-file graph/.env up -d  # Neo4j (Docker Desktop ต้องเปิด)
+set -a; . graph/.env; set +a; .venv/bin/python -m graph.import_neo4j
+.venv/bin/python -m unittest discover -s tests && .venv/bin/python -m unittest discover -s graph/tests
+```
+
+## 10. LINE bot (ส่วน 7)
+```bash
+.venv/bin/pip install -r requirements-app.txt
+.venv/bin/python -m app.simulate --demo        # ✅ LLM เดโม 3 ซีน (ไม่ต้องมี token)
+.venv/bin/python -m app.simulate               # พิมพ์คุยเอง: #1 #2 = กดปุ่ม
+# ต่อ LINE จริง: ใส่ token ใน app/.env แล้ว
+.venv/bin/uvicorn app.server:api --host 0.0.0.0 --port 8000
+ngrok http 8000                                 # ตั้ง Webhook URL = https://<ngrok>/callback
 ```
 
 | ขั้น | ใช้ LLM | เวลาโดยประมาณ |

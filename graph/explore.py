@@ -15,6 +15,7 @@ def main():
     args = parser.parse_args()
     required = {"profile": ["user_id"], "events": ["user_id"],
                 "shared": ["user_id", "other_id"], "rule-paths": ["user_id", "other_id"],
+                "pair-features": ["user_id", "other_id"],
                 "chunks": ["concept_id"]}.get(args.view, [])
     for field in required:
         if not getattr(args, field):

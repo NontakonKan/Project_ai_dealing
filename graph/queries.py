@@ -66,4 +66,16 @@ QUERIES = {
                c.pages AS pages, c.section_title AS section, c.text AS text,
                tag.assertion AS tag_status ORDER BY source_id, chunk_id
     """,
+    # คำนวณ feature ของคู่ (A, B) ให้ตรงกับ graph/scorer.py (เวอร์ชันในหน่วยความจำ)
+    "pair-features": """
+        MATCH (a:DealingEntity:User {dataset:$dataset, snapshot:$snapshot, id:$user_id}),
+              (b:DealingEntity:User {dataset:$dataset, snapshot:$snapshot, id:$other_id})
+        OPTIONAL MATCH (a)-[:LIKES]->(h:Hobby)<-[:LIKES]-(b)
+        WITH a, b, count(DISTINCT h) AS shared_hobbies
+        OPTIONAL MATCH (a)-[:HAS_TRAIT]->(x)-[r:COMPATIBLE_WITH|CONFLICTS_WITH|OPPOSITE_OF]-(y)<-[:HAS_TRAIT]-(b)
+        WITH a, b, shared_hobbies,
+             sum(CASE type(r) WHEN 'COMPATIBLE_WITH' THEN r.weight WHEN NULL THEN 0 ELSE -r.weight END) AS theory_raw
+        OPTIONAL MATCH (a)-[av:AVOIDS]->(rf:RedFlag)<-[rep:REPORTED_AS]-(b)
+        RETURN shared_hobbies, theory_raw, collect(DISTINCT rf.id) AS red_flags_hit
+    """,
 }

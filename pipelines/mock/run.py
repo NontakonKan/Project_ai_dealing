@@ -18,6 +18,7 @@ from ..common.paths import MOCK
 from .chats import make_chats
 from .config import TODAY
 from .events import apply_feedback, make_events
+from .observe import observe
 from .ground_truth import make_ground_truth
 from .report import report
 from .summaries import build_summaries
@@ -33,10 +34,12 @@ def main():
     rng = random.Random(args.seed)
 
     users = [make_user(i + 1, rng, TODAY) for i in range(args.n)]
+    for u in users:
+        observe(u, rng)   # แยกบุคลิกจริง (เฉลย) ออกจากโปรไฟล์ที่ระบบเห็น
     events = make_events(users, rng, TODAY)
     apply_feedback(users, events)
     for u in users:
-        build_summaries(u)
+        build_summaries(u, rng)
     chats = make_chats(users, rng, min(args.chats, len(users)))
     gt = make_ground_truth(users, rng)
     stats = report(users, events, chats, gt)

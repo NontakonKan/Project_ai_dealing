@@ -10,8 +10,9 @@ from . import datasets, metrics
 
 EXTRACT_TASKS = {"extract_profile": (datasets.extraction, tasks.extract_profile),
                  "extract_unmatch": (datasets.unmatch, tasks.extract_unmatch),
-                 "extract_unmatch_sensitive": (datasets.unmatch_sensitive, tasks.extract_unmatch)}
-CONFIG_KEY = {"extract_unmatch_sensitive": "extract_unmatch"}   # ใช้ config เดียวกัน ต่างแค่ชุดทดสอบ
+                 "extract_unmatch_sensitive": (datasets.unmatch_sensitive, tasks.extract_unmatch),
+                 "extract_unmatch_heldout": (datasets.unmatch_heldout, tasks.extract_unmatch)}
+CONFIG_KEY = {"extract_unmatch_sensitive": "extract_unmatch", "extract_unmatch_heldout": "extract_unmatch"}   # ใช้ config เดียวกัน ต่างแค่ชุดทดสอบ
 
 
 def variant_name(v: dict) -> str:
@@ -60,10 +61,20 @@ def run_extraction(task, models, variants, limit, log=print):
     return rows, blocks
 
 
-def run_rag(models, modes, variants, limit, k=8, log=print):
-    questions = datasets.rag(limit)
+def build_retrievers(kind="stub"):
+    """stub = ตัวแทนชั่วคราว / real = Dense (ChromaDB ของฟาริก) + Graph (ของบังเมษ) + Hybrid"""
+    if kind == "real":
+        from ...hybrid.context import HybridContext
+        from ...hybrid.retrievers import DenseKnowledge, GraphKnowledge, HybridKnowledge
+        ctx = HybridContext()
+        return {"dense": DenseKnowledge(ctx), "graph": GraphKnowledge(ctx), "hybrid": HybridKnowledge(ctx)}
     dense, graph = DenseStub(), GraphStub()
-    retrievers = {"dense": dense, "graph": graph, "hybrid": HybridStub(dense, graph)}
+    return {"dense": dense, "graph": graph, "hybrid": HybridStub(dense, graph)}
+
+
+def run_rag(models, modes, variants, limit, k=8, log=print, retrievers="stub"):
+    questions = datasets.rag(limit)
+    retrievers = build_retrievers(retrievers)
     contexts = {(q["qid"], m): retrievers[m].retrieve(q["question"], k) for q in questions for m in modes}
     rows, blocks = [], {}
     for model in models:

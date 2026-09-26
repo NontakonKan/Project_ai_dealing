@@ -11,10 +11,10 @@ def _say(tid, rng):
 def make_chats(users, rng, k):
     rows = []
     for u in rng.sample(users, k=k):
-        p = u["persona"]
+        p = u.get("_ground_truth_persona", u["persona"])   # แชท = สิ่งที่ผู้ใช้พูดจริง (บุคลิกจริง)
         hob = rng.sample(p["hobbies"], k=min(2, len(p["hobbies"])))
         tr = rng.sample(p["traits"], k=min(1, len(p["traits"])))
-        trait_wants = [w for w in u["preferences"]["wants"] if w["id"].startswith("trait:")][:2]
+        trait_wants = [w for w in u.get("_ground_truth_wants", u["preferences"]["wants"]) if w["id"].startswith("trait:")][:2]
         app_wants = [w for w in u["preferences"]["wants"] if w["id"].startswith(("body:", "skin:"))][:1]
         wants = trait_wants + (app_wants if rng.random() < P_APPEARANCE_WANT else [])
         declared = u["appearance"]["self_described"][:1] if rng.random() < P_SELF_DESCRIBE else []

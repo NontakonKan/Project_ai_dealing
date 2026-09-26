@@ -1,0 +1,75 @@
+{
+  "hardware": {
+    "os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "chip": "Apple M5 Pro",
+    "cpu_cores": 15,
+    "ram_gb": 24.0,
+    "gpu": "Apple Silicon (Metal, unified memory)"
+  },
+  "task": "extract_unmatch_heldout",
+  "models": [
+    "qwen2.5:latest",
+    "scb10x/llama3.1-typhoon2-8b-instruct"
+  ],
+  "retrievers": "stub",
+  "variants": [
+    {}
+  ],
+  "limit": null,
+  "results": [
+    {
+      "model": "qwen2.5:latest",
+      "variant": "default",
+      "precision": 0.611,
+      "recall": 0.579,
+      "f1": 0.595,
+      "n": 18,
+      "p50_ms": 894.9,
+      "p95_ms": 1315.4,
+      "gen_tok_s": 57.972,
+      "prompt_tok_s": 9594.783,
+      "prompt_tokens": 828.333,
+      "truncated": 0,
+      "json_error": 0,
+      "invalid_id": 0,
+      "no_evidence": 5,
+      "false_rf": 7,
+      "guard_dropped": 0,
+      "guard_added": 0,
+      "guard_corrected": 0,
+      "cold_load_ms": 1708.8,
+      "peak_rss_mb": 4684,
+      "avg_cpu_pct": 85,
+      "gpu_mem_gb": 4.56,
+      "samples": 71,
+      "other_models_loaded": 0
+    },
+    {
+      "model": "scb10x/llama3.1-typhoon2-8b-instruct",
+      "variant": "default",
+      "precision": 0.435,
+      "recall": 0.526,
+      "f1": 0.476,
+      "n": 18,
+      "p50_ms": 818.3,
+      "p95_ms": 1287.0,
+      "gen_tok_s": 55.256,
+      "prompt_tok_s": 8872.9,
+      "prompt_tokens": 745.833,
+      "truncated": 0,
+      "json_error": 0,
+      "invalid_id": 0,
+      "no_evidence": 3,
+      "false_rf": 13,
+      "guard_dropped": 0,
+      "guard_added": 0,
+      "guard_corrected": 0,
+      "cold_load_ms": 2075.4,
+      "peak_rss_mb": 4714,
+      "avg_cpu_pct": 78,
+      "gpu_mem_gb": 5.15,
+      "samples": 72,
+      "other_models_loaded": 0
+    }
+  ]
+}

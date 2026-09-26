@@ -4,6 +4,7 @@ from datetime import timedelta
 from .config import ALL_TRAITS, ARCHETYPES, ATTACH_DIST, FACULTIES, HOBBIES, LOVE_LANGS, NICKNAMES
 from .appearance import make_appearance, make_appearance_prefs
 from .sampling import conf, pick_weighted
+from .values import make_values
 
 
 def make_user(i, rng, today):
@@ -80,5 +81,6 @@ def make_user(i, rng, today):
         "_archetype": arch_name,
         "_ground_truth_flags": hidden_flags,
         "_ground_truth_appearance": appearance_truth,
+        "_ground_truth_values": make_values(rng),
     }
     return user

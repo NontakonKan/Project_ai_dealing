@@ -28,6 +28,7 @@ def main():
     k.add_argument("--category")
     k.add_argument("--concept")
     k.add_argument("--llm", action="store_true")
+    k.add_argument("--rerank", type=int, default=0, help="rerank top-N ด้วย cross-encoder (เช่น 20)")
     e = commands.add_parser("evaluate")
     e.add_argument("--top-ks", type=int, nargs="+", default=[5, 10, 20])
     e.add_argument("--thresholds", type=float, nargs="+", default=[0.0, 0.2])
@@ -42,7 +43,12 @@ def main():
             if args.llm:
                 output = {"context": output, "llm": answer_with_llm(output)}
         elif args.command == "knowledge":
-            output = index.search("knowledge", args.query, args.top_k, args.threshold, args.category, args.concept)
+            if args.rerank:
+                from .rerank import rerank
+                pool = index.search("knowledge", args.query, args.rerank, args.threshold, args.category, args.concept)
+                output = rerank(args.query, pool, args.top_k)
+            else:
+                output = index.search("knowledge", args.query, args.top_k, args.threshold, args.category, args.concept)
             if args.llm:
                 context = {"question": args.query, "knowledge": output}
                 output = {"context": context, "llm": answer_with_llm(context)}

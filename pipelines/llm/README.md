@@ -74,3 +74,10 @@ ollama serve   # ถ้ายังไม่รัน
 | เวลา | p50 / p95 latency, tokens/sec (prompt และ generation), เวลาโหลดโมเดลครั้งแรก (cold load) |
 | Resource | RAM สูงสุด, CPU เฉลี่ย, หน่วยความจำ GPU (Metal) |
 | ข้อจำกัด | คำตอบถูกตัดเพราะชน num_predict, context ที่ถูกตัดทิ้งเพราะเกินงบ |
+
+
+## เพิ่มเติม (2026-09-26)
+- `bench/judge.py`: LLM-as-a-Judge (gemma3:12b) ให้คะแนน explain_match ด้าน faithfulness / helpfulness / tone + ตรวจด้วยกฎ (อ้างอิง, รูปลักษณ์หลุด, เปิดเผยการถูกรายงาน)
+  `.venv/bin/python -u -m pipelines.llm.run bench --task explain_match --models qwen2.5:latest --limit 15`
+- `extract_unmatch_heldout`: ชุดสำนวนที่ระบบไม่เคยเห็น (`pipelines/eval_data/heldout_unmatch.py`)
+- `--retrievers real` ใน RAG benchmark ใช้ Dense/Graph/Hybrid ตัวจริง

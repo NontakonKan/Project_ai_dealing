@@ -167,3 +167,20 @@ Integration tests นำเข้าข้อมูลจริงซ้ำ ต�
 - `How to PDF_BERTSBERT_LLM_Ontology_Neo4j/neo4j_best_graph/README.md`: เก็บที่มาและแยกสิ่งที่เอกสารรายงานออกจากข้อสรุปที่ยังไม่ตรวจสอบ
 
 นำแนวคิดมาปรับกับข้อมูลโปรเจกต์นี้ ไม่ได้แก้ไฟล์ใน AjKrit หรือคัดลอก credentials จากงานเดิม
+
+
+## Retrieval (เพิ่ม 2026-09-26)
+
+| ไฟล์ | หน้าที่ |
+|---|---|
+| `view.py` | กราฟในหน่วยความจำจาก `build.py` (ทดลองได้โดยไม่เปิด Neo4j) |
+| `scorer.py` | feature ของคู่: prefers / theory (rule-paths) / hobby / love_language / lifestyle + red flag (AVOIDS ∩ REPORTED_AS) + appearance (SELF_DESCRIBED) + `graph_fact` อธิบายเหตุผล |
+| `concepts.py` | หา concept ในคำถาม: alias ตรงตัว + bge-m3 embedding (≥0.62) → จับประโยคเล่าเรื่องได้ เช่น "สงสัยว่าตัวเองจำผิด" → `rf:gaslighting` |
+| `retrieve.py` | `GraphKnowledge.retrieve()` คืน `RetrievalResult` (กฎ + BookChunk ที่ ABOUT concept) |
+| `queries.py` → `pair-features` | Cypher ที่คำนวณ feature ของคู่ใน Neo4j — ตรวจแล้วตรงกับ `scorer.py` 40/40 คู่ |
+
+```bash
+set -a; . graph/.env; set +a
+.venv/bin/python -m graph.explore pair-features --user-id U001 --other-id U002
+```
+schema รองรับรูปลักษณ์ (`BodyType`/`SkinTone`/`Hygiene`, `SELF_DESCRIBED`) และ REPORTED_AS ชี้ได้เฉพาะ `RedFlag`

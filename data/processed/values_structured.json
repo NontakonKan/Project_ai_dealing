@@ -1,0 +1,4211 @@
+{
+  "model": "qwen2.5:latest",
+  "seconds": 454.5,
+  "accuracy_on_stated": {
+    "correct": 873,
+    "wrong": 19,
+    "missed": 5
+  },
+  "users": {
+    "U001": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U002": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U003": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U004": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U005": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U006": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U007": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U008": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U009": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U010": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U011": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U012": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U013": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U014": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U015": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U016": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U017": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U018": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U019": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U020": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U021": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U022": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U023": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U024": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U025": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U026": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U027": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U028": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U029": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U030": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U031": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U032": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U033": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U034": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U035": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U036": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U037": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U038": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U039": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U040": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U041": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U042": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U043": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U044": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U045": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U046": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U047": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U048": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U049": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U050": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U051": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U052": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U053": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U054": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U055": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U056": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U057": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U058": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U059": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U060": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U061": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U062": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U063": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U064": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U065": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U066": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U067": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U068": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U069": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U070": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U071": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U072": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U073": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U074": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U075": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U076": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U077": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U078": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U079": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U080": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U081": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U082": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U083": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U084": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U085": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U086": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U087": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U088": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U089": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U090": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U091": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U092": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U093": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U094": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U095": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U096": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U097": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U098": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U099": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U100": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U101": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U102": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U103": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U104": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U105": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U106": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U107": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U108": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U109": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U110": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U111": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U112": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U113": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U114": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U115": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U116": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U117": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U118": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U119": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U120": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U121": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U122": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U123": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U124": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U125": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U126": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U127": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U128": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U129": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U130": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U131": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U132": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U133": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U134": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U135": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U136": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U137": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U138": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U139": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U140": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U141": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U142": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U143": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U144": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U145": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U146": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U147": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U148": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U149": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U150": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U151": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U152": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U153": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U154": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U155": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U156": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U157": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U158": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U159": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U160": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U161": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U162": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U163": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U164": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U165": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U166": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U167": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U168": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U169": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U170": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U171": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U172": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U173": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U174": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U175": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U176": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U177": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U178": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U179": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U180": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U181": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U182": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U183": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U184": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U185": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U186": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U187": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U188": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U189": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U190": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U191": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U192": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U193": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U194": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U195": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U196": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U197": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U198": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U199": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U200": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U201": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U202": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U203": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U204": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U205": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U206": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U207": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U208": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U209": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U210": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U211": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U212": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U213": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U214": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U215": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U216": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U217": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U218": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U219": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U220": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U221": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U222": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U223": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U224": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U225": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U226": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U227": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U228": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U229": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U230": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U231": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U232": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U233": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U234": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U235": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U236": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U237": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U238": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U239": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U240": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U241": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U242": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U243": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U244": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U245": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U246": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U247": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U248": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U249": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U250": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U251": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U252": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U253": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U254": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U255": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U256": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      }
+    },
+    "U257": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U258": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U259": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U260": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U261": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U262": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U263": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U264": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U265": {
+      "self": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U266": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U267": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U268": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U269": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U270": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U271": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U272": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U273": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U274": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U275": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U276": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U277": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U278": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U279": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U280": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U281": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "pet_lover"
+      }
+    },
+    "U282": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U283": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U284": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U285": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U286": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U287": {
+      "self": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U288": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "pet_lover"
+      }
+    },
+    "U289": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      }
+    },
+    "U290": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      }
+    },
+    "U291": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U292": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U293": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U294": {
+      "self": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      }
+    },
+    "U295": {
+      "self": {
+        "family": "no_kids",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    },
+    "U296": {
+      "self": {
+        "family": "want_kids",
+        "place": "city",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "city",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U297": {
+      "self": {
+        "family": "want_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "no_pets"
+      }
+    },
+    "U298": {
+      "self": {
+        "family": "no_kids",
+        "place": "hometown",
+        "money": "saver",
+        "pets": "unknown"
+      },
+      "wants": {
+        "family": "unknown",
+        "place": "hometown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U299": {
+      "self": {
+        "family": "unknown",
+        "place": "unknown",
+        "money": "spender",
+        "pets": "no_pets"
+      },
+      "wants": {
+        "family": "want_kids",
+        "place": "unknown",
+        "money": "unknown",
+        "pets": "unknown"
+      }
+    },
+    "U300": {
+      "self": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "unknown",
+        "pets": "pet_lover"
+      },
+      "wants": {
+        "family": "no_kids",
+        "place": "city",
+        "money": "spender",
+        "pets": "unknown"
+      }
+    }
+  }
+}

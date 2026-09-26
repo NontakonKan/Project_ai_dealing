@@ -12,7 +12,7 @@ from collections import Counter
 
 from ..common.io_utils import write_json, write_jsonl
 from ..common.paths import PROCESSED
-from . import ocr
+from . import ocr, web
 from .chunker import chunk_section, n_words
 from .clean import clean_page_lines, strip_citations
 from .extract import extract_pages, is_scanned
@@ -23,11 +23,14 @@ from .tagger import tag
 
 
 def load_pages(source):
+    if source.get("url"):
+        return web.fetch_pages(source), "web"
     pages = extract_pages(source["file"])
     if not is_scanned(pages):
         return pages, "text"
-    if ocr.available():
-        return ocr.ocr_pages(source["file"]), "ocr"
+    if ocr.available() or (ocr.CACHE_DIR / f"{source['source_id']}.json").exists():
+        pages, backend = ocr.ocr_pages(source["file"], source["source_id"])
+        return pages, f"ocr:{backend}"
     return pages, "needs_ocr"
 
 
@@ -50,6 +53,8 @@ def ingest(source, chunk_size, overlap, min_section_words):
                 "doc_type": source["doc_type"],
                 "title": source["title"],
                 "year": source["year"],
+                "url": source.get("url"),
+                "source_quality": source.get("source_quality", "document"),
                 "chapter": sec["chapter"],
                 "chapter_title": sec["chapter_title"],
                 "section_title": sec["section_title"],
@@ -60,7 +65,7 @@ def ingest(source, chunk_size, overlap, min_section_words):
                 "lang": "th",
                 **tag(text, sec["category"]),
             })
-    sample_page = next((p for p in pages if "ส าคัญ" in p["text"]), pages[0])
+    sample_page = next((p for p in pages if "ส าคัญ" in p["text"]), pages[0])  # ตัวอย่าง before/after
     sample = before_after(sample_page["text"], "\n".join(l for l in dict(pages_lines)[sample_page["page"]] if l))
     return sections, chunks, source_report(source, pages, sections, chunks, stats, f"ok ({mode})"), sample
 

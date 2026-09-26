@@ -1,30 +1,204 @@
 {
   "description": "คีย์เวิร์ดสำหรับ tag concept ลงใน book chunk (เสริมจาก aliases ใน taxonomy.json) — id ต้องอยู่ใน taxonomy",
   "concepts": {
-    "love:intimacy": ["ความใกล้ชิด", "Intimacy", "ความสนิทสนม"],
-    "love:passion": ["ความหลงใหล", "Passion", "แรงดึงดูด"],
-    "love:commitment": ["ความผูกมัด", "Commitment", "ความมุ่งมั่นในความสัมพันธ์"],
-    "attach:secure": ["Secure", "แบบมั่นใจ", "ความผูกพันแบบมั่นคง"],
-    "attach:anxious": ["Anxious", "Preoccupied", "กลัวถูกทอดทิ้ง", "วิตกกังวล"],
-    "attach:avoidant": ["Avoidant", "Dismissing", "หลีกเลี่ยง"],
-    "attach:fearful": ["Fearful"],
-    "factor:life_satisfaction": ["ความพึงพอใจในชีวิต", "Life satisfaction"],
-    "factor:relationship_duration": ["ระยะเวลาของความสัมพันธ์", "ระยะเวลาคบหา"],
-    "factor:disclose_friends": ["เปิดเผยความสัมพันธ์ต่อเพื่อน"],
-    "factor:disclose_family": ["เปิดเผยความสัมพันธ์ต่อครอบครัว"],
-    "factor:living_status": ["สถานภาพการพักอาศัย", "พักอาศัย"],
-    "comm:direct": ["การสื่อสาร", "สื่อสารอย่างเปิดเผย", "พูดคุยปัญหา"],
-    "rf:dishonest": ["นอกใจ", "ความไม่ซื่อสัตย์"],
-    "rf:possessive": ["หึงหวง", "ควบคุม"],
-    "trait:emotional": ["ความเครียด", "ภาวะซึมเศร้า", "อารมณ์อ่อนไหว"]
+    "love:intimacy": [
+      "ความใกล้ชิด",
+      "Intimacy",
+      "ความสนิทสนม"
+    ],
+    "love:passion": [
+      "ความหลงใหล",
+      "Passion",
+      "แรงดึงดูด"
+    ],
+    "love:commitment": [
+      "ความผูกมัด",
+      "Commitment",
+      "ความมุ่งมั่นในความสัมพันธ์"
+    ],
+    "attach:secure": [
+      "Secure",
+      "แบบมั่นใจ",
+      "ความผูกพันแบบมั่นคง"
+    ],
+    "attach:anxious": [
+      "Anxious",
+      "Preoccupied",
+      "กลัวถูกทอดทิ้ง",
+      "วิตกกังวล",
+      "ผูกพันแบบกังวล"
+    ],
+    "attach:avoidant": [
+      "Avoidant",
+      "Dismissing",
+      "หลีกเลี่ยง"
+    ],
+    "attach:fearful": [
+      "Fearful",
+      "แบบหวาดกลัว",
+      "หลีกเลี่ยงเชิงหวาดกลัว"
+    ],
+    "factor:life_satisfaction": [
+      "ความพึงพอใจในชีวิต",
+      "Life satisfaction"
+    ],
+    "factor:relationship_duration": [
+      "ระยะเวลาของความสัมพันธ์",
+      "ระยะเวลาคบหา"
+    ],
+    "factor:disclose_friends": [
+      "เปิดเผยความสัมพันธ์ต่อเพื่อน"
+    ],
+    "factor:disclose_family": [
+      "เปิดเผยความสัมพันธ์ต่อครอบครัว"
+    ],
+    "factor:living_status": [
+      "สถานภาพการพักอาศัย",
+      "พักอาศัย"
+    ],
+    "comm:direct": [
+      "การสื่อสาร",
+      "สื่อสารอย่างเปิดเผย",
+      "พูดคุยปัญหา"
+    ],
+    "rf:dishonest": [
+      "นอกใจ",
+      "ความไม่ซื่อสัตย์",
+      "หลอกลวง"
+    ],
+    "rf:possessive": [
+      "หึงหวง",
+      "Controlling",
+      "การเลิกราแบบใช้การควบคุม",
+      "พยายามควบคุม",
+      "Guilt Trip",
+      "รู้สึกผิด",
+      "ควบคุมความสัมพันธ์"
+    ],
+    "trait:emotional": [
+      "ความเครียด",
+      "ภาวะซึมเศร้า",
+      "อารมณ์อ่อนไหว",
+      "Emotional Regulation"
+    ],
+    "rf:ghosting": [
+      "Ghosting",
+      "หายไปโดยไม่ทิ้งคำอธิบาย",
+      "ตัดการติดต่อ"
+    ],
+    "rf:inconsistent": [
+      "Mixed Signals",
+      "สัญญาณที่คลุมเครือ",
+      "คลุมเครือ"
+    ],
+    "rf:disrespect": [
+      "Verbal Abuse",
+      "คำพูดที่ทำร้ายจิตใจ",
+      "ไม่เคารพในความรู้สึก",
+      "ความรุนแรงในคู่รัก",
+      "ความรุนแรงทางวาจา"
+    ],
+    "rf:stonewalling": [
+      "No Closure",
+      "ไม่ให้โอกาสอธิบาย",
+      "ไม่ให้อิกาสอริบาย",
+      "ไม่มีการสื่อสารที่ชัดเจน"
+    ],
+    "rf:gaslighting": [
+      "Gaslighting",
+      "Gaslight",
+      "ปั่นหัว",
+      "สงสัยในความคิดของตนเอง",
+      "คิดไปเอง"
+    ],
+    "rf:hot_temper": [
+      "อารมณ์โกรธ",
+      "ความโกรธ",
+      "รู้สึกโกรธ",
+      "Anger"
+    ],
+    "rf:no_boundaries": [
+      "Healthy Boundary",
+      "Boundary",
+      "ขอบเขต",
+      "จุดยืน",
+      "ล้ำเส้น"
+    ],
+    "rf:friend_priority": [
+      "ระหว่าง ‘เพื่อน’ กับ ‘แฟน’",
+      "ระหว่างเพื่อนกับแฟน",
+      "เลือกระหว่างเพื่อน",
+      "เวลาให้แฟน",
+      "แบ่งเวลา"
+    ]
   },
   "topic_keywords": {
-    "relationship_satisfaction": ["ความพึงพอใจในความสัมพันธ์", "Relationship satisfaction"],
-    "love_theory": ["ทฤษฎีสามเหลี่ยมความรัก", "Triangular", "Sternberg"],
-    "attachment_theory": ["รูปแบบความผูกพัน", "Attachment"],
-    "relationship_phase": ["ระยะของความสัมพันธ์", "ตกหลุมรัก", "Phases of love"],
-    "development": ["Erikson", "พัฒนาการทางจิตสังคม", "วัยผู้ใหญ่ตอนต้น"],
-    "breakup_recovery": ["อกหัก", "เลิกรา", "Move on", "เจ็บปวด"],
-    "toxic_relationship": ["ความสัมพันธ์ที่ไม่ดี", "toxic", "ท็อกซิก"]
+    "relationship_satisfaction": [
+      "ความพึงพอใจในความสัมพันธ์",
+      "Relationship satisfaction"
+    ],
+    "love_theory": [
+      "ทฤษฎีสามเหลี่ยมความรัก",
+      "Triangular",
+      "Sternberg"
+    ],
+    "attachment_theory": [
+      "รูปแบบความผูกพัน",
+      "Attachment"
+    ],
+    "relationship_phase": [
+      "ระยะของความสัมพันธ์",
+      "ตกหลุมรัก",
+      "Phases of love"
+    ],
+    "development": [
+      "Erikson",
+      "พัฒนาการทางจิตสังคม",
+      "วัยผู้ใหญ่ตอนต้น"
+    ],
+    "breakup_recovery": [
+      "อกหัก",
+      "เลิกรา",
+      "Move on",
+      "เจ็บปวด"
+    ],
+    "toxic_relationship": [
+      "ความสัมพันธ์ที่ไม่ดี",
+      "toxic",
+      "ท็อกซิก",
+      "เลิกราแบบพิษ",
+      "เป็นพิษ"
+    ],
+    "transactional_analysis": [
+      "Transaction Analysis",
+      "Transactional Analysis",
+      "Ego State",
+      "อัตสภาวะ",
+      "สภาวะผู้ใหญ่",
+      "สภาวะเด็ก",
+      "สภาวะพ่อ"
+    ],
+    "communication": [
+      "การสื่อสาร",
+      "Strokes",
+      "Stroke",
+      "ความเอาใจใส่ระหว่างบุคคล"
+    ],
+    "friendship_building": [
+      "สร้างมิตร",
+      "มนุษยสัมพันธ์",
+      "ครองใจคน",
+      "ผูกมิตร"
+    ],
+    "healthy_relationship": [
+      "ความสัมพันธ์ที่ดี",
+      "Healthy Boundary",
+      "เคารพ"
+    ],
+    "emotion_regulation": [
+      "จัดการอารมณ์",
+      "Emotional Regulation",
+      "อารมณ์โกรธ"
+    ]
   }
 }

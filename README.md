@@ -59,7 +59,7 @@ python -m pipelines.dense.run evaluate
 | `data/taxonomy.json` | 69 รหัส + 14 กฎ | รหัสกลาง + กฎความเข้ากันได้ | – | ✅ node ของ Trait/RedFlag + edge ระหว่าง Trait |
 | `data/mock/users.json` | 300 คน | โปรไฟล์ผู้ใช้ | ✅ embed `summaries` | ✅ node User + edge |
 | `data/mock/events.jsonl` | 432 | เลิกคุย / แมตช์ / กดผ่าน | ✅ negative examples | ✅ edge UNMATCHED |
-| `data/processed/book_chunks.jsonl` | 44 chunk | ความรู้จากงานวิจัย | ✅ embed `text` | ✅ node BookChunk |
+| `data/processed/book_chunks.jsonl` | 129 chunk | ความรู้จาก 10 แหล่ง: งานวิจัย 44 / หนังสืออกหัก (OCR) 13 / สไลด์ครองใจคน 27 / บทความเว็บ 7 เรื่อง 45 | ✅ embed `text` | ✅ node BookChunk |
 | `data/mock/ground_truth_pairs.json` | 286 คน | **เฉลย** การจับคู่ | 📏 ใช้วัดผลเท่านั้น | 📏 ใช้วัดผลเท่านั้น |
 | `data/mock/chats.jsonl` | 100 | แชทจำลอง + เฉลยการสกัด | – | – (ใช้ทดสอบ extractor) |
 
@@ -150,7 +150,8 @@ python -m pipelines.dense.run evaluate
 ```
 - `category` มี 4 ค่า: `abstract` / `background` / `theory` / `finding_discussion`
 - chunk ละประมาณ 300 คำ (นับด้วย PyThaiNLP) ซ้อนกันประมาณ 45 คำ และไม่ตัดข้ามหัวข้อ
-- ⏳ หนังสือ "ใครไม่รักช่างแม่ง" ยังไม่เข้า เพราะเป็นไฟล์สแกนที่รอ OCR เมื่อเข้าแล้วจะได้ `doc_type: "book"`, `category: "breakup_recovery"` ใน schema เดิม
+- `doc_type` มี `research` / `book` / `slides` และ `category` เพิ่ม `breakup_recovery` (หนังสือ) กับ `interpersonal_skills` (สไลด์)
+- หนังสือ "ใครไม่รักช่างแม่ง" เป็นไฟล์สแกน จึง OCR ด้วย **qwen2.5vl ผ่าน Ollama** แล้วเก็บ cache ไว้ที่ `data/processed/ocr/` (หน้าที่โมเดลตอบข้อความของตัวเองจะถูก OCR ซ้ำหรือตัดทิ้ง)
 
 ---
 
@@ -279,14 +280,18 @@ pipelines/
   ingest/   sources, extract, ocr, clean, sectioner, chunker, tagger, report, run
   retrieval/ contract (สัญญากลาง) + stubs/ (dense, graph, hybrid ชั่วคราว)
   llm/      config, hardware, ollama_client, resources, schemas, prompts, parsing, context, tasks, run + bench/
+  hybrid/   matcher, fusion, router, reranker, retrievers, values_extract, evaluate, knowledge_eval, cases
+app/        ส่วน 7 LINE OA: server (webhook), handlers, intent, flows/, profile, live, storage, flex, simulate
 ```
 - โหลดข้อมูลด้วย helper เดิมได้: `from pipelines.common.io_utils import read_json, read_jsonl`
 - รายละเอียดแต่ละโมดูลดูที่ [pipelines/README.md](pipelines/README.md)
 - **กติกาโค้ด:** แยกไฟล์ตามหน้าที่ ห้ามเขียนทั้ง pipeline จบในไฟล์เดียว
 
 ## สถานะส่วน 1
-- ✅ Taxonomy, mock users/events/chats, ground truth, ingest งานวิจัย (44 chunks)
-- ⏳ OCR หนังสือ: ต้องติดตั้ง `brew install tesseract tesseract-lang` แล้วรัน ingest ใหม่
+- ✅ Taxonomy, mock users/events/chats, ground truth, ingest 10 แหล่ง (129 chunks) รวม OCR หนังสือด้วย qwen2.5vl + แก้คำผิด 63 จุด (`data/ocr_corrections.json`)
+- ✅ red flag ครบ 10/10 และ attachment ครบ 4/4 มี chunk อธิบาย (เพิ่มบทความคณะจิตวิทยา จุฬาฯ)
+- ✅ ชุดทดสอบ held-out `data/eval/unmatch_heldout.json` (สำนวนที่ระบบไม่เคยเห็น 18 ข้อ)
+- ⏳ หนังสือฉบับเต็ม (ตอนนี้มีฉบับตัวอย่าง 27 หน้า)
 - ⏳ Pipeline สกัดข้อมูลจากแชทจริง (LINE → LLM → JSON → merge เข้าโปรไฟล์)
 
 ## ส่วน Graph
@@ -296,3 +301,6 @@ pipelines/
 ดูกราฟและ export ภาพหรือข้อมูลผ่าน Neo4j Browser โดยใช้ `graph/queries.cypher`
 มี schema, validation, การนำเข้าแบบ snapshot และคำสั่ง Cypher พร้อมเลขหน้าเอกสารอ้างอิง
 ส่วนนี้ยังไม่มี RAG, embeddings หรือระบบจัดอันดับคู่
+
+## ส่วน 7 System Integration (LINE)
+ดู [app/README.md](app/README.md) — ทดสอบในเครื่องได้ทันทีด้วย `python -m app.simulate --demo` (เดโม 3 ซีนจาก req.md) และต่อ LINE จริงด้วย `app/.env` + `uvicorn app.server:api` + `ngrok http 8000`

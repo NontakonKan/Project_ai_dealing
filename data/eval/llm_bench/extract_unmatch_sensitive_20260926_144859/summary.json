@@ -1,0 +1,109 @@
+{
+  "hardware": {
+    "os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "chip": "Apple M5 Pro",
+    "cpu_cores": 15,
+    "ram_gb": 24.0,
+    "gpu": "Apple Silicon (Metal, unified memory)"
+  },
+  "task": "extract_unmatch_sensitive",
+  "models": [
+    "qwen2.5:latest"
+  ],
+  "retrievers": "stub",
+  "variants": [
+    {
+      "prompt": "few_shot"
+    },
+    {
+      "prompt": "few_shot_defs"
+    },
+    {
+      "prompt": "few_shot_para"
+    }
+  ],
+  "limit": null,
+  "results": [
+    {
+      "model": "qwen2.5:latest",
+      "variant": "prompt=few_shot",
+      "precision": 1.0,
+      "recall": 0.931,
+      "f1": 0.964,
+      "n": 20,
+      "p50_ms": 916.2,
+      "p95_ms": 1489.8,
+      "gen_tok_s": 54.87,
+      "prompt_tok_s": 8251.435,
+      "prompt_tokens": 793.95,
+      "truncated": 0,
+      "json_error": 0,
+      "invalid_id": 0,
+      "no_evidence": 0,
+      "false_rf": 0,
+      "guard_dropped": 1,
+      "guard_added": 1,
+      "guard_corrected": 3,
+      "cold_load_ms": 544.8,
+      "peak_rss_mb": 4742,
+      "avg_cpu_pct": 88,
+      "gpu_mem_gb": 4.56,
+      "samples": 77,
+      "other_models_loaded": 0
+    },
+    {
+      "model": "qwen2.5:latest",
+      "variant": "prompt=few_shot_para",
+      "precision": 0.964,
+      "recall": 0.931,
+      "f1": 0.947,
+      "n": 20,
+      "p50_ms": 1723.9,
+      "p95_ms": 2316.2,
+      "gen_tok_s": 54.46,
+      "prompt_tok_s": 4460.195,
+      "prompt_tokens": 987.95,
+      "truncated": 0,
+      "json_error": 0,
+      "invalid_id": 0,
+      "no_evidence": 0,
+      "false_rf": 0,
+      "guard_dropped": 2,
+      "guard_added": 1,
+      "guard_corrected": 7,
+      "cold_load_ms": 558.6,
+      "peak_rss_mb": 5028,
+      "avg_cpu_pct": 53,
+      "gpu_mem_gb": 4.56,
+      "samples": 126,
+      "other_models_loaded": 0
+    },
+    {
+      "model": "qwen2.5:latest",
+      "variant": "prompt=few_shot_defs",
+      "precision": 0.871,
+      "recall": 0.931,
+      "f1": 0.9,
+      "n": 20,
+      "p50_ms": 2573.0,
+      "p95_ms": 4946.2,
+      "gen_tok_s": 50.015,
+      "prompt_tok_s": 3275.585,
+      "prompt_tokens": 514,
+      "truncated": 0,
+      "json_error": 0,
+      "invalid_id": 0,
+      "no_evidence": 11,
+      "false_rf": 1,
+      "guard_dropped": 9,
+      "guard_added": 7,
+      "guard_corrected": 6,
+      "cold_load_ms": 539.0,
+      "peak_rss_mb": 5199,
+      "avg_cpu_pct": 85,
+      "gpu_mem_gb": 4.56,
+      "samples": 224,
+      "other_models_loaded": 0
+    }
+  ]
+}

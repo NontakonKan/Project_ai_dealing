@@ -23,3 +23,9 @@ def rag(limit=None):
 def unmatch_sensitive(limit=None):
     """เหตุผลเลิกคุยที่ปนรูปลักษณ์/สีผิว/กลิ่นตัว — วัด false red flag (รูปลักษณ์ถูกจัดเป็นพฤติกรรม)"""
     return read_json(DATA / "eval" / "unmatch_sensitive.json")[:limit]
+
+
+def unmatch_heldout(limit=None):
+    """สำนวนที่ระบบไม่เคยเห็น (gemma3:12b เขียนจากคำอธิบายภาษาอังกฤษ + ตรวจโดยคน) — ใช้เฉพาะข้อที่ไม่ถูกคัดออก"""
+    rows = [r for r in read_json(DATA / "eval" / "unmatch_heldout.json") if r["review"]["status"] != "excluded"]
+    return rows[:limit]

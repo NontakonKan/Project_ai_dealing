@@ -1,0 +1,560 @@
+[
+  {
+    "id": "H01",
+    "input": "คือแบบไม่ไหวอะ เวลามีปัญหาอะไรคือเขาไม่คุย ไม่ตอบเลยอ่ะ สุดท้ายก็เลยถอยออกมาน่ะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:stonewalling"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H02",
+    "input": "คือมันคุยยากอ่ะ เวลาไม่เข้าใจกันก็เหมือนเจอฝาผนังเลย ไม่ค่อยอยากเจออะไรแบบนี้อีกแล้ว 😅",
+    "gold": {
+      "red_flags": [
+        "rf:stonewalling"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H03",
+    "input": "คือ...รู้สึกว่าคุยไปแล้วไม่ค่อยได้เจอกันเลยอะ 🥲 เหมือนมีอะไรสำคัญกว่าตลอดอ่ะ ไม่ไหวจ้าาา",
+    "gold": {
+      "red_flags": [
+        "rf:friend_priority"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ไม่ได้บอกว่าเป็นเรื่องเพื่อน"
+    }
+  },
+  {
+    "id": "H04",
+    "input": "คือแบบ…คุยไปก็รู้สึกว่าเราไม่สำคัญเท่าเพื่อนเค้าอะเนอะ เลยค่อยๆ เงียบไปน่ะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:friend_priority"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H05",
+    "input": "คือมันอึดอัดมากอ่ะ เลยแบบเลิกคุยไปเลย คืออยากเป็นตัวเองบ้าง แต่เค้าไม่ปล่อยให้เป็นเลย 😅",
+    "gold": {
+      "red_flags": [
+        "rf:possessive"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H06",
+    "input": "รู้สึกอึดอัดมากเลยอ่ะ คือเค้าสนใจทุกอย่างเกินไป แล้วก็อยากรู้ตลอดว่าเราไปไหนทำอะไร ไม่ไหวเลยอ่ะ.",
+    "gold": {
+      "red_flags": [
+        "rf:possessive"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H07",
+    "input": "คือเค้าเงียบหายไปเฉยๆ เลยอะ ไม่มีการแจ้งอะไรเลยอ่ะ น่าเสียดายจัง 😔",
+    "gold": {
+      "red_flags": [
+        "rf:ghosting"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H08",
+    "input": "คือแบบ…คุยดีๆ อยู่ดีๆ ก็เงียบเลยอ่ะ ไม่บอกอะไรเลยนี่คืออะไรเนี่ย 🥲",
+    "gold": {
+      "red_flags": [
+        "rf:ghosting"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H09",
+    "input": "คือแบบ…คุยแล้วรู้สึกแปลกๆอ่ะ เหมือนเขาไม่รับผิดชอบอะไรเลย แล้วบางทีก็ทำให้เราไม่มั่นใจในความจำตัวเองด้วยอ่ะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:gaslighting"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H10",
+    "input": "คือ…คุยกับเขาแล้วรู้สึกแปลกๆอ่ะ เหมือนเขาไม่รับผิดชอบอะไรเลย แล้วบางทีก็ทำให้เราไม่แน่ใจว่าเราจำอะไรถูกป่ะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:gaslighting"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H11",
+    "input": "เค้าไม่ค่อยดีกับเราเลยอ่ะ คือบางทีก็รู้สึกแย่มาก ไม่ค่อยอยากคุยต่อแล้วแหละ 😔",
+    "gold": {
+      "red_flags": [
+        "rf:disrespect"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ไม่บอกพฤติกรรม"
+    }
+  },
+  {
+    "id": "H12",
+    "input": "คือแบบ…คุยแล้วรู้สึกเฟลมากอ่ะ แกทิ้งๆ ไว้ก่อนเลย มันชอบทำให้เรารู้สึกแย่ๆ ไม่ค่อยโอเคเท่าไหร่ 😔",
+    "gold": {
+      "red_flags": [
+        "rf:disrespect"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ไม่บอกพฤติกรรม"
+    }
+  },
+  {
+    "id": "H13",
+    "input": "รู้สึกเฟลมากเลยอ่ะ คือสุดท้ายเค้ามันก็ไม่เวิร์คจริงๆ ไม่น่าไว้ใจเลยอ่ะ หยุดไปแล้วแหละ 😔",
+    "gold": {
+      "red_flags": [
+        "rf:dishonest"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H14",
+    "input": "รู้สึกเฟลมากเลยอ่ะ คือสุดท้ายมันมีอะไรเยอะแยะที่ไม่โอเค เลยแบบ…จบกันไปนั่นแหละ 😔",
+    "gold": {
+      "red_flags": [
+        "rf:dishonest"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ไม่บอกพฤติกรรม"
+    }
+  },
+  {
+    "id": "H15",
+    "input": "คือเค้าเป็นคนแบบ…ขึ้นลงอะ ไม่ค่อยนิ่งเลยอ่ะ ทำให้รู้สึกไม่ค่อยโอเคเท่าไหร่ เลยเลิกคุยไปก่อนเนอะ 😊",
+    "gold": {
+      "red_flags": [
+        "rf:hot_temper"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "'ขึ้นลง ไม่นิ่ง' ใกล้ inconsistent มากกว่า hot_temper"
+    }
+  },
+  {
+    "id": "H16",
+    "input": "คือแบบ…เค้าบ่นเรื่องจุกจิกมาก แล้วก็ขึ้นเสียงตลอดเลยอ่ะ ไม่ไหวอะ ไม่โอเคแล้วจริงๆ",
+    "gold": {
+      "red_flags": [
+        "rf:hot_temper"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H17",
+    "input": "คือแบบ…เขาสลับอารมณ์บ่อย แล้วก็ชอบยกเลิกนัด คือมันไม่ค่อยไปรอดอ่ะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:inconsistent"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H18",
+    "input": "คือแบบ…รู้สึกว่าคุยไปแล้วไม่ชินอะ บางทีก็ดีมาก บางทีก็เงียบเฉย แล้วก็ชอบยกเลิกนัดบ่อยมากเลยอ่ะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:inconsistent"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H19",
+    "input": "คือ…รู้สึกว่าเค้าเข้ามาในชีวิตเราแบบเยอะเกินไปอะ 😅 ทั้งโทรมาบ่อยเกิน แถมยังมาแบบไม่บอกกล่าวอีก เลยขอพักก่อนน้า~",
+    "gold": {
+      "red_flags": [
+        "rf:no_boundaries"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H20",
+    "input": "คือแบบ…เขากดดันมากอ่ะ ชอบเข้ามาในชีวิตโดยไม่บอกอะไรเลย แล้วก็ติดต่อตลอดๆ ทำให้รู้สึกอึดอัดเลยอ่ะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:no_boundaries"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H21",
+    "input": "ไม่ค่อยรู้สึกคลิกเลยอ่ะ บวกกับว่าไม่ค่อยตรงสเปคเรื่องรูปร่างเท่าไหร่ 😅",
+    "gold": {
+      "red_flags": [],
+      "appearance": [
+        "body:slim"
+      ],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ไม่ระบุว่ารูปร่างแบบไหน"
+    }
+  },
+  {
+    "id": "H22",
+    "input": "คือ…เค้าดูไม่ค่อยตรงสเปคที่ชอบอะ เลยรู้สึกไม่ค่อยอินค์ที่จะคุยต่ออ่ะ 😅",
+    "gold": {
+      "red_flags": [],
+      "appearance": [
+        "body:curvy"
+      ],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ไม่ระบุรูปร่าง"
+    }
+  },
+  {
+    "id": "H23",
+    "input": "คือ…เค้าดูตัวใหญ่กว่าที่คิดอะ แล้วก็ไม่ค่อยตรงสไตล์ที่ชอบเลย ปิดบทสนทนาดีกว่าเนอะ 😊",
+    "gold": {
+      "red_flags": [],
+      "appearance": [
+        "body:athletic"
+      ],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "'ตัวใหญ่' กำกวมระหว่างล่ำกับอวบ"
+    }
+  },
+  {
+    "id": "H24",
+    "input": "คือ…เค้าไม่ค่อยถูกจังหวะกับเราเท่าไหร่อะค่ะ, แล้วก็เรารู้สึกว่าไม่ค่อยคลิกกันจริงๆ เลยค่ะ 😅",
+    "gold": {
+      "red_flags": [],
+      "appearance": [
+        "skin:dark"
+      ],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ไม่พูดเรื่องสีผิว"
+    }
+  },
+  {
+    "id": "H25",
+    "input": "ไม่ค่อยรู้สึกคลิกเลยอ่ะ แบบ… สีผิวไม่ค่อยตรงสเป็คที่คิดไว้ แล้วก็รู้สึกไม่ค่อยมีอะไรให้คุยต่อเลย 😅",
+    "gold": {
+      "red_flags": [],
+      "appearance": [
+        "skin:fair"
+      ],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ไม่ระบุสีผิว"
+    }
+  },
+  {
+    "id": "H26",
+    "input": "รู้สึกไม่ค่อยคลิกอ่ะ แบบ…เค้าไม่ค่อยให้ความรู้สึกสดชื่นเท่าไหร่เลย ปิดการคุยไปก่อนนะ 😉",
+    "gold": {
+      "red_flags": [],
+      "appearance": [],
+      "hygiene": [
+        "hygiene:self_care"
+      ]
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "'ไม่สดชื่น' กำกวม"
+    }
+  },
+  {
+    "id": "H27",
+    "input": "คือ…เค้าไม่ค่อยโอเคเลยอ่ะ แบบรู้สึกไม่ค่อยมั่นใจเวลาคุย แล้วก็ไม่ใช่สเปคเราเลยอ่ะ ไว้ใจค่อยคุยกันใหม่นะ 😉",
+    "gold": {
+      "red_flags": [
+        "rf:disrespect"
+      ],
+      "appearance": [
+        "body:curvy"
+      ],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ทั้งสองเหตุผลกำกวม"
+    }
+  },
+  {
+    "id": "H28",
+    "input": "ไม่ไหวอะ แบบรู้สึกไม่คลิกเลยอ่ะ แถมยังเจอน่าสงสัยหลายอย่าง เลยเลิกคุยไปก่อนแล้วกันนะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:dishonest"
+      ],
+      "appearance": [],
+      "hygiene": [
+        "hygiene:self_care"
+      ]
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ทั้งสองเหตุผลกำกวม"
+    }
+  },
+  {
+    "id": "H29",
+    "input": "คือแบบ...คุยอะไรก็เหมือนเจอฝาผนัง แล้วไม่ชอบตรงที่เค้าไม่ค่อยอยากปรับตัวอะ มันไม่ใช่เราเลยอ่ะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:stonewalling"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "relabeled",
+      "reason": "ไม่ได้พูดเรื่องรูปร่าง",
+      "original_gold": {
+        "red_flags": [
+          "rf:stonewalling"
+        ],
+        "appearance": [
+          "body:slim"
+        ],
+        "hygiene": []
+      }
+    }
+  },
+  {
+    "id": "H30",
+    "input": "คือ…รู้สึกว่าเค้าไม่ค่อยแน่นอนอะ แล้วก็ไม่ใช่สไตล์ที่ชอบเท่าไหร่เลย ไม่คลิกอ่ะ 😂",
+    "gold": {
+      "red_flags": [
+        "rf:inconsistent"
+      ],
+      "appearance": [],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "relabeled",
+      "reason": "ไม่ระบุรูปร่าง",
+      "original_gold": {
+        "red_flags": [
+          "rf:inconsistent"
+        ],
+        "appearance": [
+          "body:slim"
+        ],
+        "hygiene": []
+      }
+    }
+  },
+  {
+    "id": "H31",
+    "input": "ไม่ไหวอะ คือเค้าไม่ค่อยให้ความสำคัญกับเราเลย แล้วก็ไม่ได้ถูกใจเรื่องอื่นๆ ด้วย ปล่อยไปก่อนละกันเนอะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:disrespect"
+      ],
+      "appearance": [
+        "skin:fair"
+      ],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "กำกวม"
+    }
+  },
+  {
+    "id": "H32",
+    "input": "คือแบบไม่ไหวอะ เราคุยอะไรก็เหมือนเจอฝาผนัง แล้วผิวก็ไม่ค่อยถูกใจเท่าไหร่ เลยถอยออกมาแป๊บนึงก่อนเนอะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:stonewalling"
+      ],
+      "appearance": [
+        "skin:fair"
+      ],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ไม่ระบุสีผิว"
+    }
+  },
+  {
+    "id": "H33",
+    "input": "คือเค้าเงียบหายไปเฉยๆ เลยอะ แถมไม่ค่อยชอบตรงที่เค้าตัวแบบ...ไม่ค่อยมีเนื้อเลยอ่ะ 😅",
+    "gold": {
+      "red_flags": [
+        "rf:ghosting"
+      ],
+      "appearance": [
+        "body:slim"
+      ],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "kept"
+    }
+  },
+  {
+    "id": "H34",
+    "input": "คือ…รู้สึกว่าคุยไปแล้วไม่ค่อยได้เจอกันอ่ะ แล้วก็ไม่ใช่สไตล์เราเท่าไหร่เลย ขอบคุณนะ! 😊",
+    "gold": {
+      "red_flags": [
+        "rf:friend_priority"
+      ],
+      "appearance": [
+        "skin:dark"
+      ],
+      "hygiene": []
+    },
+    "generated_by": "gemma3:12b",
+    "review": {
+      "status": "excluded",
+      "reason": "ไม่ได้บอกว่าเป็นเรื่องเพื่อน"
+    }
+  }
+]

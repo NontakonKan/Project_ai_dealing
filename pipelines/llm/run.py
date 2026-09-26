@@ -73,15 +73,21 @@ def cmd_bench(args):
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     out_dir = OUT / f"{args.task}_{stamp}"
     print(f"bench {args.task}: {len(models)} models × {len(variants)} variants -> {out_dir}")
-    if args.task == "rag_answer":
+    if args.task == "explain_match":
+        from .bench import judge
+        rows = judge.run(models, n=args.limit or 15)
+        table, cols = judge.summarize(rows), ["model", "n", "faithfulness", "helpfulness", "tone", "unsupported_per_card",
+                                              "cite_rate", "appearance_leak", "report_leak", "p50_ms"]
+    elif args.task == "rag_answer":
         modes = args.modes.split(",")
-        rows, blocks = runner.run_rag(models, modes, variants, args.limit)
+        rows, blocks = runner.run_rag(models, modes, variants, args.limit, retrievers=args.retrievers)
         table, cols = summarize.rag(rows, blocks), RAG_COLS
     else:
         rows, blocks = runner.run_extraction(args.task, models, variants, args.limit)
         table, cols = summarize.extraction(rows, blocks), EXTRACT_COLS
     write_jsonl(out_dir / "rows.jsonl", rows)
     write_json(out_dir / "summary.json", {"hardware": hardware.detect(), "task": args.task, "models": models,
+                                          "retrievers": args.retrievers,
                                           "variants": variants, "limit": args.limit, "results": table})
     md = summarize.to_markdown(table, cols)
     (out_dir / "summary.md").write_text(md + "\n", encoding="utf-8")
@@ -96,6 +102,7 @@ def main():
     ap.add_argument("--variants", help='เช่น "fmt=schema,prompt=few_shot;fmt=json,prompt=zero_shot"')
     ap.add_argument("--modes", default="dense,graph,hybrid")
     ap.add_argument("--limit", type=int)
+    ap.add_argument("--retrievers", default="stub", choices=["stub", "real"], help="real = Dense/Graph/Hybrid ตัวจริง")
     args = ap.parse_args()
     {"hardware": cmd_hardware, "demo": cmd_demo, "calibrate": cmd_calibrate, "bench": cmd_bench}[args.cmd](args)
 

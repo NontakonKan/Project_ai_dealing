@@ -219,5 +219,514 @@
       "n_paragraphs": 2
     }
   ],
-  "book_whonotlove": []
+  "book_whonotlove": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        0,
+        1,
+        3
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        5
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        10
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        11,
+        12
+      ],
+      "n_paragraphs": 15
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        13
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        15,
+        16,
+        18,
+        19
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        20
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        21
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        22
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        23
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        24,
+        25
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "breakup_recovery",
+      "pages": [
+        26
+      ],
+      "n_paragraphs": 6
+    }
+  ],
+  "slides_winpeople": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        0,
+        1,
+        2
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        3,
+        4
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        5,
+        6
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        7
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        8
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        9
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        10
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        11,
+        12
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        13
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        14
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        15
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        16
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        17
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        18
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        19,
+        20
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        22
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        23
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        24
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        25,
+        26
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        27
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        28
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        29
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        30,
+        31
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        32,
+        33
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        34,
+        35
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        36,
+        37
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        38,
+        39
+      ],
+      "n_paragraphs": 2
+    }
+  ],
+  "web_chula_gaslighting": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "toxic_relationship",
+      "pages": [
+        0
+      ],
+      "n_paragraphs": 37
+    }
+  ],
+  "web_chula_attachment": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        0
+      ],
+      "n_paragraphs": 27
+    }
+  ],
+  "web_chula_anger": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "emotion_regulation",
+      "pages": [
+        0
+      ],
+      "n_paragraphs": 62
+    }
+  ],
+  "web_chula_guilt_trip": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "toxic_relationship",
+      "pages": [
+        0
+      ],
+      "n_paragraphs": 40
+    }
+  ],
+  "web_chula_ipv": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "toxic_relationship",
+      "pages": [
+        0
+      ],
+      "n_paragraphs": 38
+    }
+  ],
+  "web_potential_boundary": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "healthy_relationship",
+      "pages": [
+        0
+      ],
+      "n_paragraphs": 53
+    }
+  ],
+  "web_healthaddict_friend_vs_partner": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "healthy_relationship",
+      "pages": [
+        0
+      ],
+      "n_paragraphs": 10
+    }
+  ]
 }
