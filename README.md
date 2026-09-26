@@ -24,7 +24,7 @@ python -m pipelines.dense.run match U002 --top-k 5
 python -m pipelines.dense.run evaluate
 ```
 
-รายละเอียดการค้นและการตั้งค่า LLM ดูที่ [pipelines/dense/README.md](pipelines/dense/README.md)
+รายละเอียดการเลือกโมเดล embedding และการค้นดูที่ [pipelines/dense/README.md](pipelines/dense/README.md) ส่วนผลเปรียบเทียบโมเดลอยู่ใน [MODEL_COMPARISON.md](pipelines/dense/MODEL_COMPARISON.md) (โมเดล embedding เป็นคนละส่วนกับ LLM ตอบแชต)
 
 ไม่ต้องรันก็ได้ ไฟล์ผลลัพธ์อยู่ใน repo แล้ว รันใหม่เมื่อ taxonomy หรือ config เปลี่ยน
 
