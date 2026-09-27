@@ -17,7 +17,8 @@ def unmatch(limit=None):
 
 
 def rag(limit=None):
-    return read_json(DATA / "eval" / "rag_questions.json")[:limit]
+    """ข้อที่ retired = แหล่งคำตอบถูกเอาออกจากคลังแล้ว -> ไม่นับ (เก็บไว้ในไฟล์เผื่อใส่แหล่งกลับ)"""
+    return [q for q in read_json(DATA / "eval" / "rag_questions.json") if not q.get("retired")][:limit]
 
 
 def unmatch_sensitive(limit=None):

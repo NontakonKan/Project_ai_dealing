@@ -2,6 +2,7 @@
 
 relevant = chunk ที่มีคำคาดหวังอย่างน้อยครึ่งหนึ่ง (expected_keywords ใน data/eval/rag_questions.json)
 metric: Hit@K, MRR@K (คำถามที่ตอบได้), Empty-rate บนคำถามที่ตอบไม่ได้ (ดึงว่าง = ช่วยให้ LLM ปฏิเสธถูก)
+        คำถามที่ตอบไม่ได้ = นอกเรื่อง 3 + เรื่องความสัมพันธ์ที่คลังยังไม่มี 10 (style=not_covered)
         health_leak = คำถามเรื่องความสัมพันธ์ (ไม่ใช่ topic=health) ที่ดึง chunk การแพทย์ (sexual_health) มาใน top-K
                       -> ควรเป็น 0: ถามเรื่องแฟนแล้วได้วิธีใช้ยามาเป็น context = ผิด
 """
@@ -18,7 +19,18 @@ def configs(ctx):
     return [("dense", DenseKnowledge(ctx)), ("dense + rerank20", DenseKnowledge(ctx, rerank_pool=20)),
             ("graph", GraphKnowledge(ctx)), ("hybrid rrf", HybridKnowledge(ctx)),
             ("hybrid rrf + rerank20", HybridKnowledge(ctx, rerank_pool=20)),
-            ("routed", RoutedKnowledge(ctx)), ("routed + rerank20", RoutedKnowledge(ctx, rerank_pool=20))]
+            ("routed", RoutedKnowledge(ctx)), ("routed + rerank20", RoutedKnowledge(ctx, rerank_pool=20)),
+            ("routed + gate (บอทใช้)", _Gated(RoutedKnowledge(ctx)))]
+
+
+class _Gated:
+    """RoutedKnowledge + ด่านความเกี่ยวข้อง (pipelines/hybrid/gate.py) แบบเดียวกับ app/flows/advice.py"""
+    def __init__(self, inner):
+        self.inner = inner
+
+    def retrieve(self, query, k=8):
+        from .gate import filter_relevant
+        return filter_relevant(query, self.inner.retrieve(query, k))
 
 
 def _relevant(text, kws):

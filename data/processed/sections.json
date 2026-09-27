@@ -1,477 +1,4 @@
 {
-  "research_cu2561": [
-    {
-      "chapter": 0,
-      "chapter_title": "ส่วนหน้า: บทคัดย่อ กิตติกรรมประกาศ สารบัญ",
-      "section_title": "ส่วนหน้า: บทคัดย่อ กิตติกรรมประกาศ สารบัญ",
-      "category": "abstract",
-      "pages": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "n_paragraphs": 35
-    },
-    {
-      "chapter": 1,
-      "chapter_title": "บทนำ",
-      "section_title": "ความสำคัญและที่มาของปัญหา (Background and rationale)",
-      "category": "background",
-      "pages": [
-        11,
-        12,
-        13
-      ],
-      "n_paragraphs": 2
-    },
-    {
-      "chapter": 1,
-      "chapter_title": "บทนำ",
-      "section_title": "วัตถุประสงค์ของการวิจัย (Objectives) / คำถามของการวิจัย (Research questions)",
-      "category": "background",
-      "pages": [
-        13,
-        14
-      ],
-      "n_paragraphs": 4
-    },
-    {
-      "chapter": 1,
-      "chapter_title": "บทนำ",
-      "section_title": "กรอบแนวคิดในการวิจัย (Conceptual framework)",
-      "category": "background",
-      "pages": [
-        14,
-        15
-      ],
-      "n_paragraphs": 1
-    },
-    {
-      "chapter": 1,
-      "chapter_title": "บทนำ",
-      "section_title": "ข้อตกลงเบื้องต้น (Assumption) / คำสำคัญ (Keywords)",
-      "category": "background",
-      "pages": [
-        15
-      ],
-      "n_paragraphs": 4
-    },
-    {
-      "chapter": 1,
-      "chapter_title": "บทนำ",
-      "section_title": "การให้คำนิยามเชิงปฏิบัติการ (Operation definition)",
-      "category": "background",
-      "pages": [
-        15,
-        16
-      ],
-      "n_paragraphs": 2
-    },
-    {
-      "chapter": 1,
-      "chapter_title": "บทนำ",
-      "section_title": "ประโยชน์ที่คาดว่าจะได้รับ (Expected or anticipated benefit)",
-      "category": "background",
-      "pages": [
-        16,
-        17,
-        18
-      ],
-      "n_paragraphs": 2
-    },
-    {
-      "chapter": 2,
-      "chapter_title": "เอกสารและงานวิจัยที่เกี่ยวข้อง",
-      "section_title": "ความหมายของคู่รัก (Couple)",
-      "category": "theory",
-      "pages": [
-        18
-      ],
-      "n_paragraphs": 2
-    },
-    {
-      "chapter": 2,
-      "chapter_title": "เอกสารและงานวิจัยที่เกี่ยวข้อง",
-      "section_title": "ความหมายของความพึงพอใจในความสัมพันธ์กับคู่รัก (Relationship satisfaction)",
-      "category": "theory",
-      "pages": [
-        18,
-        19
-      ],
-      "n_paragraphs": 2
-    },
-    {
-      "chapter": 2,
-      "chapter_title": "เอกสารและงานวิจัยที่เกี่ยวข้อง",
-      "section_title": "ทฤษฎีสามเหลี่ยมความรัก (Triangular theory of love)",
-      "category": "theory",
-      "pages": [
-        19,
-        20,
-        21
-      ],
-      "n_paragraphs": 5
-    },
-    {
-      "chapter": 2,
-      "chapter_title": "เอกสารและงานวิจัยที่เกี่ยวข้อง",
-      "section_title": "การแบ่งระยะของความสัมพันธ์แบบคู่รัก (Phases of love relationship)",
-      "category": "theory",
-      "pages": [
-        21,
-        22,
-        23,
-        24,
-        25
-      ],
-      "n_paragraphs": 5
-    },
-    {
-      "chapter": 2,
-      "chapter_title": "เอกสารและงานวิจัยที่เกี่ยวข้อง",
-      "section_title": "งานวิจัยเกี่ยวกับความพึงพอใจในความสัมพันธ์",
-      "category": "theory",
-      "pages": [
-        25,
-        26,
-        27,
-        28,
-        29
-      ],
-      "n_paragraphs": 4
-    },
-    {
-      "chapter": 3,
-      "chapter_title": "วิธีดำเนินการวิจัย",
-      "section_title": "รูปแบบการวิจัย (Research design) / ประชากรและกลุ่มตัวอย่าง (Population and sample)",
-      "category": "method",
-      "pages": [
-        29
-      ],
-      "n_paragraphs": 4
-    },
-    {
-      "chapter": 3,
-      "chapter_title": "วิธีดำเนินการวิจัย",
-      "section_title": "เกณฑ์การคัดเลือกกลุ่มตัวอย่างที่ศึกษา (Selective criteria) / กระบวนการขอความยินยอม (Informed consent process)",
-      "category": "method",
-      "pages": [
-        29,
-        30
-      ],
-      "n_paragraphs": 5
-    },
-    {
-      "chapter": 3,
-      "chapter_title": "วิธีดำเนินการวิจัย",
-      "section_title": "ขนาดของกลุ่มตัวอย่าง (Sample size)",
-      "category": "method",
-      "pages": [
-        30,
-        31
-      ],
-      "n_paragraphs": 3
-    },
-    {
-      "chapter": 3,
-      "chapter_title": "วิธีดำเนินการวิจัย",
-      "section_title": "วิธีการสุ่มตัวอย่าง (Sampling technique)",
-      "category": "method",
-      "pages": [
-        31,
-        32,
-        33,
-        34,
-        35,
-        36,
-        37
-      ],
-      "n_paragraphs": 9
-    },
-    {
-      "chapter": 3,
-      "chapter_title": "วิธีดำเนินการวิจัย",
-      "section_title": "การรวบรวมข้อมูล (Data collection)",
-      "category": "method",
-      "pages": [
-        37,
-        38
-      ],
-      "n_paragraphs": 2
-    },
-    {
-      "chapter": 3,
-      "chapter_title": "วิธีดำเนินการวิจัย",
-      "section_title": "การวิเคราะห์ข้อมูลและสถิติที่ใช้วิเคราะห์ (Data analysis and statistics)",
-      "category": "method",
-      "pages": [
-        38,
-        39
-      ],
-      "n_paragraphs": 1
-    },
-    {
-      "chapter": 4,
-      "chapter_title": "ผลการศึกษา",
-      "section_title": "ผลการศึกษา",
-      "category": "results",
-      "pages": [
-        39,
-        40,
-        41,
-        42,
-        43,
-        44,
-        45,
-        46,
-        47,
-        48,
-        49,
-        50,
-        51,
-        52,
-        53,
-        54,
-        55,
-        56
-      ],
-      "n_paragraphs": 122
-    },
-    {
-      "chapter": 5,
-      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
-      "section_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
-      "category": "finding_discussion",
-      "pages": [
-        56
-      ],
-      "n_paragraphs": 1
-    },
-    {
-      "chapter": 5,
-      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
-      "section_title": "สรุปผลการวิจัย",
-      "category": "finding_discussion",
-      "pages": [
-        56,
-        57,
-        58
-      ],
-      "n_paragraphs": 8
-    },
-    {
-      "chapter": 5,
-      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
-      "section_title": "อภิปรายผลการวิจัย",
-      "category": "finding_discussion",
-      "pages": [
-        58,
-        59,
-        60,
-        61,
-        62
-      ],
-      "n_paragraphs": 6
-    },
-    {
-      "chapter": 5,
-      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
-      "section_title": "ข้อได้เปรียบของการวิจัยในครั้งนี้",
-      "category": "finding_discussion",
-      "pages": [
-        62,
-        63
-      ],
-      "n_paragraphs": 2
-    },
-    {
-      "chapter": 5,
-      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
-      "section_title": "ข้อจำกัดในการวิจัย",
-      "category": "finding_discussion",
-      "pages": [
-        63
-      ],
-      "n_paragraphs": 1
-    },
-    {
-      "chapter": 5,
-      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
-      "section_title": "ข้อเสนอแนะในการนำไปประยุกต์ใช้",
-      "category": "finding_discussion",
-      "pages": [
-        63,
-        64
-      ],
-      "n_paragraphs": 2
-    },
-    {
-      "chapter": 5,
-      "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
-      "section_title": "ข้อเสนอแนะสำหรับงานวิจัยในอนาคต",
-      "category": "finding_discussion",
-      "pages": [
-        64,
-        65,
-        66,
-        67,
-        68,
-        69,
-        70
-      ],
-      "n_paragraphs": 8
-    }
-  ],
-  "book_whonotlove": [
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        0,
-        1,
-        3
-      ],
-      "n_paragraphs": 6
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        5
-      ],
-      "n_paragraphs": 6
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        6,
-        7,
-        8,
-        9
-      ],
-      "n_paragraphs": 10
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        10
-      ],
-      "n_paragraphs": 4
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        11,
-        12
-      ],
-      "n_paragraphs": 15
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        13
-      ],
-      "n_paragraphs": 7
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        15,
-        16,
-        18,
-        19
-      ],
-      "n_paragraphs": 8
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        20
-      ],
-      "n_paragraphs": 5
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        21
-      ],
-      "n_paragraphs": 4
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        22
-      ],
-      "n_paragraphs": 4
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        23
-      ],
-      "n_paragraphs": 5
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        24,
-        25
-      ],
-      "n_paragraphs": 7
-    },
-    {
-      "chapter": null,
-      "chapter_title": null,
-      "section_title": null,
-      "category": "breakup_recovery",
-      "pages": [
-        26
-      ],
-      "n_paragraphs": 6
-    }
-  ],
   "slides_winpeople": [
     {
       "chapter": null,
@@ -1200,6 +727,2184 @@
         23
       ],
       "n_paragraphs": 1
+    }
+  ],
+  "thesis_start_romance2549": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        0,
+        1
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        2
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        3
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        4
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        5
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        6
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        7
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        8
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        9
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        10
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        11
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        12
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        13
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        14
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        15
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        16
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        17
+      ],
+      "n_paragraphs": 9
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        18
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        19
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        20
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        21
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        22
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        23
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        24
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        25
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        26
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        27
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        28
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        29
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        30
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        31
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        32
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        33
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        34
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        35
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        36
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        37
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        38
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        39
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        40
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        41
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        42
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        43
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        44
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        45
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        46
+      ],
+      "n_paragraphs": 9
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        47
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        48
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        49
+      ],
+      "n_paragraphs": 9
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        50
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        51
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        52
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        53
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        54
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        55
+      ],
+      "n_paragraphs": 9
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        56
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        57
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        58
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        59
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        60
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        61
+      ],
+      "n_paragraphs": 134
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        62
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        63
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        64
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        65
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        66
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        67
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        68
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        69
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        70
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        71
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        72
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        73
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        74
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        75
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        76
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        77
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        78
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        79
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        80
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        81
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        82
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        83
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        84
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        85
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        86
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        87
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        88
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        89
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        90
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        91
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        92
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        93
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        94
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        95
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        96
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        97
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        98
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        99
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        100
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        101
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        102
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        103
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        104
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        105
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        106
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        107
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        108
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        109
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        110
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        111
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        112
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        113
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        114
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        115
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        116
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        117
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        118
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        119
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        120
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        121
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        122
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        123
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        124
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        125
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        126
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        127
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        128
+      ],
+      "n_paragraphs": 9
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        129
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        130
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        131
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        132
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        133
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        134
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        135
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        136
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        137
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        138
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        139
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        140
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        141
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        142
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        143
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        144
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        145
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        146
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        147
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        148
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        149,
+        150
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        151
+      ],
+      "n_paragraphs": 14
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        152
+      ],
+      "n_paragraphs": 15
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        153
+      ],
+      "n_paragraphs": 12
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        154,
+        155
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        156
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        157
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        158
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        159
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "relationship_initiation",
+      "pages": [
+        160
+      ],
+      "n_paragraphs": 2
+    }
+  ],
+  "thesis_attraction2548": [
+    {
+      "chapter": 0,
+      "chapter_title": "ส่วนหน้า: บทคัดย่อ กิตติกรรมประกาศ สารบัญ",
+      "section_title": "ส่วนหน้า: บทคัดย่อ กิตติกรรมประกาศ สารบัญ",
+      "category": "abstract",
+      "pages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "n_paragraphs": 29
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "บทนำ",
+      "category": "theory",
+      "pages": [
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "n_paragraphs": 16
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "ความดึงดูดใจระหว่างบุคคล (Interpersonal attraction) / ความใกล้ชิด (Proximity)",
+      "category": "theory",
+      "pages": [
+        16,
+        17,
+        18
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "การตอบแทนกัน (Reciprocity)",
+      "category": "theory",
+      "pages": [
+        18
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "ความดึงดูดใจทางกายภาพ (Physical attractiveness)",
+      "category": "theory",
+      "pages": [
+        18
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "ความคล้ายคลึงกัน (Similarity) / ความคล้ายคลึงกันทางเจตคติ (Attitudinal similarity)",
+      "category": "theory",
+      "pages": [
+        18,
+        19,
+        20,
+        21
+      ],
+      "n_paragraphs": 13
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "ทฤษฎีความผูกพัน (Attachment theory)",
+      "category": "theory",
+      "pages": [
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "n_paragraphs": 54
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "สมมติฐานรูปแบบความผูกพันแบบมั่นคง (Secure attachment styles hypothesis)",
+      "category": "theory",
+      "pages": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "n_paragraphs": 131
+    },
+    {
+      "chapter": 2,
+      "chapter_title": "วิธีดำเนินการวิจัย",
+      "section_title": "วิธีดำเนินการวิจัย",
+      "category": "method",
+      "pages": [
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68
+      ],
+      "n_paragraphs": 88
+    },
+    {
+      "chapter": 2,
+      "chapter_title": "วิธีดำเนินการวิจัย",
+      "section_title": "การตรวจสอบความเที่ยง (Reliability)",
+      "category": "method",
+      "pages": [
+        68,
+        69
+      ],
+      "n_paragraphs": 9
+    },
+    {
+      "chapter": 2,
+      "chapter_title": "วิธีดำเนินการวิจัย",
+      "section_title": "การตรวจสอบความตรง (Validity)",
+      "category": "method",
+      "pages": [
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86
+      ],
+      "n_paragraphs": 116
+    },
+    {
+      "chapter": 3,
+      "chapter_title": "ผลการวิเคราะห์ข้อมูล",
+      "section_title": "ผลการวิเคราะห์ข้อมูล",
+      "category": "results",
+      "pages": [
+        86,
+        87,
+        88,
+        89,
+        90
+      ],
+      "n_paragraphs": 26
+    },
+    {
+      "chapter": 3,
+      "chapter_title": "ผลการวิเคราะห์ข้อมูล",
+      "section_title": "ในเบื้องต้นผู้วิจัยได้วิเคราะห์ความแปรปรวนแบบสองทาง (Two-way ANOVA)",
+      "category": "results",
+      "pages": [
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104
+      ],
+      "n_paragraphs": 101
+    },
+    {
+      "chapter": 4,
+      "chapter_title": "อภิปรายผลการวิจัย",
+      "section_title": "อภิปรายผลการวิจัย",
+      "category": "finding_discussion",
+      "pages": [
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112
+      ],
+      "n_paragraphs": 36
+    },
+    {
+      "chapter": 5,
+      "chapter_title": "สรุปผลการวิจัยและข้อเสนอแนะ",
+      "section_title": "สรุปผลการวิจัยและข้อเสนอแนะ",
+      "category": "finding_discussion",
+      "pages": [
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177
+      ],
+      "n_paragraphs": 504
+    }
+  ],
+  "thesis_narcissism2553": [
+    {
+      "chapter": 0,
+      "chapter_title": "ส่วนหน้า: บทคัดย่อ กิตติกรรมประกาศ สารบัญ",
+      "section_title": "ส่วนหน้า: บทคัดย่อ กิตติกรรมประกาศ สารบัญ",
+      "category": "abstract",
+      "pages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "n_paragraphs": 36
+    },
+    {
+      "chapter": 1,
+      "chapter_title": "บทนำ",
+      "section_title": "บทนำ",
+      "category": "theory",
+      "pages": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54
+      ],
+      "n_paragraphs": 134
+    },
+    {
+      "chapter": 2,
+      "chapter_title": "วิธีดำเนินการวิจัย",
+      "section_title": "วิธีดำเนินการวิจัย",
+      "category": "method",
+      "pages": [
+        54
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": 2,
+      "chapter_title": "วิธีดำเนินการวิจัย",
+      "section_title": "ผู้วิจัยใช้วิธีการเลือกกลุ่มตัวอย่างแบบเฉพาะเจาะจง (Purposive sampling)",
+      "category": "method",
+      "pages": [
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74
+      ],
+      "n_paragraphs": 84
+    },
+    {
+      "chapter": 3,
+      "chapter_title": "ผลการวิเคราะห์ข้อมูล",
+      "section_title": "ผลการวิเคราะห์ข้อมูล / บุคลิกภาพแบบหลงตนเอง (NAR)",
+      "category": "results",
+      "pages": [
+        74,
+        75
+      ],
+      "n_paragraphs": 9
+    },
+    {
+      "chapter": 3,
+      "chapter_title": "ผลการวิเคราะห์ข้อมูล",
+      "section_title": "ผลรวมอิทธิพล (TE)",
+      "category": "results",
+      "pages": [
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84
+      ],
+      "n_paragraphs": 68
+    },
+    {
+      "chapter": 3,
+      "chapter_title": "ผลการวิเคราะห์ข้อมูล",
+      "section_title": "ผู้วิจัยจึงทำการปรับโมเดลโดยพิจารณาจากดัชนีปรับรูปแบบ (modification indices)",
+      "category": "results",
+      "pages": [
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91
+      ],
+      "n_paragraphs": 40
+    },
+    {
+      "chapter": 3,
+      "chapter_title": "ผลการวิเคราะห์ข้อมูล",
+      "section_title": "ผู้วิจัยจึงทำการปรับโมเดลโดยพิจารณาจากดัชนีปรับรูปแบบ (modification indices)",
+      "category": "results",
+      "pages": [
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ],
+      "n_paragraphs": 93
+    },
+    {
+      "chapter": 4,
+      "chapter_title": "อภิปรายผลการวิจัย",
+      "section_title": "อภิปรายผลการวิจัย",
+      "category": "finding_discussion",
+      "pages": [
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118
+      ],
+      "n_paragraphs": 33
+    },
+    {
+      "chapter": 5,
+      "chapter_title": "สรุปผลการวิจัยและข้อเสนอแนะ",
+      "section_title": "สรุปผลการวิจัยและข้อเสนอแนะ",
+      "category": "finding_discussion",
+      "pages": [
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164
+      ],
+      "n_paragraphs": 365
     }
   ],
   "web_chula_gaslighting": [

@@ -48,8 +48,16 @@ def available() -> str:
     return ""
 
 
+RE_STAMP = re.compile(r"^\s*(\S{0,4}\s*ผู้\S{0,6}ทั่วไป|\S*โหลดเมื่อ.*|\d{1,3})\s*$", re.M)   # ตราดาวน์โหลดของคลัง + เลขหน้า
+MIN_CONTENT_CHARS = 120
+
+
 def is_meta(text: str) -> bool:
-    return bool(RE_VLM_META.search(text or ""))
+    """VLM ไม่ได้อ่านหน้า: ตอบข้อความของตัวเอง / ทวน prompt กลับมา / ได้แค่ตราดาวน์โหลดกับเลขหน้า"""
+    text = text or ""
+    if RE_VLM_META.search(text) or VLM_PROMPT[:30] in text:
+        return True
+    return len(RE_STAMP.sub("", text).strip()) < MIN_CONTENT_CHARS
 
 
 def clean_vlm(text: str) -> str:

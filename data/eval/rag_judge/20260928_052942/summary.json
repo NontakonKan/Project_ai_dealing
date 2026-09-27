@@ -1,0 +1,11 @@
+{
+  "n": 44,
+  "answerable_answered": "28/34",
+  "unanswerable_refused": "10/10",
+  "answered_supported": "28/28",
+  "answered_on_question": "28/28",
+  "answered_with_citation": "28/28",
+  "unsupported_claims": 0,
+  "judge": "gemma3:12b",
+  "writer": "scb10x/llama3.1-typhoon2-8b-instruct"
+}

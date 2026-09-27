@@ -14,7 +14,7 @@ api = FastAPI(title="PSU Dealing LINE bot")
 
 
 def _preload(c):
-    """โหลดของหนักก่อนมีคนทัก: Dense index + embedding model + โมเดล Local ที่ใช้บ่อย"""
+    """โหลดของหนักก่อนมีคนทัก: Dense index + embedding + cross-encoder + โมเดล Local ที่ใช้บ่อย"""
     import time
     from pipelines.dense.embedding import encode
     from pipelines.llm import ollama_client, providers
@@ -23,6 +23,8 @@ def _preload(c):
     t0 = time.time()
     c.dense                      # ChromaDB
     encode(["warmup"])           # bge-m3 (sentence-transformers)
+    from pipelines.hybrid.reranker import _model
+    _model().predict([("warmup", "warmup")], show_progress_bar=False)   # cross-encoder ของด่านความเกี่ยวข้อง (ตอบปรึกษา)
     for m in {TASKS["extract_profile"].model, CHAT_MODEL}:
         if not providers.is_api(m):
             try:

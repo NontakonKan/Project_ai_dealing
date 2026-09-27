@@ -62,11 +62,12 @@ class RoutedKnowledge:
     """router เลือกเส้นทาง: dense / graph (ถ่วง Graph x2 + กันที่ให้ graph_fact) / hybrid"""
     mode = "hybrid"
     RESERVED_FACTS = 2
+    MAX_PER_SOURCE = 3   # เอกสารใหญ่ (thesis 351 chunks) ไม่ยึด top-k จนแหล่งอื่นที่ตอบตรงหลุด (วัดจริง: "นัดเพื่อนกับแฟน")
 
     def __init__(self, ctx, rerank_pool=0):
         from graph import concepts
         self.detect = concepts.detect
-        self.nodes = ctx.graph.nodes
+        self.g = ctx.graph
         self.routes = {"dense": DenseKnowledge(ctx, rerank_pool),
                        "graph": HybridKnowledge(ctx, rerank_pool=rerank_pool, w_graph=2.0),
                        "hybrid": HybridKnowledge(ctx, rerank_pool=rerank_pool)}
@@ -75,9 +76,10 @@ class RoutedKnowledge:
         from .router import RESTRICTED, is_health, route
         path = route(query, self.detect(query))
         health = is_health(query)
-        res = self.routes[path].retrieve(query, k if health else k + 5)   # ดึงเผื่อ เพราะอาจตัด chunk การแพทย์ทิ้ง
+        res = self.routes[path].retrieve(query, k * 5)   # ดึงเผื่อ: ตัด chunk การแพทย์ + จำกัดต่อแหล่ง
         if not health:
-            res.items = [it for it in res.items if self._category(it) not in RESTRICTED][:k]
+            res.items = [it for it in res.items if self._category(it) not in RESTRICTED]
+        res.items = self._diverse(res.items)[:k]
         if path == "graph":   # คำถามเรื่องความสัมพันธ์: กันที่ให้กฎจากกราฟ (คำตอบตรง สั้น) ไว้ต้นรายการ
             facts = [it for it in self.routes["graph"].graph.retrieve(query, k).items if it.kind == "graph_fact"][:self.RESERVED_FACTS]
             ids = {f.id for f in facts}
@@ -86,8 +88,21 @@ class RoutedKnowledge:
             it.meta = {**it.meta, "route": path, "health": health}
         return RetrievalResult("hybrid", query, res.items, res.latency_ms)
 
+    def _diverse(self, items):
+        seen = {}
+        out = []
+        for it in items:
+            src = it.meta.get("source_id") or self._prop(it, "source_id") or it.id
+            if it.kind == "graph_fact" or seen.get(src, 0) < self.MAX_PER_SOURCE:
+                out.append(it)
+                seen[src] = seen.get(src, 0) + 1
+        return out
+
     def _category(self, it):
-        return it.meta.get("category") or self.nodes.get(it.id, {}).get("category")
+        return it.meta.get("category") or self._prop(it, "category")
+
+    def _prop(self, it, key):
+        return self.g.prop(it.id, key) if it.id in self.g.nodes else None
 
 
 def pair_context(ctx, a, b, knowledge_k=3) -> RetrievalResult:

@@ -4,7 +4,7 @@ import re
 
 from .clean import join_lines
 
-RE_CHAPTER = re.compile(r"^บทที่ (\d+)$")
+RE_CHAPTER = re.compile(r"^บทที่\s*(\d+)$")   # "บทที่ 1", "บทที่  1", "บทที่1" (OCR)
 # หัวข้อย่อยแบบ "ชื่อไทย (English title)" เช่น "ทฤษฎีสามเหลี่ยมความรัก (Triangular theory of love)"
 RE_SUBHEAD = re.compile(r"^[฀-๿]+ \([A-Za-z][A-Za-z ,\-’'.]+\)$")
 
@@ -19,6 +19,8 @@ def split_chapters(pages_lines, source) -> list:
     keep = source.get("keep_chapters")
     sections = []
 
+    if keep is None and source.get("section_start"):   # เช่น ถาม-ตอบ: 1 คำถาม + คำตอบ = 1 section (ไม่ตัดตามหน้า)
+        return _split_by_marker(pages_lines, source)
     if keep is None:  # เอกสารไม่มีโครงสร้างบท -> 1 หน้า = 1 section (หยุดที่ stop_headings เช่น เอกสารอ้างอิง)
         stops = set(source.get("stop_headings", []))
         for page, lines in pages_lines:
@@ -75,6 +77,30 @@ def split_chapters(pages_lines, source) -> list:
                 if page not in cur["pages"]:
                     cur["pages"].append(page)
                 cur["_lines"].append(line)
+    flush()
+    return sections
+
+
+def _split_by_marker(pages_lines, source) -> list:
+    """เริ่ม section ใหม่ทุกบรรทัดที่ตรง section_start (regex) — ข้อความก่อน marker แรก = section คำนำ"""
+    marker = re.compile(source["section_start"])
+    sections, cur = [], None
+
+    def flush():
+        if cur and cur["_lines"]:
+            cur["paragraphs"] = join_lines(cur.pop("_lines"))
+            if cur["paragraphs"]:
+                sections.append(cur)
+
+    for page, lines in pages_lines:
+        for line in lines:
+            if cur is None or (line and marker.search(line)):
+                flush()
+                cur = {"chapter": None, "chapter_title": None, "section_title": None,
+                       "category": source.get("default_category", "general"), "pages": [page], "_lines": []}
+            if page not in cur["pages"]:
+                cur["pages"].append(page)
+            cur["_lines"].append(line)
     flush()
     return sections
 

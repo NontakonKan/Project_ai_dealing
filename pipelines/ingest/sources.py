@@ -30,37 +30,6 @@ WEB_ARTICLES = [
 
 SOURCES = [
     {
-        "source_id": "research_cu2561",
-        "file": DATA / "งานวิจัยการหาคู่.pdf",
-        "doc_type": "research",
-        "title": "ความพึงพอใจในความสัมพันธ์แบบคู่รักและปัจจัยที่เกี่ยวข้องของนิสิตจุฬาลงกรณ์มหาวิทยาลัย",
-        "year": 2018,
-        # บรรทัดที่เป็น header/footer/เลขหน้า -> ทิ้ง
-        "noise_patterns": [r"^CU iThesis .*$", r"^\d{10}(_\d{10})?$", r"^\d{1,3}$", r"^[ก-ฮ]$"],
-        # ใช้ทุกหน้า: ส่วนหน้า (ปก บทคัดย่อ กิตติกรรมประกาศ สารบัญ = หน้า 1-11) + บท 1-5 + บรรณานุกรม (ต่อท้ายบท 5)
-        "keep_chapters": {1: "background", 2: "theory", 3: "method", 4: "results", 5: "finding_discussion"},
-        "extra_sections": [{"title": "ส่วนหน้า: บทคัดย่อ กิตติกรรมประกาศ สารบัญ", "pages": [0, 10], "category": "abstract"}],
-        "stop_headings": [],
-        "subheadings": [
-            "งานวิจัยเกี่ยวกับความพึงพอใจในความสัมพันธ์", "สรุปผลการวิจัย", "อภิปรายผลการวิจัย",
-            "ข้อได้เปรียบของการวิจัยในครั้งนี้", "ข้อจำกัดในการวิจัย",
-            "ข้อเสนอแนะในการนำไปประยุกต์ใช้", "ข้อเสนอแนะสำหรับงานวิจัยในอนาคต",
-        ],
-    },
-    {
-        "source_id": "book_whonotlove",
-        "file": DATA / "หนังสือใครไม่รักช่างแม่ง_ใช้ตอนอกหัก.pdf",
-        "doc_type": "book",
-        "title": "ใครไม่รักช่างแม่ง ใช้ตอนอกหัก",
-        "year": None,
-        "noise_patterns": [r"^\d{1,3}$", r"^```.*$", r"^ใครไม่รัก\s*\|\s*ช่าง.*$", r"^ข้อความในภาพคือ.*$"],
-        "keep_chapters": None,          # ไม่มี "บทที่" -> 1 หน้า = 1 section แล้วรวมหน้าที่สั้นเกิน
-        "default_category": "breakup_recovery",
-        "extra_sections": [],
-        "stop_headings": [],
-        "subheadings": [],
-    },
-    {
         "source_id": "slides_winpeople",
         "file": DATA / "เทคนิคการครองใจคน.pdf",
         "doc_type": "slides",
@@ -94,7 +63,7 @@ SOURCES = [
         "source_id": "web_pdf_shy_social",
         "file": DATA / "8 วิธีสร้างความมั่นใจให้คนขี้อายกล้าเข้าสังคม.pdf",
         "doc_type": "web_article",
-        "title": "8 วิธีสร้างความมั่นใจให้คนขี้อายกล้าเข้าสังคม (bypichawee.co)",
+        "title": "8 วิธีสร้างความมั่นใจให้คนขี้อายกล้าเข้าสังคม (บทความเว็บไซต์ By Pichawee)",   # ไม่ใส่โดเมน: LINE แปลงเป็นลิงก์
         "year": None,
         "source_quality": "media",
         "url": None,
@@ -119,6 +88,50 @@ SOURCES = [
         "default_category": "sexual_health",
         "tag_concepts": False,          # เนื้อหาการแพทย์: ไม่ผูก concept ความสัมพันธ์ (หลีกเลี่ยงยา -> avoidant, สัมผัสผิวหนัง -> touch)
         "extra_sections": [],
+        "stop_headings": [],
+        "subheadings": [],
+    },
+    {
+        "source_id": "thesis_start_romance2549",
+        # วิทยานิพนธ์สแกน (ไม่มี text layer) แยกเป็น 7 ไฟล์ตามบท -> OCR ทีละไฟล์ แล้วต่อเป็นเล่มเดียว
+        "files": [DATA / f"การสื่อสารเพื่อการเริ่มต้นความสัมพันธ์ฉันคู่รักของวัยรุ่นไทย{i}.pdf" for i in range(1, 8)],
+        "doc_type": "research",
+        "title": "การสื่อสารเพื่อการเริ่มต้นความสัมพันธ์ฉันคู่รักของวัยรุ่นไทย (วิทยานิพนธ์ คณะนิเทศศาสตร์ จุฬาฯ 2549)",
+        "year": 2006,
+        "source_quality": "academic",
+        # + ตราดาวน์โหลดของคลังจุฬาฯ ทุกหน้า ("โดย ผู้ใช้ทั่วไป", "ดาวน์โหลดเมื่อ 28/09/2569 ...") ที่ OCR อ่านเพี้ยนต่างกันไป
+        "noise_patterns": [r"^\d{1,3}$", r"^[ก-ฮ]$", r"^\S{0,4}\s*ผู้\S{0,6}ทั่วไป$", r"^\S*โหลดเมื่อ.*$"],
+        "keep_chapters": None,          # OCR: หัวบทไม่แน่นอน -> 1 หน้า = 1 section แล้วรวมหน้าที่สั้นเกิน
+        "default_category": "relationship_initiation",
+        "extra_sections": [],
+        "stop_headings": [],
+        "subheadings": [],
+    },
+    {
+        "source_id": "thesis_attraction2548",
+        "file": DATA / "ความดึงดูดระหว่างบุคคล.pdf",
+        "doc_type": "research",
+        "title": "ความดึงดูดใจระหว่างบุคคลและรูปแบบความผูกพัน (วิทยานิพนธ์ คณะจิตวิทยา จุฬาฯ 2548)",
+        "year": 2005,
+        "source_quality": "academic",
+        "noise_patterns": [r"^\d{1,3}$", r"^[ก-ฮ]$"],
+        # ใช้ทุกหน้า: ส่วนหน้า (หน้า 1-12) + บท 1-5 + รายการอ้างอิง/ภาคผนวก (ต่อท้ายบท 5)
+        # แบบคณะจิตวิทยา: บท 1 = บทนำ+ทฤษฎี, 2 = วิธีวิจัย, 3 = ผล, 4 = อภิปราย, 5 = สรุป
+        "keep_chapters": {1: "theory", 2: "method", 3: "results", 4: "finding_discussion", 5: "finding_discussion"},
+        "extra_sections": [{"title": "ส่วนหน้า: บทคัดย่อ กิตติกรรมประกาศ สารบัญ", "pages": [0, 11], "category": "abstract"}],
+        "stop_headings": [],
+        "subheadings": [],
+    },
+    {
+        "source_id": "thesis_narcissism2553",
+        "file": DATA / "หลงตัวเอง.pdf",
+        "doc_type": "research",
+        "title": "อิทธิพลของความหลงตนเอง รูปแบบความรักแบบเล่นเกม และการกระตุ้นลักษณะเน้นความสัมพันธ์ต่อการผูกมัดในความสัมพันธ์ (วิทยานิพนธ์ คณะจิตวิทยา จุฬาฯ 2553)",
+        "year": 2010,
+        "source_quality": "academic",
+        "noise_patterns": [r"^\d{1,3}$", r"^[ก-ฮ]$"],
+        "keep_chapters": {1: "theory", 2: "method", 3: "results", 4: "finding_discussion", 5: "finding_discussion"},
+        "extra_sections": [{"title": "ส่วนหน้า: บทคัดย่อ กิตติกรรมประกาศ สารบัญ", "pages": [0, 10], "category": "abstract"}],
         "stop_headings": [],
         "subheadings": [],
     },

@@ -71,7 +71,9 @@
    "433"
   ],
   "answerable": true,
-  "needs": "chunk"
+  "needs": "chunk",
+  "retired": true,
+  "retired_reason": "แหล่งที่มีคำตอบถูกเอาออกจาก data/ (2026-09-28)"
  },
  {
   "qid": "Q08",
@@ -312,7 +314,9 @@
   "answerable": true,
   "needs": "chunk",
   "source": "book",
-  "style": "direct"
+  "style": "direct",
+  "retired": true,
+  "retired_reason": "แหล่งที่มีคำตอบถูกเอาออกจาก data/ (2026-09-28)"
  },
  {
   "qid": "Q29",
@@ -407,5 +411,114 @@
   "needs": "chunk",
   "source": "web",
   "style": "paraphrase"
+ },
+ {
+  "qid": "Q37",
+  "question": "ผมควรทำไงเมื่อพูดคุยครั้งแรกตอนเดตจริง",
+  "expected_keywords": [],
+  "answerable": false,
+  "needs": "none",
+  "source": "none",
+  "style": "not_covered",
+  "note": "เรื่องความสัมพันธ์ที่คลังความรู้ยังไม่มี -> ต้องตอบว่าไม่มีข้อมูล ห้ามใช้ความรู้ภายนอก"
+ },
+ {
+  "qid": "Q38",
+  "question": "จะรู้ได้ไงว่าเค้าเริ่มชอบผม",
+  "expected_keywords": [
+   "ต่อเนื่อง",
+   "สนิทสนม"
+  ],
+  "answerable": true,
+  "needs": "chunk",
+  "source": "research",
+  "style": "paraphrase",
+  "note": "ครอบคลุมบางส่วนโดยวิทยานิพนธ์ (คุยต่อเนื่อง -> สนิทสนม/รู้สึกชอบ)"
+ },
+ {
+  "qid": "Q39",
+  "question": "เดตแรกควรพาไปกินที่ไหนดี",
+  "expected_keywords": [],
+  "answerable": false,
+  "needs": "none",
+  "source": "none",
+  "style": "not_covered",
+  "note": "เรื่องความสัมพันธ์ที่คลังความรู้ยังไม่มี -> ต้องตอบว่าไม่มีข้อมูล ห้ามใช้ความรู้ภายนอก"
+ },
+ {
+  "qid": "Q40",
+  "question": "จะสารภาพรักยังไงให้ไม่เขิน",
+  "expected_keywords": [],
+  "answerable": false,
+  "needs": "none",
+  "source": "none",
+  "style": "not_covered",
+  "note": "เรื่องความสัมพันธ์ที่คลังความรู้ยังไม่มี -> ต้องตอบว่าไม่มีข้อมูล ห้ามใช้ความรู้ภายนอก"
+ },
+ {
+  "qid": "Q41",
+  "question": "ครบรอบ 1 ปีควรซื้อของขวัญอะไรให้แฟน",
+  "expected_keywords": [],
+  "answerable": false,
+  "needs": "none",
+  "source": "none",
+  "style": "not_covered",
+  "note": "เรื่องความสัมพันธ์ที่คลังความรู้ยังไม่มี -> ต้องตอบว่าไม่มีข้อมูล ห้ามใช้ความรู้ภายนอก"
+ },
+ {
+  "qid": "Q42",
+  "question": "จะทักแชทคนที่แอบชอบก่อนดีไหม",
+  "expected_keywords": [
+   "ความเป็นส่วนตัว",
+   "อึดอัด"
+  ],
+  "answerable": true,
+  "needs": "chunk",
+  "source": "research",
+  "style": "paraphrase",
+  "note": "ครอบคลุมโดยวิทยานิพนธ์เครือข่ายสังคมออนไลน์ (จีบผ่านแชท/เฟซบุ๊กไม่อึดอัด)"
+ },
+ {
+  "qid": "Q43",
+  "question": "ไปเดตควรแต่งตัวยังไง",
+  "expected_keywords": [],
+  "answerable": false,
+  "needs": "none",
+  "source": "none",
+  "style": "not_covered",
+  "note": "เรื่องความสัมพันธ์ที่คลังความรู้ยังไม่มี -> ต้องตอบว่าไม่มีข้อมูล ห้ามใช้ความรู้ภายนอก"
+ },
+ {
+  "qid": "Q44",
+  "question": "จะชวนเขาไปดูหนังยังไงให้ไม่แปลก",
+  "expected_keywords": [],
+  "answerable": false,
+  "needs": "none",
+  "source": "none",
+  "style": "not_covered",
+  "note": "เรื่องความสัมพันธ์ที่คลังความรู้ยังไม่มี -> ต้องตอบว่าไม่มีข้อมูล ห้ามใช้ความรู้ภายนอก"
+ },
+ {
+  "qid": "Q45",
+  "question": "คุยกับแฟนผ่านแชทบ่อยแค่ไหนถึงจะพอดี",
+  "expected_keywords": [
+   "ตอบแชท",
+   "คาดหวัง"
+  ],
+  "answerable": true,
+  "needs": "graph_fact",
+  "source": "taxonomy",
+  "style": "paraphrase",
+  "note": "ตอบได้จากกฎ comm:frequent_texter CONFLICTS_WITH comm:slow_texter ใน taxonomy"
+ },
+ {
+  "qid": "Q46",
+  "question": "จีบรุ่นพี่ในคณะดีไหม",
+  "expected_keywords": [],
+  "answerable": false,
+  "needs": "none",
+  "source": "none",
+  "style": "not_covered",
+  "note": "เรื่องความสัมพันธ์ที่คลังความรู้ยังไม่มี -> ต้องตอบว่าไม่มีข้อมูล ห้ามใช้ความรู้ภายนอก"
  }
 ]
