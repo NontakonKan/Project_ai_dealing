@@ -9,7 +9,18 @@ UNMATCH = ("เลิกคุย", "ไม่คุยต่อ", "ไม่ไ
 QUESTION = ("?", "ไหม", "มั้ย", "อย่างไร", "ยังไง", "ทำไง", "ทำยังไง", "คืออะไร", "ควร", "ทำไม", "เป็นไง", "แบบไหน", "ปรึกษา")
 
 
-def classify(text: str, state: str = "ready") -> str:
+FOLLOWUP = ("ยกตัวอย่าง", "ขอรายละเอียด", "อธิบายเพิ่ม", "ขยายความ", "ข้อแรก", "ข้อสอง", "ข้อสาม",
+            "ข้อที่", "เมื่อกี้", "ที่บอก", "แบบเดิม", "แบบนั้น", "แบบนี้", "เรื่องนี้", "เรื่องเดิม", "กับเขา", "กับเธอ", "คนเดิม", "ทำตามแล้ว", "ลองแล้ว")
+TOPIC_RESET = ("เปลี่ยนเรื่อง", "เรื่องใหม่", "ถามเรื่องอื่น")
+
+
+def is_followup(text):
+    t = text.strip().lower()
+    return not any(c in t for c in TOPIC_RESET) and (
+        any(c in t for c in FOLLOWUP) or t.startswith(("แล้วถ้า", "แล้วควร", "แล้วเขา", "แล้วต้อง", "เขา", "เธอ")))
+
+
+def classify(text: str, state: str = "ready", history=None) -> str:
     t = text.strip().lower()
     if state.startswith("onboard"):
         return "onboarding"
@@ -25,6 +36,11 @@ def classify(text: str, state: str = "ready") -> str:
         return "find_match"
     if any(k in t for k in UNMATCH):
         return "unmatch"
+    from .conversation import wants_recall
+    if wants_recall(t):
+        return "recall_memory"
+    if history and is_followup(t):
+        return "ask_advice"
     if any(k in t for k in QUESTION):
         return "ask_advice"
     return "chat"

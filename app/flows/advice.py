@@ -2,7 +2,7 @@
 from pipelines.hybrid.retrievers import RoutedKnowledge
 from pipelines.llm import tasks
 
-from .. import live
+from .. import intent, live
 from ..flex import MENU, text
 
 _retriever = None
@@ -10,14 +10,28 @@ NO_INFO = ("เรื่องนี้ผมยังไม่มีข้อ�
            "ผมตอบได้ดีเรื่องทฤษฎีความรัก รูปแบบความผูกพัน red flag การเลิกรา การจัดการอารมณ์ และการตั้งขอบเขตครับ")
 
 
-def handle(line_user, msg):
+def handle(line_user, msg, history=None):
     global _retriever
+    history = history or []
+    # Only carry the old topic into a clear follow-up, not every new question.
+    history = history if intent.is_followup(msg) else []
+    query = msg
+    if intent.is_followup(msg):
+        if not history:
+            return [text("หมายถึงเรื่องไหนครับ ช่วยบอกหัวข้อหรือคำถามก่อนหน้าอีกนิดได้ไหมครับ", MENU)]
+        try:
+            query = tasks.rewrite_question(msg, history)
+        except tasks.AmbiguousFollowup:
+            return [text("ช่วยระบุเรื่องที่อยากถามต่ออีกนิดได้ไหมครับ เพื่อให้ผมค้นข้อมูลได้ตรงเรื่อง", MENU)]
+        except Exception:
+            # The model being unavailable does not mean conversation memory is missing.
+            return [text("ตอนนี้ผมประมวลผลคำถามต่อเนื่องไม่สำเร็จครับ ลองส่งอีกครั้งได้ไหมครับ", MENU)]
     if _retriever is None:
         _retriever = RoutedKnowledge(live.ctx())
-    res = _retriever.retrieve(msg, 8)
+    res = _retriever.retrieve(query, 8)
     if not res.items:
         return [text(NO_INFO, MENU)]
-    out = tasks.rag_answer(msg, res)
+    out = tasks.rag_answer(msg, res, history=history)
     from .. import log
     log.note(f"route={res.items[0].meta.get('route', '-')} ctx={len(out['refs'])} อ้างอิง={out['citations']['cited']}"
              + (" (ตอบไม่ได้)" if out["citations"]["abstained"] else ""))
