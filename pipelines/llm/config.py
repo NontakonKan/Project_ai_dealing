@@ -65,6 +65,9 @@ TASKS = {
 # งานที่ถูกย้ายไป API จะใช้โมเดล Local เดิมเป็น fallback อัตโนมัติ
 for _task in list(TASKS):
     _override = os.getenv(f"LLM_{_task.upper()}")
+    if _task == "explain_match" and not _override:
+        if any(os.getenv(f"API_KEY_{i}") for i in range(1, 4)) or os.getenv("API_KEY") or os.getenv("PSU_AI_API_KEY"):
+            _override = "api:openai/gpt-5.6-luna"
     if _override and _override != TASKS[_task].model:
         TASKS[_task] = replace(TASKS[_task], model=_override, fallback=TASKS[_task].model)
 
