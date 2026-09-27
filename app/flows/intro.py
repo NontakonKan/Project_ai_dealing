@@ -13,6 +13,7 @@ from graph import scorer
 from .. import line_api, live, storage
 from ..flex import MENU, request_card, text
 from .common import event_id, load
+from .match import extra_reasons
 
 RE_ID = re.compile(r"^@?[A-Za-z0-9._-]{4,20}$")
 RE_LINK = re.compile(r"https?://line\.me/(?:ti/p|R/ti/p)/\S+")
@@ -57,7 +58,8 @@ def _send_request(a, b):
     from .. import log
     log.note(f"ส่งคำขอทำความรู้จัก {a['user_id']} → {b['user_id']} ({intro_id})")
     info = scorer.pair(live.ctx().graph, b["user_id"], a["user_id"], facts=True)   # มุมมองของ B
-    reasons = [_you(f["text"]) for f in info["facts"] if not f["text"].startswith("⚠️")][:3] or ["ไลฟ์สไตล์ใกล้เคียงกัน"]
+    reasons = (extra_reasons(live.ctx(), b["user_id"], a["user_id"])
+               + [_you(f["text"]) for f in info["facts"] if not f["text"].startswith("⚠️")])[:3] or ["ไลฟ์สไตล์ใกล้เคียงกัน"]
     pct = max(50, round(100 * min(1.0, info["graph_score"] / 0.8)))
     b_line = storage.line_id_of(b["user_id"])
     if b_line:

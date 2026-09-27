@@ -52,6 +52,19 @@ class HybridContext:
                        for d, v in wants.items()) / len(wants)
         return (one(a, b) + one(b, a)) / 2
 
+    def faculty_sim(self, a, b) -> float:
+        """คณะที่อยากได้ตรงกับคณะของอีกฝ่าย (เฉลี่ยเฉพาะทิศที่มีคนระบุคณะที่อยากได้) — คะแนนบวก ไม่ตัดใครทิ้ง"""
+        from ..profile.faculty import normalize
+
+        def one(x, y):
+            wants = self.users[x]["preferences"].get("faculty_wants") or []
+            if not wants:
+                return None
+            fac = self.users[y]["demographic"].get("faculty") or ""
+            return 1.0 if (normalize(fac) or fac) in wants else 0.0
+        sims = [s for s in (one(a, b), one(b, a)) if s is not None]
+        return sum(sims) / len(sims) if sims else 0.0
+
     def candidates(self, user_id) -> list:
         """hard filter เดียวกับ Dense ของฟาริก: ยินยอมทั้งคู่ / เพศตรงกันสองทาง / ไม่เคย unmatch-pass กัน"""
         me = self.users[user_id]

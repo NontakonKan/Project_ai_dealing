@@ -38,6 +38,8 @@ def rank(ctx, user_id, mode="hybrid", cfg=None, top_k=10, explain=False) -> list
             final = {c: v + (spread or 1.0) * cfg.w_values * ctx.values_sim(user_id, c) for c, v in final.items()}
         if cfg.w_values_struct:
             final = {c: v + (spread or 1.0) * cfg.w_values_struct * ctx.values_struct_sim(user_id, c) for c, v in final.items()}
+        if cfg.w_faculty:
+            final = {c: v + (spread or 1.0) * cfg.w_faculty * ctx.faculty_sim(user_id, c) for c, v in final.items()}
 
     ordered = sorted(final.items(), key=lambda x: (-x[1], x[0]))
     rr = {}

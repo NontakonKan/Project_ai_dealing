@@ -11,6 +11,10 @@
 import os
 from dataclasses import dataclass, replace
 
+from ..common import env
+
+env.load()
+
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
 TIMEOUT_S = 180
 RETRIES = 2
@@ -23,7 +27,7 @@ class GenConfig:
     num_predict: int = 512
     top_p: float = 0.9
     seed: int = 42
-    keep_alive: str = "10m"
+    keep_alive: str = os.getenv("OLLAMA_KEEP_ALIVE", "10m")   # bot ตั้ง 2h ใน .env กันโมเดลหลุดจากหน่วยความจำ
 
     def options(self):
         return {"temperature": self.temperature, "num_ctx": self.num_ctx, "num_predict": self.num_predict,
@@ -37,6 +41,7 @@ class TaskConfig:
     fmt: str = "text"            # text | json | schema (constrained decoding ด้วย JSON schema)
     prompt: str = "default"      # ชื่อ prompt variant ใน prompts.py
     context_budget: int = 0      # token สูงสุดของ context จาก retrieval (0 = ไม่ใช้)
+    fallback: str = ""           # โมเดล Local ที่ใช้แทนเมื่อ API ล้ม
 
     def with_(self, **kw):
         gen_kw = {k: kw.pop(k) for k in list(kw) if k in GenConfig.__dataclass_fields__}
@@ -55,6 +60,13 @@ TASKS = {
     "rag_answer": TaskConfig(TYPHOON_8B, GenConfig(temperature=0.3, num_ctx=4096, num_predict=512), context_budget=1500),
     "explain_match": TaskConfig(TYPHOON_8B, GenConfig(temperature=0.3, num_ctx=6144, num_predict=400), context_budget=2500),
 }
+
+# Hybrid LLM: เปลี่ยนโมเดลของแต่ละงานได้ใน .env เช่น LLM_EXPLAIN_MATCH=api:PSU-LLM/psu-gemma
+# งานที่ถูกย้ายไป API จะใช้โมเดล Local เดิมเป็น fallback อัตโนมัติ
+for _task in list(TASKS):
+    _override = os.getenv(f"LLM_{_task.upper()}")
+    if _override and _override != TASKS[_task].model:
+        TASKS[_task] = replace(TASKS[_task], model=_override, fallback=TASKS[_task].model)
 
 # โมเดลที่ใช้เทียบใน benchmark (ต้อง ollama pull ไว้ก่อน)
 BENCH_MODELS = [

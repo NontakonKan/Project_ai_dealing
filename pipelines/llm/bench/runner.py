@@ -3,7 +3,7 @@
 ต่อโมเดล: unload -> เรียกครั้งแรกวัด cold load -> รันชุดทดสอบภายใต้ ResourceMonitor -> unload
 """
 from ...retrieval.stubs import DenseStub, GraphStub, HybridStub
-from .. import ollama_client, tasks
+from .. import ollama_client, providers, tasks
 from ..config import TASKS
 from ..resources import ResourceMonitor
 from . import datasets, metrics
@@ -26,13 +26,23 @@ def unload_all():
 
 
 def _cold_load(model, cfg, warm_fn):
+    if providers.is_api(model):     # API: ไม่มีการโหลดโมเดลในเครื่อง
+        warm_fn(cfg)
+        return 0.0
     unload_all()
     res = warm_fn(cfg)
     return res["llm"]["load_ms"]
 
 
+def _unload(model):
+    if not providers.is_api(model):
+        ollama_client.unload(model)
+
+
 def _block_info(model, cold, mon):
     info = {"cold_load_ms": cold, **mon.summary()}
+    if providers.is_api(model):     # resource ในเครื่องไม่เกี่ยวกับโมเดล API
+        return {"cold_load_ms": 0.0, "provider": "api"}
     own = [m for m in mon.gpu if m["name"].split(":")[0] == model.split(":")[0]]
     info["gpu_mem_gb"] = own[0]["vram_gb"] if own else info.get("gpu_mem_gb")
     info["other_models_loaded"] = len(mon.gpu) - len(own)
@@ -57,7 +67,7 @@ def run_extraction(task, models, variants, limit, log=print):
                                  "extracted": out["extracted"]})
             blocks[(model, name)] = _block_info(model, cold, mon)
             log(f"  {model} [{name}] done {len(samples)} samples {blocks[(model, name)]}", flush=True)
-        ollama_client.unload(model)
+        _unload(model)
     return rows, blocks
 
 
@@ -93,5 +103,5 @@ def run_rag(models, modes, variants, limit, k=8, log=print, retrievers="stub"):
                                      "score": metrics.rag_score(out["answer"], out["citations"], q)})
             blocks[(model, name)] = _block_info(model, cold, mon)
             log(f"  {model} [{name}] done {len(questions)}q × {len(modes)} modes {blocks[(model, name)]}", flush=True)
-        ollama_client.unload(model)
+        _unload(model)
     return rows, blocks

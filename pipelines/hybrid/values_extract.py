@@ -17,11 +17,30 @@ from ..llm.config import GenConfig
 
 OUT = PROCESSED / "values_structured.json"
 DIMS = {"family": ["want_kids", "no_kids"], "place": ["city", "hometown"],
-        "money": ["saver", "spender"], "pets": ["pet_lover", "no_pets"]}
+        "money": ["saver", "spender"], "pets": ["pet_lover", "no_pets"],
+        "goal": ["serious", "casual"], "drinking": ["drinks", "no_drink"], "smoking": ["smokes", "no_smoke"],
+        "space": ["together", "independent"], "social": ["public", "private"],
+        "religion": ["buddhist", "muslim", "christian", "no_religion"], "diet": ["halal", "vegetarian", "eat_all"]}
+SENSITIVE = {"religion", "diet"}     # PDPA ม.26 (ศาสนา / อาหารที่บอกศาสนาได้) -> ใช้ได้เมื่อผู้ใช้ยินยอมแยก
+LABELS = {"want_kids": "อยากมีลูก", "no_kids": "ไม่อยากมีลูก", "city": "อยากอยู่เมืองใหญ่", "hometown": "อยากอยู่บ้านเกิด/ต่างจังหวัด",
+          "saver": "ประหยัด เก็บออม", "spender": "ใช้เงินตามใจ", "pet_lover": "รักสัตว์", "no_pets": "ไม่เลี้ยงสัตว์",
+          "serious": "อยากคบจริงจัง", "casual": "ค่อยๆ ดูใจกันไป", "drinks": "ดื่มเหล้า", "no_drink": "ไม่ดื่มเหล้า",
+          "smokes": "สูบบุหรี่/พอต", "no_smoke": "ไม่สูบบุหรี่", "together": "อยากใช้เวลาด้วยกันบ่อย",
+          "independent": "ต้องการเวลาส่วนตัว", "public": "ชอบลงรูปคู่ในโซเชียล", "private": "เก็บเรื่องแฟนเป็นส่วนตัว",
+          "buddhist": "พุทธ", "muslim": "อิสลาม", "christian": "คริสต์", "no_religion": "ไม่นับถือศาสนา",
+          "halal": "กินฮาลาล", "vegetarian": "มังสวิรัติ/กินเจ", "eat_all": "กินได้ทุกอย่าง"}
 DESC = ("family: want_kids=อยากมีลูก / no_kids=ไม่อยากมีลูก\n"
         "place: city=อยากอยู่เมืองใหญ่ / hometown=อยากอยู่บ้านเกิด ต่างจังหวัด บ้านสวน\n"
         "money: saver=ประหยัด เก็บออม / spender=ใช้เงินตามใจ\n"
-        "pets: pet_lover=ชอบ/อยากเลี้ยงสัตว์ / no_pets=ไม่เลี้ยง แพ้ขนสัตว์")
+        "pets: pet_lover=ชอบ/อยากเลี้ยงสัตว์ / no_pets=ไม่เลี้ยง แพ้ขนสัตว์\n"
+        "goal: serious=อยากคบจริงจัง หวังระยะยาว / casual=ค่อยๆ ดูใจ หาเพื่อนคุยก่อน ยังไม่รีบ\n"
+        "drinking: drinks=ดื่มเหล้า เบียร์ ชอบไปร้านเหล้า / no_drink=ไม่ดื่ม ไม่เอาคนดื่ม\n"
+        "smoking: smokes=สูบบุหรี่ พอต / no_smoke=ไม่สูบ ไม่เอาคนสูบ\n"
+        "space: together=อยากเจอกันบ่อย ตัวติดกัน / independent=ต้องการเวลาส่วนตัว ไม่ต้องเจอทุกวัน\n"
+        "social: public=ชอบลงรูปคู่ โพสต์เรื่องแฟน / private=ไม่ชอบโพสต์ เก็บเป็นส่วนตัว\n"
+        "religion: buddhist=พุทธ / muslim=มุสลิม อิสลาม / christian=คริสต์ / no_religion=ไม่นับถือศาสนา "
+        "(ถ้าบอกว่าศาสนาไหนก็ได้ ให้ตอบ unknown)\n"
+        "diet: halal=กินฮาลาล / vegetarian=มังสวิรัติ กินเจ วีแกน / eat_all=กินได้ทุกอย่าง")
 SCHEMA = {"type": "object", "required": list(DIMS),
           "properties": {d: {"type": "string", "enum": v + ["unknown"]} for d, v in DIMS.items()}}
 PROMPT = "อ่านข้อความแล้วระบุค่านิยมแต่ละด้าน ถ้าข้อความไม่ได้พูดถึงด้านไหนให้ตอบ unknown ห้ามเดา\n{desc}\n\nข้อความ: {text}"
@@ -31,7 +50,7 @@ def extract(text, model):
     if not text.strip():
         return {d: "unknown" for d in DIMS}
     res = ollama_client.chat(model, [{"role": "user", "content": PROMPT.format(desc=DESC, text=text)}],
-                             GenConfig(temperature=0, num_ctx=1024, num_predict=80), fmt=SCHEMA)
+                             GenConfig(temperature=0, num_ctx=1536, num_predict=200), fmt=SCHEMA)
     try:
         obj = json.loads(res.text)
     except json.JSONDecodeError:

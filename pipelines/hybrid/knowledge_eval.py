@@ -2,10 +2,14 @@
 
 relevant = chunk ที่มีคำคาดหวังอย่างน้อยครึ่งหนึ่ง (expected_keywords ใน data/eval/rag_questions.json)
 metric: Hit@K, MRR@K (คำถามที่ตอบได้), Empty-rate บนคำถามที่ตอบไม่ได้ (ดึงว่าง = ช่วยให้ LLM ปฏิเสธถูก)
+        health_leak = คำถามเรื่องความสัมพันธ์ (ไม่ใช่ topic=health) ที่ดึง chunk การแพทย์ (sexual_health) มาใน top-K
+                      -> ควรเป็น 0: ถามเรื่องแฟนแล้วได้วิธีใช้ยามาเป็น context = ผิด
 """
+import json
 import math
 import time
 
+from ..common.paths import PROCESSED
 from ..llm.bench.datasets import rag
 from .retrievers import DenseKnowledge, GraphKnowledge, HybridKnowledge, RoutedKnowledge
 
@@ -22,11 +26,17 @@ def _relevant(text, kws):
     return sum(k.lower() in text.lower() for k in kws) >= need
 
 
+def _categories() -> dict:
+    with open(PROCESSED / "book_chunks.jsonl", encoding="utf-8") as f:
+        return {c["chunk_id"]: c.get("category") for c in map(json.loads, f)}
+
+
 def evaluate(ctx, k=5, log=print) -> list:
     qs = rag()
+    cat = _categories()
     rows = []
     for name, r in configs(ctx):
-        hit = mrr = empty = 0
+        hit = mrr = empty = leak = n_rel = 0
         t0 = time.perf_counter()
         per_style = {}
         for q in qs:
@@ -34,6 +44,9 @@ def evaluate(ctx, k=5, log=print) -> list:
             if not q["answerable"]:
                 empty += not items
                 continue
+            if q.get("topic") != "health":
+                n_rel += 1
+                leak += any(cat.get(it.id) == "sexual_health" for it in items)
             rel = [i for i, it in enumerate(items) if _relevant(it.text, q["expected_keywords"])]
             h = bool(rel)
             hit += h
@@ -43,7 +56,7 @@ def evaluate(ctx, k=5, log=print) -> list:
         n_un = len(qs) - n_ans
         rows.append({"config": name, f"Hit@{k}": round(hit / n_ans, 3), f"MRR@{k}": round(mrr / n_ans, 3),
                      "hit_paraphrase": round(sum(per_style.get("paraphrase", [])) / max(1, len(per_style.get("paraphrase", []))), 3),
-                     "empty_on_unanswerable": f"{empty}/{n_un}",
+                     "empty_on_unanswerable": f"{empty}/{n_un}", "health_leak": f"{leak}/{n_rel}",
                      "ms_per_query": round((time.perf_counter() - t0) * 1000 / len(qs), 1)})
         log(f"  {name}: done")
     return rows

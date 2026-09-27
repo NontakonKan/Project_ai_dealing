@@ -16,6 +16,7 @@ class HybridConfig:
     w_appearance: float = None   # None = ใช้ค่าใน taxonomy.appearance_policy
     w_values: float = 0.0        # facet ค่านิยมนอก taxonomy (bi-encoder บน values_text / values_want_text)
     w_values_struct: float = 0.0  # ค่านิยมที่ LLM อ่านเป็นโครงสร้าง (data/processed/values_structured.json)
+    w_faculty: float = 0.0        # คณะที่ผู้ใช้อยากได้ (preferences.faculty_wants) ตรงกับคณะของอีกฝ่าย
     rerank_top: int = 0          # >0 = rerank ผู้สมัคร top-N ด้วย cross-encoder
     rerank_beta: float = 0.5     # น้ำหนักคะแนน reranker ตอนผสมกับคะแนนเดิม
 

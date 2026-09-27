@@ -10,78 +10,77 @@
       "source_id": "research_cu2561",
       "status": "ok (text)",
       "pages_total": 71,
-      "pages_used": 31,
-      "n_sections": 19,
-      "n_chunks": 44,
+      "pages_used": 71,
+      "n_sections": 26,
+      "n_chunks": 93,
       "chunk_words": {
-        "min": 96,
-        "p25": 194.75,
-        "median": 289.0,
+        "min": 65,
+        "p25": 196.5,
+        "median": 281.0,
         "p75": 300.0,
         "max": 348,
-        "mean": 242
+        "mean": 243.4
       },
-      "chunks_with_concepts_pct": 81.8,
+      "chunks_with_concepts_pct": 62.4,
       "category_dist": {
-        "abstract": 2,
+        "abstract": 11,
         "background": 8,
         "theory": 18,
-        "finding_discussion": 16
+        "method": 13,
+        "results": 22,
+        "finding_discussion": 21
       },
       "top_concepts": [
         [
           "love:commitment",
-          19
+          34
         ],
         [
           "love:intimacy",
-          17
+          30
         ],
         [
           "factor:life_satisfaction",
-          10
-        ],
-        [
-          "attach:secure",
-          10
-        ],
-        [
-          "love:passion",
-          9
+          22
         ],
         [
           "factor:relationship_duration",
-          8
+          20
         ],
         [
-          "factor:living_status",
-          6
-        ],
-        [
-          "comm:direct",
-          6
-        ],
-        [
-          "factor:disclose_friends",
-          5
+          "love:passion",
+          19
         ],
         [
           "factor:disclose_family",
-          5
+          13
         ],
         [
-          "trait:emotional",
+          "factor:living_status",
+          12
+        ],
+        [
+          "factor:disclose_friends",
+          12
+        ],
+        [
+          "comm:direct",
           4
         ],
         [
-          "attach:avoidant",
+          "trait:emotional",
+          3
+        ],
+        [
+          "attach:secure",
           3
         ]
       ],
       "cleaning": {
+        "pua_fixed": 0,
         "sara_am_fixed": 491,
         "noise_lines_removed": 289,
-        "citations_removed": 60
+        "citations_removed": 88
       }
     },
     {
@@ -105,16 +104,12 @@
       },
       "top_concepts": [
         [
-          "attach:avoidant",
-          4
-        ],
-        [
-          "attach:secure",
-          3
-        ],
-        [
           "trait:emotional",
           3
+        ],
+        [
+          "attach:avoidant",
+          2
         ],
         [
           "love:intimacy",
@@ -127,6 +122,10 @@
         [
           "rf:disrespect",
           2
+        ],
+        [
+          "attach:secure",
+          1
         ],
         [
           "love:passion",
@@ -159,13 +158,10 @@
         [
           "rf:stonewalling",
           1
-        ],
-        [
-          "comm:direct",
-          1
         ]
       ],
       "cleaning": {
+        "pua_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 13,
         "citations_removed": 0
@@ -186,7 +182,7 @@
         "max": 279,
         "mean": 132.8
       },
-      "chunks_with_concepts_pct": 66.7,
+      "chunks_with_concepts_pct": 48.1,
       "category_dist": {
         "interpersonal_skills": 27
       },
@@ -196,20 +192,12 @@
           6
         ],
         [
-          "comm:direct",
-          6
-        ],
-        [
-          "ll:touch",
-          3
-        ],
-        [
           "rf:dishonest",
           3
         ],
         [
-          "attach:avoidant",
-          2
+          "comm:direct",
+          3
         ],
         [
           "trait:responsible",
@@ -236,21 +224,165 @@
           1
         ],
         [
-          "attach:secure",
-          1
-        ],
-        [
           "rf:no_boundaries",
-          1
-        ],
-        [
-          "hygiene:self_care",
           1
         ]
       ],
       "cleaning": {
+        "pua_fixed": 0,
         "sara_am_fixed": 85,
         "noise_lines_removed": 1,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "article_multilove2565",
+      "status": "ok (text)",
+      "pages_total": 18,
+      "pages_used": 18,
+      "n_sections": 18,
+      "n_chunks": 40,
+      "chunk_words": {
+        "min": 64,
+        "p25": 180.75,
+        "median": 251.5,
+        "p75": 277.75,
+        "max": 311,
+        "mean": 229
+      },
+      "chunks_with_concepts_pct": 62.5,
+      "category_dist": {
+        "theory": 40
+      },
+      "top_concepts": [
+        [
+          "trait:kind",
+          5
+        ],
+        [
+          "rf:possessive",
+          4
+        ],
+        [
+          "rf:hot_temper",
+          4
+        ],
+        [
+          "ll:touch",
+          4
+        ],
+        [
+          "love:intimacy",
+          4
+        ],
+        [
+          "love:passion",
+          4
+        ],
+        [
+          "love:commitment",
+          4
+        ],
+        [
+          "trait:logical",
+          3
+        ],
+        [
+          "attach:secure",
+          3
+        ],
+        [
+          "rf:inconsistent",
+          2
+        ],
+        [
+          "ll:gifts",
+          2
+        ],
+        [
+          "attach:avoidant",
+          1
+        ],
+        [
+          "rf:dishonest",
+          1
+        ],
+        [
+          "attach:anxious",
+          1
+        ],
+        [
+          "rf:disrespect",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 2261,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 162,
+        "citations_removed": 22
+      }
+    },
+    {
+      "source_id": "web_pdf_shy_social",
+      "status": "ok (text)",
+      "pages_total": 3,
+      "pages_used": 2,
+      "n_sections": 2,
+      "n_chunks": 5,
+      "chunk_words": {
+        "min": 94,
+        "p25": 133.0,
+        "median": 289.0,
+        "p75": 296.0,
+        "max": 300,
+        "mean": 229.4
+      },
+      "chunks_with_concepts_pct": 20.0,
+      "category_dist": {
+        "interpersonal_skills": 5
+      },
+      "top_concepts": [
+        [
+          "comm:direct",
+          1
+        ],
+        [
+          "trait:funny",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 14,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "lecture_std_kku",
+      "status": "ok (text)",
+      "pages_total": 24,
+      "pages_used": 24,
+      "n_sections": 24,
+      "n_chunks": 62,
+      "chunk_words": {
+        "min": 78,
+        "p25": 209.25,
+        "median": 248.5,
+        "p75": 293.0,
+        "max": 345,
+        "mean": 238.9
+      },
+      "chunks_with_concepts_pct": 0.0,
+      "category_dist": {
+        "sexual_health": 62
+      },
+      "top_concepts": [],
+      "cleaning": {
+        "pua_fixed": 0,
+        "sara_am_fixed": 214,
+        "noise_lines_removed": 25,
         "citations_removed": 0
       }
     },
@@ -283,15 +415,12 @@
           2
         ],
         [
-          "attach:anxious",
-          1
-        ],
-        [
           "rf:possessive",
           1
         ]
       ],
       "cleaning": {
+        "pua_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 3,
         "citations_removed": 0
@@ -348,13 +477,10 @@
         [
           "attach:fearful",
           1
-        ],
-        [
-          "trait:emotional",
-          1
         ]
       ],
       "cleaning": {
+        "pua_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 2,
         "citations_removed": 0
@@ -391,13 +517,10 @@
         [
           "trait:logical",
           2
-        ],
-        [
-          "comm:direct",
-          1
         ]
       ],
       "cleaning": {
+        "pua_fixed": 0,
         "sara_am_fixed": 0,
         "citations_removed": 7
       }
@@ -417,7 +540,7 @@
         "max": 278,
         "mean": 246
       },
-      "chunks_with_concepts_pct": 100.0,
+      "chunks_with_concepts_pct": 85.7,
       "category_dist": {
         "toxic_relationship": 7
       },
@@ -435,19 +558,12 @@
           2
         ],
         [
-          "attach:secure",
-          2
-        ],
-        [
           "rf:no_boundaries",
           2
-        ],
-        [
-          "attach:avoidant",
-          1
         ]
       ],
       "cleaning": {
+        "pua_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 4,
         "citations_removed": 0
@@ -486,23 +602,20 @@
           4
         ],
         [
-          "attach:secure",
-          3
-        ],
-        [
-          "attach:avoidant",
-          3
-        ],
-        [
           "rf:possessive",
           2
         ],
         [
           "trait:calm",
           2
+        ],
+        [
+          "attach:avoidant",
+          1
         ]
       ],
       "cleaning": {
+        "pua_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 1,
         "citations_removed": 0
@@ -537,15 +650,12 @@
           2
         ],
         [
-          "attach:secure",
-          1
-        ],
-        [
           "rf:inconsistent",
           1
         ]
       ],
       "cleaning": {
+        "pua_fixed": 0,
         "sara_am_fixed": 0,
         "citations_removed": 0
       }
@@ -565,15 +675,11 @@
         "max": 293,
         "mean": 271.5
       },
-      "chunks_with_concepts_pct": 100.0,
+      "chunks_with_concepts_pct": 50.0,
       "category_dist": {
         "healthy_relationship": 2
       },
       "top_concepts": [
-        [
-          "comm:direct",
-          2
-        ],
         [
           "trait:emotional",
           1
@@ -588,6 +694,7 @@
         ]
       ],
       "cleaning": {
+        "pua_fixed": 0,
         "sara_am_fixed": 0,
         "citations_removed": 0
       }
@@ -605,6 +712,18 @@
     "slides_winpeople": {
       "before": "แนวทางการแก้ไขพฤติกรรมที่ไม่พึงประสงค์\n1.หลักแห่งความจริง ( Realism ) จะต้องยอมรับและยึดหลักความจริงโดยที่ก่อนตัดสินใจ\nกระท าการใด ๆ จะต้องคิดพิจารณาให้รอบคอบว่ามีเหตุผลสมควร และมีทางเป็นไปได้ รู้จัก\nควบคุมอารมณ์ สุขุม หนักแน่น\n2.หลักแห่งความมีใจกล้าพอ ( Commitment ) นั่นคือพร้อมที่จะเผชิญกับเหตุการณ์\nที่จะเกิดขึ้น ไม่กลัวต่อปัญหาอุปสรรคและความล าบากใด ๆ มีความมั่นใจในตนเอง\n3.การยอมรับตนเอง (Self-",
       "after": "แนวทางการแก้ไขพฤติกรรมที่ไม่พึงประสงค์\n1.หลักแห่งความจริง ( Realism ) จะต้องยอมรับและยึดหลักความจริงโดยที่ก่อนตัดสินใจ\nกระทำการใด ๆ จะต้องคิดพิจารณาให้รอบคอบว่ามีเหตุผลสมควร และมีทางเป็นไปได้ รู้จัก\nควบคุมอารมณ์ สุขุม หนักแน่น\n2.หลักแห่งความมีใจกล้าพอ ( Commitment ) นั่นคือพร้อมที่จะเผชิญกับเหตุการณ์\nที่จะเกิดขึ้น ไม่กลัวต่อปัญหาอุปสรรคและความลำบากใด ๆ มีความมั่นใจในตนเอง\n3.การยอมรับตนเอง (Self-ac"
+    },
+    "article_multilove2565": {
+      "before": "วารสารสหวิทยาการวิจัยและวิชาการ, 2 (5) : กันยายน-ตุลาคม 2565. \nInterdisciplinary Academic and Research Journal, 2 (5) : September-October 2022. ISSN: 2774-0374 \nWebsite: https://so03.tci-thaijo.org/index.php/IARJ/index ; DOI:  https://doi.org/10.14456/iarj.2022.106  \n…………………………………………………………………………………………………………………………………………………………………………… \n[443] \nCitation: \nญาตาวีมินทร พืชทองหลาง. (2565). ความรักหลากมิต",
+      "after": "ความรักหลากมิติ\nMultidimensional Love\nญาตาวีมินทร์ พืชทองหลาง\nYathaweemintr Peuchthonglang\nมหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา\nRajamangala University of Technology Lanna, Thailand\nE-mail: Yathaweemintr.p@hotmail.com; ORCID ID: https://orcid.org/0000-0002-7160-6259\nReceived 25/09/2022\nRevised 28/09/2022\nAccepted 29/09/2022\nบทคัดย่อ\nความรัก คือ ความรู้สึกหรืออารมณ์ชนิดหนึ่งของมนุษย์ที่มีต่อผู้อื่น ซึ่"
+    },
+    "web_pdf_shy_social": {
+      "before": "ณิชารีย์ ปานช่วยยาว 1 นาที\n8 วิธีสร้างความมั่นใจให้คนขี้อายกล้าเข้าสังคม\n \nปัญหาของคนขี้อายและเก็บตัวจะเริ่มกลายเป็นเรื่องใหญ่มากขึ้นเมื่อต้องเข้าสังคม โดยเฉพาะต้องไปในที่ไม่รู้จักใคร และต้องใช้ความพยายามใน\nการเข้าหาคนเพื่อทำความรู้จักกับคนอื่นๆ อย่างในสัมมนาหรืองานเลี้ยงสังสรรค์\nหลายคนเลยหนีปัญหาด้วยการพยายามหลบเลี่ยงไม่ยอมออกไปเจอผู้คนแปลกหน้า และไม่ยอมเข้าสังคม ยิ่งหากเคยมีประสบการณ์ที่ไม่น่าปร",
+      "after": "ปัญหาของคนขี้อายและเก็บตัวจะเริ่มกลายเป็นเรื่องใหญ่มากขึ้นเมื่อต้องเข้าสังคม โดยเฉพาะต้องไปในที่ไม่รู้จักใคร และต้องใช้ความพยายามใน\nการเข้าหาคนเพื่อทำความรู้จักกับคนอื่นๆ อย่างในสัมมนาหรืองานเลี้ยงสังสรรค์\nหลายคนเลยหนีปัญหาด้วยการพยายามหลบเลี่ยงไม่ยอมออกไปเจอผู้คนแปลกหน้า และไม่ยอมเข้าสังคม ยิ่งหากเคยมีประสบการณ์ที่ไม่น่าประทับใจ\nเมื่อครั้งที่เคยพยายามทำความรู้จักผู้คนแปลกหน้าในอดีต การเข้าสังคมก็"
+    },
+    "lecture_std_kku": {
+      "before": "1 \n \nโรคติดต่อทางเพศสัมพันธ์  \n(Sexually transmitted disease) \n \nผศ.ดร.เด่นพงศ์ พัฒนเศรษฐานนท์ \nสาขาวิชาเภสัชกรรมคลินิก คณะเภสัชศาสตร์ มหาวิทยาลัยขอนแก่น \ndenpongpat@gmail.com \n \nโรคติดต่อทางเพศสัมพันธ์ (Sexually Transmitted Disease; STD) เป็นปัญหาส าคัญในทางการแพทย์และการ\nสาธารณสุขตั้งแต่ในอดีตมาจนถึงปัจจุบัน ผู้ป่วยส่วนใหญ่จะมีความอายที่จะขอค าปรึกษาในกรณีที่เกิดปัญหาเกี่ยวกับระบบ\nสืบพันธุ์ รวมท",
+      "after": "โรคติดต่อทางเพศสัมพันธ์\n(Sexually transmitted disease)\nผศ.ดร.เด่นพงศ์ พัฒนเศรษฐานนท์\nสาขาวิชาเภสัชกรรมคลินิก คณะเภสัชศาสตร์ มหาวิทยาลัยขอนแก่น\nโรคติดต่อทางเพศสัมพันธ์ (Sexually Transmitted Disease; STD) เป็นปัญหาสำคัญในทางการแพทย์และการ\nสาธารณสุขตั้งแต่ในอดีตมาจนถึงปัจจุบัน ผู้ป่วยส่วนใหญ่จะมีความอายที่จะขอคำปรึกษาในกรณีที่เกิดปัญหาเกี่ยวกับระบบ\nสืบพันธุ์ รวมทั้งขาดความรู้และความเข้าใจในเรื่องการป"
     },
     "web_chula_gaslighting": {
       "before": "‘Gaslighting’ อาจเป็นคำศัพท์ที่ฟังดูคุ้นหูสำหรับใครหลาย ๆ คนที่เคยได้รับชมภาพยนต์เรื่อง Gaslight ในปี ค.ศ. 1944 ซึ่งเป็นเรื่องราวของสามีที่ต้องการครอบครองสมบัติของภรรยาโดยการหลอกลวงให้เธอเชื่อว่าเธอมีอาการทางจิตด้วยทริคทางจิตใจที่แยบยล การหลอกลวงด้วยการโกหกโดยทั่วไปอาจไม่ส่งผลกับจิตใจของคนเราได้เท่ากับการหลอกให้สงสัยในความคิดของตนเอง\n\nผู้เป็นสามีใช้วิธีการหรี่ไฟในตะเกียงลง และเมื่อภรรยาของเขาถามถึ",

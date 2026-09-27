@@ -81,3 +81,22 @@ ollama serve   # ถ้ายังไม่รัน
   `.venv/bin/python -u -m pipelines.llm.run bench --task explain_match --models qwen2.5:latest --limit 15`
 - `extract_unmatch_heldout`: ชุดสำนวนที่ระบบไม่เคยเห็น (`pipelines/eval_data/heldout_unmatch.py`)
 - `--retrievers real` ใน RAG benchmark ใช้ Dense/Graph/Hybrid ตัวจริง
+
+## Hybrid LLM: Local + PSU AI API (2026-09-27)
+เลือกโมเดลต่องานใน `.env` ด้วย `LLM_<TASK>=api:<ชื่อโมเดล>` ถ้า API ล่มจะใช้โมเดล Local เดิมแทนเอง (`providers.py`)
+งานที่มีแชทดิบของผู้ใช้ (`extract_profile`, `extract_unmatch`, ตอบคุยเล่น) คงไว้ที่ Local เพื่อความเป็นส่วนตัว
+
+| explain_match (15 คู่, gemma3 เป็นกรรมการ) | faithfulness | helpfulness | cite | p50 | เครดิต |
+|---|---|---|---|---|---|
+| **api:PSU-LLM/psu-gemma** (ใช้จริง) | 4.73 | 4.13 | 100% | 2.2s | ฟรี |
+| api:openai/gpt-4o-mini | 4.93 | 4.00 | 100% | 3.0s | x1 |
+| api:deepseek/deepseek-chat | 4.67 | 4.13 | 100% | 7.1s | x1 (รูปลักษณ์หลุด 1 ใบ) |
+| Typhoon2 8B (Local) | 4.53 | 3.53 | 87% | 12.5s | – |
+
+| rag_answer (30 คำถาม, hybrid) | keyword recall | cite | ตอบ "ไม่มีข้อมูล" ถูก | p50 |
+|---|---|---|---|---|
+| **Typhoon2 8B (Local, ใช้จริง)** | 0.66 | 100% | 100% | 1.9s |
+| api:PSU-LLM/psu-gemma | 0.71 | 85% | 87% | 0.6s |
+| api:openai/gpt-4o-mini | 0.75 | 89% | 90% | 1.9s |
+
+rag_answer คง Local ไว้เพราะเร็วต่างกันไม่มาก แต่ Typhoon ไม่แต่งคำตอบเมื่อความรู้ไม่พอ / Qwen3.x บน API ตอบว่างเพราะโหมด thinking กิน token จึงไม่ใช้

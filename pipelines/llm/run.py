@@ -20,9 +20,9 @@ from .config import TASKS
 
 OUT = DATA / "eval" / "llm_bench"
 EXTRACT_COLS = ["model", "variant", "f1", "precision", "recall", "p50_ms", "p95_ms", "gen_tok_s", "prompt_tokens",
-                "json_error", "invalid_id", "no_evidence", "false_rf", "guard_dropped", "guard_added", "guard_corrected", "cold_load_ms", "peak_rss_mb", "gpu_mem_gb", "avg_cpu_pct", "other_models_loaded"]
+                "json_error", "invalid_id", "no_evidence", "false_rf", "guard_dropped", "guard_added", "guard_corrected", "credits_per_call", "fallbacks", "cold_load_ms", "peak_rss_mb", "gpu_mem_gb", "avg_cpu_pct", "other_models_loaded"]
 RAG_COLS = ["model", "mode", "variant", "keyword_recall", "cite_rate", "abstain_acc", "ctx_tokens", "p50_ms", "p95_ms",
-            "gen_tok_s", "cold_load_ms", "peak_rss_mb", "gpu_mem_gb"]
+            "gen_tok_s", "credits_per_call", "fallbacks", "cold_load_ms", "peak_rss_mb", "gpu_mem_gb"]
 
 
 def _parse_value(v):
@@ -77,7 +77,7 @@ def cmd_bench(args):
         from .bench import judge
         rows = judge.run(models, n=args.limit or 15)
         table, cols = judge.summarize(rows), ["model", "n", "faithfulness", "helpfulness", "tone", "unsupported_per_card",
-                                              "cite_rate", "appearance_leak", "report_leak", "p50_ms"]
+                                              "cite_rate", "appearance_leak", "report_leak", "p50_ms", "credits_per_call"]
     elif args.task == "rag_answer":
         modes = args.modes.split(",")
         rows, blocks = runner.run_rag(models, modes, variants, args.limit, retrievers=args.retrievers)

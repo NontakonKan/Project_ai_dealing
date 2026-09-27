@@ -1,0 +1,72 @@
+{
+  "dense": {
+    "model": "BAAI/bge-m3",
+    "store": "chromadb",
+    "space": "cosine",
+    "query_collection": "preference_vec",
+    "counts": {
+      "persona": 288,
+      "preference": 288,
+      "avoid": 232,
+      "knowledge": 285
+    }
+  },
+  "results": [
+    {
+      "config": "dense",
+      "Hit@5": 0.852,
+      "MRR@5": 0.741,
+      "hit_paraphrase": 1.0,
+      "empty_on_unanswerable": "0/3",
+      "ms_per_query": 447.3
+    },
+    {
+      "config": "dense + rerank20",
+      "Hit@5": 0.889,
+      "MRR@5": 0.852,
+      "hit_paraphrase": 1.0,
+      "empty_on_unanswerable": "0/3",
+      "ms_per_query": 1333.1
+    },
+    {
+      "config": "graph",
+      "Hit@5": 0.481,
+      "MRR@5": 0.365,
+      "hit_paraphrase": 0.0,
+      "empty_on_unanswerable": "3/3",
+      "ms_per_query": 92.0
+    },
+    {
+      "config": "hybrid rrf",
+      "Hit@5": 1.0,
+      "MRR@5": 0.841,
+      "hit_paraphrase": 1.0,
+      "empty_on_unanswerable": "0/3",
+      "ms_per_query": 62.5
+    },
+    {
+      "config": "hybrid rrf + rerank20",
+      "Hit@5": 1.0,
+      "MRR@5": 0.873,
+      "hit_paraphrase": 1.0,
+      "empty_on_unanswerable": "0/3",
+      "ms_per_query": 1146.4
+    },
+    {
+      "config": "routed",
+      "Hit@5": 1.0,
+      "MRR@5": 0.864,
+      "hit_paraphrase": 1.0,
+      "empty_on_unanswerable": "0/3",
+      "ms_per_query": 76.0
+    },
+    {
+      "config": "routed + rerank20",
+      "Hit@5": 1.0,
+      "MRR@5": 0.895,
+      "hit_paraphrase": 1.0,
+      "empty_on_unanswerable": "0/3",
+      "ms_per_query": 1160.3
+    }
+  ]
+}

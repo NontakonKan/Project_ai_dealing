@@ -4,6 +4,8 @@ import re
 from pipelines.hybrid import matcher
 from pipelines.hybrid.config import HybridConfig
 from pipelines.hybrid.retrievers import pair_context
+from pipelines.hybrid.values_extract import LABELS, SENSITIVE
+from pipelines.profile import faculty
 from pipelines.llm import tasks
 
 from .. import live, storage
@@ -12,7 +14,7 @@ from ..profile import ready_to_match
 from .common import event_id, load
 
 # ค่าที่ดีที่สุดจาก data/eval/hybrid (Graph + Dense + ค่านิยมที่ LLM อ่านเป็นโครงสร้าง)
-MATCH_CFG = HybridConfig(fusion="weighted", alpha=0.3, w_values_struct=0.3)
+MATCH_CFG = HybridConfig(fusion="weighted", alpha=0.3, w_values_struct=0.3, w_faculty=0.3)   # คณะ = สเปกที่ผู้ใช้บอกตรงๆ น้ำหนักเท่าค่านิยม
 
 
 def _missing(p):
@@ -46,6 +48,23 @@ def _you(fact):
     return fact
 
 
+def extra_reasons(c, me, other) -> list:
+    """เหตุผลจากคณะ + ค่านิยม (มุมมองของ me) — ไม่ใช้ศาสนา/อาหาร (SENSITIVE) บนการ์ดเด็ดขาด"""
+    a, b = c.users[me], c.users[other]
+    out = []
+    fac = b["demographic"].get("faculty") or ""
+    if (faculty.normalize(fac) or fac) in (a["preferences"].get("faculty_wants") or []):
+        out.append(f"🎓 เรียนคณะ{faculty.normalize(fac) or fac} ตรงกับที่คุณอยากได้")
+    va, vb = c.values_struct.get(me, {}), c.values_struct.get(other, {})
+    same = [LABELS[x] for d, x in va.get("wants", {}).items()
+            if d not in SENSITIVE and x != "unknown" and vb.get("self", {}).get(d) == x]
+    same += [LABELS[x] for d, x in vb.get("wants", {}).items()
+             if d not in SENSITIVE and x != "unknown" and va.get("self", {}).get(d) == x and LABELS[x] not in same]
+    if same:
+        out.append("💬 ค่านิยมตรงกัน: " + ", ".join(same[:3]))
+    return out
+
+
 def find(line_user):
     p = load(line_user)
     if not ready_to_match(p):
@@ -60,7 +79,8 @@ def find(line_user):
     top = ranked[0]
     cand = c.users[top["user_id"]]
     res = pair_context(c, p["user_id"], cand["user_id"])
-    reasons = [_you(it.text) for it in res.items if it.kind == "graph_fact" and not it.text.startswith("⚠️")][:3]
+    reasons = (extra_reasons(c, p["user_id"], cand["user_id"])
+               + [_you(it.text) for it in res.items if it.kind == "graph_fact" and not it.text.startswith("⚠️")])[:3]
     try:
         explanation = tasks.explain_match(p, cand, res)["explanation"]
     except Exception:

@@ -49,6 +49,8 @@ def dispatch(event) -> list:
             return onboarding.consent(u, q.get("v") == "yes")
         if act == "sensitive":
             return chat.sensitive_consent(u, q.get("v") == "yes")
+        if act == "sensitive_values":
+            return chat.sensitive_values_consent(u, q.get("v") == "yes")
         if act == "intro":
             return intro.request(u, target)
         if act in ("accept", "decline"):
