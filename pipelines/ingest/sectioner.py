@@ -19,12 +19,18 @@ def split_chapters(pages_lines, source) -> list:
     keep = source.get("keep_chapters")
     sections = []
 
-    if keep is None:  # เอกสารไม่มีโครงสร้างบท -> 1 หน้า = 1 section
+    if keep is None:  # เอกสารไม่มีโครงสร้างบท -> 1 หน้า = 1 section (หยุดที่ stop_headings เช่น เอกสารอ้างอิง)
+        stops = set(source.get("stop_headings", []))
         for page, lines in pages_lines:
+            cut = next((i for i, l in enumerate(lines) if l.strip() in stops), None)
+            if cut is not None:
+                lines = lines[:cut]
             paras = join_lines(lines)
             if paras:
                 sections.append({"chapter": None, "chapter_title": None, "section_title": None,
                                  "category": source.get("default_category", "general"), "pages": [page], "paragraphs": paras})
+            if cut is not None:
+                break
         return sections
 
     for extra in source.get("extra_sections", []):

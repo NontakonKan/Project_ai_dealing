@@ -13,10 +13,30 @@ from .config import LINE_CHANNEL_ACCESS_TOKEN, LINE_CHANNEL_SECRET
 api = FastAPI(title="PSU Dealing LINE bot")
 
 
+def _preload(c):
+    """โหลดของหนักก่อนมีคนทัก: Dense index + embedding model + โมเดล Local ที่ใช้บ่อย"""
+    import time
+    from pipelines.dense.embedding import encode
+    from pipelines.llm import ollama_client, providers
+    from pipelines.llm.config import TASKS, GenConfig
+    from .config import CHAT_MODEL
+    t0 = time.time()
+    c.dense                      # ChromaDB
+    encode(["warmup"])           # bge-m3 (sentence-transformers)
+    for m in {TASKS["extract_profile"].model, CHAT_MODEL}:
+        if not providers.is_api(m):
+            try:
+                ollama_client.chat(m, [{"role": "user", "content": "hi"}], GenConfig(num_predict=1))
+            except Exception:
+                pass
+    log.logger.info(f"🔥 โหลดโมเดลล่วงหน้าเสร็จ ({time.time() - t0:.1f}s)")
+
+
 @api.on_event("startup")
 def warmup():
     log.setup()
     c = live.ctx()   # โหลด Hybrid context ล่วงหน้า (ข้อความแรกจะได้ไม่ช้า)
+    _preload(c)
     n_live = sum(u.get("source") == "line" for u in c.users.values())
     log.logger.info(f"🚀 bot พร้อม │ LINE {'เชื่อมแล้ว' if LINE_CHANNEL_SECRET and LINE_CHANNEL_ACCESS_TOKEN else 'ยังไม่ตั้งค่า (โหมดจำลอง)'}"
                     f" │ ผู้ใช้ในระบบ {len(c.users)} (จริง {n_live}, จำลอง {len(c.users) - n_live})")

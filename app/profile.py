@@ -8,6 +8,7 @@ from datetime import date
 
 from pipelines.common import taxonomy
 from pipelines.feedback import policy
+from pipelines.hybrid.values_extract import LABELS, SENSITIVE
 
 from .config import DECAY_HALF_LIFE_DAYS, MAX_HOBBIES, MAX_TRAITS, MIN_CONFIDENCE
 
@@ -23,8 +24,9 @@ def new_profile(user_id, display_name):
                         "lifestyle": {"sleep": "unknown", "social_energy": "unknown", "weekend": "unknown"},
                         "love_components": {}},
             "appearance": {"self_described": [], "consent_sensitive": False, "pending_consent": []},
-            "preferences": {"wants": [], "avoids": [], "age_range": [18, 30]},
-            "values": {"self": {}, "wants": {}, "self_text": [], "want_text": []},
+            "preferences": {"wants": [], "avoids": [], "age_range": [18, 30], "faculty_wants": []},
+            "values": {"self": {}, "wants": {}, "self_text": [], "want_text": [],
+                       "consent_sensitive": None, "pending": {}},   # None = ยังไม่เคยถาม
             "reported_traits": [], "summaries": {},
             "consent": {"matching": False, "updated_at": today}, "profile_completeness": 0.0}
 
@@ -70,15 +72,54 @@ def merge_extraction(profile, extracted):
     return learned
 
 
-def merge_values(profile, values: dict, text: str):
-    """ผลจาก pipelines.hybrid.values_extract.extract (self / wants) + เก็บประโยคไว้ทำ values_text"""
+def merge_values(profile, values: dict, text: str) -> bool:
+    """ผลจาก pipelines.hybrid.values_extract.extract (self / wants) + เก็บประโยคไว้ทำ values_text
+
+    ศาสนา/อาหาร (SENSITIVE): ยินยอมแล้ว = เก็บ / ยังไม่เคยถาม = พักไว้รอถาม / ไม่ยินยอม = ทิ้ง
+    ประโยคที่มีข้อมูลอ่อนไหวไม่ถูกเก็บเป็นข้อความ (ไม่เข้า Dense / ไม่ส่งให้ LLM) เก็บแค่ค่าโครงสร้าง
+    คืน True เมื่อมีข้อมูลอ่อนไหวใหม่ที่ต้องถามความยินยอม
+    """
     v = profile["values"]
+    consent = v.setdefault("consent_sensitive", None)
+    pending = v.setdefault("pending", {})
+    ask = False
     for side, key in (("self", "self_text"), ("wants", "want_text")):
         known = {d: x for d, x in values.get(side, {}).items() if x != "unknown"}
-        if known:
-            v[side].update(known)
-            if text not in v[key]:
-                v[key] = (v[key] + [text])[-5:]
+        normal = {d: x for d, x in known.items() if d not in SENSITIVE}
+        sensitive = {d: x for d, x in known.items() if d in SENSITIVE}
+        v[side].update(normal)
+        if sensitive and consent:
+            v[side].update(sensitive)
+        elif sensitive and consent is None:
+            pending.setdefault(side, {}).update(sensitive)
+            ask = True
+        if normal and not sensitive and text not in v[key]:
+            v[key] = (v[key] + [text])[-5:]
+    return ask
+
+
+def set_sensitive_consent(profile, yes: bool):
+    v = profile["values"]
+    v["consent_sensitive"] = yes
+    if yes:
+        for side, vals in v.get("pending", {}).items():
+            v[side].update(vals)
+    v["pending"] = {}
+
+
+def merge_faculty(profile, parsed: dict) -> list:
+    """ผลจาก pipelines.profile.faculty.parse -> คณะที่อยากได้ (+ คณะตัวเองถ้ายังไม่มี)"""
+    wants = profile["preferences"].setdefault("faculty_wants", [])
+    new = [f for f in parsed["wants"] if f not in wants]
+    wants.extend(new)
+    if parsed["self"] and not profile["demographic"].get("faculty"):
+        profile["demographic"]["faculty"] = parsed["self"]
+    return new
+
+
+def value_labels(vals: dict, hide_sensitive=False) -> str:
+    return ", ".join(("🔒 " if d in SENSITIVE else "") + LABELS.get(x, x) for d, x in vals.items()
+                     if x != "unknown" and not (hide_sensitive and d in SENSITIVE))
 
 
 def decay(profile, now=None):
@@ -104,10 +145,12 @@ def build_summaries(profile):
              f"นิสัย: {names(p['traits'])}" if p["traits"] else "", f"งานอดิเรก: {names(p['hobbies'])}" if p["hobbies"] else "",
              f"การสื่อสาร: {names(p['comm_style'])}" if p["comm_style"] else "", " ".join(profile["values"]["self_text"])]
     wants = [x for x in profile["preferences"]["wants"] if x["id"] not in appearance]
+    fac_wants = profile["preferences"].get("faculty_wants", [])
     avoids = [x for x in profile["preferences"]["avoids"] if x["id"] not in appearance]
     profile["summaries"] = {
         "persona_text": " ".join(x for x in parts if x).strip(),
-        "preference_text": (f"อยากได้คนที่ {names(wants)} " if wants else "") + " ".join(profile["values"]["want_text"]),
+        "preference_text": (f"อยากได้คนที่ {names(wants)} " if wants else "")
+        + (f"อยากได้คนเรียนคณะ{' หรือ '.join(fac_wants)} " if fac_wants else "") + " ".join(profile["values"]["want_text"]),
         "avoid_text": f"ไม่ชอบคนที่ {names(avoids)}" if avoids else "",
         "values_text": " ".join(profile["values"]["self_text"]),
         "values_want_text": " ".join(profile["values"]["want_text"]),
@@ -132,6 +175,8 @@ def describe(profile) -> str:
     return (f"📋 สิ่งที่ผมจำได้เกี่ยวกับคุณ\n"
             f"• งานอดิเรก: {names(p['hobbies'])}\n• นิสัย: {names(p['traits'])}\n"
             f"• อยากได้คนที่: {names(pr['wants'])}\n• ไม่ชอบคนที่: {names(pr['avoids'])}\n"
-            f"• ค่านิยมของคุณ: {profile['summaries'].get('values_text') or '-'}\n"
-            f"• ค่านิยมที่อยากได้ในคู่: {profile['summaries'].get('values_want_text') or '-'}\n"
-            f"(พิมพ์ \"ลบข้อมูลของฉัน\" เพื่อลบทั้งหมดได้ทุกเมื่อ)")
+            f"• คณะที่อยากได้: {', '.join(pr.get('faculty_wants', [])) or '-'}\n"
+            f"• ค่านิยมของคุณ: {value_labels(profile['values']['self']) or '-'}\n"
+            f"• ค่านิยมที่อยากได้ในคู่: {value_labels(profile['values']['wants']) or '-'}\n"
+            + ("🔒 = ข้อมูลอ่อนไหว ใช้เฉพาะตอนจับคู่ ไม่แสดงให้คนอื่นเห็น\n" if profile["values"].get("consent_sensitive") else "") +
+            "(พิมพ์ \"ลบข้อมูลของฉัน\" เพื่อลบทั้งหมดได้ทุกเมื่อ)")

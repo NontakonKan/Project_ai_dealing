@@ -15,6 +15,7 @@ from pipelines.hybrid.config import HybridConfig
 from pipelines.hybrid.context import HybridContext
 
 from . import storage
+from .config import MOCK_USERS
 
 _lock = threading.Lock()
 _ctx = None
@@ -25,6 +26,7 @@ def ctx() -> HybridContext:
     with _lock:
         if _ctx is None:
             _ctx = HybridContext()
+            _keep_mock(_ctx)
             _ctx.events = _ctx.events + storage.all_events()
             for r in storage.reports():
                 u = _ctx.users.get(r["target_id"])
@@ -33,6 +35,15 @@ def ctx() -> HybridContext:
             for p in storage.all_profiles():
                 register(p)
     return _ctx
+
+
+def _keep_mock(c):
+    """เหลือผู้ใช้จำลองเฉพาะที่ตั้งไว้ใน MOCK_USERS (ผู้ใช้จริงเข้ามาทีหลังผ่าน register)"""
+    if MOCK_USERS.lower() == "all":
+        return
+    keep = {x.strip() for x in MOCK_USERS.split(",") if x.strip()}
+    c.users = {uid: u for uid, u in c.users.items() if uid in keep}
+    c.events = [e for e in c.events if e["from_user"] in keep and e["about_user"] in keep]
 
 
 def _apply_report(user, rf_id, count):

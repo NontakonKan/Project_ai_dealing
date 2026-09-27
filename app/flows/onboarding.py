@@ -1,4 +1,6 @@
 """follow -> ขอความยินยอม -> เพศ -> เพศที่สนใจ -> อายุ -> คณะ -> พร้อมคุย"""
+from pipelines.profile import faculty
+
 from .. import live, storage
 from ..flex import MENU, postback_quick, text
 from ..profile import GENDER
@@ -63,7 +65,7 @@ def answer(line_user, msg):
         storage.set_state(uid, "onboard_faculty")
         return [text("เรียนคณะอะไรครับ?")]
     if state == "onboard_faculty":
-        p["demographic"]["faculty"] = msg.strip()[:40]
+        p["demographic"]["faculty"] = faculty.normalize(msg) or msg.strip()[:40]   # "วิศวะ" -> "วิศวกรรมศาสตร์"
         save(p)
         storage.set_state(uid, "ready")
         live.register(p)

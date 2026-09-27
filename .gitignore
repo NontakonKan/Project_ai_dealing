@@ -11,3 +11,4 @@ data/raw/
 data/app/
 graph/.env
 app/.env
+.env

@@ -2,13 +2,23 @@
   "research_cu2561": [
     {
       "chapter": 0,
-      "chapter_title": "บทคัดย่อ",
-      "section_title": "บทคัดย่อ",
+      "chapter_title": "ส่วนหน้า: บทคัดย่อ กิตติกรรมประกาศ สารบัญ",
+      "section_title": "ส่วนหน้า: บทคัดย่อ กิตติกรรมประกาศ สารบัญ",
       "category": "abstract",
       "pages": [
-        3
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
       ],
-      "n_paragraphs": 3
+      "n_paragraphs": 35
     },
     {
       "chapter": 1,
@@ -139,6 +149,103 @@
       "n_paragraphs": 4
     },
     {
+      "chapter": 3,
+      "chapter_title": "วิธีดำเนินการวิจัย",
+      "section_title": "รูปแบบการวิจัย (Research design) / ประชากรและกลุ่มตัวอย่าง (Population and sample)",
+      "category": "method",
+      "pages": [
+        29
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": 3,
+      "chapter_title": "วิธีดำเนินการวิจัย",
+      "section_title": "เกณฑ์การคัดเลือกกลุ่มตัวอย่างที่ศึกษา (Selective criteria) / กระบวนการขอความยินยอม (Informed consent process)",
+      "category": "method",
+      "pages": [
+        29,
+        30
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": 3,
+      "chapter_title": "วิธีดำเนินการวิจัย",
+      "section_title": "ขนาดของกลุ่มตัวอย่าง (Sample size)",
+      "category": "method",
+      "pages": [
+        30,
+        31
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": 3,
+      "chapter_title": "วิธีดำเนินการวิจัย",
+      "section_title": "วิธีการสุ่มตัวอย่าง (Sampling technique)",
+      "category": "method",
+      "pages": [
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "n_paragraphs": 9
+    },
+    {
+      "chapter": 3,
+      "chapter_title": "วิธีดำเนินการวิจัย",
+      "section_title": "การรวบรวมข้อมูล (Data collection)",
+      "category": "method",
+      "pages": [
+        37,
+        38
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": 3,
+      "chapter_title": "วิธีดำเนินการวิจัย",
+      "section_title": "การวิเคราะห์ข้อมูลและสถิติที่ใช้วิเคราะห์ (Data analysis and statistics)",
+      "category": "method",
+      "pages": [
+        38,
+        39
+      ],
+      "n_paragraphs": 1
+    },
+    {
+      "chapter": 4,
+      "chapter_title": "ผลการศึกษา",
+      "section_title": "ผลการศึกษา",
+      "category": "results",
+      "pages": [
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "n_paragraphs": 122
+    },
+    {
       "chapter": 5,
       "chapter_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
       "section_title": "สรุปผลการวิจัย อภิปรายผล และข้อเสนอแนะ",
@@ -214,9 +321,13 @@
       "pages": [
         64,
         65,
-        66
+        66,
+        67,
+        68,
+        69,
+        70
       ],
-      "n_paragraphs": 2
+      "n_paragraphs": 8
     }
   ],
   "book_whonotlove": [
@@ -643,6 +754,452 @@
         39
       ],
       "n_paragraphs": 2
+    }
+  ],
+  "article_multilove2565": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        0
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        1
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        2
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        3
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        4
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        5
+      ],
+      "n_paragraphs": 10
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        6
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        7
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        8
+      ],
+      "n_paragraphs": 11
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        9
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        10
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        11
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        12
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        13
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        14
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        15
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        16
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "theory",
+      "pages": [
+        17
+      ],
+      "n_paragraphs": 1
+    }
+  ],
+  "web_pdf_shy_social": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        0
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "interpersonal_skills",
+      "pages": [
+        1
+      ],
+      "n_paragraphs": 1
+    }
+  ],
+  "lecture_std_kku": [
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        0
+      ],
+      "n_paragraphs": 11
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        1
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        2
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        3
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        4
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        5
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        6
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        7
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        8
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        9
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        10
+      ],
+      "n_paragraphs": 3
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        11
+      ],
+      "n_paragraphs": 8
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        12
+      ],
+      "n_paragraphs": 5
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        13
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        14
+      ],
+      "n_paragraphs": 11
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        15
+      ],
+      "n_paragraphs": 9
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        16
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        17
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        18
+      ],
+      "n_paragraphs": 4
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        19
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        20
+      ],
+      "n_paragraphs": 7
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        21
+      ],
+      "n_paragraphs": 6
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        22
+      ],
+      "n_paragraphs": 2
+    },
+    {
+      "chapter": null,
+      "chapter_title": null,
+      "section_title": null,
+      "category": "sexual_health",
+      "pages": [
+        23
+      ],
+      "n_paragraphs": 1
     }
   ],
   "web_chula_gaslighting": [

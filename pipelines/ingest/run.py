@@ -26,6 +26,9 @@ def load_pages(source):
     if source.get("url"):
         return web.fetch_pages(source), "web"
     pages = extract_pages(source["file"])
+    if source.get("pages"):   # ใช้เฉพาะช่วงหน้าที่กำหนด (นับแบบเลขหน้าจริง เริ่ม 1) เช่น ตัดหน้าขนาดยาออก
+        lo, hi = source["pages"]
+        pages = [x for x in pages if lo <= x["page"] + 1 <= hi]
     if not is_scanned(pages):
         return pages, "text"
     if ocr.available() or (ocr.CACHE_DIR / f"{source['source_id']}.json").exists():
@@ -63,7 +66,7 @@ def ingest(source, chunk_size, overlap, min_section_words):
                 "n_words": n_words(text),
                 "n_chars": len(text),
                 "lang": "th",
-                **tag(text, sec["category"]),
+                **tag(text, sec["category"], concepts=source.get("tag_concepts", True)),
             })
     sample_page = next((p for p in pages if "ส าคัญ" in p["text"]), pages[0])  # ตัวอย่าง before/after
     sample = before_after(sample_page["text"], "\n".join(l for l in dict(pages_lines)[sample_page["page"]] if l))

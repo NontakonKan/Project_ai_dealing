@@ -22,7 +22,10 @@ def _perf(rows):
     return {"n": len(rows),
             "p50_ms": _pct([m["wall_ms"] for m in llm], 0.5), "p95_ms": _pct([m["wall_ms"] for m in llm], 0.95),
             "gen_tok_s": _mean([m["gen_tok_s"] for m in llm]), "prompt_tok_s": _mean([m["prompt_tok_s"] for m in llm]),
-            "prompt_tokens": _mean([m["prompt_tokens"] for m in llm]), "truncated": sum(m["truncated"] for m in llm)}
+            "prompt_tokens": _mean([m["prompt_tokens"] for m in llm]), "truncated": sum(m["truncated"] for m in llm),
+            "gen_tokens": _mean([m["gen_tokens"] for m in llm]),
+            "credits_per_call": _mean([m.get("credits") for m in llm]),
+            "fallbacks": sum(m.get("provider") == "local(fallback)" for m in llm)}
 
 
 def extraction(rows, block_info) -> list:

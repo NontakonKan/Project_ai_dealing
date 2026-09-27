@@ -1,0 +1,89 @@
+{
+  "hardware": {
+    "os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "chip": "Apple M5 Pro",
+    "cpu_cores": 15,
+    "ram_gb": 24.0,
+    "gpu": "Apple Silicon (Metal, unified memory)"
+  },
+  "task": "explain_match",
+  "models": [
+    "api:PSU-LLM/psu-gemma",
+    "api:openai/gpt-4o-mini",
+    "api:deepseek/deepseek-chat",
+    "api:deepseek/deepseek-v4-flash-0731",
+    "scb10x/llama3.1-typhoon2-8b-instruct"
+  ],
+  "retrievers": "stub",
+  "variants": [
+    {}
+  ],
+  "limit": 15,
+  "results": [
+    {
+      "model": "api:PSU-LLM/psu-gemma",
+      "n": 15,
+      "faithfulness": 4.73,
+      "helpfulness": 4.13,
+      "tone": 5.0,
+      "unsupported_per_card": 0.0,
+      "cite_rate": 1.0,
+      "appearance_leak": 0,
+      "report_leak": 0,
+      "p50_ms": 2236.4,
+      "credits_per_call": 0.0
+    },
+    {
+      "model": "api:openai/gpt-4o-mini",
+      "n": 15,
+      "faithfulness": 4.93,
+      "helpfulness": 4.0,
+      "tone": 5.0,
+      "unsupported_per_card": 0.0,
+      "cite_rate": 1.0,
+      "appearance_leak": 0,
+      "report_leak": 0,
+      "p50_ms": 3003.4,
+      "credits_per_call": 2357.6
+    },
+    {
+      "model": "api:deepseek/deepseek-chat",
+      "n": 15,
+      "faithfulness": 4.67,
+      "helpfulness": 4.13,
+      "tone": 5.0,
+      "unsupported_per_card": 0.0,
+      "cite_rate": 1.0,
+      "appearance_leak": 1,
+      "report_leak": 0,
+      "p50_ms": 7101.1,
+      "credits_per_call": 2135.07
+    },
+    {
+      "model": "api:deepseek/deepseek-v4-flash-0731",
+      "n": 15,
+      "faithfulness": 4.0,
+      "helpfulness": 3.73,
+      "tone": 5.0,
+      "unsupported_per_card": 0.0,
+      "cite_rate": 0.0,
+      "appearance_leak": 0,
+      "report_leak": 0,
+      "p50_ms": 13094.3,
+      "credits_per_call": 2354.2
+    },
+    {
+      "model": "scb10x/llama3.1-typhoon2-8b-instruct",
+      "n": 15,
+      "faithfulness": 4.53,
+      "helpfulness": 3.53,
+      "tone": 4.87,
+      "unsupported_per_card": 0.13,
+      "cite_rate": 0.87,
+      "appearance_leak": 0,
+      "report_leak": 0,
+      "p50_ms": 12506.6,
+      "credits_per_call": null
+    }
+  ]
+}

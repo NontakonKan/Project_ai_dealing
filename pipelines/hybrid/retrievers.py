@@ -66,21 +66,28 @@ class RoutedKnowledge:
     def __init__(self, ctx, rerank_pool=0):
         from graph import concepts
         self.detect = concepts.detect
+        self.nodes = ctx.graph.nodes
         self.routes = {"dense": DenseKnowledge(ctx, rerank_pool),
                        "graph": HybridKnowledge(ctx, rerank_pool=rerank_pool, w_graph=2.0),
                        "hybrid": HybridKnowledge(ctx, rerank_pool=rerank_pool)}
 
     def retrieve(self, query, k=8):
-        from .router import route
+        from .router import RESTRICTED, is_health, route
         path = route(query, self.detect(query))
-        res = self.routes[path].retrieve(query, k)
+        health = is_health(query)
+        res = self.routes[path].retrieve(query, k if health else k + 5)   # ดึงเผื่อ เพราะอาจตัด chunk การแพทย์ทิ้ง
+        if not health:
+            res.items = [it for it in res.items if self._category(it) not in RESTRICTED][:k]
         if path == "graph":   # คำถามเรื่องความสัมพันธ์: กันที่ให้กฎจากกราฟ (คำตอบตรง สั้น) ไว้ต้นรายการ
             facts = [it for it in self.routes["graph"].graph.retrieve(query, k).items if it.kind == "graph_fact"][:self.RESERVED_FACTS]
             ids = {f.id for f in facts}
             res.items = facts + [it for it in res.items if it.id not in ids][:k - len(facts)]
         for it in res.items:
-            it.meta = {**it.meta, "route": path}
+            it.meta = {**it.meta, "route": path, "health": health}
         return RetrievalResult("hybrid", query, res.items, res.latency_ms)
+
+    def _category(self, it):
+        return it.meta.get("category") or self.nodes.get(it.id, {}).get("category")
 
 
 def pair_context(ctx, a, b, knowledge_k=3) -> RetrievalResult:
@@ -99,6 +106,9 @@ def pair_context(ctx, a, b, knowledge_k=3) -> RetrievalResult:
         items.append(RetrievalItem(cid, "chunk", g.chunk_text(cid), s / 10, "graph"))
     if len(chunk_score) < knowledge_k:   # ไม่มี chunk ใน Graph -> ใช้ Dense หาเพิ่ม
         q = " ".join(f["text"] for f in info["facts"]) or ctx.users[b]["summaries"]["persona_text"]
-        for r in ctx.dense.search("knowledge", q, top_k=knowledge_k - len(chunk_score)):
+        from .router import RESTRICTED   # การ์ดจับคู่ไม่ใช้ความรู้การแพทย์
+        need = knowledge_k - len(chunk_score)
+        hits = [r for r in ctx.dense.search("knowledge", q, top_k=need + 5) if r.get("category") not in RESTRICTED]
+        for r in hits[:need]:
             items.append(RetrievalItem(r["id"], "chunk", r["text"], round(r["score"], 4), "dense"))
     return RetrievalResult("hybrid", f"{a}->{b}", items, (time.perf_counter() - t0) * 1000)

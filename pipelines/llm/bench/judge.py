@@ -100,7 +100,8 @@ def summarize(rows):
                     "cite_rate": avg([float(r["rules"]["cited"]) for r in rs]),
                     "appearance_leak": sum(r["rules"]["mentions_appearance"] for r in rs),
                     "report_leak": sum(r["rules"]["reveals_report"] for r in rs),
-                    "p50_ms": sorted(r["llm"]["wall_ms"] for r in rs)[len(rs) // 2]})
+                    "p50_ms": sorted(r["llm"]["wall_ms"] for r in rs)[len(rs) // 2],
+                    "credits_per_call": avg([r["llm"].get("credits") for r in rs if r["llm"].get("credits") is not None])})
     return out
 
 

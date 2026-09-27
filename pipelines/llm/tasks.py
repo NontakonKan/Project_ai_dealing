@@ -6,7 +6,7 @@
 """
 from ..feedback import policy
 from . import context as ctx
-from . import guards, ollama_client, parsing, prompts, schemas
+from . import guards, parsing, prompts, providers, schemas
 from .config import TASKS
 
 
@@ -16,7 +16,7 @@ def _fmt(cfg, schema_fn):
 
 def extract_profile(text, cfg=None) -> dict:
     cfg = cfg or TASKS["extract_profile"]
-    res = ollama_client.chat(cfg.model, prompts.extract_messages(text, cfg.prompt), cfg.gen, _fmt(cfg, schemas.profile_schema))
+    res = providers.chat(cfg.model, prompts.extract_messages(text, cfg.prompt), cfg.gen, _fmt(cfg, schemas.profile_schema), fallback=cfg.fallback or None)
     obj = parsing.parse_json(res.text)
     clean, stats = parsing.validate(obj, text, schemas.allowed_ids(schemas.PROFILE_FIELDS))
     stats.update(guards.drop_appearance_red_flags(clean))
@@ -27,7 +27,7 @@ def extract_profile(text, cfg=None) -> dict:
 
 def extract_unmatch(reason, cfg=None) -> dict:
     cfg = cfg or TASKS["extract_unmatch"]
-    res = ollama_client.chat(cfg.model, prompts.unmatch_messages(reason, cfg.prompt), cfg.gen, _fmt(cfg, schemas.unmatch_schema))
+    res = providers.chat(cfg.model, prompts.unmatch_messages(reason, cfg.prompt), cfg.gen, _fmt(cfg, schemas.unmatch_schema), fallback=cfg.fallback or None)
     obj = parsing.parse_json(res.text)
     clean, stats = parsing.validate(obj, reason, schemas.allowed_ids(schemas.UNMATCH_FIELDS))
     stats.update(guards.drop_appearance_red_flags(clean, fields=("red_flags",)))
@@ -45,7 +45,7 @@ def rag_answer(query, retrieval, cfg=None) -> dict:
     """retrieval = RetrievalResult จาก Dense / Graph / Hybrid ตัวใดก็ได้"""
     cfg = cfg or TASKS["rag_answer"]
     pack = ctx.build(retrieval, cfg.context_budget)
-    res = ollama_client.chat(cfg.model, prompts.rag_messages(query, pack.text, cfg.prompt), cfg.gen)
+    res = providers.chat(cfg.model, prompts.rag_messages(query, pack.text, cfg.prompt), cfg.gen, fallback=cfg.fallback or None)
     return {"answer": res.text, "citations": parsing.citations(res.text, len(pack.refs)), "refs": pack.refs,
             "context": {"mode": retrieval.mode, "used_tokens": pack.used_tokens, "dropped": pack.dropped,
                         "kinds": pack.kinds, "retrieval_ms": round(retrieval.latency_ms, 2)},
@@ -57,7 +57,7 @@ def explain_match(user_a, user_b, retrieval, cfg=None) -> dict:
     cfg = cfg or TASKS["explain_match"]
     pack = ctx.build(retrieval, cfg.context_budget)
     fmt_user = lambda u: f"{u['summaries']['persona_text']}\n{u['summaries']['preference_text']}\n{u['summaries']['avoid_text']}"
-    res = ollama_client.chat(cfg.model, prompts.explain_messages(fmt_user(user_a), fmt_user(user_b), pack.text), cfg.gen)
+    res = providers.chat(cfg.model, prompts.explain_messages(fmt_user(user_a), fmt_user(user_b), pack.text), cfg.gen, fallback=cfg.fallback or None)
     return {"explanation": res.text, "citations": parsing.citations(res.text, len(pack.refs)), "refs": pack.refs,
             "context": {"mode": retrieval.mode, "used_tokens": pack.used_tokens, "dropped": pack.dropped},
             "llm": res.metrics, "model": res.model}
