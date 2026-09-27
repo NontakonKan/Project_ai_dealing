@@ -77,7 +77,7 @@ python3 -m venv .venv
 docker compose -f graph/compose.yaml up -d
 ```
 
-compose แยกชื่อโปรเจกต์และ volumes เป็น `psu-dealing-graph` ใช้ localhost ports **17474 (Browser) / 17687 (Bolt)** เพื่อแยกจากงาน lab ที่พอร์ตมาตรฐาน ต้องไม่มี Neo4j ตัวอื่นใช้สองพอร์ตนี้อยู่
+compose แยกชื่อโปรเจกต์และ volumes เป็น `psu-dealing-graph` ใช้ localhost ports **7474 (Browser) / 7687 (Bolt)** ซึ่งเป็นพอร์ตมาตรฐานของ Neo4j ต้องไม่มี Neo4j ตัวอื่นใช้สองพอร์ตนี้อยู่
 
 โหลด environment แล้วนำเข้า:
 
@@ -91,7 +91,12 @@ set +a
 
 Python อ่าน environment variables โดยตรง ไม่ได้โหลด `.env` อัตโนมัติ หากใช้ Neo4j ที่มีอยู่แล้ว ให้ตั้ง `NEO4J_URI`, `NEO4J_USERNAME`, `NEO4J_PASSWORD`, `NEO4J_DATABASE` ให้ตรงกับเครื่องนั้น
 
-เปิด Neo4j Browser ที่ <http://localhost:17474/browser/> แล้วใช้คำสั่งใน `queries.cypher`
+เปิด Neo4j Browser ที่ <http://localhost:7474/browser/> แล้วใช้คำสั่งใน `queries.cypher`
+
+สีและชื่อโหนด: รัน `:style` แล้วกด **Upload GraSS styles** เลือก [`browser.grass`](browser.grass) และกด **Import** สไตล์แยกสีตามประเภท เช่น User สีฟ้า, Hobby สีส้ม, Trait สีม่วง และ RedFlag สีแดง พร้อมใช้ `display_name` เป็นข้อความบนโหนด การตั้งค่านี้เก็บใน Browser จึงต้องนำเข้าอีกครั้งเมื่อเปลี่ยน browser/profile
+
+ทดสอบกับ Neo4j Browser 2026.08.24: ตัวนำเข้าให้กฎที่อยู่ท้ายไฟล์มีลำดับความสำคัญสูงกว่า จึงวาง `DealingEntity` และ `Concept` ก่อนประเภทเฉพาะ หากใช้ Browser รุ่นอื่น ให้ตรวจ **Results overview → Update styling priority** และย้ายสอง label กลางนี้ไปท้ายรายการ เพื่อไม่ให้ทุกโหนดใช้สีเดียวกัน
+
 
 ### นำเข้าซ้ำและเปลี่ยนข้อมูล
 

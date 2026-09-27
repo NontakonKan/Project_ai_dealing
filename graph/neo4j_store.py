@@ -18,7 +18,7 @@ def connect():
     if not password:
         raise ValueError("Set NEO4J_PASSWORD before connecting to Neo4j")
     return GraphDatabase.driver(
-        os.environ.get("NEO4J_URI", "bolt://localhost:17687"),
+        os.environ.get("NEO4J_URI", "bolt://localhost:7687"),
         auth=(os.environ.get("NEO4J_USERNAME", "neo4j"), password),
     )
 
