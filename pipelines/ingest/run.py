@@ -8,6 +8,7 @@ Output:
 """
 import argparse
 import json
+import re
 from collections import Counter
 
 from ..common.io_utils import write_json, write_jsonl
@@ -22,19 +23,53 @@ from .sources import SOURCES
 from .tagger import tag
 
 
+def redact(text, rules, stats):
+    """ลบข้อมูลส่วนบุคคลตาม regex ของแต่ละแหล่ง (เช่น ชื่อ-จังหวัดของผู้ถาม) ก่อนตัด chunk"""
+    for pattern, repl in rules:
+        text, n = re.subn(pattern, repl, text)
+        stats["redacted"] += n
+    return text
+
+
+def name_rules(pages_lines, source, stats) -> list:
+    """หาชื่อผู้ถามจากตัวเอกสารตอนรัน (ไม่เก็บชื่อไว้ในโค้ด/config) แล้วสร้างกฎลบ "น้อง<ชื่อ>" / "คุณ<ชื่อ>" ทั้งเอกสาร"""
+    pats = source.get("name_capture", [])
+    if not pats:
+        return []
+    text = re.sub(r"\s+", " ", " ".join(l for _, ls in pages_lines for l in ls))
+    stop = set(source.get("name_stopwords", []))
+    names = {n for p in pats for n in re.findall(p, text) if len(n) >= 2 and n not in stop}
+    stats["names_found"] += len(names)
+    # ชื่อสั้น (เอ, ดิว) ต้องไม่ตามด้วยพยัญชนะ -> ไม่ตัด "น้องเอง"
+    return [(r"(น้อง|คุณ)" + re.escape(n) + r"(?![ก-ฮ])", r"\1") for n in sorted(names, key=len, reverse=True)]
+
+
+def _load_file(path, cache_id):
+    pages = extract_pages(path)
+    if not is_scanned(pages):
+        return pages, "text"
+    if ocr.available() or (ocr.CACHE_DIR / f"{cache_id}.json").exists():
+        pages, backend = ocr.ocr_pages(path, cache_id)
+        return pages, f"ocr:{backend}"
+    return pages, "needs_ocr"
+
+
 def load_pages(source):
     if source.get("url"):
         return web.fetch_pages(source), "web"
-    pages = extract_pages(source["file"])
+    if source.get("files"):   # เอกสารเดียวที่ถูกแยกเป็นหลายไฟล์ (เช่น วิทยานิพนธ์รายบท) -> ต่อเลขหน้าเป็นเล่มเดียว
+        pages, modes = [], set()
+        for n, path in enumerate(source["files"], 1):
+            part, mode = _load_file(path, f"{source['source_id']}_{n}")
+            offset = len(pages)
+            pages += [{**x, "page": x["page"] + offset} for x in part]
+            modes.add(mode)
+        return pages, ("needs_ocr" if "needs_ocr" in modes else "+".join(sorted(modes)))
+    pages, mode = _load_file(source["file"], source["source_id"])
     if source.get("pages"):   # ใช้เฉพาะช่วงหน้าที่กำหนด (นับแบบเลขหน้าจริง เริ่ม 1) เช่น ตัดหน้าขนาดยาออก
         lo, hi = source["pages"]
         pages = [x for x in pages if lo <= x["page"] + 1 <= hi]
-    if not is_scanned(pages):
-        return pages, "text"
-    if ocr.available() or (ocr.CACHE_DIR / f"{source['source_id']}.json").exists():
-        pages, backend = ocr.ocr_pages(source["file"], source["source_id"])
-        return pages, f"ocr:{backend}"
-    return pages, "needs_ocr"
+    return pages, mode
 
 
 def ingest(source, chunk_size, overlap, min_section_words):
@@ -45,11 +80,12 @@ def ingest(source, chunk_size, overlap, min_section_words):
 
     pages_lines = [(p["page"], clean_page_lines(p["text"], source["noise_patterns"], stats)) for p in pages]
     sections = merge_small(split_chapters(pages_lines, source), min_section_words, n_words)
+    rules = source.get("redact", []) + name_rules(pages_lines, source, stats)
 
     chunks = []
     for s_idx, sec in enumerate(sections):
-        paras = [strip_citations(p, stats) for p in sec["paragraphs"]]
-        for c_idx, text in enumerate(chunk_section(paras, chunk_size, overlap)):
+        paras = [redact(strip_citations(p, stats), rules, stats) for p in sec["paragraphs"]]
+        for c_idx, text in enumerate(chunk_section(paras, source.get("chunk_size", chunk_size), overlap)):
             chunks.append({
                 "chunk_id": f"{source['source_id']}_s{s_idx:02d}_c{c_idx:02d}",
                 "source_id": source["source_id"],

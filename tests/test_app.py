@@ -34,6 +34,16 @@ class IntentTests(unittest.TestCase):
         self.assertEqual(intent.classify("ลบข้อมูลของฉัน"), "delete_me")
         self.assertEqual(intent.classify("ชาย", "onboard_gender"), "onboarding")
         self.assertEqual(intent.classify("ติดเพื่อน", "await_unmatch_reason"), "unmatch_reason")
+        self.assertEqual(intent.classify("จะรู้ได้ไงว่าเค้าเริ่มชอบผม"), "ask_advice")   # คำถามภาษาพูด -> ตอบจากคลังความรู้
+        self.assertEqual(intent.classify("ชอบผู้หญิงเรียนวิศวะ"), "chat")
+
+
+class ChatReplyCleanTests(unittest.TestCase):
+    def test_chat_never_shows_citations_or_internal_hints(self):
+        from app.replies import _clean
+        fake = "สังเกตว่าเขายิ้มบ่อย [2]\n\n📚 อ้างอิง: สัญญาณที่บอกว่าผู้หญิงเริ่มชอบคุณ (bypichawee.co)"
+        self.assertEqual(_clean(fake), "สังเกตว่าเขายิ้มบ่อย")
+        self.assertEqual(_clean("จำไว้แล้วครับ\n\n(สิ่งที่เพิ่งจำได้: การเข้ากันได้)"), "จำไว้แล้วครับ")
 
 
 class ProfileTests(unittest.TestCase):

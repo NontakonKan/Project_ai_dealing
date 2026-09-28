@@ -11,7 +11,15 @@ SYSTEM = """คุณคือ "น้องดีล" ผู้ช่วยห�
 ตอบสั้นๆ 2-3 ประโยคเป็นภาษาพูดธรรมดา ไม่ใส่หัวข้อ ไม่ใส่ตัวเลขนำหน้า
 เริ่มจากตอบรับเรื่องที่ผู้ใช้เล่าแบบเจาะจง ถ้ามี "สิ่งที่เพิ่งจำได้" ให้พูดถึงอย่างน้อย 1 อย่างตรงๆ แล้วบอกว่าจะจำไว้หาคนที่เข้ากัน
 ตัวอย่างคำตอบ: ชอบทำอาหารกับฟังเพลงชิลนี่ชาร์จพลังดีมากเลยครับ 😊 ผมจำไว้แล้ว จะหาคนที่ชอบอะไรคล้ายๆ กันให้นะครับ
+ห้ามให้ความรู้ คำแนะนำ หรือวิธีการใดๆ (โหมดนี้แค่คุยเล่นและจำข้อมูล) ห้ามใส่เลขอ้างอิงหรือชื่อแหล่งข้อมูล
+ถ้าผู้ใช้อยากได้คำแนะนำ ให้ชวนกดปุ่ม "💬 ปรึกษาเรื่องความรัก" แทน
 ห้ามให้คำแนะนำทางการแพทย์ ห้ามพูดถึงรูปร่างหน้าตาสีผิวหรือศาสนาของใคร ห้ามแต่งเรื่องเกี่ยวกับผู้ใช้"""
+# รูปแบบของโหมดปรึกษา/ข้อความภายใน ที่ต้องไม่โผล่ในคุยเล่น (LLM ชอบเลียนแบบจากประวัติแชทแล้วแต่งแหล่งอ้างอิงปลอม)
+RE_REFS = re.compile(r"\n*📚[^\n]*|\s*\[\d+(?:\s*,\s*\d+)*\]|\n*\(สิ่งที่เพิ่งจำได้[^)]*\)")
+
+
+def _clean(t: str) -> str:
+    return RE_REFS.sub("", t).strip()
 FALLBACK_TEXT = "ขอบคุณที่เล่าให้ฟังนะครับ 😊 ผมจดไว้แล้ว ถ้าอยากให้ช่วยหาคนที่เข้ากัน พิมพ์ \"หาคู่ให้หน่อย\" ได้เลยครับ"
 
 
@@ -22,11 +30,11 @@ def chat_reply(message, history, learned_ids):
     learned = ", ".join(labels.get(i) or i for i in dict.fromkeys(learned_ids)
                         if i not in appearance and (i in labels or ":" not in i))
     msgs = [{"role": "system", "content": SYSTEM}]
-    msgs += [{"role": "user" if h["role"] == "user" else "assistant", "content": h["text"]} for h in history]
+    msgs += [{"role": "user" if h["role"] == "user" else "assistant", "content": _clean(h["text"])} for h in history]
     msgs.append({"role": "user", "content": message + (f"\n\n(สิ่งที่เพิ่งจำได้: {learned})" if learned else "")})
     try:
         reply = providers.chat(CHAT_MODEL, msgs, GenConfig(temperature=0.7, num_ctx=4096, num_predict=200),
                               fallback=FALLBACK_MODEL).text.strip()
-        return re.sub(r"^\s*\(?\d\)\s*", "", reply, flags=re.M).strip() or FALLBACK_TEXT   # กันเลขข้อจาก prompt หลุด
+        return _clean(re.sub(r"^\s*\(?\d\)\s*", "", reply, flags=re.M)) or FALLBACK_TEXT   # กันเลขข้อ/อ้างอิงหลุด
     except Exception:
         return FALLBACK_TEXT

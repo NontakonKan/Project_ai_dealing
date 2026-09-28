@@ -8,6 +8,7 @@
   4. เลขอ้างอิงท้ายข้อความ เช่น "(19)" เป็น noise สำหรับ embedding
   5. วรรณยุกต์/สระถูกเก็บเป็นอักษรใน Private Use Area (U+F700–F71A) ของฟอนต์ไทย เช่น "ได\uf70bยิน"
      -> มองไม่เห็นแต่ตัดคำ/embedding พัง -> แปลงกลับเป็นอักษรไทยมาตรฐาน ("ได้ยิน") ตามตาราง Thai PUA
+  6. ฟอนต์ InDesign ใส่อักษรขยะหน้าสระอำ เช่น "กÎำลัง", "ค·ำปรึกษา" -> ลบ Î / · ที่ติดอักษรไทย
 """
 import re
 from collections import Counter
@@ -32,6 +33,13 @@ def fix_pua(text: str) -> tuple:
     return text.translate(PUA_THAI), len(RE_PUA.findall(text))
 
 
+RE_BROKEN_AM = re.compile("[Î·](?=[\u0e00-\u0e7f])")
+
+
+def fix_broken_am(text: str) -> tuple:
+    return RE_BROKEN_AM.subn("", text)
+
+
 def fix_sara_am(text: str) -> tuple:
     return RE_SARA_AM.subn(lambda m: m.group(1) + "ำ", text)
 
@@ -40,6 +48,8 @@ def clean_page_lines(text: str, noise_patterns, stats: Counter) -> list:
     """คืนรายการบรรทัดที่สะอาดแล้วของ 1 หน้า ('' = ย่อหน้าใหม่)"""
     text, n = fix_pua(text)
     stats["pua_fixed"] += n
+    text, n = fix_broken_am(text)
+    stats["broken_am_fixed"] += n
     text, n = fix_sara_am(text)
     stats["sara_am_fixed"] += n
     noise = [re.compile(p) for p in noise_patterns]

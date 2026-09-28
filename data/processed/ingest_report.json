@@ -7,167 +7,6 @@
   },
   "sources": [
     {
-      "source_id": "research_cu2561",
-      "status": "ok (text)",
-      "pages_total": 71,
-      "pages_used": 71,
-      "n_sections": 26,
-      "n_chunks": 93,
-      "chunk_words": {
-        "min": 65,
-        "p25": 196.5,
-        "median": 281.0,
-        "p75": 300.0,
-        "max": 348,
-        "mean": 243.4
-      },
-      "chunks_with_concepts_pct": 62.4,
-      "category_dist": {
-        "abstract": 11,
-        "background": 8,
-        "theory": 18,
-        "method": 13,
-        "results": 22,
-        "finding_discussion": 21
-      },
-      "top_concepts": [
-        [
-          "love:commitment",
-          34
-        ],
-        [
-          "love:intimacy",
-          30
-        ],
-        [
-          "factor:life_satisfaction",
-          22
-        ],
-        [
-          "factor:relationship_duration",
-          20
-        ],
-        [
-          "love:passion",
-          19
-        ],
-        [
-          "factor:disclose_family",
-          13
-        ],
-        [
-          "factor:living_status",
-          12
-        ],
-        [
-          "factor:disclose_friends",
-          12
-        ],
-        [
-          "comm:direct",
-          4
-        ],
-        [
-          "trait:emotional",
-          3
-        ],
-        [
-          "attach:secure",
-          3
-        ]
-      ],
-      "cleaning": {
-        "pua_fixed": 0,
-        "sara_am_fixed": 491,
-        "noise_lines_removed": 289,
-        "citations_removed": 88
-      }
-    },
-    {
-      "source_id": "book_whonotlove",
-      "status": "ok (ocr:vlm (cache))",
-      "pages_total": 27,
-      "pages_used": 23,
-      "n_sections": 13,
-      "n_chunks": 13,
-      "chunk_words": {
-        "min": 101,
-        "p25": 120.5,
-        "median": 198.0,
-        "p75": 236.5,
-        "max": 281,
-        "mean": 186.5
-      },
-      "chunks_with_concepts_pct": 69.2,
-      "category_dist": {
-        "breakup_recovery": 13
-      },
-      "top_concepts": [
-        [
-          "trait:emotional",
-          3
-        ],
-        [
-          "attach:avoidant",
-          2
-        ],
-        [
-          "love:intimacy",
-          2
-        ],
-        [
-          "attach:anxious",
-          2
-        ],
-        [
-          "rf:disrespect",
-          2
-        ],
-        [
-          "attach:secure",
-          1
-        ],
-        [
-          "love:passion",
-          1
-        ],
-        [
-          "love:commitment",
-          1
-        ],
-        [
-          "trait:spontaneous",
-          1
-        ],
-        [
-          "attach:fearful",
-          1
-        ],
-        [
-          "rf:possessive",
-          1
-        ],
-        [
-          "rf:ghosting",
-          1
-        ],
-        [
-          "rf:inconsistent",
-          1
-        ],
-        [
-          "rf:stonewalling",
-          1
-        ]
-      ],
-      "cleaning": {
-        "pua_fixed": 0,
-        "sara_am_fixed": 0,
-        "noise_lines_removed": 13,
-        "citations_removed": 0
-      }
-    },
-    {
       "source_id": "slides_winpeople",
       "status": "ok (text)",
       "pages_total": 40,
@@ -182,7 +21,7 @@
         "max": 279,
         "mean": 132.8
       },
-      "chunks_with_concepts_pct": 48.1,
+      "chunks_with_concepts_pct": 44.4,
       "category_dist": {
         "interpersonal_skills": 27
       },
@@ -193,10 +32,6 @@
         ],
         [
           "rf:dishonest",
-          3
-        ],
-        [
-          "comm:direct",
           3
         ],
         [
@@ -230,6 +65,7 @@
       ],
       "cleaning": {
         "pua_fixed": 0,
+        "broken_am_fixed": 0,
         "sara_am_fixed": 85,
         "noise_lines_removed": 1,
         "citations_removed": 0
@@ -318,6 +154,7 @@
       ],
       "cleaning": {
         "pua_fixed": 2261,
+        "broken_am_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 162,
         "citations_removed": 22
@@ -344,16 +181,13 @@
       },
       "top_concepts": [
         [
-          "comm:direct",
-          1
-        ],
-        [
           "trait:funny",
           1
         ]
       ],
       "cleaning": {
         "pua_fixed": 0,
+        "broken_am_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 14,
         "citations_removed": 0
@@ -381,9 +215,285 @@
       "top_concepts": [],
       "cleaning": {
         "pua_fixed": 0,
+        "broken_am_fixed": 0,
         "sara_am_fixed": 214,
         "noise_lines_removed": 25,
         "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "thesis_start_romance2549",
+      "status": "ok (ocr:vlm (cache))",
+      "pages_total": 161,
+      "pages_used": 161,
+      "n_sections": 158,
+      "n_chunks": 257,
+      "chunk_words": {
+        "min": 42,
+        "p25": 183.5,
+        "median": 239.0,
+        "p75": 280.5,
+        "max": 355,
+        "mean": 222.9
+      },
+      "chunks_with_concepts_pct": 21.4,
+      "category_dist": {
+        "relationship_initiation": 257
+      },
+      "top_concepts": [
+        [
+          "love:intimacy",
+          20
+        ],
+        [
+          "factor:living_status",
+          17
+        ],
+        [
+          "love:passion",
+          5
+        ],
+        [
+          "trait:kind",
+          4
+        ],
+        [
+          "rf:no_boundaries",
+          4
+        ],
+        [
+          "rf:possessive",
+          3
+        ],
+        [
+          "ll:touch",
+          3
+        ],
+        [
+          "trait:responsible",
+          3
+        ],
+        [
+          "trait:logical",
+          2
+        ],
+        [
+          "love:commitment",
+          2
+        ],
+        [
+          "rf:hot_temper",
+          2
+        ],
+        [
+          "factor:life_satisfaction",
+          2
+        ],
+        [
+          "ll:gifts",
+          2
+        ],
+        [
+          "attach:secure",
+          1
+        ],
+        [
+          "body:curvy",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 65,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "thesis_attraction2548",
+      "status": "ok (text)",
+      "pages_total": 178,
+      "pages_used": 178,
+      "n_sections": 15,
+      "n_chunks": 243,
+      "chunk_words": {
+        "min": 105,
+        "p25": 231.0,
+        "median": 271.0,
+        "p75": 296.0,
+        "max": 332,
+        "mean": 255.0
+      },
+      "chunks_with_concepts_pct": 63.8,
+      "category_dist": {
+        "abstract": 7,
+        "theory": 82,
+        "method": 42,
+        "results": 24,
+        "finding_discussion": 88
+      },
+      "top_concepts": [
+        [
+          "attach:secure",
+          114
+        ],
+        [
+          "attach:fearful",
+          86
+        ],
+        [
+          "attach:anxious",
+          34
+        ],
+        [
+          "love:intimacy",
+          12
+        ],
+        [
+          "trait:kind",
+          10
+        ],
+        [
+          "attach:avoidant",
+          8
+        ],
+        [
+          "trait:extrovert",
+          8
+        ],
+        [
+          "factor:life_satisfaction",
+          3
+        ],
+        [
+          "trait:logical",
+          3
+        ],
+        [
+          "rf:no_boundaries",
+          2
+        ],
+        [
+          "factor:living_status",
+          2
+        ],
+        [
+          "rf:possessive",
+          2
+        ],
+        [
+          "rf:disrespect",
+          1
+        ],
+        [
+          "rf:inconsistent",
+          1
+        ],
+        [
+          "rf:hot_temper",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 13672,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 2387,
+        "citations_removed": 1
+      }
+    },
+    {
+      "source_id": "thesis_narcissism2553",
+      "status": "ok (text)",
+      "pages_total": 165,
+      "pages_used": 165,
+      "n_sections": 10,
+      "n_chunks": 229,
+      "chunk_words": {
+        "min": 59,
+        "p25": 245.5,
+        "median": 287.0,
+        "p75": 299.0,
+        "max": 342,
+        "mean": 265.5
+      },
+      "chunks_with_concepts_pct": 32.3,
+      "category_dist": {
+        "abstract": 8,
+        "theory": 75,
+        "method": 30,
+        "results": 43,
+        "finding_discussion": 73
+      },
+      "top_concepts": [
+        [
+          "love:intimacy",
+          24
+        ],
+        [
+          "trait:kind",
+          20
+        ],
+        [
+          "love:commitment",
+          18
+        ],
+        [
+          "rf:dishonest",
+          11
+        ],
+        [
+          "attach:anxious",
+          7
+        ],
+        [
+          "attach:avoidant",
+          5
+        ],
+        [
+          "attach:secure",
+          5
+        ],
+        [
+          "rf:no_boundaries",
+          4
+        ],
+        [
+          "rf:possessive",
+          4
+        ],
+        [
+          "factor:life_satisfaction",
+          2
+        ],
+        [
+          "factor:relationship_duration",
+          2
+        ],
+        [
+          "trait:logical",
+          2
+        ],
+        [
+          "rf:hot_temper",
+          2
+        ],
+        [
+          "skin:fair",
+          1
+        ],
+        [
+          "trait:responsible",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 394,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 88,
+        "noise_lines_removed": 907,
+        "citations_removed": 3
       }
     },
     {
@@ -421,6 +531,7 @@
       ],
       "cleaning": {
         "pua_fixed": 0,
+        "broken_am_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 3,
         "citations_removed": 0
@@ -467,10 +578,6 @@
           2
         ],
         [
-          "comm:direct",
-          2
-        ],
-        [
           "attach:anxious",
           1
         ],
@@ -481,6 +588,7 @@
       ],
       "cleaning": {
         "pua_fixed": 0,
+        "broken_am_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 2,
         "citations_removed": 0
@@ -521,6 +629,7 @@
       ],
       "cleaning": {
         "pua_fixed": 0,
+        "broken_am_fixed": 0,
         "sara_am_fixed": 0,
         "citations_removed": 7
       }
@@ -564,6 +673,7 @@
       ],
       "cleaning": {
         "pua_fixed": 0,
+        "broken_am_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 4,
         "citations_removed": 0
@@ -616,6 +726,7 @@
       ],
       "cleaning": {
         "pua_fixed": 0,
+        "broken_am_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 1,
         "citations_removed": 0
@@ -656,6 +767,7 @@
       ],
       "cleaning": {
         "pua_fixed": 0,
+        "broken_am_fixed": 0,
         "sara_am_fixed": 0,
         "citations_removed": 0
       }
@@ -695,20 +807,13 @@
       ],
       "cleaning": {
         "pua_fixed": 0,
+        "broken_am_fixed": 0,
         "sara_am_fixed": 0,
         "citations_removed": 0
       }
     }
   ],
   "before_after": {
-    "research_cu2561": {
-      "before": " \nCU iThesis 6074091030 thesis / recv: 30072562 12:17:37 / seq: 4\n \nง \n \nบทคัดย่อภาษาไทย \n \nจิรันธนิน เจริญธีระนันท์ : ความพึงพอใจในความสัมพันธ์แบบคู่รักและปัจจัยที่เกี่ยวข้องของนิสิตจุฬาลงกรณ์\nมหาวิทยาลัย . ( Love relationship satisfaction and related-factors of Chulalongkorn University \nstudents) อ.ที่ปรึกษาหลัก : อ. นพ.ธีรยุทธ รุ่งนิรันดร \n  \nเหตุผลของการท าวิจัย: การมีความสัมพันธ์แบบคู่รักเป็น",
-      "after": "บทคัดย่อภาษาไทย\nจิรันธนิน เจริญธีระนันท์ : ความพึงพอใจในความสัมพันธ์แบบคู่รักและปัจจัยที่เกี่ยวข้องของนิสิตจุฬาลงกรณ์\nมหาวิทยาลัย . ( Love relationship satisfaction and related-factors of Chulalongkorn University\nstudents) อ.ที่ปรึกษาหลัก : อ. นพ.ธีรยุทธ รุ่งนิรันดร\nเหตุผลของการทำวิจัย: การมีความสัมพันธ์แบบคู่รักเป็นขั้นตอนสำคัญอย่างหนึ่งในพัฒนาการของมนุษย์สำหรับวัย\nผู้ใหญ่ตอนต้นตามทฤษฎีพัฒนาการทา"
-    },
-    "book_whonotlove": {
-      "before": "อกหักครั้งสุดท้าย\nใครไม่รัก\nช่างแม่ง\n\nรักตัวเองให้มากพอ\nโดยไม่ต้องรอใครมารัก\nใจที่แตกสลายเพราะคนอื่น\nเราประกอบขึ้นใหม่ด้วยตัวเอง\n\nAor Rutcha\nเขียน",
-      "after": "อกหักครั้งสุดท้าย\nใครไม่รัก\nช่างแม่ง\nรักตัวเองให้มากพอ\nโดยไม่ต้องรอใครมารัก\nใจที่แตกสลายเพราะคนอื่น\nเราประกอบขึ้นใหม่ด้วยตัวเอง\nAor Rutcha\nเขียน"
-    },
     "slides_winpeople": {
       "before": "แนวทางการแก้ไขพฤติกรรมที่ไม่พึงประสงค์\n1.หลักแห่งความจริง ( Realism ) จะต้องยอมรับและยึดหลักความจริงโดยที่ก่อนตัดสินใจ\nกระท าการใด ๆ จะต้องคิดพิจารณาให้รอบคอบว่ามีเหตุผลสมควร และมีทางเป็นไปได้ รู้จัก\nควบคุมอารมณ์ สุขุม หนักแน่น\n2.หลักแห่งความมีใจกล้าพอ ( Commitment ) นั่นคือพร้อมที่จะเผชิญกับเหตุการณ์\nที่จะเกิดขึ้น ไม่กลัวต่อปัญหาอุปสรรคและความล าบากใด ๆ มีความมั่นใจในตนเอง\n3.การยอมรับตนเอง (Self-",
       "after": "แนวทางการแก้ไขพฤติกรรมที่ไม่พึงประสงค์\n1.หลักแห่งความจริง ( Realism ) จะต้องยอมรับและยึดหลักความจริงโดยที่ก่อนตัดสินใจ\nกระทำการใด ๆ จะต้องคิดพิจารณาให้รอบคอบว่ามีเหตุผลสมควร และมีทางเป็นไปได้ รู้จัก\nควบคุมอารมณ์ สุขุม หนักแน่น\n2.หลักแห่งความมีใจกล้าพอ ( Commitment ) นั่นคือพร้อมที่จะเผชิญกับเหตุการณ์\nที่จะเกิดขึ้น ไม่กลัวต่อปัญหาอุปสรรคและความลำบากใด ๆ มีความมั่นใจในตนเอง\n3.การยอมรับตนเอง (Self-ac"
@@ -724,6 +829,18 @@
     "lecture_std_kku": {
       "before": "1 \n \nโรคติดต่อทางเพศสัมพันธ์  \n(Sexually transmitted disease) \n \nผศ.ดร.เด่นพงศ์ พัฒนเศรษฐานนท์ \nสาขาวิชาเภสัชกรรมคลินิก คณะเภสัชศาสตร์ มหาวิทยาลัยขอนแก่น \ndenpongpat@gmail.com \n \nโรคติดต่อทางเพศสัมพันธ์ (Sexually Transmitted Disease; STD) เป็นปัญหาส าคัญในทางการแพทย์และการ\nสาธารณสุขตั้งแต่ในอดีตมาจนถึงปัจจุบัน ผู้ป่วยส่วนใหญ่จะมีความอายที่จะขอค าปรึกษาในกรณีที่เกิดปัญหาเกี่ยวกับระบบ\nสืบพันธุ์ รวมท",
       "after": "โรคติดต่อทางเพศสัมพันธ์\n(Sexually transmitted disease)\nผศ.ดร.เด่นพงศ์ พัฒนเศรษฐานนท์\nสาขาวิชาเภสัชกรรมคลินิก คณะเภสัชศาสตร์ มหาวิทยาลัยขอนแก่น\nโรคติดต่อทางเพศสัมพันธ์ (Sexually Transmitted Disease; STD) เป็นปัญหาสำคัญในทางการแพทย์และการ\nสาธารณสุขตั้งแต่ในอดีตมาจนถึงปัจจุบัน ผู้ป่วยส่วนใหญ่จะมีความอายที่จะขอคำปรึกษาในกรณีที่เกิดปัญหาเกี่ยวกับระบบ\nสืบพันธุ์ รวมทั้งขาดความรู้และความเข้าใจในเรื่องการป"
+    },
+    "thesis_start_romance2549": {
+      "before": "การสื่อสารเพื่อการเริ่มต้นความสัมพันธ์ฉันคู่รักของวัยรุ่นไทย\n\nนางสาวเยาวภา อินทระชัย\n\nวิทยานิพนธ์นี้เป็นส่วนหนึ่งของการศึกษาตามหลักสูตรปริญญานิเทศศาสตรมหาบัณฑิต สาขาวิชาวาทวิทยา ภาควิชาวาทวิทยาและสื่อสารการแสดง\n\nคณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย\n\nปีการศึกษา 2549\n\nลิขสิทธิ์ของจุฬาลงกรณ์มหาวิทยาลัย\n\n\n\nวันที่โหลดเมื่อ 28/09/2569 03:25:18",
+      "after": "การสื่อสารเพื่อการเริ่มต้นความสัมพันธ์ฉันคู่รักของวัยรุ่นไทย\nนางสาวเยาวภา อินทระชัย\nวิทยานิพนธ์นี้เป็นส่วนหนึ่งของการศึกษาตามหลักสูตรปริญญานิเทศศาสตรมหาบัณฑิต สาขาวิชาวาทวิทยา ภาควิชาวาทวิทยาและสื่อสารการแสดง\nคณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย\nปีการศึกษา 2549\nลิขสิทธิ์ของจุฬาลงกรณ์มหาวิทยาลัย"
+    },
+    "thesis_attraction2548": {
+      "before": "ความดึงดูดใจระหวางบุคคลและรูปแบบความผูกพัน: รูปแบบที่คลายคลึงกับตน  \nรูปแบบที่เติมเต็มซึ่งกันและกัน และรูปแบบความผูกพันแบบมั่นคง \n \n \n \n \n \n \n \n \n \n \nนายอนุรักษ แทนทอง \n \n \n \n \n \n \n \n \n \n \nวิทยานิพนธนี้เปนสวนหนึ่งของการศึกษาตามหลักสูตรปริญญาศิลปศาสตรมหาบัณฑิต \nสาขาวิชาจิตวิทยาสังคม \nคณะจิตวิทยา จุฬาลงกรณมหาวิทยาลัย \nปการศึกษา 2548 \nISBN 974-14-1982-1 \nลิขสิทธิ์ของจุฬาลงกรณมหาวิทยาลัย \n",
+      "after": "ความดึงดูดใจระหว่างบุคคลและรูปแบบความผูกพัน: รูปแบบที่คล้ายคลึงกับตน\nรูปแบบที่เติมเต็มซึ่งกันและกัน และรูปแบบความผูกพันแบบมั่นคง\nนายอนุรักษ์ แท่นทอง\nวิทยานิพนธ์นี้เป็นส่วนหนึ่งของการศึกษาตามหลักสูตรปริญญาศิลปศาสตรมหาบัณฑิต\nสาขาวิชาจิตวิทยาสังคม\nคณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nปีการศึกษา 2548\nISBN 974-14-1982-1\nลิขสิทธิ์ของจุฬาลงกรณ์มหาวิทยาลัย"
+    },
+    "thesis_narcissism2553": {
+      "before": " \n \nบทที่  1 \n \nบทน า \n \nความเป็นมาและความส าคัญของปัญหา \n \nความรักแบบโรแมนติกเป็นสิ่งที่สวยงามและมีคุณค่าอย่างหนึ่งในชีวิต Acker และ Davis \n(1992) กล่าวไว้ว่า ความรักแบบโรแมนติกเป็นความรักระหว่างเพศตรงข้ามที่นําไปสู่การตัดสินใจ\nที่จะใช้ชีวิตร่วมกันของคู่รักและสร้างครอบครัวที่ดีต่อไป การมีคนรักจึงเป็นปรากฏการณ์ที่เป็น\nลักษณะสากลในทุกสังคม ความสัมพันธ์กับคนรักอาจนํามาซึ่งความสุข ความพึงพอใจ และ \nแป",
+      "after": "บทที่ 1\nบทนำ\nความเป็นมาและความสำคัญของปัญหา\nความรักแบบโรแมนติกเป็นสิ่งที่สวยงามและมีคุณค่าอย่างหนึ่งในชีวิต Acker และ Davis\n(1992) กล่าวไว้ว่า ความรักแบบโรแมนติกเป็นความรักระหว่างเพศตรงข้ามที่นำไปสู่การตัดสินใจ\nที่จะใช้ชีวิตร่วมกันของคู่รักและสร้างครอบครัวที่ดีต่อไป การมีคนรักจึงเป็นปรากฏการณ์ที่เป็น\nลักษณะสากลในทุกสังคม ความสัมพันธ์กับคนรักอาจนำมาซึ่งความสุข ความพึงพอใจ และ\nแปรเปลี่ยนเป็นความทุกข"
     },
     "web_chula_gaslighting": {
       "before": "‘Gaslighting’ อาจเป็นคำศัพท์ที่ฟังดูคุ้นหูสำหรับใครหลาย ๆ คนที่เคยได้รับชมภาพยนต์เรื่อง Gaslight ในปี ค.ศ. 1944 ซึ่งเป็นเรื่องราวของสามีที่ต้องการครอบครองสมบัติของภรรยาโดยการหลอกลวงให้เธอเชื่อว่าเธอมีอาการทางจิตด้วยทริคทางจิตใจที่แยบยล การหลอกลวงด้วยการโกหกโดยทั่วไปอาจไม่ส่งผลกับจิตใจของคนเราได้เท่ากับการหลอกให้สงสัยในความคิดของตนเอง\n\nผู้เป็นสามีใช้วิธีการหรี่ไฟในตะเกียงลง และเมื่อภรรยาของเขาถามถึ",

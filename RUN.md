@@ -115,6 +115,7 @@ cat "$(ls -td data/eval/llm_bench/*/ | head -1)summary.md"
 .venv/bin/python -m pipelines.hybrid.run evaluate                 # จับคู่: Dense vs Graph vs Hybrid
 .venv/bin/python -m pipelines.hybrid.run knowledge-eval           # ดึงความรู้ทุกโหมด
 .venv/bin/python -m pipelines.hybrid.cases                        # เคสจริง -> data/eval/hybrid/cases.md
+.venv/bin/python -u -m pipelines.llm.bench.rag_judge              # ✅ LLM ตรวจหลอนของโหมดปรึกษา (~20 นาที)
 docker compose -f graph/compose.yaml --env-file graph/.env up -d  # Neo4j (Docker Desktop ต้องเปิด)
 set -a; . graph/.env; set +a; .venv/bin/python -m graph.import_neo4j
 .venv/bin/python -m unittest discover -s tests && .venv/bin/python -m unittest discover -s graph/tests

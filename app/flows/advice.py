@@ -1,13 +1,25 @@
 """ปรึกษาเรื่องความรัก: Routed Hybrid RAG (ความรู้ 10 แหล่ง) -> ตอบพร้อมอ้างอิงแหล่งจริง"""
+from pipelines.hybrid.gate import filter_relevant, verify_answer
 from pipelines.hybrid.retrievers import RoutedKnowledge
-from pipelines.llm import tasks
+from pipelines.llm import parsing, tasks
+
+import re
 
 from .. import intent, live
 from ..flex import MENU, text
 
 _retriever = None
-NO_INFO = ("เรื่องนี้ผมยังไม่มีข้อมูลที่เชื่อถือได้ในคลังความรู้ครับ 🙏 "
+NO_INFO = ("เรื่องนี้ยังไม่มีในคลังความรู้ของผมครับ 🙏 ผมจะตอบเฉพาะจากเอกสารที่ตรวจสอบแล้วเท่านั้น\n"
            "ผมตอบได้ดีเรื่องทฤษฎีความรัก รูปแบบความผูกพัน red flag การเลิกรา การจัดการอารมณ์ และการตั้งขอบเขตครับ")
+
+
+RE_DOMAIN = re.compile(r"(?:https?://)?(?:[A-Za-z0-9-]+\.)*?([A-Za-z0-9-]+)\.(?:co\.th|ac\.th|or\.th|go\.th|com|co|org|net|th|io)"
+                       r"(?:/[^\s)]*)?")
+
+
+def _no_link(title):
+    """LINE แปลงข้อความที่ดูเหมือนโดเมน (xxx.co) เป็นลิงก์อัตโนมัติ -> อ้างอิงให้เห็นเป็นชื่อแหล่ง ไม่ใช่ลิงก์"""
+    return RE_DOMAIN.sub(r"\1", title)
 
 
 def handle(line_user, msg, history=None):
@@ -29,12 +41,25 @@ def handle(line_user, msg, history=None):
     if _retriever is None:
         _retriever = RoutedKnowledge(live.ctx())
     res = _retriever.retrieve(query, 8)
+    route = res.items[0].meta.get("route", "-") if res.items else "-"
+    n_before = len(res.items)
+    res = filter_relevant(query, res)   # ตอบเฉพาะเรื่องที่มีในคลังความรู้ ไม่ให้ LLM ใช้ความรู้ภายนอก
     if not res.items:
+        from .. import log
+        log.note(f"route={route} ไม่มีความรู้ที่ตรงคำถาม (0/{n_before} ผ่านด่าน) → ตอบว่าไม่มีข้อมูล")
         return [text(NO_INFO, MENU)]
     out = tasks.rag_answer(msg, res, history=history)
+    dropped = 0
+    if not out["citations"]["abstained"]:   # ด่านหลัง: ตัดประโยคที่ทวนคำถาม/ไม่มีหลักฐาน กันหลอน
+        passages = [it.text for it in res.items if it.id in out["refs"]]
+        checked, dropped = verify_answer(query, out["answer"], passages)
+        if checked is None:
+            out["citations"]["abstained"] = True
+        else:
+            out["answer"], out["citations"] = checked, parsing.citations(checked, len(out["refs"]))
     from .. import log
-    log.note(f"route={res.items[0].meta.get('route', '-')} ctx={len(out['refs'])} อ้างอิง={out['citations']['cited']}"
-             + (" (ตอบไม่ได้)" if out["citations"]["abstained"] else ""))
+    log.note(f"route={route} ผ่านด่าน {len(res.items)}/{n_before} ctx={len(out['refs'])} อ้างอิง={out['citations']['cited']}"
+             + (f" ตัดประโยคไม่มีหลักฐาน {dropped}" if dropped else "") + (" (ตอบไม่ได้)" if out["citations"]["abstained"] else ""))
     if out["citations"]["abstained"]:
         return [text(NO_INFO, MENU)]
     g = live.ctx().graph
@@ -46,5 +71,5 @@ def handle(line_user, msg, history=None):
             title = g.prop(f"source:{src}", "title") if src != "taxonomy" else "กฎความเข้ากันได้ (taxonomy)"
             if title and title not in sources:
                 sources.append(title)
-    ref_line = ("\n\n📚 อ้างอิง: " + " / ".join(sources[:3])) if sources else ""
+    ref_line = ("\n\n📚 อ้างอิง: " + " / ".join(_no_link(t) for t in sources[:3])) if sources else ""
     return [text(out["answer"] + ref_line, MENU)]

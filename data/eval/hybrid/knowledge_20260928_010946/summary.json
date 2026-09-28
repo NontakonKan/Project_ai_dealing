@@ -1,0 +1,88 @@
+{
+  "dense": {
+    "model": "BAAI/bge-m3",
+    "store": "chromadb",
+    "space": "cosine",
+    "query_collection": "preference_vec",
+    "counts": {
+      "persona": 288,
+      "preference": 288,
+      "avoid": 232,
+      "knowledge": 636
+    }
+  },
+  "results": [
+    {
+      "config": "dense",
+      "Hit@5": 0.853,
+      "MRR@5": 0.76,
+      "hit_paraphrase": 0.889,
+      "empty_on_unanswerable": "0/12",
+      "health_leak": "0/30",
+      "ms_per_query": 301.1
+    },
+    {
+      "config": "dense + rerank20",
+      "Hit@5": 0.853,
+      "MRR@5": 0.824,
+      "hit_paraphrase": 0.889,
+      "empty_on_unanswerable": "0/12",
+      "health_leak": "0/30",
+      "ms_per_query": 1204.6
+    },
+    {
+      "config": "graph",
+      "Hit@5": 0.412,
+      "MRR@5": 0.315,
+      "hit_paraphrase": 0.111,
+      "empty_on_unanswerable": "10/12",
+      "health_leak": "0/30",
+      "ms_per_query": 44.9
+    },
+    {
+      "config": "hybrid rrf",
+      "Hit@5": 1.0,
+      "MRR@5": 0.844,
+      "hit_paraphrase": 1.0,
+      "empty_on_unanswerable": "0/12",
+      "health_leak": "0/30",
+      "ms_per_query": 49.8
+    },
+    {
+      "config": "hybrid rrf + rerank20",
+      "Hit@5": 1.0,
+      "MRR@5": 0.87,
+      "hit_paraphrase": 1.0,
+      "empty_on_unanswerable": "0/12",
+      "health_leak": "0/30",
+      "ms_per_query": 1114.4
+    },
+    {
+      "config": "routed",
+      "Hit@5": 1.0,
+      "MRR@5": 0.892,
+      "hit_paraphrase": 1.0,
+      "empty_on_unanswerable": "0/12",
+      "health_leak": "0/30",
+      "ms_per_query": 72.0
+    },
+    {
+      "config": "routed + rerank20",
+      "Hit@5": 1.0,
+      "MRR@5": 0.902,
+      "hit_paraphrase": 1.0,
+      "empty_on_unanswerable": "0/12",
+      "health_leak": "0/30",
+      "ms_per_query": 1187.9
+    },
+    {
+      "config": "routed + gate (บอทใช้)",
+      "Hit@5": 0.971,
+      "MRR@5": 0.877,
+      "hit_paraphrase": 0.889,
+      "empty_on_unanswerable": "9/12",
+      "health_leak": "0/30",
+      "ms_per_query": 510.2
+    }
+  ]
+}
