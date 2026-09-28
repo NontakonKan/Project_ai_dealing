@@ -26,6 +26,8 @@ python -m pipelines.dense.run evaluate
 
 รายละเอียดการเลือกโมเดล embedding และการค้นดูที่ [pipelines/dense/README.md](pipelines/dense/README.md) ส่วนผลเปรียบเทียบโมเดลอยู่ใน [MODEL_COMPARISON.md](pipelines/dense/MODEL_COMPARISON.md) (โมเดล embedding เป็นคนละส่วนกับ LLM ตอบแชต)
 
+ผลตรวจความพร้อมและผลทดลองกับคลังล่าสุด 1,053 chunks อยู่ที่ [docs/evaluation-2026-09-28.md](docs/evaluation-2026-09-28.md) เครื่องที่โคลนใหม่ต้องรันคำสั่ง `build` เพื่อสร้าง `data/chroma_db/` เอง เพราะฐานเวกเตอร์ไม่ขึ้น Git
+
 ไม่ต้องรันก็ได้ ไฟล์ผลลัพธ์อยู่ใน repo แล้ว รันใหม่เมื่อ taxonomy หรือ config เปลี่ยน
 
 ---
@@ -59,7 +61,7 @@ python -m pipelines.dense.run evaluate
 | `data/taxonomy.json` | 69 รหัส + 14 กฎ | รหัสกลาง + กฎความเข้ากันได้ | – | ✅ node ของ Trait/RedFlag + edge ระหว่าง Trait |
 | `data/mock/users.json` | 300 คน | โปรไฟล์ผู้ใช้ | ✅ embed `summaries` | ✅ node User + edge |
 | `data/mock/events.jsonl` | 432 | เลิกคุย / แมตช์ / กดผ่าน | ✅ negative examples | ✅ edge UNMATCHED |
-| `data/processed/book_chunks.jsonl` | 129 chunk | ความรู้จาก 10 แหล่ง: งานวิจัย 44 / หนังสืออกหัก (OCR) 13 / สไลด์ครองใจคน 27 / บทความเว็บ 7 เรื่อง 45 | ✅ embed `text` | ✅ node BookChunk |
+| `data/processed/book_chunks.jsonl` | 1,053 chunks (2026-09-28) | เอกสารความรู้ภาษาไทยจากงานวิจัย หนังสือ สไลด์ และแหล่งเว็บที่คัดเลือก; ดูจำนวนรายแหล่งใน `data/processed/ingest_report.json` | ✅ embed `text` | ✅ node BookChunk |
 | `data/mock/ground_truth_pairs.json` | 286 คน | **เฉลย** การจับคู่ | 📏 ใช้วัดผลเท่านั้น | 📏 ใช้วัดผลเท่านั้น |
 | `data/mock/chats.jsonl` | 100 | แชทจำลอง + เฉลยการสกัด | – | – (ใช้ทดสอบ extractor) |
 
@@ -288,7 +290,7 @@ app/        ส่วน 7 LINE OA: server (webhook), handlers, intent, flows/, 
 - **กติกาโค้ด:** แยกไฟล์ตามหน้าที่ ห้ามเขียนทั้ง pipeline จบในไฟล์เดียว
 
 ## สถานะส่วน 1
-- ✅ Taxonomy, mock users/events/chats, ground truth, ingest 10 แหล่ง (129 chunks) รวม OCR หนังสือด้วย qwen2.5vl + แก้คำผิด 63 จุด (`data/ocr_corrections.json`)
+- ✅ Taxonomy, mock users/events/chats, ground truth, ingest 1,053 chunks (2026-09-28) รวม OCR หนังสือ; ดูรายงานข้อมูลปัจจุบันที่ `data/processed/ingest_report.json`
 - ✅ red flag ครบ 10/10 และ attachment ครบ 4/4 มี chunk อธิบาย (เพิ่มบทความคณะจิตวิทยา จุฬาฯ)
 - ✅ ชุดทดสอบ held-out `data/eval/unmatch_heldout.json` (สำนวนที่ระบบไม่เคยเห็น 18 ข้อ)
 - ⏳ หนังสือฉบับเต็ม (ตอนนี้มีฉบับตัวอย่าง 27 หน้า)
@@ -343,7 +345,7 @@ app/        ส่วน 7 LINE OA: server (webhook), handlers, intent, flows/, 
 
 - [x] bge-m3 + ChromaDB, cross-encoder rerank (bge-reranker-v2-m3), จำกัด 3 chunk ต่อแหล่ง
 - [x] มีคำสั่งวัด `python -m pipelines.dense.run evaluate` (Precision / Recall / MRR / nDCG)
-- [ ] ⚠️ **รัน evaluate ใหม่** — คลังเปลี่ยนจาก 876 → 1,053 chunk ตัวเลขเดิมใช้ไม่ได้
+- [x] **รัน Dense evaluate ใหม่** หลังสร้าง ChromaDB 1,053 chunks — ผลที่ `data/eval/dense_1053_20260928.json` (วัดการจับคู่ผู้ใช้; การค้นความรู้วัดแยก)
 - [ ] ตาราง Top-K × threshold × reranking (มี / ไม่มี) → Hit@5, เวลา
 - [ ] ablation ขนาด chunk (200 / 300 / 500 คำ) → Hit@5, เวลาค้น
 - [ ] เทียบโมเดล embedding (มีโครง e5-base แล้ว) ในตารางเดียว
