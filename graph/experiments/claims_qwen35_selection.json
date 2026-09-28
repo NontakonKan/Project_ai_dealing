@@ -1,0 +1,9 @@
+{
+  "reviewer": "assistant code-and-source review, not independent expert evaluation",
+  "accepted": 7,
+  "excluded": {
+    "claim:acdaa9564b98dc680fdd592e": "Heading only; no assertion",
+    "claim:fb6b3cfd366a82db318845fd": "Duplicate overlapping passage retained at c00"
+  },
+  "note": "ABOUT links are topical; they do not assert matching rules or generalize infant findings to adults"
+}

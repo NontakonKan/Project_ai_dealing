@@ -1,6 +1,14 @@
 """Read-only graph inspection, without matching scores, ranking or RAG."""
 
 QUERIES = {
+    "claims": """
+        MATCH (c:DealingEntity:Claim {dataset:$dataset, snapshot:$snapshot})
+              -[:SUPPORTED_BY]->(b:BookChunk)
+        OPTIONAL MATCH (c)-[:ABOUT]->(t:Concept)
+        RETURN c.id AS claim_id, c.text AS quote, c.assertion AS status,
+               b.id AS chunk_id, b.source_id AS source_id, collect(t.id) AS concepts
+        ORDER BY claim_id
+    """,
     "summary": """
         MATCH (n:DealingEntity {dataset:$dataset, snapshot:$snapshot})
         UNWIND [label IN labels(n) WHERE NOT label IN ['DealingEntity', 'Concept']] AS label

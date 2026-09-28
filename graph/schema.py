@@ -13,7 +13,7 @@ GROUP_LABELS = {
 APPEARANCE_LABELS = {"BodyType", "SkinTone", "Hygiene"}
 CONCEPT_LABELS = set(GROUP_LABELS.values())
 FEATURE_LABELS = {"Trait", "CommStyle", "Attachment"}
-LABELS = CONCEPT_LABELS | {"User", "Source", "BookChunk"}
+LABELS = CONCEPT_LABELS | {"User", "Source", "BookChunk", "Claim"}
 # Domain/range checks are application-side; Neo4j uniqueness alone is insufficient.
 RELATIONS = {
     "HAS_TRAIT": ({"User"}, FEATURE_LABELS),
@@ -32,7 +32,8 @@ RELATIONS = {
     "CONFLICTS_WITH": (CONCEPT_LABELS, CONCEPT_LABELS),
     "OPPOSITE_OF": (CONCEPT_LABELS, CONCEPT_LABELS),
     "HAS_CHUNK": ({"Source"}, {"BookChunk"}),
-    "ABOUT": ({"BookChunk"}, CONCEPT_LABELS),
+    "ABOUT": ({"BookChunk", "Claim"}, CONCEPT_LABELS),
+    "SUPPORTED_BY": ({"Claim"}, {"BookChunk"}),
 }
 EVENT_RELATIONS = {"unmatch": "UNMATCHED", "matched": "MATCHED", "pass": "PASSED"}
 RULE_RELATIONS = {"COMPATIBLE_WITH", "CONFLICTS_WITH", "OPPOSITE_OF"}

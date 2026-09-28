@@ -32,7 +32,7 @@ def _batches(rows, size=500):
         yield rows[start:start + size]
 
 
-def _write_snapshot(tx, graph):
+def _write_snapshot(tx, graph, activate=True):
     dataset, snapshot = graph["dataset"], graph["snapshot"]
     # Serialize publishers of this dataset before writing the active pointer.
     tx.run("MERGE (d:DealingDataset {id:$dataset}) SET d.lock = coalesce(d.lock, 0) + 1",
@@ -66,10 +66,11 @@ def _write_snapshot(tx, graph):
     expected = {"nodes": len(graph["nodes"]), "relationships": len(graph["relationships"])}
     if counts != expected:
         raise ValueError(f"Neo4j count mismatch: {counts} != {expected}")
-    tx.run("MATCH (d:DealingDataset {id:$dataset}) "
-           "SET d.active_snapshot=$snapshot, d.node_count=$nodes, "
-           "d.relationship_count=$relationships, d.format_version=$version",
-           dataset=dataset, snapshot=snapshot, version=graph["format_version"], **counts).consume()
+    if activate:
+        tx.run("MATCH (d:DealingDataset {id:$dataset}) "
+               "SET d.active_snapshot=$snapshot, d.node_count=$nodes, "
+               "d.relationship_count=$relationships, d.format_version=$version",
+               dataset=dataset, snapshot=snapshot, version=graph["format_version"], **counts).consume()
     return {**counts, "dataset": dataset, "snapshot": snapshot}
 
 
@@ -83,13 +84,13 @@ def _counts(tx, dataset, snapshot):
     return {"nodes": nodes, "relationships": relationships}
 
 
-def import_graph(driver, graph, db="neo4j"):
+def import_graph(driver, graph, db="neo4j", *, activate=True):
     validate(graph)
     driver.verify_connectivity()
     with driver.session(database=db) as session:
         for query in CONSTRAINTS:
             session.run(query).consume()
-        return session.execute_write(_write_snapshot, graph)
+        return session.execute_write(_write_snapshot, graph, activate)
 
 
 def read_graph(driver, query, parameters=None, db="neo4j"):

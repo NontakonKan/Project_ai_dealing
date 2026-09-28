@@ -76,6 +76,7 @@ def validate(graph):
         _properties(n["properties"])
         nodes[n["id"]] = n
     edges = set()
+    supported = set()
     for e in graph["relationships"]:
         if not isinstance(e["id"], str) or not e["id"] or e["id"] in edges:
             raise ValueError(f"Invalid/duplicate edge ID: {e['id']}")
@@ -89,6 +90,13 @@ def validate(graph):
             raise ValueError(f"Wrong domain/range: {e['id']}")
         p = e["properties"]
         _properties(p)
+        if e["type"] == "SUPPORTED_BY":
+            claim, chunk = nodes[e["source"]]["properties"], nodes[e["target"]]["properties"]
+            quote = claim.get("text")
+            if (not isinstance(quote, str) or not quote or quote not in chunk.get("text", "")
+                    or p.get("evidence") != quote or claim.get("assertion") != "llm_extracted_unverified"):
+                raise ValueError("Claim lacks exact source evidence or extraction status")
+            supported.add(e["source"])
         for key in ("confidence", "weight"):
             if key in p and (type(p[key]) not in (int, float) or not 0 <= p[key] <= 1):
                 raise ValueError(f"Invalid {key}: {e['id']}")
@@ -96,6 +104,8 @@ def validate(graph):
             raise ValueError("Unusable report reached graph")
         if e["type"] in RULE_RELATIONS and p.get("assertion") != "unverified_taxonomy_rule":
             raise ValueError("Compatibility rule must retain its unverified status")
+    if any(n["label"] == "Claim" and nid not in supported for nid, n in nodes.items()):
+        raise ValueError("Claim must link to source evidence")
     if graph.get("snapshot") != content_hash(graph):
         raise ValueError("Graph content hash mismatch; rebuild before import")
     return {"nodes": len(nodes), "relationships": len(edges),

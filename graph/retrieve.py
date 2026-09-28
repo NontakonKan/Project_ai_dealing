@@ -37,9 +37,19 @@ class GraphKnowledge:
         for c in found:
             for chunk_id, count in g.about.get(c, []):
                 chunk_score[chunk_id] = chunk_score.get(chunk_id, 0) + count / 10
+        claim_paths = {}
+        for concept in found:
+            for claim_id in g.claims_about.get(concept, []):
+                for cid in g.rel(claim_id, "SUPPORTED_BY"):
+                    if claim_id not in claim_paths.setdefault(cid, set()):
+                        chunk_score[cid] = chunk_score.get(cid, 0) + 0.1
+                        claim_paths[cid].add(claim_id)
         for cid, s in chunk_score.items():
             # จำกัดคะแนน chunk ไม่เกิน 1 -> กฎที่ตรงกับ 2 concept (น้ำหนัก x2) ขึ้นก่อน chunk ที่แค่กล่าวถึงบ่อย
             items.append(RetrievalItem(cid, "chunk", g.chunk_text(cid), round(min(1.0, s), 3), "graph",
-                                       {"path": ["BookChunk", "ABOUT", *sorted(found)], "concepts": sorted(found)}))
+                                       {"path": (["Concept", "ABOUT (incoming)", "Claim", "SUPPORTED_BY", cid]
+                                                 if cid in claim_paths else ["BookChunk", "ABOUT", *sorted(found)]),
+                                        "concepts": sorted(found),
+                                        "claim_ids": sorted(claim_paths.get(cid, []))}))
         items = sorted(items, key=lambda x: -x.score)[:k]
         return RetrievalResult("graph", query, items, (time.perf_counter() - t0) * 1000)

@@ -198,3 +198,118 @@ set -a; . graph/.env; set +a
 .venv/bin/python -m graph.explore pair-features --user-id U001 --other-id U002
 ```
 schema รองรับรูปลักษณ์ (`BodyType`/`SkinTone`/`Hygiene`, `SELF_DESCRIBED`) และ REPORTED_AS ชี้ได้เฉพาะ `RedFlag`
+
+## Claim extraction pilot (Qwen3.5 9B)
+
+ใช้ `qwen3.5:9b` ผ่าน Ollama local และ JSON schema โดยไม่เรียก API ภายนอก
+ปิด thinking เฉพาะงานนี้เพื่อเก็บ output budget สำหรับ JSON; งานโมเดลอื่นใช้ค่าเดิม
+ให้โมเดลเลือก ID ย่อหน้าจากต้นฉบับและ concept IDs จากรายการปิด แล้วโปรแกรมคัดลอกข้อความเอง
+จึงไม่เสี่ยงต่อการที่โมเดลพิมพ์คำอ้างผิด; ย่อหน้าต้องยาว 20–1,200 ตัวอักษร และ chunk ไม่เกิน 6,500 ตัวอักษร
+สกัดเฉพาะเอกสารความรู้ ไม่อ่านบทสนทนาผู้ใช้ และไม่สร้างกฎคะแนน Matching
+
+```bash
+ollama pull qwen3.5:9b
+.venv/bin/python -m graph.claims --source-id web_chula_attachment --limit 3 --output /tmp/claims-pilot.jsonl
+```
+
+ตรวจ pilot ก่อนนำไปใช้: quote ต้องเป็นประโยคสมบูรณ์ เก็บคำปฏิเสธ/เงื่อนไขครบ และ concept ต้องตรงเนื้อหา
+การตรวจ substring ยืนยันเพียงว่าคัดลอกข้อความจริง ไม่ได้รับประกันความหมายหรือความถูกต้องของ concept
+โมเดลอาจคืนรายการว่างเมื่อไม่มี Claim ที่เหมาะสม เปลี่ยนโมเดลทดลองได้ด้วย `--model`
+CLI ไม่เขียนทับไฟล์เดิมและจะไม่สร้าง output ถ้าสกัด chunk ใดล้มเหลว
+
+หลังตรวจแล้ว นำไฟล์ไปไว้ `data/processed/knowledge_claims.jsonl`
+`load_inputs()` จะโหลดอัตโนมัติเมื่อ build/import Neo4j หรือเปิด GraphView ใหม่
+หากไม่มีไฟล์นี้ ระบบใช้ Graph เดิมตามปกติ ไม่ต้องเปลี่ยน ChromaDB
+หาก chunk ต้นทางเปลี่ยนหรือลบ การ build จะปฏิเสธ Claim เก่า ต้องสกัดใหม่หรือนำรายการนั้นออก
+
+โครงสร้างเพิ่ม: `Claim -[:SUPPORTED_BY]-> BookChunk` และ `Claim -[:ABOUT]-> Concept`
+ข้อความ Claim เป็นคำอ้างต้นฉบับ ไม่ใช้การ paraphrase ที่อาจทำเงื่อนไขหาย
+สถานะคือ `llm_extracted_unverified` และลิงก์หลักฐานเป็น `exact_quote_not_semantic_verification`
+ตัวสร้างตรวจ hash ของ chunk, รหัส concept, ข้อความหลักฐาน และสร้าง ID คงที่เพื่อกันซ้ำ
+
+Graph retrieval เดินจาก concept ผ่าน Claim ไป chunk ต้นทาง และเพิ่มคะแนนค้นเล็กน้อย
+คืน chunk เต็มชนิด `chunk` ให้ RAG ผ่านด่านความเกี่ยวข้องและตรวจคำตอบเดิม พร้อม metadata `claim_ids`
+ไม่ส่ง Claim เป็น `graph_fact` ที่อาจข้ามด่านหลักฐาน และไม่เปลี่ยน `scorer.py`
+เส้นทาง Dense อย่างเดียวจะยังไม่ใช้ Claim
+
+ดูเฉพาะ Claims ใน active snapshot ผ่าน Neo4j Browser:
+
+```cypher
+MATCH (d:DealingDataset {id:'psu_dealing_mock'})
+MATCH (c:Claim {dataset:d.id, snapshot:d.active_snapshot})-[r:SUPPORTED_BY]->(b:BookChunk)
+OPTIONAL MATCH (c)-[a:ABOUT]->(t:Concept)
+RETURN c,r,b,a,t LIMIT 50
+```
+
+ทดสอบ: `.venv/bin/python -m unittest discover -s graph/tests`
+ก่อนขยายครบทุกเอกสาร ให้เทียบคำถามชุดเดิมระหว่าง Graph ที่ไม่มี/มี Claims
+วัดการค้นพบ chunk หลักฐาน คุณภาพคำตอบ และ latency; ยังไม่มีผลว่าดีกว่าระบบเดิม
+
+### ตัวกรอง concept ใน v2
+
+ก่อนเรียก Qwen3.5 จำกัด concept ให้เหลือเฉพาะคำที่พบในย่อหน้า (label/alias และชื่ออังกฤษสำหรับ attachment/red flag)
+หลังสกัด ตรวจซ้ำรายย่อหน้าและตัดลิงก์ที่ไม่พบหลักฐาน พร้อม warning; Claim ที่ไม่เหลือลิงก์จะถูกข้าม
+`attach:secure` ต้องพบคำเฉพาะ เช่น `ความผูกพันแบบมั่นคง` หรือ `secure` ไม่ใช่เพียง `มั่นคง`
+ภาษาอังกฤษตรวจขอบเขตคำเพื่อไม่ให้ `insecure` ถูกจับเป็น `secure`
+ตัวกรองนี้ลดการเดา แต่ยังพลาดคำพ้องใหม่และไม่ยืนยันว่าความหมายของ concept ถูกต้องทั้งหมด
+ไฟล์ Claim ที่โหลดเข้า Graph จะตรวจซ้ำและปฏิเสธข้อมูลผิด ไม่ตัดเงียบ ๆ ตอน import
+
+ตัวอย่างสำหรับตรวจใน Neo4j: `.venv/bin/python -m graph.explore claims`
+
+ผล pilot อยู่ใน `graph/experiments/claims_qwen35_pilot.jsonl` และผลตรวจใน `claims_qwen35_review.json`
+ทดสอบจริง 5 chunks จาก Attachment/Gaslighting ได้ 9 candidates ผ่านเงื่อนไขโครงสร้าง
+ตรวจเนื้อหาพบ 1 รายการเป็นหัวข้อ ไม่ใช่ข้อกล่าวอ้าง จึงระบุ rejected ใน review
+ไฟล์ pilot เป็นผลดิบสำหรับประเมิน ไม่ใช่ไฟล์เปิดใช้งาน และไม่ถูกโหลดเข้า Graph อัตโนมัติ
+ยังต้องประเมินคุณภาพคำตอบ A/B และตรวจความหมายของลิงก์ก่อนขยายหรือ publish
+
+### ประเมินและทดลอง Neo4j (ยังไม่เปิดใช้จริง)
+
+```bash
+.venv/bin/python -m graph.evaluate_claims --claims graph/experiments/claims_qwen35_accepted.jsonl --output /tmp/claims-eval.json
+# เพิ่ม --generate เพื่อลองคำตอบ Qwen3.5 ทั้งสองชุด (2 คำถาม รวม 4 คำตอบ)
+# ตั้ง environment ของ Neo4j ตามหัวข้อ import เดิมก่อนรัน:
+.venv/bin/python -m graph.import_neo4j --claims graph/experiments/claims_qwen35_accepted.jsonl --trial
+```
+
+`--trial` เขียน snapshot แต่ไม่เปลี่ยน active_snapshot; การ import ปกติยังใช้พฤติกรรมเดิม
+ผลทดลอง `claims_qwen35_evaluation.json`: 5 คำถามที่มี chunk เป้าหมาย + 1 คำถามนอกเรื่อง
+Hit@8 และ MRR@8 เท่ากัน 0.2 ทั้งสองแบบ เป็นชุดคำถามเล็กที่เขียนจาก pilot ไม่ใช่ held-out benchmark
+ใช้ concept detection ด้วย alias จริง ไม่ mock แต่ไม่ได้ใช้ embedding, Dense หรือด่าน RAG ของ production
+คำตอบทดลองบาง evidence ไม่ตรงตัวอักษรกับต้นฉบับ (ดู quote_checks) จึงไม่ควรใช้ผลนี้แทนคำตอบผ่านด่านตรวจจริง
+
+ตรวจ Claims: 9 candidates ตัดหัวข้อ 1 และย่อหน้าซ้ำจาก chunk ซ้อนทับ 1 เหลือ 7
+ผล Neo4j จริงอยู่ `claims_qwen35_neo4j_trial.json`: 1,466 nodes / 7,598 relationships
+import ซ้ำได้จำนวนเท่าเดิม และ active snapshot เดิมไม่เปลี่ยน
+ยังไม่แสดงประโยชน์ด้านคุณภาพคำตอบ ควรประเมินการจัดอันดับที่ใช้เนื้อหา Claim และการตรวจ concept จากคำอ้อม
+กับชุดคำถามที่แยกจากชุดปรับแต่งก่อนเปิดใช้จริง
+
+ดู snapshot ทดลองโดยไม่เปลี่ยน default:
+
+```cypher
+MATCH (c:Claim {snapshot:'1b9d1b01918dc95456486827ca207cc5952826d7bbe7464c1ac87022b63251f2'})
+      -[r:SUPPORTED_BY]->(b:BookChunk)
+OPTIONAL MATCH (c)-[a:ABOUT]->(t:Concept)
+RETURN c,r,b,a,t
+```
+
+### Incremental extraction
+
+CLI ใช้ cache `graph/.cache/claims.sqlite3` (ไม่ขึ้น Git) เก็บผลที่ตรวจโครงสร้างแล้วทีละ chunk
+รวมผลว่างไว้ด้วย รันซ้ำจะไม่เรียกโมเดลสำหรับ chunk ที่เหมือนเดิม
+cache key รวมเนื้อหาและ metadata ของ chunk, taxonomy, รุ่นตัวสกัด/โค้ด, ชื่อโมเดล และ Ollama model digest
+เมื่อเปลี่ยนข้อมูลหรือเปลี่ยนโมเดลภายใต้ tag เดิม ระบบสกัดใหม่; `--refresh` บังคับสกัดใหม่
+ยังต้องเปิด Ollama เพื่ออ่าน model digest แม้รอบนั้นจะใช้ cache ทั้งหมด
+
+```bash
+.venv/bin/python -m graph.claims --source-id web_chula_attachment --limit 3 --output /tmp/claims-run1.jsonl
+.venv/bin/python -m graph.claims --source-id web_chula_attachment --limit 3 --output /tmp/claims-run2.jsonl
+```
+
+ผลรอบสองแสดง `cache` และจำนวน chunks ที่ต้องประมวลผลใหม่เป็น 0 หากข้อมูลไม่เปลี่ยน
+ถ้ารันค้างหรือโมเดลล้ม ผล chunk ที่เสร็จแล้วอยู่ใน cache; chunk ที่ล้มจะลองใหม่ครั้งหน้า
+ผลที่ไม่ผ่าน validation จะไม่ถูก cache และ cache เสียหายจะถูกสกัดใหม่
+output แต่ละครั้งรวมเฉพาะ chunks ที่เลือกจากไฟล์ปัจจุบัน จึงไม่ลากผลเก่าของ chunk ที่ถูกลบเข้ามา
+entries เก่าอาจยังอยู่ใน cache บนดิสก์ แต่ไม่ถูกใช้กับข้อมูลใหม่
+
+Cache เป็นผลสกัดที่ยังไม่ผ่านการตรวจเนื้อหา ไม่ใช่ Graph ที่อนุมัติแล้ว
+การสกัดจะไม่ import Neo4j หรือเขียนไฟล์ `knowledge_claims.jsonl` อัตโนมัติ

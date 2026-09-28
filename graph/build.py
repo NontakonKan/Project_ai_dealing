@@ -14,7 +14,7 @@ def read_jsonl(path):
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def build_graph(taxonomy, users, events, chunks, provenance=None):
+def build_graph(taxonomy, users, events, chunks, provenance=None, claims=None):
     graph = Graph()
     for group, label in GROUP_LABELS.items():
         for concept in taxonomy[group]:
@@ -105,9 +105,13 @@ def build_graph(taxonomy, users, events, chunks, provenance=None):
                        pages=chunk["pages"], assertion="keyword_tag_not_entailment",
                        provenance="pipelines/ingest/tagger.py")
 
+    if claims:
+        from .claims import add_claims
+        add_claims(graph, claims, chunks, taxonomy)
     result = graph.export(provenance or {})
     stats = validate(result)
-    covered = {e["target"] for e in result["relationships"] if e["type"] == "ABOUT"}
+    covered = {e["target"] for e in result["relationships"]
+               if e["type"] == "ABOUT" and graph.nodes[e["source"]]["label"] == "BookChunk"}
     concepts = {n["id"] for n in result["nodes"] if n["label"] in GROUP_LABELS.values()}
     stats.update(snapshot=result["snapshot"], skipped_unusable_reports=skipped_reports,
                  consented_users=sum(u["consent"]["matching"] is True for u in users),
@@ -129,6 +133,11 @@ def load_inputs(data_dir):
               for key, path in files.items()}
     provenance = {key: {"path": str(path.relative_to(data_dir)), "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
                   for key, path in files.items()}
+    claim_path = data_dir / "processed/knowledge_claims.jsonl"
+    if claim_path.exists():
+        values["claims"] = read_jsonl(claim_path)
+        provenance["claims"] = {"path": str(claim_path.relative_to(data_dir)),
+                                "sha256": hashlib.sha256(claim_path.read_bytes()).hexdigest()}
     return values, provenance
 
 
