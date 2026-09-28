@@ -80,6 +80,8 @@ def _dispatch(event) -> list:
         msg = event["message"]["text"]
         if u["state"] == "new":
             return onboarding.follow(u)
+        if msg.strip() == "ถามบอต" and u["state"] == "ready":
+            return [text("อยากถามหรือปรึกษาเรื่องอะไรครับ พิมพ์คำถามมาได้เลย เช่น วิธีเริ่มคุยกับคนที่ชอบ หรือการตั้งขอบเขตในความสัมพันธ์", MENU)]
         if msg.strip() in ("ยินยอม", "ยินยอมให้หาคู่") and u["state"] != "onboard_consent":
             return onboarding.consent(u, True)
         # Anchor history to the inserted row, never remove an assumed last row.
