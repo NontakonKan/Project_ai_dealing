@@ -4,6 +4,7 @@
 ใช้ context จาก Dense/Graph/Hybrid: rag_answer(), explain_match()
 ทุกฟังก์ชันคืน dict ที่มี "llm" (metric เวลา/token) เพื่อเก็บลง benchmark ได้ทันที
 """
+import re
 from ..feedback import policy
 from . import context as ctx
 from . import guards, parsing, prompts, providers, schemas
@@ -50,6 +51,14 @@ def rag_answer(query, retrieval, cfg=None) -> dict:
             "context": {"mode": retrieval.mode, "used_tokens": pack.used_tokens, "dropped": pack.dropped,
                         "kinds": pack.kinds, "retrieval_ms": round(retrieval.latency_ms, 2)},
             "llm": res.metrics, "model": res.model}
+
+
+def rewrite_query(query, kb_topics=(), cfg=None) -> list:
+    """-> คำถามทั่วไป ไม่เกิน 3 แบบ (ใช้ค้นเท่านั้น ไม่ใช่คำตอบ) — ด่านความเกี่ยวข้องใช้คะแนนสูงสุดของทุกแบบ"""
+    cfg = cfg or TASKS["rewrite_query"]
+    res = providers.chat(cfg.model, prompts.rewrite_messages(query, kb_topics), cfg.gen, fallback=cfg.fallback or None)
+    lines = (re.sub(r"^\s*(?:[-*•]|\d+[.)])\s*", "", l).strip() for l in res.text.splitlines())
+    return [l for l in lines if 3 <= len(l) <= 100][:3]
 
 
 def explain_match(user_a, user_b, retrieval, cfg=None) -> dict:

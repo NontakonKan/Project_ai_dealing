@@ -19,8 +19,9 @@
    "ความพึงพอใจในชีวิต",
    "ระยะเวลา"
   ],
-  "answerable": true,
-  "needs": "chunk"
+  "answerable": false,
+  "needs": "chunk",
+  "note": "แหล่งเดิม research_cu2561 ถูกถอดออกจากคลัง (20260928) -> ต้องตอบว่าไม่มีข้อมูล"
  },
  {
   "qid": "Q03",
@@ -50,8 +51,9 @@
    "ครอบครัว",
    "เกี่ยวข้อง"
   ],
-  "answerable": true,
-  "needs": "chunk"
+  "answerable": false,
+  "needs": "chunk",
+  "note": "แหล่งเดิม research_cu2561 ถูกถอดออกจากคลัง (20260928) -> ต้องตอบว่าไม่มีข้อมูล"
  },
  {
   "qid": "Q06",
@@ -415,12 +417,16 @@
  {
   "qid": "Q37",
   "question": "ผมควรทำไงเมื่อพูดคุยครั้งแรกตอนเดตจริง",
-  "expected_keywords": [],
-  "answerable": false,
-  "needs": "none",
-  "source": "none",
-  "style": "not_covered",
-  "note": "เรื่องความสัมพันธ์ที่คลังความรู้ยังไม่มี -> ต้องตอบว่าไม่มีข้อมูล ห้ามใช้ความรู้ภายนอก"
+  "expected_keywords": [
+   "ชื่อ",
+   "อายุ",
+   "เรื่องเรียน"
+  ],
+  "answerable": true,
+  "needs": "chunk",
+  "source": "thesis_start_romance2549",
+  "style": "paraphrase",
+  "note": "ตอบได้จาก thesis_start_romance2549 หน้า 134 (เรื่องที่คุยกันครั้งแรก)"
  },
  {
   "qid": "Q38",
@@ -520,5 +526,103 @@
   "source": "none",
   "style": "not_covered",
   "note": "เรื่องความสัมพันธ์ที่คลังความรู้ยังไม่มี -> ต้องตอบว่าไม่มีข้อมูล ห้ามใช้ความรู้ภายนอก"
+ },
+ {
+  "qid": "Q47",
+  "question": "นัดเจอคนจากแอปหาคู่ครั้งแรกควรระวังอะไร",
+  "expected_keywords": [
+   "เพื่อน",
+   "กล้องวงจรปิด"
+  ],
+  "answerable": true,
+  "needs": "chunk",
+  "source": "thaipbs_dating_app_safe",
+  "style": "paraphrase",
+  "note": "เอกสารเพิ่ม 2569 (data/new_docs/candidates.json)"
+ },
+ {
+  "qid": "Q48",
+  "question": "คนที่คุยในแอปขอยืมเงิน ควรทำไง",
+  "expected_keywords": [
+   "โอนเงิน",
+   "มิจฉาชีพ"
+  ],
+  "answerable": true,
+  "needs": "chunk",
+  "source": "police9_romance_scam",
+  "style": "paraphrase",
+  "note": "เอกสารเพิ่ม 2569 (data/new_docs/candidates.json)"
+ },
+ {
+  "qid": "Q49",
+  "question": "ควรเรียกพี่ไหม เค้าอายุเยอะกว่า หรือเรียกเธอดี",
+  "expected_keywords": [
+   "พี่"
+  ],
+  "answerable": true,
+  "needs": "chunk",
+  "source": "thaijo_pronouns_students",
+  "style": "paraphrase",
+  "note": "เอกสารเพิ่ม 2569 (data/new_docs/candidates.json)"
+ },
+ {
+  "qid": "Q50",
+  "question": "ไม่กล้าปฏิเสธเพื่อน ควรพูดยังไงดี",
+  "expected_keywords": [
+   "ปฏิเสธ"
+  ],
+  "answerable": true,
+  "needs": "chunk",
+  "source": "dltv_refusal",
+  "style": "paraphrase",
+  "note": "เอกสารเพิ่ม 2569 (data/new_docs/candidates.json)"
+ },
+ {
+  "qid": "Q51",
+  "question": "คนคุยหายไปเฉยๆ ทำไมถึงเจ็บจัง",
+  "expected_keywords": [
+   "คลุมเครือ"
+  ],
+  "answerable": true,
+  "needs": "chunk",
+  "source": "thaipbs_ghosting",
+  "style": "paraphrase",
+  "note": "เอกสารเพิ่ม 2569 (data/new_docs/candidates.json)"
+ },
+ {
+  "qid": "Q52",
+  "question": "แฟนหึงมากจนอึดอัด ทำไงดี",
+  "expected_keywords": [
+   "พูดคุย"
+  ],
+  "answerable": true,
+  "needs": "chunk",
+  "source": "manarom_jealousy",
+  "style": "paraphrase",
+  "note": "เอกสารเพิ่ม 2569 (data/new_docs/candidates.json)"
+ },
+ {
+  "qid": "Q53",
+  "question": "คบกันแบบไม่มีสถานะ ดีไหม",
+  "expected_keywords": [
+   "สถานะ"
+  ],
+  "answerable": true,
+  "needs": "chunk",
+  "source": "chula_situationships",
+  "style": "paraphrase",
+  "note": "เอกสารเพิ่ม 2569 (data/new_docs/candidates.json)"
+ },
+ {
+  "qid": "Q54",
+  "question": "แฟนอยู่คนละจังหวัด จะรักษาความสัมพันธ์ยังไง",
+  "expected_keywords": [
+   "สื่อสาร"
+  ],
+  "answerable": true,
+  "needs": "chunk",
+  "source": "chula_long_distance",
+  "style": "paraphrase",
+  "note": "เอกสารเพิ่ม 2569 (data/new_docs/candidates.json)"
  }
 ]

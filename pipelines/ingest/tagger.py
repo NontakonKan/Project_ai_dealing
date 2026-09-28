@@ -35,14 +35,19 @@ def _patterns():
 
 
 def _ok(text, m, rule) -> bool:
-    """คำกำกวม: ต้องมีคำบริบทอยู่ใกล้ๆ และไม่ตามหลังคำปฏิเสธ ("ไม่มั่นคง" ไม่ใช่ secure)"""
+    """คำกำกวม: ต้องมีคำบริบทอยู่ใกล้ๆ ไม่ตามหลังคำปฏิเสธ ("ไม่มั่นคง" ไม่ใช่ secure)
+    และไม่มีคำที่ทำให้เป็นคำอื่นต่อท้าย ("รู้สึกผิดหวัง" ไม่ใช่ รู้สึกผิด / "มั่นคงปลอดภัยไซเบอร์" ไม่ใช่ secure)"""
     if not rule:
         return True
     before = text[max(0, m.start() - 4):m.start()]
     if any(before.endswith(w) for w in rule.get("not_after", [])):
         return False
+    if any(text.startswith(w, m.end()) for w in rule.get("not_before", [])):
+        return False
+    if "near" not in rule:
+        return True
     around = text[max(0, m.start() - CONTEXT_WINDOW):m.end() + CONTEXT_WINDOW]
-    return any(w in around for w in rule.get("near", []))
+    return any(w in around for w in rule["near"])
 
 
 def _count(text, pats):

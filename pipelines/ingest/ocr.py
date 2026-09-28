@@ -90,7 +90,7 @@ def ocr_pages(path, source_id, log=print) -> tuple:
             _retry_meta_pages(path, c, log)
             write_json(cache, c)
         pages = [{"page": p["page"], "text": clean_vlm(p["text"])} for p in c["pages"]]
-        return apply_corrections(pages, source_id, log), f"{c['backend']} (cache)"
+        return apply_verified(apply_corrections(pages, source_id, log), source_id, log), f"{c['backend']} (cache)"
     backend = available()
     if not backend:
         raise OcrUnavailable("ไม่มี OCR: ollama pull qwen2.5vl หรือ brew install tesseract tesseract-lang")
@@ -106,7 +106,23 @@ def ocr_pages(path, source_id, log=print) -> tuple:
         _retry_meta_pages(path, c, log)
     write_json(cache, c)
     pages = [{"page": p["page"], "text": clean_vlm(p["text"])} for p in c["pages"]]
-    return apply_corrections(pages, source_id, log), backend
+    return apply_verified(apply_corrections(pages, source_id, log), source_id, log), backend
+
+
+VERIFIED_DIR = DATA / "ocr_verified"   # หน้าที่คนตรวจทานจากภาพแล้วทั้งหน้า: <cache_id>_p<เลขหน้า>.txt
+
+
+def apply_verified(pages, source_id, log=print) -> list:
+    """หน้าที่ตรวจทานจากภาพแล้วใช้ข้อความนั้นแทนผล OCR ทั้งหน้า (สำคัญกว่า OCR และ corrections)"""
+    n = 0
+    for p in pages:
+        f = VERIFIED_DIR / f"{source_id}_p{p['page'] + 1}.txt"
+        if f.exists():
+            p["text"] = f.read_text(encoding="utf-8")
+            n += 1
+    if n:
+        log(f"    OCR verified {source_id}: ใช้หน้าที่ตรวจทานจากภาพ {n} หน้า")
+    return pages
 
 
 def apply_corrections(pages, source_id, log=print) -> list:

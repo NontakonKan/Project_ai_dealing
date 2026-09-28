@@ -1,0 +1,88 @@
+{
+  "dense": {
+    "model": "BAAI/bge-m3",
+    "store": "chromadb",
+    "space": "cosine",
+    "query_collection": "preference_vec",
+    "counts": {
+      "persona": 288,
+      "preference": 288,
+      "avoid": 232,
+      "knowledge": 908
+    }
+  },
+  "results": [
+    {
+      "config": "dense",
+      "Hit@5": 0.735,
+      "MRR@5": 0.672,
+      "hit_paraphrase": 0.727,
+      "empty_on_unanswerable": "0/10",
+      "health_leak": "0/30",
+      "ms_per_query": 375.5
+    },
+    {
+      "config": "dense + rerank20",
+      "Hit@5": 0.735,
+      "MRR@5": 0.668,
+      "hit_paraphrase": 0.818,
+      "empty_on_unanswerable": "0/10",
+      "health_leak": "0/30",
+      "ms_per_query": 2506.8
+    },
+    {
+      "config": "graph",
+      "Hit@5": 0.294,
+      "MRR@5": 0.187,
+      "hit_paraphrase": 0.091,
+      "empty_on_unanswerable": "9/10",
+      "health_leak": "0/30",
+      "ms_per_query": 125.2
+    },
+    {
+      "config": "hybrid rrf",
+      "Hit@5": 0.824,
+      "MRR@5": 0.703,
+      "hit_paraphrase": 0.818,
+      "empty_on_unanswerable": "0/10",
+      "health_leak": "0/30",
+      "ms_per_query": 351.8
+    },
+    {
+      "config": "hybrid rrf + rerank20",
+      "Hit@5": 0.853,
+      "MRR@5": 0.704,
+      "hit_paraphrase": 0.909,
+      "empty_on_unanswerable": "0/10",
+      "health_leak": "0/30",
+      "ms_per_query": 2936.8
+    },
+    {
+      "config": "routed",
+      "Hit@5": 0.853,
+      "MRR@5": 0.749,
+      "hit_paraphrase": 0.909,
+      "empty_on_unanswerable": "0/10",
+      "health_leak": "0/30",
+      "ms_per_query": 110.5
+    },
+    {
+      "config": "routed + rerank20",
+      "Hit@5": 0.853,
+      "MRR@5": 0.758,
+      "hit_paraphrase": 1.0,
+      "empty_on_unanswerable": "0/10",
+      "health_leak": "0/30",
+      "ms_per_query": 1692.6
+    },
+    {
+      "config": "routed + gate (บอทใช้)",
+      "Hit@5": 0.794,
+      "MRR@5": 0.73,
+      "hit_paraphrase": 0.727,
+      "empty_on_unanswerable": "9/10",
+      "health_leak": "0/30",
+      "ms_per_query": 818.8
+    }
+  ]
+}

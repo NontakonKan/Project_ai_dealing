@@ -1,5 +1,7 @@
 """ปรึกษาเรื่องความรัก: Routed Hybrid RAG (ความรู้ 10 แหล่ง) -> ตอบพร้อมอ้างอิงแหล่งจริง"""
-from pipelines.hybrid.gate import filter_relevant, verify_answer
+from pipelines.hybrid import search
+from pipelines.hybrid.gate import verify_answer
+from pipelines.hybrid.query_expand import hint
 from pipelines.hybrid.retrievers import RoutedKnowledge
 from pipelines.llm import parsing, tasks
 
@@ -17,6 +19,11 @@ RE_DOMAIN = re.compile(r"(?:https?://)?(?:[A-Za-z0-9-]+\.)*?([A-Za-z0-9-]+)\.(?:
                        r"(?:/[^\s)]*)?")
 
 
+def _plain(answer):
+    """LINE ไม่แสดง markdown -> ตัด ** / # / ` ที่ psu-gemma ชอบใส่"""
+    return re.sub(r"\*\*|__|`|^#+\s*", "", answer, flags=re.M)
+
+
 def _no_link(title):
     """LINE แปลงข้อความที่ดูเหมือนโดเมน (xxx.co) เป็นลิงก์อัตโนมัติ -> อ้างอิงให้เห็นเป็นชื่อแหล่ง ไม่ใช่ลิงก์"""
     return RE_DOMAIN.sub(r"\1", title)
@@ -26,15 +33,15 @@ def handle(line_user, msg):
     global _retriever
     if _retriever is None:
         _retriever = RoutedKnowledge(live.ctx())
-    res = _retriever.retrieve(msg, 8)
-    route = res.items[0].meta.get("route", "-") if res.items else "-"
-    n_before = len(res.items)
-    res = filter_relevant(msg, res)   # ตอบเฉพาะเรื่องที่มีในคลังความรู้ ไม่ให้ LLM ใช้ความรู้ภายนอก
+    found = search.find(_retriever, msg)   # ตอบเฉพาะเรื่องที่มีในคลังความรู้ ไม่ให้ LLM ใช้ความรู้ภายนอก
+    res, route, n_before = found.result, found.route, found.n_before
+    if found.topics:
+        route += f" หัวข้อ={found.topics}"
     if not res.items:
         from .. import log
         log.note(f"route={route} ไม่มีความรู้ที่ตรงคำถาม (0/{n_before} ผ่านด่าน) → ตอบว่าไม่มีข้อมูล")
         return [text(NO_INFO, MENU)]
-    out = tasks.rag_answer(msg, res)
+    out = tasks.rag_answer(hint(msg, found.topics), res)   # แนบคำพ้องที่เอกสารใช้ (ทัก -> เริ่มต้นความสัมพันธ์)
     dropped = 0
     if not out["citations"]["abstained"]:   # ด่านหลัง: ตัดประโยคที่ทวนคำถาม/ไม่มีหลักฐาน กันหลอน
         passages = [it.text for it in res.items if it.id in out["refs"]]
@@ -58,4 +65,4 @@ def handle(line_user, msg):
             if title and title not in sources:
                 sources.append(title)
     ref_line = ("\n\n📚 อ้างอิง: " + " / ".join(_no_link(t) for t in sources[:3])) if sources else ""
-    return [text(out["answer"] + ref_line, MENU)]
+    return [text(_plain(out["answer"]) + ref_line, MENU)]
