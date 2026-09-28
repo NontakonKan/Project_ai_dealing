@@ -7,7 +7,7 @@ from pipelines.llm import parsing, tasks
 
 import re
 
-from .. import live
+from .. import intent, live
 from ..flex import MENU, text
 
 _retriever = None
@@ -29,23 +29,48 @@ def _no_link(title):
     return RE_DOMAIN.sub(r"\1", title)
 
 
-def handle(line_user, msg):
+def handle(line_user, msg, history=None):
     global _retriever
+    history = history or []
+    # Only carry the old topic into a clear follow-up, not every new question.
+    history = history if intent.is_followup(msg) else []
+    query = msg
+    if intent.is_followup(msg):
+        if not history:
+            return [text("หมายถึงเรื่องไหนครับ ช่วยบอกหัวข้อหรือคำถามก่อนหน้าอีกนิดได้ไหมครับ", MENU)]
+        try:
+            query = tasks.rewrite_question(msg, history)
+        except tasks.AmbiguousFollowup:
+            return [text("ช่วยระบุเรื่องที่อยากถามต่ออีกนิดได้ไหมครับ เพื่อให้ผมค้นข้อมูลได้ตรงเรื่อง", MENU)]
+        except Exception:
+            # The model being unavailable does not mean conversation memory is missing.
+            return [text("ตอนนี้ผมประมวลผลคำถามต่อเนื่องไม่สำเร็จครับ ลองส่งอีกครั้งได้ไหมครับ", MENU)]
     if _retriever is None:
         _retriever = RoutedKnowledge(live.ctx())
+<<<<<<< HEAD
     found = search.find(_retriever, msg)   # ตอบเฉพาะเรื่องที่มีในคลังความรู้ ไม่ให้ LLM ใช้ความรู้ภายนอก
     res, route, n_before = found.result, found.route, found.n_before
     if found.topics:
         route += f" หัวข้อ={found.topics}"
+=======
+    res = _retriever.retrieve(query, 8)
+    route = res.items[0].meta.get("route", "-") if res.items else "-"
+    n_before = len(res.items)
+    res = filter_relevant(query, res)   # ตอบเฉพาะเรื่องที่มีในคลังความรู้ ไม่ให้ LLM ใช้ความรู้ภายนอก
+>>>>>>> origin/feat/conversation-history
     if not res.items:
         from .. import log
         log.note(f"route={route} ไม่มีความรู้ที่ตรงคำถาม (0/{n_before} ผ่านด่าน) → ตอบว่าไม่มีข้อมูล")
         return [text(NO_INFO, MENU)]
+<<<<<<< HEAD
     out = tasks.rag_answer(hint(msg, found.topics), res)   # แนบคำพ้องที่เอกสารใช้ (ทัก -> เริ่มต้นความสัมพันธ์)
+=======
+    out = tasks.rag_answer(msg, res, history=history)
+>>>>>>> origin/feat/conversation-history
     dropped = 0
     if not out["citations"]["abstained"]:   # ด่านหลัง: ตัดประโยคที่ทวนคำถาม/ไม่มีหลักฐาน กันหลอน
         passages = [it.text for it in res.items if it.id in out["refs"]]
-        checked, dropped = verify_answer(msg, out["answer"], passages)
+        checked, dropped = verify_answer(query, out["answer"], passages)
         if checked is None:
             out["citations"]["abstained"] = True
         else:

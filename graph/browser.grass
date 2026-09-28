@@ -1,0 +1,101 @@
+node {
+  size: 25px;
+  color: #CCD1D6;
+  border-width: 2px;
+  border-color: #FFFFFF;
+  caption: "{display_name}";
+  font-size: 10px;
+  text-color-internal: #17202A;
+}
+
+relationship {
+  color: #AAB3BD;
+  shaft-width: 1px;
+  font-size: 8px;
+  caption: "<type>";
+}
+
+node.DealingEntity {
+  color: #CCD1D6;
+  caption: "{display_name}";
+}
+
+node.Concept {
+  color: #CCD1D6;
+  caption: "{display_name}";
+}
+
+node.DealingDataset {
+  color: #89939E;
+  caption: "{display_name}";
+}
+
+node.BookChunk {
+  color: #B0BEC5;
+  caption: "{display_name}";
+}
+
+node.Source {
+  color: #546E7A;
+  caption: "{display_name}";
+}
+
+node.Hygiene {
+  color: #87ABAD;
+  caption: "{display_name}";
+}
+
+node.SkinTone {
+  color: #C9A2CF;
+  caption: "{display_name}";
+}
+
+node.BodyType {
+  color: #AF8C71;
+  caption: "{display_name}";
+}
+
+node.ResearchFactor {
+  color: #719B67;
+  caption: "{display_name}";
+}
+
+node.RedFlag {
+  color: #E56B6F;
+  caption: "{display_name}";
+}
+
+node.LoveComponent {
+  color: #D4A72C;
+  caption: "{display_name}";
+}
+
+node.LoveLanguage {
+  color: #EB85B1;
+  caption: "{display_name}";
+}
+
+node.Attachment {
+  color: #64C8AC;
+  caption: "{display_name}";
+}
+
+node.CommStyle {
+  color: #35BDD0;
+  caption: "{display_name}";
+}
+
+node.Trait {
+  color: #9B72CF;
+  caption: "{display_name}";
+}
+
+node.Hobby {
+  color: #F4A261;
+  caption: "{display_name}";
+}
+
+node.User {
+  color: #4C8EDA;
+  caption: "{display_name}";
+}
