@@ -28,5 +28,29 @@ class WindowTests(unittest.TestCase):
         self.assertEqual(_windows("สั้นๆ"), ["สั้นๆ"])
 
 
+
+class PartnerTermTests(unittest.TestCase):
+    def test_partner_words_expand(self):
+        from pipelines.hybrid.query_expand import variants
+        self.assertIn("แฟนเงียบควรทำอย่างไร", variants("คนคุยเงียบควรทำอย่างไร"))
+        self.assertIn("จะรู้ได้ไงว่าอีกฝ่ายสนใจเรา", variants("จะรู้ได้ไงว่าเค้าสนใจเรา"))
+        self.assertEqual(variants("Gaslighting คืออะไร"), ["Gaslighting คืออะไร"])
+
+    def test_friend_kept_when_partner_present(self):
+        from pipelines.hybrid.query_expand import variants
+        for v in variants("ถ้ามีนัดกับเพื่อนและแฟนวันเดียวกัน ควรทำอย่างไร"):
+            self.assertIn("เพื่อน", v)     # ไม่เปลี่ยน "เพื่อน" เป็น "แฟน" จนความหมายเพี้ยน
+
+class SlangTests(unittest.TestCase):
+    def test_colloquial_words_expand(self):
+        from pipelines.hybrid.query_expand import hint, variants
+        self.assertIn("ควรเริ่มต้นความสัมพันธ์ยังไงดี", variants("ควรเริ่มทักยังไงดี"))
+        self.assertIn("เริ่มต้นความสัมพันธ์", hint("ควรเริ่มทักยังไงดี"))
+
+    def test_slang_only_whole_word(self):
+        from pipelines.hybrid.query_expand import variants
+        self.assertEqual(variants("ทักษะการสื่อสารสำคัญไหม"), ["ทักษะการสื่อสารสำคัญไหม"])   # "ทัก" ใน "ทักษะ" ไม่แทน
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -27,6 +27,75 @@ WEB_ARTICLES = [
     for sid, url, title, category, quality, year in _WEB
 ]
 
+# เอกสารเพิ่ม 2569: เติมหมวดที่บอทตอบไม่ได้ (ความปลอดภัยแอปหาคู่ / red flag ช่วงแรก / การปฏิเสธ / คำเรียกขาน / เดต / ghosting
+# / หึงหวง / LGBTQ+) — เก็บด้วย pipelines/ingest/collect.py (รายการแหล่ง+URL: data/new_docs/candidates.json)
+# PDF จากหน้าเว็บมีหัวอ้างอิง (ที่มา/URL/วันที่เข้าถึง) ในหน้าแรก -> ตัดทิ้งด้วย _HEADER
+_HEADER = [r"^ที่มา: .*$", r"^เข้าถึงเมื่อ .*$", r".*https?://.*", r".*www\.\S+.*"]
+_CHULA = "คณะจิตวิทยา จุฬาฯ"
+_DOCS = [
+    # (source_id, ไฟล์, ชื่อที่ใช้อ้างอิง (ไม่ใส่โดเมน: LINE แปลงเป็นลิงก์), หมวด, ความน่าเชื่อถือ, ปี, doc_type, noise เพิ่ม)
+    ("chula_dating_hookup", "การออกเดทและวัฒนธรรมการ Hook up.pdf", f"การออกเดท และวัฒนธรรมการ Hook up ({_CHULA})",
+     "relationship_initiation", "academic", 2024, "web_article", []),
+    ("chula_situationships", "Situationships สถานะไม่มีสถานะ.pdf", f"Situationships: สถานะ....ไม่มีสถานะ ({_CHULA})",
+     "relationship_initiation", "academic", 2026, "web_article", []),
+    ("chula_unrequited_love", "การตบมือข้างเดียวของความรัก.pdf", f"การตบมือข้างเดียวของความรัก ({_CHULA})",
+     "relationship_initiation", "academic", 2023, "web_article", []),
+    ("chula_true_love_check", "ดูผู้ชายอย่างไรว่าใครรักจริงหวังแต่ง.pdf", f"ดูผู้ชายอย่างไร ว่าใครรักจริงหวังแต่ง ({_CHULA})",
+     "healthy_relationship", "academic", None, "web_article", []),
+    ("chula_long_distance", "รักษารักทางไกลให้หวานชื่น.pdf", f"รักษารักทางไกลให้หวานชื่น ({_CHULA})",
+     "healthy_relationship", "academic", 2017, "web_article", []),
+    ("chula_love_fresh_up", "เติมความสดใสให้กับความรัก.pdf", f"เติมความสดใสให้กับความรัก ({_CHULA})",
+     "healthy_relationship", "academic", None, "web_article", []),
+    ("chula_teen_romance_parents", "เมื่อลูกวัยรุ่นมีแฟน.pdf", f"เมื่อลูกวัยรุ่นมีแฟน ชวนพ่อแม่มองข้อดีต่อพัฒนาการ ({_CHULA})",
+     "healthy_relationship", "academic", 2024, "web_article", []),
+    ("chula_adults_minors", "ความสัมพันธ์เชิงชู้สาวระหว่างผู้ใหญ่และเด็ก.pdf",
+     f"ทำไมความสัมพันธ์เชิงชู้สาวระหว่างผู้ใหญ่และเด็กอายุต่ำกว่า 18 ปีจึงน่ากังวล ({_CHULA})",
+     "toxic_relationship", "academic", 2025, "web_article", []),
+    ("chula_gender_identity", "ความหลากหลายทางเพศในสังคมไทย.pdf", f"ความหลากหลายทางเพศในสังคมไทย ({_CHULA})",
+     "diversity", "academic", 2019, "web_article", []),
+    ("chula_lesbian", "เข้าใจจิตใจหญิงรักหญิง.pdf", f"เข้าใจจิตใจ หญิงรักหญิง ({_CHULA})",
+     "diversity", "academic", None, "web_article", []),
+    ("chula_coming_out", "การเปิดเผยความโน้มเอียงทางเพศ (Coming out).pdf", f"การเปิดเผยความโน้มเอียงทางเพศแบบรักเพศเดียวกัน ({_CHULA})",
+     "diversity", "academic", 2022, "web_article", []),
+    ("chula_counseling_benefits", "เมื่อไรที่จะมาหานักจิตวิทยาการปรึกษา.pdf", f"เมื่อไรที่จะมาหานักจิตวิทยาการปรึกษา ({_CHULA})",
+     "emotion_regulation", "academic", 2019, "web_article", []),
+    ("manarom_jealousy", "อารมณ์หึงหวง.pdf", "หวงรัก อารมณ์หึงหวง (นักจิตวิทยา โรงพยาบาลมนารมย์)",
+     "emotion_regulation", "clinical", None, "web_article", []),
+    ("thaipbs_ghosting", "หายไปไม่บอกกล่าว (Ghosting).pdf", "จิตวิทยาน่ารู้: หายไปไม่บอกกล่าว เจ็บปวดนานกว่าถูกปฏิเสธโดยตรง (Thai PBS)",
+     "toxic_relationship", "media_public", None, "web_article", []),
+    ("thaipbs_dating_app_scam", "แอปหาคู่แต่เจอมิจฉาชีพ.pdf", "ปัดแอปหาคู่ แต่เจอมิจฉาชีพ (Thai PBS อ้างอิง บช.สอท.)",
+     "dating_safety", "media_public", None, "web_article", []),
+    ("thaipbs_dating_app_safe", "เล่นแอปหาคู่อย่างไรไม่ถูกหลอก.pdf", "เล่นแอปหาคู่อย่างไร ไม่ถูกหลอก (Thai PBS อ้างอิง ตำรวจสอบสวนกลาง)",
+     "dating_safety", "media_public", None, "web_article", []),
+    ("secnia_dating_app", "บทเรียนแอปพลิเคชันหาคู่.pdf", "บทเรียนแอปพลิเคชันหาคู่ หลอกให้รัก-ลวงล่วงละเมิด-หลอกลงทุน (ผู้จัดการออนไลน์ 2565)",
+     "dating_safety", "media", 2022, "web_article", []),
+    ("tdri_romance_scam", "กลลวงจากความเหงา Romance scam.pdf", "กลลวงจากความเหงา Romance scam รักหลอก โอน (สถาบันวิจัยเพื่อการพัฒนาประเทศไทย TDRI)",
+     "dating_safety", "research_institute", 2026, "web_article", []),
+    ("police9_romance_scam", "หลอกให้รักแล้วชวนลงทุน.pdf", "หลอกให้รักแล้วชวนลงทุน Romance Scam (ตำรวจภูธรภาค 9)",
+     "dating_safety", "government", None, "web_article", [r"^#.*$"]),
+    ("potential_love_bombing", "Love Bombing เหยื่อล่อสู่ความสัมพันธ์ท็อกซิก.pdf",
+     "Love Bombing: เมื่อการทุ่มเทความรักมากมายเป็นเพียงเหยื่อล่อไปสู่ความสัมพันธ์ท็อกซิก (The Potential)",
+     "toxic_relationship", "media", None, "web_article", []),
+    ("dltv_refusal", "ทักษะการปฏิเสธ.pdf", "ใบความรู้ ทักษะการปฏิเสธ (มูลนิธิการศึกษาทางไกลผ่านดาวเทียม DLTV)",
+     "interpersonal_skills", "education", None, "lecture", [r"^\d{1,3}$"]),
+    ("thaijo_address_terms", "คำเรียกขานในภาษาไทยตามอายุ เพศ และความสัมพันธ์.pdf",
+     "คำเรียกขานในภาษาไทยตามปัจจัยอายุ เพศ และความสัมพันธ์ของผู้พูด (วริษา สารวิทย์ ม.นเรศวร, Rajabhat J. Sci. Humanit. Soc. Sci. 2559)",
+     "interpersonal_skills", "academic", 2016, "research", [r"^Rajabhat J\. Sci\..*$", r".*e-mail.*", r"^\d{1,3}$"]),
+    ("thaijo_pronouns_students", "การใช้คำสรรพนามของนักศึกษา.pdf",
+     "การใช้คำสรรพนามบุรุษที่ 1 และบุรุษที่ 2: กรณีศึกษานักศึกษามหาวิทยาลัยแม่ฟ้าหลวง (แอล เซอร์ดาร์ และ ธีระ บุษบกแก้ว, วารสารวิชาการมนุษยศาสตร์และสังคมศาสตร์ มรภ.ธนบุรี 2565)",
+     "interpersonal_skills", "academic", 2022, "research", [r".*e-mail.*", r"^\d{1,3}$", r"^-$"]),
+]
+NEW_DOCS = [
+    {"source_id": sid, "file": DATA / fname, "doc_type": doc_type, "title": title, "year": year,
+     "source_quality": quality, "url": None, "noise_patterns": _HEADER + noise, "keep_chapters": None,
+     "default_category": category, "extra_sections": [], "stop_headings": [], "subheadings": []}
+    for sid, fname, title, category, quality, year, doc_type, noise in _DOCS
+]
+# งานวิจัยภาษาศาสตร์: "สนิท/ไม่สนิท" = ความคุ้นเคยตอนเรียกขาน ไม่ใช่ความใกล้ชิดแบบคู่รัก (วัดจริง: ติด love:intimacy ผิด 19 chunk)
+for _d in NEW_DOCS:
+    if _d["source_id"].startswith("thaijo_"):
+        _d["tag_concepts"] = False
+
 
 SOURCES = [
     {
@@ -136,5 +205,6 @@ SOURCES = [
         "subheadings": [],
     },
     *WEB_ARTICLES,
+    *NEW_DOCS,
 ]
 

@@ -39,13 +39,15 @@ CONTEXT:
 
 def bot_answer(retriever, question):
     """เส้นทางเดียวกับ app/flows/advice.py"""
-    from ...hybrid.gate import filter_relevant
-    res = filter_relevant(question, retriever.retrieve(question, 8))
+    from ...hybrid import search
+    found = search.find(retriever, question)
+    res = found.result
     if not res.items:
         return {"answer": None, "gated": True, "context": ""}
     from ...hybrid.gate import verify_answer
     from .. import parsing
-    out = tasks.rag_answer(question, res)
+    from ...hybrid.query_expand import hint
+    out = tasks.rag_answer(hint(question, found.topics), res)
     pack = ctx_builder.build(res, TASKS["rag_answer"].context_budget)
     answer, abstained, dropped = out["answer"], out["citations"]["abstained"], 0
     if not abstained:

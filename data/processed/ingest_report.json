@@ -124,10 +124,6 @@
           3
         ],
         [
-          "attach:secure",
-          3
-        ],
-        [
           "rf:inconsistent",
           2
         ],
@@ -149,6 +145,10 @@
         ],
         [
           "rf:disrespect",
+          1
+        ],
+        [
+          "rf:no_boundaries",
           1
         ]
       ],
@@ -226,19 +226,19 @@
       "status": "ok (ocr:vlm (cache))",
       "pages_total": 161,
       "pages_used": 161,
-      "n_sections": 158,
-      "n_chunks": 257,
+      "n_sections": 157,
+      "n_chunks": 225,
       "chunk_words": {
-        "min": 42,
-        "p25": 183.5,
-        "median": 239.0,
-        "p75": 280.5,
-        "max": 355,
-        "mean": 222.9
+        "min": 43,
+        "p25": 155.0,
+        "median": 225.0,
+        "p75": 281.0,
+        "max": 308,
+        "mean": 214.2
       },
-      "chunks_with_concepts_pct": 21.4,
+      "chunks_with_concepts_pct": 23.6,
       "category_dist": {
-        "relationship_initiation": 257
+        "relationship_initiation": 225
       },
       "top_concepts": [
         [
@@ -247,22 +247,34 @@
         ],
         [
           "factor:living_status",
-          17
+          14
         ],
         [
           "love:passion",
-          5
+          6
         ],
         [
           "trait:kind",
-          4
+          5
         ],
         [
           "rf:no_boundaries",
+          5
+        ],
+        [
+          "trait:responsible",
           4
         ],
         [
+          "love:commitment",
+          3
+        ],
+        [
           "rf:possessive",
+          3
+        ],
+        [
+          "rf:hot_temper",
           3
         ],
         [
@@ -270,19 +282,11 @@
           3
         ],
         [
-          "trait:responsible",
-          3
-        ],
-        [
           "trait:logical",
           2
         ],
         [
-          "love:commitment",
-          2
-        ],
-        [
-          "rf:hot_temper",
+          "attach:secure",
           2
         ],
         [
@@ -294,19 +298,15 @@
           2
         ],
         [
-          "attach:secure",
-          1
-        ],
-        [
-          "body:curvy",
-          1
+          "comm:direct",
+          2
         ]
       ],
       "cleaning": {
         "pua_fixed": 0,
         "broken_am_fixed": 0,
         "sara_am_fixed": 0,
-        "noise_lines_removed": 65,
+        "noise_lines_removed": 23,
         "citations_removed": 0
       }
     },
@@ -418,7 +418,7 @@
         "max": 342,
         "mean": 265.5
       },
-      "chunks_with_concepts_pct": 32.3,
+      "chunks_with_concepts_pct": 31.9,
       "category_dist": {
         "abstract": 8,
         "theory": 75,
@@ -452,10 +452,6 @@
           5
         ],
         [
-          "attach:secure",
-          5
-        ],
-        [
           "rf:no_boundaries",
           4
         ],
@@ -473,6 +469,10 @@
         ],
         [
           "trait:logical",
+          2
+        ],
+        [
+          "attach:secure",
           2
         ],
         [
@@ -617,10 +617,6 @@
         [
           "rf:hot_temper",
           10
-        ],
-        [
-          "rf:possessive",
-          2
         ],
         [
           "trait:logical",
@@ -811,6 +807,883 @@
         "sara_am_fixed": 0,
         "citations_removed": 0
       }
+    },
+    {
+      "source_id": "chula_dating_hookup",
+      "status": "ok (text)",
+      "pages_total": 3,
+      "pages_used": 3,
+      "n_sections": 3,
+      "n_chunks": 7,
+      "chunk_words": {
+        "min": 89,
+        "p25": 100.0,
+        "median": 297.0,
+        "p75": 299.0,
+        "max": 300,
+        "mean": 233.9
+      },
+      "chunks_with_concepts_pct": 57.1,
+      "category_dist": {
+        "relationship_initiation": 7
+      },
+      "top_concepts": [
+        [
+          "love:intimacy",
+          3
+        ],
+        [
+          "trait:kind",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "chula_situationships",
+      "status": "ok (text)",
+      "pages_total": 2,
+      "pages_used": 2,
+      "n_sections": 2,
+      "n_chunks": 4,
+      "chunk_words": {
+        "min": 187,
+        "p25": 201.25,
+        "median": 264.5,
+        "p75": 296.25,
+        "max": 300,
+        "mean": 254
+      },
+      "chunks_with_concepts_pct": 100.0,
+      "category_dist": {
+        "relationship_initiation": 4
+      },
+      "top_concepts": [
+        [
+          "love:commitment",
+          4
+        ],
+        [
+          "love:intimacy",
+          3
+        ],
+        [
+          "love:passion",
+          3
+        ],
+        [
+          "trait:kind",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "chula_unrequited_love",
+      "status": "ok (text)",
+      "pages_total": 3,
+      "pages_used": 3,
+      "n_sections": 3,
+      "n_chunks": 6,
+      "chunk_words": {
+        "min": 75,
+        "p25": 183.75,
+        "median": 254.5,
+        "p75": 292.5,
+        "max": 294,
+        "mean": 231.7
+      },
+      "chunks_with_concepts_pct": 33.3,
+      "category_dist": {
+        "relationship_initiation": 6
+      },
+      "top_concepts": [
+        [
+          "love:intimacy",
+          1
+        ],
+        [
+          "love:passion",
+          1
+        ],
+        [
+          "rf:possessive",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "chula_true_love_check",
+      "status": "ok (text)",
+      "pages_total": 3,
+      "pages_used": 3,
+      "n_sections": 3,
+      "n_chunks": 7,
+      "chunk_words": {
+        "min": 187,
+        "p25": 249.0,
+        "median": 270.0,
+        "p75": 296.0,
+        "max": 297,
+        "mean": 265.3
+      },
+      "chunks_with_concepts_pct": 28.6,
+      "category_dist": {
+        "healthy_relationship": 7
+      },
+      "top_concepts": [
+        [
+          "hygiene:self_care",
+          1
+        ],
+        [
+          "trait:kind",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "chula_long_distance",
+      "status": "ok (text)",
+      "pages_total": 3,
+      "pages_used": 3,
+      "n_sections": 3,
+      "n_chunks": 5,
+      "chunk_words": {
+        "min": 169,
+        "p25": 191.5,
+        "median": 246.0,
+        "p75": 284.0,
+        "max": 289,
+        "mean": 239.4
+      },
+      "chunks_with_concepts_pct": 40.0,
+      "category_dist": {
+        "healthy_relationship": 5
+      },
+      "top_concepts": [
+        [
+          "factor:life_satisfaction",
+          1
+        ],
+        [
+          "trait:kind",
+          1
+        ],
+        [
+          "rf:dishonest",
+          1
+        ],
+        [
+          "rf:possessive",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "chula_love_fresh_up",
+      "status": "ok (text)",
+      "pages_total": 3,
+      "pages_used": 3,
+      "n_sections": 3,
+      "n_chunks": 8,
+      "chunk_words": {
+        "min": 108,
+        "p25": 197.0,
+        "median": 279.5,
+        "p75": 293.0,
+        "max": 299,
+        "mean": 247.5
+      },
+      "chunks_with_concepts_pct": 62.5,
+      "category_dist": {
+        "healthy_relationship": 8
+      },
+      "top_concepts": [
+        [
+          "rf:possessive",
+          4
+        ],
+        [
+          "trait:kind",
+          1
+        ],
+        [
+          "rf:disrespect",
+          1
+        ],
+        [
+          "trait:logical",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "chula_teen_romance_parents",
+      "status": "ok (text)",
+      "pages_total": 3,
+      "pages_used": 3,
+      "n_sections": 3,
+      "n_chunks": 6,
+      "chunk_words": {
+        "min": 111,
+        "p25": 190.5,
+        "median": 251.5,
+        "p75": 296.25,
+        "max": 297,
+        "mean": 237.3
+      },
+      "chunks_with_concepts_pct": 66.7,
+      "category_dist": {
+        "healthy_relationship": 6
+      },
+      "top_concepts": [
+        [
+          "trait:responsible",
+          3
+        ],
+        [
+          "rf:no_boundaries",
+          1
+        ],
+        [
+          "hygiene:self_care",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "chula_adults_minors",
+      "status": "ok (text)",
+      "pages_total": 3,
+      "pages_used": 3,
+      "n_sections": 3,
+      "n_chunks": 6,
+      "chunk_words": {
+        "min": 105,
+        "p25": 186.0,
+        "median": 269.5,
+        "p75": 290.75,
+        "max": 293,
+        "mean": 240
+      },
+      "chunks_with_concepts_pct": 50.0,
+      "category_dist": {
+        "toxic_relationship": 6
+      },
+      "top_concepts": [
+        [
+          "trait:kind",
+          1
+        ],
+        [
+          "ll:gifts",
+          1
+        ],
+        [
+          "rf:gaslighting",
+          1
+        ],
+        [
+          "rf:possessive",
+          1
+        ],
+        [
+          "rf:no_boundaries",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "chula_gender_identity",
+      "status": "ok (text)",
+      "pages_total": 4,
+      "pages_used": 4,
+      "n_sections": 4,
+      "n_chunks": 6,
+      "chunk_words": {
+        "min": 78,
+        "p25": 113.25,
+        "median": 251.0,
+        "p75": 298.5,
+        "max": 300,
+        "mean": 217.2
+      },
+      "chunks_with_concepts_pct": 66.7,
+      "category_dist": {
+        "diversity": 6
+      },
+      "top_concepts": [
+        [
+          "rf:disrespect",
+          3
+        ],
+        [
+          "rf:no_boundaries",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "chula_lesbian",
+      "status": "ok (text)",
+      "pages_total": 4,
+      "pages_used": 4,
+      "n_sections": 4,
+      "n_chunks": 7,
+      "chunk_words": {
+        "min": 161,
+        "p25": 252.0,
+        "median": 265.0,
+        "p75": 295.0,
+        "max": 300,
+        "mean": 260
+      },
+      "chunks_with_concepts_pct": 14.3,
+      "category_dist": {
+        "diversity": 7
+      },
+      "top_concepts": [
+        [
+          "trait:kind",
+          1
+        ],
+        [
+          "attach:anxious",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "chula_coming_out",
+      "status": "ok (text)",
+      "pages_total": 5,
+      "pages_used": 5,
+      "n_sections": 5,
+      "n_chunks": 9,
+      "chunk_words": {
+        "min": 57,
+        "p25": 144.5,
+        "median": 230.0,
+        "p75": 290.0,
+        "max": 298,
+        "mean": 213.2
+      },
+      "chunks_with_concepts_pct": 44.4,
+      "category_dist": {
+        "diversity": 9
+      },
+      "top_concepts": [
+        [
+          "love:commitment",
+          2
+        ],
+        [
+          "rf:hot_temper",
+          1
+        ],
+        [
+          "rf:disrespect",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "chula_counseling_benefits",
+      "status": "ok (text)",
+      "pages_total": 2,
+      "pages_used": 2,
+      "n_sections": 2,
+      "n_chunks": 4,
+      "chunk_words": {
+        "min": 103,
+        "p25": 116.5,
+        "median": 223.5,
+        "p75": 293.0,
+        "max": 294,
+        "mean": 211
+      },
+      "chunks_with_concepts_pct": 0.0,
+      "category_dist": {
+        "emotion_regulation": 4
+      },
+      "top_concepts": [],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "manarom_jealousy",
+      "status": "ok (text)",
+      "pages_total": 2,
+      "pages_used": 2,
+      "n_sections": 2,
+      "n_chunks": 3,
+      "chunk_words": {
+        "min": 121,
+        "p25": 121.0,
+        "median": 205.0,
+        "p75": 288.0,
+        "max": 288,
+        "mean": 204.7
+      },
+      "chunks_with_concepts_pct": 100.0,
+      "category_dist": {
+        "emotion_regulation": 3
+      },
+      "top_concepts": [
+        [
+          "rf:possessive",
+          3
+        ],
+        [
+          "rf:hot_temper",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "thaipbs_ghosting",
+      "status": "ok (text)",
+      "pages_total": 3,
+      "pages_used": 3,
+      "n_sections": 3,
+      "n_chunks": 5,
+      "chunk_words": {
+        "min": 168,
+        "p25": 175.0,
+        "median": 267.0,
+        "p75": 292.0,
+        "max": 295,
+        "mean": 240.2
+      },
+      "chunks_with_concepts_pct": 80.0,
+      "category_dist": {
+        "toxic_relationship": 5
+      },
+      "top_concepts": [
+        [
+          "rf:ghosting",
+          4
+        ],
+        [
+          "rf:inconsistent",
+          1
+        ],
+        [
+          "trait:kind",
+          1
+        ],
+        [
+          "love:intimacy",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "thaipbs_dating_app_scam",
+      "status": "ok (text)",
+      "pages_total": 1,
+      "pages_used": 1,
+      "n_sections": 1,
+      "n_chunks": 1,
+      "chunk_words": {
+        "min": 270,
+        "p25": 270,
+        "median": 270,
+        "p75": 270,
+        "max": 270,
+        "mean": 270
+      },
+      "chunks_with_concepts_pct": 0.0,
+      "category_dist": {
+        "dating_safety": 1
+      },
+      "top_concepts": [],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "thaipbs_dating_app_safe",
+      "status": "ok (text)",
+      "pages_total": 1,
+      "pages_used": 1,
+      "n_sections": 1,
+      "n_chunks": 1,
+      "chunk_words": {
+        "min": 224,
+        "p25": 224,
+        "median": 224,
+        "p75": 224,
+        "max": 224,
+        "mean": 224
+      },
+      "chunks_with_concepts_pct": 100.0,
+      "category_dist": {
+        "dating_safety": 1
+      },
+      "top_concepts": [
+        [
+          "rf:dishonest",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 4,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "secnia_dating_app",
+      "status": "ok (text)",
+      "pages_total": 3,
+      "pages_used": 3,
+      "n_sections": 3,
+      "n_chunks": 6,
+      "chunk_words": {
+        "min": 156,
+        "p25": 186.0,
+        "median": 275.0,
+        "p75": 296.25,
+        "max": 297,
+        "mean": 249.2
+      },
+      "chunks_with_concepts_pct": 66.7,
+      "category_dist": {
+        "dating_safety": 6
+      },
+      "top_concepts": [
+        [
+          "rf:dishonest",
+          4
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "tdri_romance_scam",
+      "status": "ok (text)",
+      "pages_total": 3,
+      "pages_used": 3,
+      "n_sections": 3,
+      "n_chunks": 6,
+      "chunk_words": {
+        "min": 148,
+        "p25": 187.0,
+        "median": 263.0,
+        "p75": 292.5,
+        "max": 300,
+        "mean": 244
+      },
+      "chunks_with_concepts_pct": 100.0,
+      "category_dist": {
+        "dating_safety": 6
+      },
+      "top_concepts": [
+        [
+          "rf:dishonest",
+          6
+        ],
+        [
+          "trait:responsible",
+          2
+        ],
+        [
+          "rf:possessive",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 3
+      }
+    },
+    {
+      "source_id": "police9_romance_scam",
+      "status": "ok (text)",
+      "pages_total": 1,
+      "pages_used": 1,
+      "n_sections": 1,
+      "n_chunks": 1,
+      "chunk_words": {
+        "min": 167,
+        "p25": 167,
+        "median": 167,
+        "p75": 167,
+        "max": 167,
+        "mean": 167
+      },
+      "chunks_with_concepts_pct": 0.0,
+      "category_dist": {
+        "dating_safety": 1
+      },
+      "top_concepts": [],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 6,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "potential_love_bombing",
+      "status": "ok (text)",
+      "pages_total": 4,
+      "pages_used": 4,
+      "n_sections": 4,
+      "n_chunks": 7,
+      "chunk_words": {
+        "min": 132,
+        "p25": 166.0,
+        "median": 281.0,
+        "p75": 299.0,
+        "max": 300,
+        "mean": 243.4
+      },
+      "chunks_with_concepts_pct": 100.0,
+      "category_dist": {
+        "toxic_relationship": 7
+      },
+      "top_concepts": [
+        [
+          "rf:possessive",
+          4
+        ],
+        [
+          "ll:gifts",
+          3
+        ],
+        [
+          "love:passion",
+          2
+        ],
+        [
+          "trait:kind",
+          2
+        ],
+        [
+          "rf:no_boundaries",
+          2
+        ],
+        [
+          "love:intimacy",
+          1
+        ],
+        [
+          "attach:secure",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 3,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "dltv_refusal",
+      "status": "ok (text)",
+      "pages_total": 5,
+      "pages_used": 5,
+      "n_sections": 5,
+      "n_chunks": 9,
+      "chunk_words": {
+        "min": 66,
+        "p25": 83.5,
+        "median": 158.0,
+        "p75": 285.0,
+        "max": 309,
+        "mean": 181.6
+      },
+      "chunks_with_concepts_pct": 33.3,
+      "category_dist": {
+        "interpersonal_skills": 9
+      },
+      "top_concepts": [
+        [
+          "rf:disrespect",
+          2
+        ],
+        [
+          "rf:no_boundaries",
+          1
+        ]
+      ],
+      "cleaning": {
+        "pua_fixed": 0,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "citations_removed": 0
+      }
+    },
+    {
+      "source_id": "thaijo_address_terms",
+      "status": "ok (text)",
+      "pages_total": 11,
+      "pages_used": 11,
+      "n_sections": 11,
+      "n_chunks": 28,
+      "chunk_words": {
+        "min": 110,
+        "p25": 197.0,
+        "median": 260.0,
+        "p75": 293.75,
+        "max": 325,
+        "mean": 244.8
+      },
+      "chunks_with_concepts_pct": 0.0,
+      "category_dist": {
+        "interpersonal_skills": 28
+      },
+      "top_concepts": [],
+      "cleaning": {
+        "pua_fixed": 1820,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 57,
+        "citations_removed": 1
+      }
+    },
+    {
+      "source_id": "thaijo_pronouns_students",
+      "status": "ok (text)",
+      "pages_total": 14,
+      "pages_used": 14,
+      "n_sections": 14,
+      "n_chunks": 35,
+      "chunk_words": {
+        "min": 28,
+        "p25": 151.0,
+        "median": 285.0,
+        "p75": 299.0,
+        "max": 325,
+        "mean": 235.2
+      },
+      "chunks_with_concepts_pct": 0.0,
+      "category_dist": {
+        "interpersonal_skills": 35
+      },
+      "top_concepts": [],
+      "cleaning": {
+        "pua_fixed": 2018,
+        "broken_am_fixed": 0,
+        "sara_am_fixed": 0,
+        "noise_lines_removed": 368,
+        "citations_removed": 0
+      }
     }
   ],
   "before_after": {
@@ -831,8 +1704,8 @@
       "after": "โรคติดต่อทางเพศสัมพันธ์\n(Sexually transmitted disease)\nผศ.ดร.เด่นพงศ์ พัฒนเศรษฐานนท์\nสาขาวิชาเภสัชกรรมคลินิก คณะเภสัชศาสตร์ มหาวิทยาลัยขอนแก่น\nโรคติดต่อทางเพศสัมพันธ์ (Sexually Transmitted Disease; STD) เป็นปัญหาสำคัญในทางการแพทย์และการ\nสาธารณสุขตั้งแต่ในอดีตมาจนถึงปัจจุบัน ผู้ป่วยส่วนใหญ่จะมีความอายที่จะขอคำปรึกษาในกรณีที่เกิดปัญหาเกี่ยวกับระบบ\nสืบพันธุ์ รวมทั้งขาดความรู้และความเข้าใจในเรื่องการป"
     },
     "thesis_start_romance2549": {
-      "before": "การสื่อสารเพื่อการเริ่มต้นความสัมพันธ์ฉันคู่รักของวัยรุ่นไทย\n\nนางสาวเยาวภา อินทระชัย\n\nวิทยานิพนธ์นี้เป็นส่วนหนึ่งของการศึกษาตามหลักสูตรปริญญานิเทศศาสตรมหาบัณฑิต สาขาวิชาวาทวิทยา ภาควิชาวาทวิทยาและสื่อสารการแสดง\n\nคณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย\n\nปีการศึกษา 2549\n\nลิขสิทธิ์ของจุฬาลงกรณ์มหาวิทยาลัย\n\n\n\nวันที่โหลดเมื่อ 28/09/2569 03:25:18",
-      "after": "การสื่อสารเพื่อการเริ่มต้นความสัมพันธ์ฉันคู่รักของวัยรุ่นไทย\nนางสาวเยาวภา อินทระชัย\nวิทยานิพนธ์นี้เป็นส่วนหนึ่งของการศึกษาตามหลักสูตรปริญญานิเทศศาสตรมหาบัณฑิต สาขาวิชาวาทวิทยา ภาควิชาวาทวิทยาและสื่อสารการแสดง\nคณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย\nปีการศึกษา 2549\nลิขสิทธิ์ของจุฬาลงกรณ์มหาวิทยาลัย"
+      "before": "การสื่อสารเพื่อการเริ่มต้นความสัมพันธ์ฉันคู่รักของวัยรุ่นไทย\n\nชื่อคณาจารย์\nชื่อคณาจารย์\n\nนางสาวเยาวภา อินทระชัย\n\nวิทยานิพนธ์นี้เป็นส่วนหนึ่งของการศึกษาตามหลักสูตรปริญญาในเทศศาสตร์ธรรมชาติ\nสาขาวิชาภาษาไทย ภาควิชาภาษาและสื่อสารการแสดง\n\nคณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย\n\nปีการศึกษา 2549\n\nลิขสิทธิ์ของจุฬาลงกรณ์มหาวิทยาลัย",
+      "after": "การสื่อสารเพื่อการเริ่มต้นความสัมพันธ์ฉันคู่รักของวัยรุ่นไทย\nชื่อคณาจารย์\nชื่อคณาจารย์\nนางสาวเยาวภา อินทระชัย\nวิทยานิพนธ์นี้เป็นส่วนหนึ่งของการศึกษาตามหลักสูตรปริญญาในเทศศาสตร์ธรรมชาติ\nสาขาวิชาภาษาไทย ภาควิชาภาษาและสื่อสารการแสดง\nคณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย\nปีการศึกษา 2549\nลิขสิทธิ์ของจุฬาลงกรณ์มหาวิทยาลัย"
     },
     "thesis_attraction2548": {
       "before": "ความดึงดูดใจระหวางบุคคลและรูปแบบความผูกพัน: รูปแบบที่คลายคลึงกับตน  \nรูปแบบที่เติมเต็มซึ่งกันและกัน และรูปแบบความผูกพันแบบมั่นคง \n \n \n \n \n \n \n \n \n \n \nนายอนุรักษ แทนทอง \n \n \n \n \n \n \n \n \n \n \nวิทยานิพนธนี้เปนสวนหนึ่งของการศึกษาตามหลักสูตรปริญญาศิลปศาสตรมหาบัณฑิต \nสาขาวิชาจิตวิทยาสังคม \nคณะจิตวิทยา จุฬาลงกรณมหาวิทยาลัย \nปการศึกษา 2548 \nISBN 974-14-1982-1 \nลิขสิทธิ์ของจุฬาลงกรณมหาวิทยาลัย \n",
@@ -869,6 +1742,98 @@
     "web_healthaddict_friend_vs_partner": {
       "before": "รับมือยังไง? เมื่อเจอสถานการณ์ที่ต้องเลือกระหว่าง ‘เพื่อน’ กับ ‘แฟน’\n\nไหนใครที่เคยตกอยู่ในสถานการณ์ที่น่าอึดอัดใจนี้บ้าง? แล้วคุณตัดสินใจยังไง? วันนี้เราจะมาเจาะลึกเกี่ยวกับเรื่องนี้กันว่าทำไมถึงเกิดสถานการณ์นี้ขึ้น และเราควรจะรับมืออย่างไร เพื่อให้ความสัมพันธ์ระหว่างเพื่อนและแฟนไปต่อได้แบบแฮปปี้กันทุกฝ่าย\n\nตั้งสติ คิดก่อนตัดสินใจ เพราะส่วนใหญ่แล้วเวลาที่เรารู้สึกว่าถูกกดดันให้ ‘เลือก’ มักเกิดจากอ",
       "after": "รับมือยังไง? เมื่อเจอสถานการณ์ที่ต้องเลือกระหว่าง ‘เพื่อน’ กับ ‘แฟน’\nไหนใครที่เคยตกอยู่ในสถานการณ์ที่น่าอึดอัดใจนี้บ้าง? แล้วคุณตัดสินใจยังไง? วันนี้เราจะมาเจาะลึกเกี่ยวกับเรื่องนี้กันว่าทำไมถึงเกิดสถานการณ์นี้ขึ้น และเราควรจะรับมืออย่างไร เพื่อให้ความสัมพันธ์ระหว่างเพื่อนและแฟนไปต่อได้แบบแฮปปี้กันทุกฝ่าย\nตั้งสติ คิดก่อนตัดสินใจ เพราะส่วนใหญ่แล้วเวลาที่เรารู้สึกว่าถูกกดดันให้ ‘เลือก’ มักเกิดจากอาร"
+    },
+    "chula_dating_hookup": {
+      "before": "การออกเดท และวัฒนธรรมการ Hook up\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/dating-and-hookup/\nเข้าถึงเมื่อ 2026-09-28\nทุกคนเชื่อคำกล่าวอ้างจากโลกตะวันตกที่ว่า การออกเดท (Dating)\nโดยเฉพาะอย่างยิ่งในวัยมหาวิทยาลัยนั้นได้สาบสูญไปในครึ่งศตวรรษที่ผ่านมาหรือไม่\nทุกคนยังจำความรู้สึกของการออกเดทครั้งแรกกับคนที่เราชอบ หรือคนที่เราคุยด้วยได้หรือไม่ เราแต่งตัวอย",
+      "after": "การออกเดท และวัฒนธรรมการ Hook up\nทุกคนเชื่อคำกล่าวอ้างจากโลกตะวันตกที่ว่า การออกเดท (Dating)\nโดยเฉพาะอย่างยิ่งในวัยมหาวิทยาลัยนั้นได้สาบสูญไปในครึ่งศตวรรษที่ผ่านมาหรือไม่\nทุกคนยังจำความรู้สึกของการออกเดทครั้งแรกกับคนที่เราชอบ หรือคนที่เราคุยด้วยได้หรือไม่ เราแต่งตัวอย่างไร\nเราไปนัดพบกันที่ไหน ความรู้สึกเต้น ประหม่า หรือเบื่อหน่าย และหลังจากเดทแล้วเราสานต่อความสัมพันธ์หรือไม่\nหรือต่างคนต่างแยกย้ายก"
+    },
+    "chula_situationships": {
+      "before": "Situationships: สถานะ....ไม่มีสถานะ\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/situationships/\nเข้าถึงเมื่อ 2026-09-28\nความสัมพันธ์ใกล้ชิด หรือ Close Relationships\nเป็นหนึ่งในประเด็นทางจิตวิทยาสังคมที่ได้รับความสนใจในการศึกษาอย่างต่อเนื่อง\nเพื่อทำความเข้าใจพลวัตระหว่างบุคคลที่มีความผูกพันและความใกล้ชิดกัน\nความสัมพันธ์ลักษณะนี้ครอบคลุมทั้งความสัมพันธ์ใน",
+      "after": "Situationships: สถานะ....ไม่มีสถานะ\nความสัมพันธ์ใกล้ชิด หรือ Close Relationships\nเป็นหนึ่งในประเด็นทางจิตวิทยาสังคมที่ได้รับความสนใจในการศึกษาอย่างต่อเนื่อง\nเพื่อทำความเข้าใจพลวัตระหว่างบุคคลที่มีความผูกพันและความใกล้ชิดกัน\nความสัมพันธ์ลักษณะนี้ครอบคลุมทั้งความสัมพันธ์ในครอบครัว เพื่อน และความสัมพันธ์เชิงโรแมนติก\nโดยเฉพาะความสัมพันธ์เชิงโรแมนติกที่ได้รับความนิยมในการศึกษาค่อนข้างมาก\nเนื่องจากเป็นค"
+    },
+    "chula_unrequited_love": {
+      "before": "การตบมือข้างเดียวของความรัก\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/unrequited-love/\nเข้าถึงเมื่อ 2026-09-28\nการตกหลุมรักใครสักคนหนึ่ง หยิบหยื่นความรักให้กับเขา และเขาคนนั้นก็รักเรากลับ เกิดเป็นความรักที่สมหวัง\nคงเป็นประสบการณ์หนึ่งในชีวิตคนเราที่น่าตื่นเต้นและน่าจดจำ1 แต่ทว่าในความเป็นจริงแล้ว\nโลกอาจไม่ได้หยิบยื่นความสมหวังในความรักให้กับทุกคนเสมอไ",
+      "after": "การตบมือข้างเดียวของความรัก\nการตกหลุมรักใครสักคนหนึ่ง หยิบหยื่นความรักให้กับเขา และเขาคนนั้นก็รักเรากลับ เกิดเป็นความรักที่สมหวัง\nคงเป็นประสบการณ์หนึ่งในชีวิตคนเราที่น่าตื่นเต้นและน่าจดจำ1 แต่ทว่าในความเป็นจริงแล้ว\nโลกอาจไม่ได้หยิบยื่นความสมหวังในความรักให้กับทุกคนเสมอไป ตามที่เห็นในบทกวี เพลง ละคร\nและภาพยนตร์ที่มาจากความรักข้างเดียว\nความรักข้างเดียว ภาษาอังกฤษส่วนใหญ่จะใช้คำว่า Unrequited love ซึ"
+    },
+    "chula_true_love_check": {
+      "before": "ดูผู้ชายอย่างไร ว่าใครรักจริงหวังแต่ง\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/true-love-check/\nเข้าถึงเมื่อ 2026-09-28\nบทความนี้ขอเสนอจิตวิทยาเพื่อคุณผู้หญิงโดยเฉพาะสักนิดค่ะ แต่คุณผู้ชายถ้าเข้ามาแล้วอย่าเพิ่งปิดหน้าต่างไปไหน\nเพราะอ่านไว้ไม่เสียหลาย และสำหรับใครที่ยังไม่มีความคิดที่จะออกเรือนเร็วๆ นี้ ท่านก็อาจจะอ่านเผื่อเพื่อนฝูง\nญาติพี่น้อง หรืออ่",
+      "after": "ดูผู้ชายอย่างไร ว่าใครรักจริงหวังแต่ง\nบทความนี้ขอเสนอจิตวิทยาเพื่อคุณผู้หญิงโดยเฉพาะสักนิดค่ะ แต่คุณผู้ชายถ้าเข้ามาแล้วอย่าเพิ่งปิดหน้าต่างไปไหน\nเพราะอ่านไว้ไม่เสียหลาย และสำหรับใครที่ยังไม่มีความคิดที่จะออกเรือนเร็วๆ นี้ ท่านก็อาจจะอ่านเผื่อเพื่อนฝูง\nญาติพี่น้อง หรืออ่านดูว่าตรงกับประสบการณ์ของท่านเพียงใด หรืออ่านไว้เผื่ออนาคตก็ได้ค่ะ\nก่อนอื่นก็ขอมีข้อตกลงอย่างหนึ่งก่อนนะคะว่า เราจะพูดถึงการใช้เห"
+    },
+    "chula_long_distance": {
+      "before": "รักษารักทางไกลให้หวานชื่น\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/long-distance-relationship/\nเข้าถึงเมื่อ 2026-09-28\nมีหลายคนบอกว่า “รักแท้แพ้ระยะทาง” ยิ่งห่างไกลกันยิ่งทำให้ชีวิตคู่มีความเสี่ยงที่จะเลิกราและสิ้นสุดได้โดยง่าย\nหลาย ๆ คนจึงวิตกกังวลว่า หากมีคู่แล้วต้องอยู่ห่างกัน เราจะต้องเลิกรากันในที่สุด ความเสียใจก็ต้องเกิด\nและเป็นที่แน่นอนว่าทุกค",
+      "after": "รักษารักทางไกลให้หวานชื่น\nมีหลายคนบอกว่า “รักแท้แพ้ระยะทาง” ยิ่งห่างไกลกันยิ่งทำให้ชีวิตคู่มีความเสี่ยงที่จะเลิกราและสิ้นสุดได้โดยง่าย\nหลาย ๆ คนจึงวิตกกังวลว่า หากมีคู่แล้วต้องอยู่ห่างกัน เราจะต้องเลิกรากันในที่สุด ความเสียใจก็ต้องเกิด\nและเป็นที่แน่นอนว่าทุกคนไม่อยากพบเจอกับความเสียใจ ความเศร้าและความทุกข์\nความไม่อยากนี้อาจนำไปสู่ความวิตกกังวลในคนที่อาจต้องมี “ความรักระยะไกล” หรือที่เรียกว่า “Long"
+    },
+    "chula_love_fresh_up": {
+      "before": "เติมความสดใสให้กับความรัก\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/love-fresh-up/\nเข้าถึงเมื่อ 2026-09-28\nเราคงทราบกันดีว่า การจะมีความรักกับใครสักคนนั้นไม่ใช่เรื่องง่าย แต่ที่ยากกว่าการได้มาซึ่งความรักก็คือ\nการรักษาชีวิตรักให้สดใสยั่งยืน เรื่องของความรักเป็นเรื่องที่ต้องใส่ใจ\nจะคิดว่าเป็นของตายอยู่ในมือแล้วจะทำเผลอไผล ลืมเลือนไปบ้างน่ะ… ไม่ได้นะคะ\nไ",
+      "after": "เติมความสดใสให้กับความรัก\nเราคงทราบกันดีว่า การจะมีความรักกับใครสักคนนั้นไม่ใช่เรื่องง่าย แต่ที่ยากกว่าการได้มาซึ่งความรักก็คือ\nการรักษาชีวิตรักให้สดใสยั่งยืน เรื่องของความรักเป็นเรื่องที่ต้องใส่ใจ\nจะคิดว่าเป็นของตายอยู่ในมือแล้วจะทำเผลอไผล ลืมเลือนไปบ้างน่ะ… ไม่ได้นะคะ\nไม่อย่างนั้นกว่าจะรู้ตัวก็อาจจะสายไปเสียแล้ว\n“ใส่ใจกับความรักเพียงวันละนิด แล้วชีวิตจะสดใสไปอีกนานแสนนาน”\nเรื่องแรกที่เราควรใส่ใจ"
+    },
+    "chula_teen_romance_parents": {
+      "before": "เมื่อลูกวัยรุ่นมีแฟน ชวนพ่อแม่มองข้อดีต่อพัฒนาการและการเป็นพื้นที่ปลอดภัย\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/adolescence-romantic-relationships/\nเข้าถึงเมื่อ 2026-09-28\nคงปฏิเสธได้ยากว่าความรักของลูกวัยรุ่นนำพามาซึ่งความเป็นห่วงอยู่ไม่น้อย ไม่ว่าจะเป็นเรื่องความปลอดภัย\nการรักษาความสมดุลในความรับผิดชอบต่อบทบาทหน้าที่อื่น ๆ และเผชิญกับความรู้สึกผ",
+      "after": "เมื่อลูกวัยรุ่นมีแฟน ชวนพ่อแม่มองข้อดีต่อพัฒนาการและการเป็นพื้นที่ปลอดภัย\nคงปฏิเสธได้ยากว่าความรักของลูกวัยรุ่นนำพามาซึ่งความเป็นห่วงอยู่ไม่น้อย ไม่ว่าจะเป็นเรื่องความปลอดภัย\nการรักษาความสมดุลในความรับผิดชอบต่อบทบาทหน้าที่อื่น ๆ และเผชิญกับความรู้สึกผิดหวัง\nยิ่งถ้าบ้านไหนพบว่าแฟนของลูกไม่ตรงใจความเป็นห่วงอาจยิ่งเท่าทวีคูณ อย่างไรก็ตาม\nการเลือกและจัดการความสัมพันธ์โรแมนติกเป็นส่วนหนึ่งของพัฒนาการที"
+    },
+    "chula_adults_minors": {
+      "before": "เมื่ออายุไม่ใช่ตัวเลข ทำไมความสัมพันธ์เชิงชู้สาวระหว่างผู้ใหญ่และเด็กอายุต่ำกว่า 18\nปีจึงน่ากังวล\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/adults-minors-relationships/\nเข้าถึงเมื่อ 2026-09-28\nปัจจุบันในไทยโดยเฉพาะอย่างยิ่งบนโลกโซเชียลมีเดียเริ่มมีการถกเถียง ตั้งคำถาม\nและแสดงความกังวลเกี่ยวกับความสัมพันธ์เชิงชู้สาว (หรือแบบคู่รัก) ระหว่างเด็กอายุต่ำกว",
+      "after": "เมื่ออายุไม่ใช่ตัวเลข ทำไมความสัมพันธ์เชิงชู้สาวระหว่างผู้ใหญ่และเด็กอายุต่ำกว่า 18\nปีจึงน่ากังวล\nปัจจุบันในไทยโดยเฉพาะอย่างยิ่งบนโลกโซเชียลมีเดียเริ่มมีการถกเถียง ตั้งคำถาม\nและแสดงความกังวลเกี่ยวกับความสัมพันธ์เชิงชู้สาว (หรือแบบคู่รัก) ระหว่างเด็กอายุต่ำกว่า 18 ปี (หรืออาจเกิน\n18 ปีมาเล็กน้อย) และผู้ใหญ่อายุ 25 ปีขึ้นไป แม้ความรักระหว่างคนที่บรรลุนิติภาวะ 2\nคนที่ยินยอมโดยสมัครใจจะไม่ใช่เรื่องผิด"
+    },
+    "chula_gender_identity": {
+      "before": "ความหลากหลายทางเพศในสังคมไทย\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/gender-identity/\nเข้าถึงเมื่อ 2026-09-28\nความหลากหลายทางเพศ ทั้งในแง่รสนิยมทางเพศ (sexual orientation) และอัตลักษณ์ทางเพศ (gender\nidentity) เป็นประเด็นที่สังคมในหลากหลายประเทศให้การยอมรับมากขึ้นเมื่อเทียบกับในอดีต\nตัวอย่างที่เห็นได้ชัดคือในปี 2019 มี 28 ประเทศที่กำหนดให้การแต่งงานร",
+      "after": "ความหลากหลายทางเพศในสังคมไทย\nความหลากหลายทางเพศ ทั้งในแง่รสนิยมทางเพศ (sexual orientation) และอัตลักษณ์ทางเพศ (gender\nidentity) เป็นประเด็นที่สังคมในหลากหลายประเทศให้การยอมรับมากขึ้นเมื่อเทียบกับในอดีต\nตัวอย่างที่เห็นได้ชัดคือในปี 2019 มี 28 ประเทศที่กำหนดให้การแต่งงานระหว่างเพศเดียวกันถูกกฎหมาย\nขณะที่ประเทศไทยที่ได้ชื่อว่าเป็นเมืองที่เป็นมิตรกับเพศหลากหลาย\nก็มีการถกประเด็นพูดคุยเรื่องการผลักดันให"
+    },
+    "chula_lesbian": {
+      "before": "เข้าใจจิตใจ หญิงรักหญิง\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/experience-of-lesbian/\nเข้าถึงเมื่อ 2026-09-28\nข้อมูลจากการสัมภาษณ์เชิงลึกเป็นรายบุคคลจากหญิงรักหญิงเพศเดียวกันประเภททอมและดี้ จำนวน 14 ราย\nความรู้สึกนึกคิดภายในจิตใจของหญิงรักหญิงเพศเดียวกัน\nการวิจัยในต่างประเทศมักเรียกกลุ่มหญิงรักหญิงเพศเดียวกันทุกแบบรวมกันว่า “เลสเบี้ยน” โดยไม่แบ่งแย",
+      "after": "เข้าใจจิตใจ หญิงรักหญิง\nข้อมูลจากการสัมภาษณ์เชิงลึกเป็นรายบุคคลจากหญิงรักหญิงเพศเดียวกันประเภททอมและดี้ จำนวน 14 ราย\nความรู้สึกนึกคิดภายในจิตใจของหญิงรักหญิงเพศเดียวกัน\nการวิจัยในต่างประเทศมักเรียกกลุ่มหญิงรักหญิงเพศเดียวกันทุกแบบรวมกันว่า “เลสเบี้ยน” โดยไม่แบ่งแยกประเภท\nซึ่งทำให้ผลการวิจัยขัดแย้งกันเองในหลายประเด็น\nสำหรับในสังคมไทยมีการแบ่งแยกประเภทหญิงรักหญิงเพศเดียวกันเป็นหลายลักษณะ\nซึ่งเป็นประ"
+    },
+    "chula_coming_out": {
+      "before": "การเปิดเผยความโน้มเอียงทางเพศแบบรักเพศเดียวกัน (Coming out)\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/comingout\nเข้าถึงเมื่อ 2026-09-28\nการเปิดเผยตนเองหรือการเปิดเผยความโน้มเอียงทางเพศแบบรักเพศเดียวกัน\nจัดเป็นกระบวนการหนึ่งในพัฒนาการของบุคคลที่ไม่ใช่บุคคลรักต่างเพศ เป็นสิ่งที่เกิดขึ้นเป็นลำดับขั้น โดย APA\n(2011) ให้ความหมายไว้ว่า เป็นกระบวนการที่บุคคล",
+      "after": "การเปิดเผยความโน้มเอียงทางเพศแบบรักเพศเดียวกัน (Coming out)\nการเปิดเผยตนเองหรือการเปิดเผยความโน้มเอียงทางเพศแบบรักเพศเดียวกัน\nจัดเป็นกระบวนการหนึ่งในพัฒนาการของบุคคลที่ไม่ใช่บุคคลรักต่างเพศ เป็นสิ่งที่เกิดขึ้นเป็นลำดับขั้น โดย APA\n(2011) ให้ความหมายไว้ว่า เป็นกระบวนการที่บุคคลได้ตระหนักและยอมรับความโน้มเอียงทางเพศของตน\nและนำไปสู่กระบวนการเปิดเผยความโน้มเอียงทางเพศของตนต่อผู้อื่น\nแนวคิดทฤษฎีที่เกี่"
+    },
+    "chula_counseling_benefits": {
+      "before": "เมื่อไรที่จะมาหานักจิตวิทยาการปรึกษา\nที่มา: คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย\nhttps://www.psy.chula.ac.th/en/feature-articles/counseling-benefits/\nเข้าถึงเมื่อ 2026-09-28\n“เอาจริงๆ พี่ก็ไม่แน่ใจว่าตัวเองรู้สึกอะไร เป็นแบบนี้มาหลายเดือนแล้ว ไปทานข้าวกับเพื่อนก็ไม่สนุก กลับบ้านก็เหงา\nรบกวนสอบถามได้ไหมคะ พี่เหมาะกับการมาหานักจิตวิทยาไหมคะ เขาจะว่าพี่เป็นอะไรหรือเปล่า”\n“ไม่รู้ว่าเป็นอะไร อะไรๆ ก็ดูแย่",
+      "after": "เมื่อไรที่จะมาหานักจิตวิทยาการปรึกษา\n“เอาจริงๆ พี่ก็ไม่แน่ใจว่าตัวเองรู้สึกอะไร เป็นแบบนี้มาหลายเดือนแล้ว ไปทานข้าวกับเพื่อนก็ไม่สนุก กลับบ้านก็เหงา\nรบกวนสอบถามได้ไหมคะ พี่เหมาะกับการมาหานักจิตวิทยาไหมคะ เขาจะว่าพี่เป็นอะไรหรือเปล่า”\n“ไม่รู้ว่าเป็นอะไร อะไรๆ ก็ดูแย่ไปหมด ทำไปก็มีแต่จะพัง ไม่อยากทำอะไรเลยค่ะ แบบนี้คุยกับนักจิตวิทยาได้ไหมคะ”\n“มีแต่คนบอกว่าเรื่องเล็ก แต่เราไม่รู้จะทำยังไง เราคุยกับนั"
+    },
+    "manarom_jealousy": {
+      "before": "หวงรัก อารมณ์หึงหวง\nที่มา: โรงพยาบาลมนารมย์ (โรงพยาบาลจิตเวช)\nhttps://www.manarom.com/blog/handling_feelings_of_jealousy.html\nเข้าถึงเมื่อ 2026-09-28\nนาถวีณา ดำรงพิพัฒน์สกุล\nนักจิตวิทยา โรงพยาบาลมนารมย์\nเชื่อว่าหลายท่านเคยฟังเพลงที่ชื่อว่า ‘หวงรัก’ ซึ่งแม้อายุเพลงจะนานแล้ว\nแต่ความคลาสสิคของเพลงนี้คือเนื้อหาที่พูดถึงความรู้สึกในความสัมพันธ์ระหว่างคู่รัก ที่อาจมีความซึ้งใจ\nแต่ในขณะเดียวกัน มันก็ยังป",
+      "after": "หวงรัก อารมณ์หึงหวง\nนาถวีณา ดำรงพิพัฒน์สกุล\nนักจิตวิทยา โรงพยาบาลมนารมย์\nเชื่อว่าหลายท่านเคยฟังเพลงที่ชื่อว่า ‘หวงรัก’ ซึ่งแม้อายุเพลงจะนานแล้ว\nแต่ความคลาสสิคของเพลงนี้คือเนื้อหาที่พูดถึงความรู้สึกในความสัมพันธ์ระหว่างคู่รัก ที่อาจมีความซึ้งใจ\nแต่ในขณะเดียวกัน มันก็ยังปนไปด้วยความหน่วงๆ เพราะว่า...\n‘รักของใครของใครก็ห่วง รักใคร ใครก็ต้องหวง ห่วงคนรักดั่งดวงใจ\nใครจะยอมยกไปให้ใคร รักใครก็ใครต่างหวงไ"
+    },
+    "thaipbs_ghosting": {
+      "before": "จิตวิทยาน่ารู้! \"หายไปไม่บอกกล่าว\" เจ็บปวดนานกว่าถูกปฏิเสธโดยตรง\nที่มา: Thai PBS (สื่อสาธารณะ)\nhttps://www.thaipbs.or.th/now/content/3904\nเข้าถึงเมื่อ 2026-09-28\nทำไม? Ghosting หรือการหายตัวไปโดยไม่บอกกล่าว\nจึงทำให้เกิดความเจ็บปวดทางอารมณ์ที่ยาวนานกว่าการถูกปฏิเสธโดยตรง Thai PBS Sci & Tech\nขอนำจิตวิทยาน่ารู้มาให้ได้ทราบกัน เผื่อคนที่กำลังตกอยู่ในสถานการณ์นี้ จะได้หาทางรับมือผ่อนหนักเป็นเบา\nใคร..ไม",
+      "after": "จิตวิทยาน่ารู้! \"หายไปไม่บอกกล่าว\" เจ็บปวดนานกว่าถูกปฏิเสธโดยตรง\nทำไม? Ghosting หรือการหายตัวไปโดยไม่บอกกล่าว\nจึงทำให้เกิดความเจ็บปวดทางอารมณ์ที่ยาวนานกว่าการถูกปฏิเสธโดยตรง Thai PBS Sci & Tech\nขอนำจิตวิทยาน่ารู้มาให้ได้ทราบกัน เผื่อคนที่กำลังตกอยู่ในสถานการณ์นี้ จะได้หาทางรับมือผ่อนหนักเป็นเบา\nใคร..ไม่ว่าเพศใด ที่เคยถูกเมินเฉยโดยไม่บอกกล่าว (Ghosting)\nคงเข้าใจถึงความสำคัญของการศึกษาล่าสุดเกี่ยวกั"
+    },
+    "thaipbs_dating_app_scam": {
+      "before": "ปัด \"แอปฯ หาคู่\" แต่เจอ \"มิจฉาชีพ\"\nที่มา: Thai PBS (สื่อสาธารณะ)\nhttps://www.thaipbs.or.th/now/content/693\nเข้าถึงเมื่อ 2026-09-28\nไม่รักไม่ว่า แต่อย่ามาหลอกกัน ! ด้วยความที่ “แอปพลิเคชันหาคู่” กำลังเป็นที่นิยมมากของกลุ่มวัยรุ่น\nและมีอัตราการใช้การที่สูงขึ้นเรื่อย ๆ แบบนี้ก็เข้าตามิจฉาชีพน่ะสิ ตอนคุยก็คุยแบบเป็น “มิตร” คุยไปคุยมากลายเป็นพี่\n“มิจ” ซะอย่างนั้น Thai PBS Sci & Tech และ “ตำรวจไซเบอร์” ",
+      "after": "ปัด \"แอปฯ หาคู่\" แต่เจอ \"มิจฉาชีพ\"\nไม่รักไม่ว่า แต่อย่ามาหลอกกัน ! ด้วยความที่ “แอปพลิเคชันหาคู่” กำลังเป็นที่นิยมมากของกลุ่มวัยรุ่น\nและมีอัตราการใช้การที่สูงขึ้นเรื่อย ๆ แบบนี้ก็เข้าตามิจฉาชีพน่ะสิ ตอนคุยก็คุยแบบเป็น “มิตร” คุยไปคุยมากลายเป็นพี่\n“มิจ” ซะอย่างนั้น Thai PBS Sci & Tech และ “ตำรวจไซเบอร์” จึงชวนมาดูกลโกงของพี่เขากัน\nถ้าไม่อยากเสียทั้งใจ เสียทั้งเงิน จับผิดได้ไม่ยาก\n- ใช้รูปโปรไฟล์ภูม"
+    },
+    "thaipbs_dating_app_safe": {
+      "before": "เล่น \"แอปฯ หาคู่\" อย่างไร? ไม่ถูกหนุ่มฮอตหลอก\nที่มา: Thai PBS (สื่อสาธารณะ)\nhttps://www.thaipbs.or.th/now/content/2567\nเข้าถึงเมื่อ 2026-09-28\nปัจจุบัน “มิจฉาชีพ” แฝงมากับ “แอปฯ หาคู่” เป็นจำนวนมาก โดยมีวัตถุประสงค์ที่ไม่ดี ด้วยความห่วงใย Thai PBS\nVerify, Thai PBS Sci & Tech และ ตำรวจสอบสวนกลาง (CIB) จึงขอเตือนผู้ที่กำลังใช้แอปฯ หาคู่\nในการหาเพื่อน หรือคนรัก โดยมีข้อควรระวังดังนี้\n1. ไม่ควรไว้ใจบุ",
+      "after": "เล่น \"แอปฯ หาคู่\" อย่างไร? ไม่ถูกหนุ่มฮอตหลอก\nปัจจุบัน “มิจฉาชีพ” แฝงมากับ “แอปฯ หาคู่” เป็นจำนวนมาก โดยมีวัตถุประสงค์ที่ไม่ดี ด้วยความห่วงใย Thai PBS\nVerify, Thai PBS Sci & Tech และ ตำรวจสอบสวนกลาง (CIB) จึงขอเตือนผู้ที่กำลังใช้แอปฯ หาคู่\nในการหาเพื่อน หรือคนรัก โดยมีข้อควรระวังดังนี้\n1. ไม่ควรไว้ใจบุคคลอื่นง่ายๆ หากมีความจำเป็นต้องนัดเจอ ควรมีเพื่อนไปด้วย\n2. ระมัดระวังการเปิดเผยข้อมูลส่วนตัว ไม่"
+    },
+    "secnia_dating_app": {
+      "before": "ภัยสังคม!! บทเรียน \"แอปพลิเคชันหาคู่\" หลอกเหยื่อให้รัก-ลวงล่วงละเมิด-หลอกลงทุน\nที่มา: ผู้จัดการออนไลน์ (MGR Live) เผยแพร่ซ้ำโดย secnia.go.th\nhttps://www.secnia.go.th/2022/08/%E0%B8%A0%E0%B8%B1%E0%B8%A2%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B\n8%84%E0%B8%A1-%E0%B8%9A%E0%B8%97%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99-%E0%B9\n%81%E0%B8%AD%E0%B8%9B%E0%B8%9E%E0%B8%A5/\nเข้าถึงเมื่อ 2026-09-28\nระบาดหนัก!! “แอป",
+      "after": "ภัยสังคม!! บทเรียน \"แอปพลิเคชันหาคู่\" หลอกเหยื่อให้รัก-ลวงล่วงละเมิด-หลอกลงทุน\n8%84%E0%B8%A1-%E0%B8%9A%E0%B8%97%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99-%E0%B9\n%81%E0%B8%AD%E0%B8%9B%E0%B8%9E%E0%B8%A5/\nระบาดหนัก!! “แอปพลิเคชันหาคู่” ไม่ได้แฟนแต่เสี่ยงเจอมิจฉาชีพ กูรูความมั่นคงปลอดภัยไซเบอร์ดึงสติ\nจะใช้แอปฯหาคู่ อย่าไว้ใจไว ต้องมองโลกในแง่ร้ายไว้ก่อน!!\nอุทาหรณ์ “แอปฯหาคู่” ที่ไม่อยากเจอกับตัว!!\n"
+    },
+    "tdri_romance_scam": {
+      "before": "กลลวงจากความเหงา \"Romance scam รักหลอก โอน\"\nที่มา: สถาบันวิจัยเพื่อการพัฒนาประเทศไทย (TDRI)\nhttps://tdri.or.th/2026/02/romance-scam-article/\nเข้าถึงเมื่อ 2026-09-28\n“รัก” คือการยอมเปิดประตูหัวใจให้ใครบางคน ทว่าเราไม่อาจแน่ใจได้เสมอไปว่า คนที่เคาะประตูคนนั้นคือใครกันแน่\n?\nในยุคดิจิทัลที่อินเตอร์เน็ตเข้ามามีบทบาทกับชีวิตประจำวัน\nการพบเจอใครสักคนที่ถูกใจบนโลกออนไลน์ดูจะเกิดขึ้นได้ง่าย แต่ในทางตรงกันข",
+      "after": "กลลวงจากความเหงา \"Romance scam รักหลอก โอน\"\n“รัก” คือการยอมเปิดประตูหัวใจให้ใครบางคน ทว่าเราไม่อาจแน่ใจได้เสมอไปว่า คนที่เคาะประตูคนนั้นคือใครกันแน่\n?\nในยุคดิจิทัลที่อินเตอร์เน็ตเข้ามามีบทบาทกับชีวิตประจำวัน\nการพบเจอใครสักคนที่ถูกใจบนโลกออนไลน์ดูจะเกิดขึ้นได้ง่าย แต่ในทางตรงกันข้าม\nสิ่งนี้เปิดโอกาสให้มิจฉาชีพใช้ประโยชน์จากคำว่า ‘รัก’ เป็นเครื่องมือในการก่ออาชญากรรม\nจากข้อมูลที่เปิดเผยโดย Federal T"
+    },
+    "police9_romance_scam": {
+      "before": "ไม่รักไม่ว่า… แต่หลอกให้รักแล้วชวนลงทุน นี่คือ \"Romance Scam\"\nที่มา: ตำรวจภูธรภาค 9\nhttps://www.police9.go.th/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B9%84%E0\n%B8%A1%E0%B9%88%E0%B8%A7%E0%B9%88%E0%B8%B2-%E0%B9%81%E0%B8%95%E0%B9%88%E0%B8%AB%E0%B\n8%A5%E0%B8%AD%E0%B8%81%E0%B9%83%E0%B8%AB/\nเข้าถึงเมื่อ 2026-09-28\nภัยใกล้ตัวที่เกิดขึ้นจริง กับเหยื่อทั่วประเทศ!\nแอปหาคู่คือช่องทางของมิจฉ",
+      "after": "ไม่รักไม่ว่า… แต่หลอกให้รักแล้วชวนลงทุน นี่คือ \"Romance Scam\"\n%B8%A1%E0%B9%88%E0%B8%A7%E0%B9%88%E0%B8%B2-%E0%B9%81%E0%B8%95%E0%B9%88%E0%B8%AB%E0%B\n8%A5%E0%B8%AD%E0%B8%81%E0%B9%83%E0%B8%AB/\nภัยใกล้ตัวที่เกิดขึ้นจริง กับเหยื่อทั่วประเทศ!\nแอปหาคู่คือช่องทางของมิจฉาชีพ หรือช่องทางออนไลน์ต่าง ๆ\nปลอมเป็นชาวต่างชาติ หน้าตาดี โปรไฟล์หรู ฐานะดี พูดจาหวานเกินจริง\nถ้าเริ่มคุยเร็ว รักไว พูดเรื่องเงินเร็ว — สง"
+    },
+    "potential_love_bombing": {
+      "before": "Love Bombing:\nเมื่อการทุ่มเทความรักมากมายเป็นเพียงเหยื่อล่อไปสู่ความสัมพันธ์ท็อกซิก\nที่มา: The Potential\nhttps://thepotential.org/life/love-bombing/\nเข้าถึงเมื่อ 2026-09-28\nLove Bombing คือพฤติกรรมที่อีกฝ่ายแสดงความรักอย่างท่วมท้นในช่วงเริ่มต้นของความสัมพันธ์\nเพื่อทำให้อีกฝ่ายหลงรักและผูกพันอย่างรวดเร็ว ก่อนจะเริ่มควบคุมและบงการในภายหลัง\nผลของ Love Bombing อาจนำไปสู่ความสัมพันธ์ที่เป็นพิษ (Toxic R",
+      "after": "Love Bombing:\nเมื่อการทุ่มเทความรักมากมายเป็นเพียงเหยื่อล่อไปสู่ความสัมพันธ์ท็อกซิก\nLove Bombing คือพฤติกรรมที่อีกฝ่ายแสดงความรักอย่างท่วมท้นในช่วงเริ่มต้นของความสัมพันธ์\nเพื่อทำให้อีกฝ่ายหลงรักและผูกพันอย่างรวดเร็ว ก่อนจะเริ่มควบคุมและบงการในภายหลัง\nผลของ Love Bombing อาจนำไปสู่ความสัมพันธ์ที่เป็นพิษ (Toxic Relationship)\nทำให้ผู้ถูกกระทำสูญเสียความเป็นตัวของตัวเอง ถูกควบคุม หรือแม้แต่ตกเป็นเหยื่อ"
+    },
+    "dltv_refusal": {
+      "before": " \n \n \n       การปฏิเสธเป็นสิทธิส่วนบุคคลที่ทุกคนควรเคารพซึ่งกันและกัน  ในความต้องการที่แตกต่างกัน เพื่อปกป้อง\nตัวเองให้ปลอดภัยจากความเสี่ยงต่างๆ การปฏิเสธที่ใช้ได้ผลมักเป็นการปฏิเสธในสิ่งที่ปฏิบัติแล้วไม่เกิดประโยชน์  \nหรือเกิดผลกระทบในแง่ลบตามมา และเป็นการชักชวนในหมู่เพื่อน ดังนั้น ควรมีความกล้าที่จะปฏิเสธ หากต้อง\nปฏิเสธในสิ่งที่ไม่เหมาะสม เพราะคนเราทุกคนมีสิทธิที่จะป้องกันตนเองจากปัญหาต่างๆ \nหลั",
+      "after": "การปฏิเสธเป็นสิทธิส่วนบุคคลที่ทุกคนควรเคารพซึ่งกันและกัน ในความต้องการที่แตกต่างกัน เพื่อปกป้อง\nตัวเองให้ปลอดภัยจากความเสี่ยงต่างๆ การปฏิเสธที่ใช้ได้ผลมักเป็นการปฏิเสธในสิ่งที่ปฏิบัติแล้วไม่เกิดประโยชน์\nหรือเกิดผลกระทบในแง่ลบตามมา และเป็นการชักชวนในหมู่เพื่อน ดังนั้น ควรมีความกล้าที่จะปฏิเสธ หากต้อง\nปฏิเสธในสิ่งที่ไม่เหมาะสม เพราะคนเราทุกคนมีสิทธิที่จะป้องกันตนเองจากปัญหาต่างๆ\nหลักการปฏิเสธที่ดีมี"
+    },
+    "thaijo_address_terms": {
+      "before": "Rajabhat J. Sci. Humanit. Soc. Sci. 17(1): 169-179, 2016 \nคําเรียกขานในภาษาไทยตามปจจัยอายุ เพศ และความสัมพันธของผูพูด \n \nวริษา สารวิทย \nคณะบัณฑิตวิทยาลัย มหาวิทยาลัยนเรศวร  \ncorresponding author e-mail: warissa_120@hotmail.com \n  \nบทคัดยอ  \nงานวิจัยนี้มีวัตถุประสงคเพื่อศึกษาการใชคําเรียกขานในภาษาไทยตามปจจัยอายุ เพศ และ\nความสัมพันธของผูพูด โดยศึกษาเปรียบเทียบการใชคําเรียกขานของวัยรุน แล",
+      "after": "คำเรียกขานในภาษาไทยตามปัจจัยอายุ เพศ และความสัมพันธ์ของผู้พูด\nวริษา สารวิทย์\nคณะบัณฑิตวิทยาลัย มหาวิทยาลัยนเรศวร\nบทคัดย่อ\nงานวิจัยนี้มีวัตถุประสงค์เพื่อศึกษาการใช้คำเรียกขานในภาษาไทยตามปัจจัยอายุ เพศ และ\nความสัมพันธ์ของผู้พูด โดยศึกษาเปรียบเทียบการใช้คำเรียกขานของวัยรุ่น และผู้ใหญ่ ตามปัจจัยทาง\nสังคม 3 ปัจจัย ได้แก่ อายุ เพศ และความสัมพันธ์ของผู้พูด ผลการศึกษาพบว่า วัยรุ่นมีการใช้คำเรียก\nขานหลากหล"
+    },
+    "thaijo_pronouns_students": {
+      "before": "การใชคําสรรพนามบุรุษที่ 1 และคําสรรพนามบุรุษที่ 2:  \nกรณีศึกษานักศึกษามหาวิทยาลัยแมฟาหลวง \nThe Use of First and Second-Person Pronouns:  \nA Case Study of Mae Fah Luang University Students \n \nวันที่รับบทความ: 13 สิงหาคม 2565 \nแอล เซอรดาร 1\nวันที่แกไขบทความ: 26 ตุลาคม 2565 \nธีระ บุษบกแกว 2\nวันที่ตอบรับบทความ: 28 ตุลาคม 2565 \n \nบทคัดยอ \nงานวิจัยนี้มีวัตถุประสงคเพื่อศึกษาการใชคําสรรพนามบุรุษ",
+      "after": "การใช้คำสรรพนามบุรุษที่ 1 และคำสรรพนามบุรุษที่ 2:\nกรณีศึกษานักศึกษามหาวิทยาลัยแม่ฟ้าหลวง\nThe Use of First and Second-Person Pronouns:\nA Case Study of Mae Fah Luang University Students\nวันที่รับบทความ: 13 สิงหาคม 2565\nแอล เซอร์ดาร์ 1\nวันที่แก้ไขบทความ: 26 ตุลาคม 2565\nธีระ บุษบกแก้ว 2\nวันที่ตอบรับบทความ: 28 ตุลาคม 2565\nบทคัดย่อ\nงานวิจัยนี้มีวัตถุประสงค์เพื่อศึกษาการใช้คำสรรพนามบุรุษที่ 1 และคำสรรพนา"
     }
   }
 }

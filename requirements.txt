@@ -1,2 +1,6 @@
 pymupdf>=1.24
 pythainlp>=5.0
+
+# OCR: แก้คำด้วย WangchanBERTa + ปรับภาพก่อน OCR
+sentencepiece
+pillow

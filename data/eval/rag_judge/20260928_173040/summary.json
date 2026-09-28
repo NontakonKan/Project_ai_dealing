@@ -1,0 +1,11 @@
+{
+  "n": 44,
+  "answerable_answered": "26/34",
+  "unanswerable_refused": "9/10",
+  "answered_supported": "27/27",
+  "answered_on_question": "27/27",
+  "answered_with_citation": "27/27",
+  "unsupported_claims": 0,
+  "judge": "gemma3:12b",
+  "writer": "api:PSU-LLM/psu-gemma"
+}

@@ -72,7 +72,27 @@ class RoutedKnowledge:
                        "graph": HybridKnowledge(ctx, rerank_pool=rerank_pool, w_graph=2.0),
                        "hybrid": HybridKnowledge(ctx, rerank_pool=rerank_pool)}
 
-    def retrieve(self, query, k=8):
+    def retrieve(self, query, k=8, extra=()):
+        """ค้นด้วยคำถามเดิม + แบบแทนคำเรียกอีกฝ่าย ("คนคุย" -> "แฟน"/"อีกฝ่าย") + หัวข้อจาก LLM (extra) แล้วรวมผลสลับกันทีละแบบ"""
+        from .query_expand import variants
+        vs = variants(query, extra)
+        results = [self._retrieve_one(v, k) for v in vs]
+        if len(results) == 1:
+            return results[0]
+        facts, chunks, seen = [], [], set()
+        longest = max(len(r.items) for r in results)
+        for i in range(longest):
+            for r in results:
+                if i < len(r.items) and r.items[i].id not in seen:
+                    seen.add(r.items[i].id)
+                    (facts if r.items[i].kind == "graph_fact" else chunks).append(r.items[i])
+        facts = facts[:self.RESERVED_FACTS]
+        items = facts + self._diverse(chunks)[:k - len(facts)]
+        for it in items:
+            it.meta = {**it.meta, "expanded": vs[1:]}
+        return RetrievalResult("hybrid", query, items, sum(r.latency_ms for r in results))
+
+    def _retrieve_one(self, query, k):
         from .router import RESTRICTED, is_health, route
         path = route(query, self.detect(query))
         health = is_health(query)

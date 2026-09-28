@@ -1,0 +1,283 @@
+{
+ "note": "แหล่งที่เสนอเพิ่ม (รอผู้ดูแลยืนยันก่อนเข้า pipelines/ingest/sources.py) — เลือกเฉพาะหน่วยงานรัฐ มหาวิทยาลัย วารสารวิชาการ สถาบันวิจัย โรงพยาบาล/ธนาคาร ไม่ใช้บล็อกไลฟ์สไตล์",
+ "candidates": [
+  {
+   "id": "chula_dating_hookup",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/dating-and-hookup/",
+   "title": "การออกเดท และวัฒนธรรมการ Hook up",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "relationship_initiation",
+   "quality": "academic",
+   "gap": "การเดต / เดตแรก",
+   "file": "การออกเดทและวัฒนธรรมการ Hook up.pdf"
+  },
+  {
+   "id": "chula_situationships",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/situationships/",
+   "title": "Situationships: สถานะ....ไม่มีสถานะ",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "relationship_initiation",
+   "quality": "academic",
+   "gap": "ช่วงคุยๆ ยังไม่มีสถานะ",
+   "file": "Situationships สถานะไม่มีสถานะ.pdf"
+  },
+  {
+   "id": "chula_unrequited_love",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/unrequited-love/",
+   "title": "การตบมือข้างเดียวของความรัก",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "relationship_initiation",
+   "quality": "academic",
+   "gap": "แอบชอบ / รักข้างเดียว",
+   "file": "การตบมือข้างเดียวของความรัก.pdf"
+  },
+  {
+   "id": "chula_true_love_check",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/true-love-check/",
+   "title": "ดูผู้ชายอย่างไร ว่าใครรักจริงหวังแต่ง",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "healthy_relationship",
+   "quality": "academic",
+   "gap": "ดูว่าอีกฝ่ายจริงใจไหม",
+   "file": "ดูผู้ชายอย่างไรว่าใครรักจริงหวังแต่ง.pdf"
+  },
+  {
+   "id": "chula_long_distance",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/long-distance-relationship/",
+   "title": "รักษารักทางไกลให้หวานชื่น",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "healthy_relationship",
+   "quality": "academic",
+   "gap": "ความสัมพันธ์ทางไกล",
+   "file": "รักษารักทางไกลให้หวานชื่น.pdf"
+  },
+  {
+   "id": "chula_love_fresh_up",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/love-fresh-up/",
+   "title": "เติมความสดใสให้กับความรัก",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "healthy_relationship",
+   "quality": "academic",
+   "gap": "ดูแลความสัมพันธ์ / ครบรอบ",
+   "file": "เติมความสดใสให้กับความรัก.pdf"
+  },
+  {
+   "id": "chula_teen_romance_parents",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/adolescence-romantic-relationships/",
+   "title": "เมื่อลูกวัยรุ่นมีแฟน ชวนพ่อแม่มองข้อดีต่อพัฒนาการและการเป็นพื้นที่ปลอดภัย",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "healthy_relationship",
+   "quality": "academic",
+   "gap": "พ่อแม่กับการมีแฟน",
+   "file": "เมื่อลูกวัยรุ่นมีแฟน.pdf"
+  },
+  {
+   "id": "chula_adults_minors",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/adults-minors-relationships/",
+   "title": "เมื่ออายุไม่ใช่ตัวเลข ทำไมความสัมพันธ์เชิงชู้สาวระหว่างผู้ใหญ่และเด็กอายุต่ำกว่า 18 ปีจึงน่ากังวล",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "toxic_relationship",
+   "quality": "academic",
+   "gap": "การควบคุม/ตีสนิทเพื่อหวังผล (grooming)",
+   "file": "ความสัมพันธ์เชิงชู้สาวระหว่างผู้ใหญ่และเด็ก.pdf"
+  },
+  {
+   "id": "chula_gender_identity",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/gender-identity/",
+   "title": "ความหลากหลายทางเพศในสังคมไทย",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "diversity",
+   "quality": "academic",
+   "gap": "LGBTQ+",
+   "file": "ความหลากหลายทางเพศในสังคมไทย.pdf"
+  },
+  {
+   "id": "chula_lesbian",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/experience-of-lesbian/",
+   "title": "เข้าใจจิตใจ หญิงรักหญิง",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "diversity",
+   "quality": "academic",
+   "gap": "LGBTQ+",
+   "cut_from": "“ประสบการณ์ด้านจิตใจของหญิงรักเพศเดียวกัน",
+   "file": "เข้าใจจิตใจหญิงรักหญิง.pdf"
+  },
+  {
+   "id": "chula_coming_out",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/comingout",
+   "title": "การเปิดเผยความโน้มเอียงทางเพศแบบรักเพศเดียวกัน (Coming out)",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "diversity",
+   "quality": "academic",
+   "gap": "LGBTQ+ / บอกครอบครัว",
+   "file": "การเปิดเผยความโน้มเอียงทางเพศ (Coming out).pdf"
+  },
+  {
+   "id": "chula_counseling_benefits",
+   "url": "https://www.psy.chula.ac.th/en/feature-articles/counseling-benefits/",
+   "title": "เมื่อไรที่จะมาหานักจิตวิทยาการปรึกษา",
+   "org": "คณะจิตวิทยา จุฬาลงกรณ์มหาวิทยาลัย",
+   "category": "emotion_regulation",
+   "quality": "academic",
+   "gap": "อกหัก/เลิกรา เมื่อไรควรหาผู้เชี่ยวชาญ",
+   "file": "เมื่อไรที่จะมาหานักจิตวิทยาการปรึกษา.pdf"
+  },
+  {
+   "id": "manarom_jealousy",
+   "url": "https://www.manarom.com/blog/handling_feelings_of_jealousy.html",
+   "title": "หวงรัก อารมณ์หึงหวง",
+   "org": "โรงพยาบาลมนารมย์ (โรงพยาบาลจิตเวช)",
+   "category": "emotion_regulation",
+   "quality": "clinical",
+   "gap": "หึงหวง / ความไว้ใจ",
+   "file": "อารมณ์หึงหวง.pdf"
+  },
+  {
+   "id": "thaipbs_ghosting",
+   "url": "https://www.thaipbs.or.th/now/content/3904",
+   "title": "จิตวิทยาน่ารู้! \"หายไปไม่บอกกล่าว\" เจ็บปวดนานกว่าถูกปฏิเสธโดยตรง",
+   "org": "Thai PBS (สื่อสาธารณะ)",
+   "category": "toxic_relationship",
+   "quality": "media_public",
+   "gap": "ghosting / หายเงียบ",
+   "file": "หายไปไม่บอกกล่าว (Ghosting).pdf"
+  },
+  {
+   "id": "thaipbs_dating_app_scam",
+   "url": "https://www.thaipbs.or.th/now/content/693",
+   "title": "ปัด \"แอปฯ หาคู่\" แต่เจอ \"มิจฉาชีพ\"",
+   "org": "Thai PBS (สื่อสาธารณะ)",
+   "category": "dating_safety",
+   "quality": "media_public",
+   "gap": "ความปลอดภัยแอปหาคู่",
+   "file": "แอปหาคู่แต่เจอมิจฉาชีพ.pdf"
+  },
+  {
+   "id": "thaipbs_dating_app_safe",
+   "url": "https://www.thaipbs.or.th/now/content/2567",
+   "title": "เล่น \"แอปฯ หาคู่\" อย่างไร? ไม่ถูกหนุ่มฮอตหลอก",
+   "org": "Thai PBS (สื่อสาธารณะ)",
+   "category": "dating_safety",
+   "quality": "media_public",
+   "gap": "ความปลอดภัยแอปหาคู่ / นัดเจอ",
+   "file": "เล่นแอปหาคู่อย่างไรไม่ถูกหลอก.pdf"
+  },
+  {
+   "id": "secnia_dating_app",
+   "url": "https://www.secnia.go.th/2022/08/%E0%B8%A0%E0%B8%B1%E0%B8%A2%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1-%E0%B8%9A%E0%B8%97%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99-%E0%B9%81%E0%B8%AD%E0%B8%9B%E0%B8%9E%E0%B8%A5/",
+   "title": "ภัยสังคม!! บทเรียน \"แอปพลิเคชันหาคู่\" หลอกเหยื่อให้รัก-ลวงล่วงละเมิด-หลอกลงทุน",
+   "org": "ผู้จัดการออนไลน์ (MGR Live) เผยแพร่ซ้ำโดย secnia.go.th",
+   "category": "dating_safety",
+   "quality": "media",
+   "gap": "ความปลอดภัยแอปหาคู่",
+   "file": "บทเรียนแอปพลิเคชันหาคู่.pdf"
+  },
+  {
+   "id": "tdri_romance_scam",
+   "url": "https://tdri.or.th/2026/02/romance-scam-article/",
+   "title": "กลลวงจากความเหงา \"Romance scam รักหลอก โอน\"",
+   "org": "สถาบันวิจัยเพื่อการพัฒนาประเทศไทย (TDRI)",
+   "category": "dating_safety",
+   "quality": "research_institute",
+   "gap": "หลอกรักออนไลน์",
+   "file": "กลลวงจากความเหงา Romance scam.pdf"
+  },
+  {
+   "id": "police9_romance_scam",
+   "url": "https://www.police9.go.th/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A7%E0%B9%88%E0%B8%B2-%E0%B9%81%E0%B8%95%E0%B9%88%E0%B8%AB%E0%B8%A5%E0%B8%AD%E0%B8%81%E0%B9%83%E0%B8%AB/",
+   "title": "ไม่รักไม่ว่า… แต่หลอกให้รักแล้วชวนลงทุน นี่คือ \"Romance Scam\"",
+   "org": "ตำรวจภูธรภาค 9",
+   "category": "dating_safety",
+   "quality": "government",
+   "gap": "หลอกรักชวนลงทุน (ภาคใต้)",
+   "short_ok": true,
+   "note": "บทความสั้นแต่ครบ (1 ย่อหน้า + infographic)",
+   "file": "หลอกให้รักแล้วชวนลงทุน.pdf"
+  },
+  {
+   "id": "dltv_refusal",
+   "url": "https://dltv.ac.th/utils/files/download/161149",
+   "title": "ใบความรู้ เรื่อง ทักษะการปฏิเสธ",
+   "org": "มูลนิธิการศึกษาทางไกลผ่านดาวเทียม (DLTV)",
+   "category": "interpersonal_skills",
+   "quality": "education",
+   "gap": "การปฏิเสธ (วิธีพูด)",
+   "kind": "pdf",
+   "file": "ทักษะการปฏิเสธ.pdf"
+  },
+  {
+   "id": "thaijo_address_terms",
+   "url": "https://ph01.tci-thaijo.org/index.php/psru/article/download/58322/48111/",
+   "title": "คำเรียกขานในภาษาไทยตามปัจจัยอายุ เพศ และความสัมพันธ์ของผู้พูด",
+   "org": "วารสารวิชาการ (ThaiJO)",
+   "category": "interpersonal_skills",
+   "quality": "academic",
+   "gap": "คำเรียกขาน พี่/น้อง/เธอ",
+   "kind": "pdf",
+   "file": "คำเรียกขานในภาษาไทยตามอายุ เพศ และความสัมพันธ์.pdf"
+  },
+  {
+   "id": "thaijo_pronouns_students",
+   "url": "https://so02.tci-thaijo.org/index.php/human_dru/article/download/257969/174612",
+   "title": "การใช้คำสรรพนามบุรุษที่ 1 และบุรุษที่ 2: กรณีศึกษานักศึกษามหาวิทยาลัยแม่ฟ้าหลวง",
+   "org": "วารสารวิชาการมนุษยศาสตร์และสังคมศาสตร์ มรภ.ธนบุรี (ThaiJO)",
+   "category": "interpersonal_skills",
+   "quality": "academic",
+   "gap": "คำเรียกขานในหมู่นักศึกษา",
+   "kind": "pdf",
+   "file": "การใช้คำสรรพนามของนักศึกษา.pdf"
+  },
+  {
+   "id": "bnh_love_bombing",
+   "url": "https://www.bnhhospital.com/th/article/love-bombing-toxic-relationship",
+   "title": "รู้เท่าทันก่อนถอนตัวไม่ขึ้น Love Bombing ทุ่มเทก่อนแล้วบงการ",
+   "org": "โรงพยาบาลบีเอ็นเอช (BNH Hospital)",
+   "category": "toxic_relationship",
+   "quality": "clinical",
+   "gap": "ความสัมพันธ์ที่เร่งเร็วเกินไป / love bombing",
+   "file": "Love Bombing ทุ่มเทก่อนแล้วบงการ.pdf"
+  },
+  {
+   "id": "ooca_love_bombing",
+   "url": "https://ooca.co/blog/what-is-love-bombing-signs-toxic-relationship/",
+   "title": "Love Bombing นิยามเริ่มรักแบบใหม่ ที่คนรุ่นใหม่ใช้แทนคำว่าช่วงโปร",
+   "org": "ooca (แพลตฟอร์มปรึกษานักจิตวิทยา/จิตแพทย์)",
+   "category": "toxic_relationship",
+   "quality": "clinical",
+   "gap": "สัญญาณ love bombing",
+   "file": "Love Bombing สัญญาณเตือน.pdf"
+  },
+  {
+   "id": "potential_love_bombing",
+   "url": "https://thepotential.org/life/love-bombing/",
+   "title": "Love Bombing: เมื่อการทุ่มเทความรักมากมายเป็นเพียงเหยื่อล่อไปสู่ความสัมพันธ์ท็อกซิก",
+   "org": "The Potential",
+   "category": "toxic_relationship",
+   "quality": "media",
+   "gap": "love bombing",
+   "file": "Love Bombing เหยื่อล่อสู่ความสัมพันธ์ท็อกซิก.pdf"
+  }
+ ],
+ "excluded": [
+  {
+   "id": "bbl_romance_scam",
+   "url": "https://www.bangkokbank.com/th-TH/Personal/Grow-Club/Romance-Scam",
+   "title": "\"Romance Scam\" รู้ทันกลโกง \"หลอกให้รัก\" จากมิจฉาชีพออนไลน์",
+   "org": "ธนาคารกรุงเทพ",
+   "category": "dating_safety",
+   "quality": "institution",
+   "gap": "สังเกตโปรไฟล์ปลอม / ขอเงิน",
+   "reason": "ธนาคารกรุงเทพบล็อกการดาวน์โหลดอัตโนมัติ"
+  },
+  {
+   "id": "dmh_refusal_teen",
+   "url": "https://dmh.go.th/news-dmh/view.asp?id=29783",
+   "title": "กรมสุขภาพจิต: ทักษะการปฏิเสธของวัยรุ่น",
+   "org": "กรมสุขภาพจิต กระทรวงสาธารณสุข",
+   "category": "interpersonal_skills",
+   "quality": "government",
+   "gap": "การปฏิเสธ",
+   "reason": "หน้าเว็บโหลดเนื้อหาด้วยสคริปต์ ดึงข้อความไม่ได้"
+  }
+ ]
+}
