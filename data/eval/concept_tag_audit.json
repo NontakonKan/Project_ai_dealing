@@ -1,0 +1,502 @@
+[
+ {
+  "chunk_id": "dltv_refusal_s02_c00",
+  "source_id": "dltv_refusal",
+  "concept": "rf:disrespect",
+  "keyword": "ดูถูก",
+  "context": "รงกับเราได้ โดยทั่วไปการสร้างความสับสนมี 6 แบบ ได้แก่ 1. การดูถูก เช่น เธอกลัวใช่ไหม เธอไม่กล้านี่",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "web_chula_anger_s00_c06",
+  "source_id": "web_chula_anger",
+  "concept": "rf:hot_temper",
+  "keyword": "รู้สึกโกรธ",
+  "context": "จก็อาบน้ำแล้วเข้านอนทันที โดยที่ไม่พูดอะไรกับเราเลย ทำให้เรารู้สึกโกรธ ความคิดที่เกิดขึ้นคือ ทำไมสามีจึงเฉยเมยกับเราอย่างนี้ ทั้งๆ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s07_c42",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:anxious",
+  "keyword": "วิตกกังวล",
+  "context": "ณ์ขึ้น นั่นก็คือ รูปแบบความผูกพันแบบหมกมุ่น (ซึ่งมีระดับความวิตกกังวลสูง แต่มีระดับการหลีกหนีต่ำ) จัดได้ว่าเป็นรูปแบบความผูกพันที",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "article_multilove2565_s05_c01",
+  "source_id": "article_multilove2565",
+  "concept": "love:passion",
+  "keyword": "Passion",
+  "context": "าความรักประกอบด้วยองค์ประกอบ 3 อย่าง ดังนี้ 1. ความลุ่มหลง (Passion) คือ องค์ประกอบของความรักที่เกี่ยวกับ “เสน่ห์หา” หมายถึง คว",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s07_c07",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:secure",
+  "keyword": "มั่นคง",
+  "context": "วนั้นได้รับการประเมินคะแนนต่ำกว่าผู้ที่มีรูปแบบความผูกพันแบบมั่นคงและแบบหมกมุ่นแตกต่างกันอย่างมีนัยสำคัญทางสถิติในส่วนของการเป",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_start_romance2549_s35_c00",
+  "source_id": "thesis_start_romance2549",
+  "concept": "comm:direct",
+  "keyword": "สื่อสารอย่างเปิดเผย",
+  "context": "นใจ (caution) เกี่ยวกับการเปิดเผยตนเองที่สำคัญว่า \"การที่คุณสื่อสารอย่างเปิดเผยตนเองก็ไม่ใช่ว่าจะสร้างความพอใจ สร้างความสนิทสนมหรือสร้างควา",
+  "correct": false,
+  "note": "เปิดเผยตนเอง (self-disclosure) ไม่ใช่การพูดตรง",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_narcissism2553_s01_c16",
+  "source_id": "thesis_narcissism2553",
+  "concept": "trait:responsible",
+  "keyword": "รับผิดชอบ",
+  "context": "กเหมือนการเล่นเกม ต้องการอำนาจความอิสระในตนเอง การควบคุม ไม่รับผิดชอบ จึงผูกมัดกับคู่รักต่ำ เช่นเดียวกับงานวิจัยของ Foster, Shira",
+  "correct": false,
+  "note": "คำปฏิเสธ: 'ไม่รับผิดชอบ' ถูกติดเป็นนิสัยรับผิดชอบ",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s12_c16",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:fearful",
+  "keyword": "แบบหวาดกลัว",
+  "context": "ผู้ที่มีรูปแบบความผูกพันแบบหวาดกลัว ประเมินความดึงดูดใจที่มีต่อผู้ที่มีรูปแบบความผูกพันแบบมั่นค",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "chula_love_fresh_up_s01_c01",
+  "source_id": "chula_love_fresh_up",
+  "concept": "rf:disrespect",
+  "keyword": "ดูถูก",
+  "context": "าในที่ทำงานโดยเด็ดขาด ขอบอกชัด ๆ เลยค่ะว่า การรู้สึกว่าคนรักดูถูกแสดงอำนาจข่ม หรือไม่ให้เกียรติเราต่อหน้าคนอื่นนั้น หากเกิดขึ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s07_c00",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:fearful",
+  "keyword": "แบบหวาดกลัว",
+  "context": "าจะมีความดึงดูดใจมากกว่าคนที่มีรูปแบบความผูกพันแบบไม่สนใจและแบบหวาดกลัว เนื่องจากคนที่มีรูปแบบความผูกพันแบบไม่สนใจและแบบหวาดกลัว เม",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s12_c08",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:secure",
+  "keyword": "มั่นคง",
+  "context": "ะแนนการประเมินความดึงดูดใจสูงกว่าผู้ที่มีรูปแบบความผูกพันแบบมั่นคง แบบหมกมุ่น และแบบหวาดกลัว ผลการทดสอบความแตกต่างเป็นรายคู่ขอ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_narcissism2553_s09_c14",
+  "source_id": "thesis_narcissism2553",
+  "concept": "love:commitment",
+  "keyword": "commitment",
+  "context": "oks Campbell, W. K., & Foster, C. A. (2002). Narcissism and commitment in romantic relationships: An investment model analysis [El",
+  "correct": false,
+  "note": "อยู่ในบรรณานุกรม ไม่ใช่เนื้อหา",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_narcissism2553_s01_c27",
+  "source_id": "thesis_narcissism2553",
+  "concept": "trait:kind",
+  "keyword": "อบอุ่น",
+  "context": "ความรักแบบเสน่หารายงานความทรงจำในวัยเด็กที่มีความสุข ผูกพัน อบอุ่นกับพ่อแม่และพี่น้อง ซึ่งมีผลต่อความรักในวัยผู้ใหญ่ที่มีความจ",
+  "correct": false,
+  "note": "ครอบครัวอบอุ่น ไม่ใช่นิสัยใจดีของคน",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "article_multilove2565_s04_c01",
+  "source_id": "article_multilove2565",
+  "concept": "love:intimacy",
+  "keyword": "ความใกล้ชิด",
+  "context": "้านความรัก 5) ความรักแบบลุ่มหลง (Mania) คือความรักที่ปรารถนาความใกล้ชิดกันและต้องการความเป็นเจ้าของของกันและกัน มักจะเกิดความหึงหวง",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s07_c34",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:secure",
+  "keyword": "มั่นคง",
+  "context": "ดกลัว ประเมินความดึงดูดใจที่มีต่อผู้ที่มีรูปแบบความผูกพันแบบมั่นคง สูงกว่าที่ประเมินให้กับผู้ที่มีรูปแบบความผูกพันแบบหมกมุ่น แ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "tdri_romance_scam_s02_c01",
+  "source_id": "tdri_romance_scam",
+  "concept": "rf:dishonest",
+  "keyword": "หลอกลวง",
+  "context": "ยกแยะให้ชัดเจนระหว่าง “การให้โดยเสน่หา” กับ “การให้ภายใต้การหลอกลวงอย่างเป็นระบบ” พร้อมกำหนดคู่มือการสอบสวนที่พิจารณาลักษณะและร",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "dltv_refusal_s02_c01",
+  "source_id": "dltv_refusal",
+  "concept": "rf:disrespect",
+  "keyword": "ดูถูก",
+  "context": "รงกับเราได้ โดยทั่วไปการสร้างความสับสนมี 6 แบบ ได้แก่ 1. การดูถูก เช่น เธอกลัวใช่ไหม เธอไม่กล้านี่ 2. การโต้แย้ง เช่น ทำไมละ ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s14_c22",
+  "source_id": "thesis_attraction2548",
+  "concept": "trait:extrovert",
+  "keyword": "ชอบเข้าสังคม",
+  "context": "ึกอย่างตรงไปตรงมา กล้าเปิดเผยเรื่องส่วนตัว เป็นตัวของตัวเอง ชอบเข้าสังคม มีความอบอุ่น เป็นคนที่รักษาความสัมพันธ์ได้อย่างเหมาะสม เห็น",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thaipbs_ghosting_s00_c00",
+  "source_id": "thaipbs_ghosting",
+  "concept": "rf:ghosting",
+  "keyword": "Ghosting",
+  "context": "ารู้! \"หายไปไม่บอกกล่าว\" เจ็บปวดนานกว่าถูกปฏิเสธโดยตรงทำไม? Ghosting หรือการหายตัวไปโดยไม่บอกกล่าวจึงทำให้เกิดความเจ็บปวดทางอารม",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "web_chula_ipv_s00_c05",
+  "source_id": "web_chula_ipv",
+  "concept": "rf:possessive",
+  "keyword": "หึงหวง",
+  "context": "้อื่นได้อย่างสมบูรณ์ ความสัมพันธ์กับคู่รักจึงมีลักษณะของความหึงหวง การควบคุมและการถอนตัวจากคู่รัก จึงมีการกระทำความรุนแรงต่อคู",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "potential_love_bombing_s01_c01",
+  "source_id": "potential_love_bombing",
+  "concept": "attach:secure",
+  "keyword": "มั่นคง",
+  "context": "ู่ด้วยแล้วรู้สึกสบายใจ แบบนี้จะเรียกว่า ‘รูปแบบความผูกพันแบบมั่นคง’ แต่หากเรารู้สึกไม่เชื่อใจหรือไว้ใจคนใกล้ชิด แบบนี้จะเรียกร",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "web_chula_attachment_s00_c01",
+  "source_id": "web_chula_attachment",
+  "concept": "attach:secure",
+  "keyword": "มั่นคง",
+  "context": "ได้อธิบายว่า ทารกที่แสดงความผูกพันแบบมั่นคงจะเป็นเด็กที่ผู้ปกครองตอบสนองได้ตรงความต้องการ ขณะที่ทารกที่",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_start_romance2549_s36_c00",
+  "source_id": "thesis_start_romance2549",
+  "concept": "love:intimacy",
+  "keyword": "ความใกล้ชิด",
+  "context": "ในค่านิยมและความคิดเห็นในเรื่องใหม่ๆตรงกันและจากที่วัยรุ่นมีความใกล้ชิดยุกพัน มีความคิดที่คล้ายกันนั้นทำให้วัยรุ่นยอมรับข้อดี ข้อเส",
+  "correct": false,
+  "note": "ความใกล้ชิดของวัยรุ่นกับเพื่อน ไม่ใช่ความใกล้ชิดแบบคู่รัก",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "web_pdf_shy_social_s01_c00",
+  "source_id": "web_pdf_shy_social",
+  "concept": "trait:funny",
+  "keyword": "มีอารมณ์ขัน",
+  "context": "วยเหตุผล ก็สามารถช่วยให้เกิดประโยชน์ขึ้นได้ 8. การหัวเราะการมีอารมณ์ขันเป็นทักษะทางสังคมที่มีค่าที่สุด มันเกิดขึ้นได้อย่างรวดเร็วเม",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s06_c12",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:avoidant",
+  "keyword": "หลีกเลี่ยง",
+  "context": "บุคคลประเภทนี้จะปกป้องตนเองต่อความผิดหวังโดยหลีกเลี่ยงความสัมพันธ์อันใกล้ชิดและพยายามคงไว้ซึ่งความรู้สึกว่าเป็นอิส",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s07_c37",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:fearful",
+  "keyword": "แบบหวาดกลัว",
+  "context": "่หลีกหนีความสัมพันธ์ที่ใกล้ชิด 3) บุคคลที่มีรูปแบบความผูกพันแบบหวาดกลัว หมายถึง ผู้ที่มีคะแนนมิติความวิตกกังวลสูง และมิติการหลีกหนี",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "web_chula_anger_s00_c08",
+  "source_id": "web_chula_anger",
+  "concept": "trait:logical",
+  "keyword": "มีเหตุผล",
+  "context": "เราจะมีเหตุผลอะไรบ้างที่จะทำให้เราตัดสินใจทำสิ่งต่างๆ แบบเดียวกับที่เขาทำ",
+  "correct": false,
+  "note": "'มีเหตุผลอะไรบ้าง' = เหตุผลที่ทำ ไม่ใช่นิสัยมีเหตุผล",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "article_multilove2565_s03_c01",
+  "source_id": "article_multilove2565",
+  "concept": "attach:avoidant",
+  "keyword": "หลีกเลี่ยง",
+  "context": "ชั่วคราว คล้ายการเล่นเกมผู้ที่มีความรักแบบไม่ผูกมัด จะพยายามหลีกเลี่ยงการสร้างความผูกพันทางอารมณ์อย่างลึกซึ้งกับคู่ เพื่อรักษาความ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s07_c19",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:anxious",
+  "keyword": "วิตกกังวล",
+  "context": "ผู้หญิงที่มีรูปแบบความผูกพันแบบวิตกกังวลจะกลัวการถูกทอดทิ้ง ดังนั้นจึงพยายามอย่างที่สุดเพื่อที่จะรัก",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_narcissism2553_s01_c43",
+  "source_id": "thesis_narcissism2553",
+  "concept": "trait:kind",
+  "keyword": "เอาใจใส่",
+  "context": "s, 1979) และรวมคุณลักษณะต่าง ๆ เช่น การช่วยเหลือ การดูแล การเอาใจใส่ร่วมมือ ใส่ใจผู้อื่น การมีคุณธรรม ลักษณะเน้นความสัมพันธ์ที่ม",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "chula_teen_romance_parents_s00_c01",
+  "source_id": "chula_teen_romance_parents",
+  "concept": "hygiene:self_care",
+  "keyword": "ดูแลตัวเอง",
+  "context": "ามรักนี่เป็นสิ่งที่ธรรมชาติกำหนดไว้เพื่อเตรียมความพร้อมในการดูแลตัวเองและสร้างครอบครัวในวัยผู้ใหญ่สืบเนื่องต่อไปเป็นวงจรดังนั้นการ",
+  "correct": false,
+  "note": "'ดูแลตัวเอง' = พึ่งพาตัวเองได้ ไม่ใช่การดูแลรูปลักษณ์",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "web_potential_boundary_s00_c02",
+  "source_id": "web_potential_boundary",
+  "concept": "rf:no_boundaries",
+  "keyword": "Healthy Boundary",
+  "context": "อเปล่า” “ทำไมฉันเป็นคนแย่จังเลย” ขอบเขตหรือจุดยืนที่ชัดเจน (Healthy Boundary) หมายถึง การกลับมาทบทวนความรู้สึกและความต้องการตัวเองว่า อะ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s08_c03",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:secure",
+  "keyword": "มั่นคง",
+  "context": "นี้เงื่อนไขที่ 1 ผู้เข้าร่วมการวิจัยที่มีรูปแบบความผูกพันแบบมั่นคง อ่านสถานการณ์คู่รักสมมติที่มีรูปแบบความผูกพันแบบมั่นคง (n =",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s06_c04",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:anxious",
+  "keyword": "วิตกกังวล",
+  "context": "นในวัยเด็กทั้ง 3 ประเภท ได้แก่ รูปแบบความผูกพันแบบมั่นคง แบบวิตกกังวล/ไม่แน่ใจ และแบบหลีกหนี หลังจากนั้นจึงทำนายถึงคุณภาพของปฏิสั",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "chula_love_fresh_up_s01_c02",
+  "source_id": "chula_love_fresh_up",
+  "concept": "rf:possessive",
+  "keyword": "ขี้หึง",
+  "context": "ตามใจเอาใจหนูทุกอย่าง พ่อแม่หนูก็ชอบพี่เค้ามาก แต่เค้าเป็นคนขี้หึงมากค่ะ หนูมองใครไม่ได้เลย เค้าจะอาละวาดประชดประชัน หาว่าหนูไ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s07_c05",
+  "source_id": "thesis_attraction2548",
+  "concept": "trait:kind",
+  "keyword": "เอาใจใส่",
+  "context": "นอยู่ด้วย (nonsocial versus social crying) และการให้ความดูแลเอาใจใส่ (caregiving) ผลการวิจัยจากการศึกษาที่ 1 พบว่า ผู้ที่มีรูปแบ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s06_c08",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:avoidant",
+  "keyword": "หลีกเลี่ยง",
+  "context": "กหนี) ผู้อื่น แต่ผู้ที่มีรูปแบบความผูกพันแบบหวาดกลัวจะพยายามหลีกเลี่ยงความสัมพันธ์อันใกล้ชิด เพื่อเป็นการลดระดับความผิดหวังที่อาจเ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s07_c09",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:secure",
+  "keyword": "มั่นคง",
+  "context": "่วนของคะแนนทักษะในการเข้าสังคมของผู้ที่มีรูปแบบความผูกพันแบบมั่นคงและแบบหมกมุ่นพบว่ามีความแตกต่างกันไม่มากนัก",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_start_romance2549_s52_c00",
+  "source_id": "thesis_start_romance2549",
+  "concept": "factor:living_status",
+  "keyword": "พักอาศัย",
+  "context": "ลำดับตาราง 4 แสดงจำนวน และร้อยละของกลุ่มตัวอย่าง จำแนกตามที่พักอาศัยที่พักอาศัย จำนวน (คน) ร้อยละอยู่กับพ่อ แม่ 105 52.5 อยู่กับ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s07_c22",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:secure",
+  "keyword": "มั่นคง",
+  "context": "ระดับความดึงดูดใจที่มีต่อคู่รักสมมติที่มีรูปแบบความผูกพันแบบมั่นคงสูงกว่าที่ประเมินให้กับคู่รักสมมติที่มีรูปแบบความผูกพันแบบหม",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s06_c02",
+  "source_id": "thesis_attraction2548",
+  "concept": "rf:disrespect",
+  "keyword": "ดูถูก",
+  "context": "่แปลกออกไป” (Strange situation) ทารกวัย 12 เดือนและผู้เลี้ยงดูถูกนำไปยังห้องทดลอง หลังจากนั้นมีขั้นตอนดังต่อไปนี้คือ 1. มารดา",
+  "correct": false,
+  "note": "คำคร่อมกัน: 'ผู้เลี้ยงดู|ถูกนำไป' ถูกอ่านเป็น 'ดูถูก'",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s12_c18",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:fearful",
+  "keyword": "แบบหวาดกลัว",
+  "context": "บหมกมุ่น Fa หมายถึง ผู้เข้าร่วมการวิจัยที่มีรูปแบบความผูกพันแบบหวาดกลัว Da หมายถึง ผู้เข้าร่วมการวิจัยที่มีรูปแบบความผูกพันแบบไม่สน",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s07_c28",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:secure",
+  "keyword": "มั่นคง",
+  "context": "มีรูปแบบความผูกพันแตกต่างกัน ผู้อ่านที่มีรูปแบบความผูกพันแบบมั่นคงประเมินระดับความดึงดูดใจให้กับคู่รักสมมติที่มีรูปแบบความผูกพ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_narcissism2553_s01_c01",
+  "source_id": "thesis_narcissism2553",
+  "concept": "rf:dishonest",
+  "keyword": "นอกใจ",
+  "context": "Rusbult, 1998) การให้อภัยซึ่งกันและกัน การไม่นอกใจ ที่ส่งผลต่อความพึงพอใจในชีวิตและสุขภาวะทางจิตของคู่รัก (Fin",
+  "correct": false,
+  "note": "คำปฏิเสธ: 'การไม่นอกใจ' ถูกติดเป็น red flag นอกใจ",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "slides_winpeople_s03_c00",
+  "source_id": "slides_winpeople",
+  "concept": "rf:dishonest",
+  "keyword": "หลอกลวง",
+  "context": "ป็นพิษภัยหรือเป็นที่เดือดร้อนแก่คนอื่น ๆ เช่น ไม่โขมย ไม่พูดหลอกลวง 2.เป็นผู้มีน าใจ รู้จักแบ่งปันให้ซึ่งกันและกัน ไม่เป็นคนเห็",
+  "correct": false,
+  "note": "คำปฏิเสธ: 'ไม่พูดหลอกลวง' ถูกติดเป็น red flag โกหก",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "slides_winpeople_s10_c00",
+  "source_id": "slides_winpeople",
+  "concept": "trait:responsible",
+  "keyword": "รับผิดชอบ",
+  "context": "กษณะปกป้อง และแสดงให้เห็นถึงความมีอำนาจ ตลอดจนแสดงออกถึงความรับผิดชอบ ซึ่งมีลักษณะแยกย่อย ดังนี้ 1.1 สภาวะพ่อ แม่ ที่เจ้าระเบียบ ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "tdri_romance_scam_s00_c01",
+  "source_id": "tdri_romance_scam",
+  "concept": "rf:dishonest",
+  "keyword": "หลอกลวง",
+  "context": "ารถติดต่อหรือตามตัวมิจฉาชีพผู้นี้ได้อีก5 เจตนาฉ้อโกงคือการ “หลอกลวง” ให้คน “หลงเชื่อ” เพื่อให้ได้ “ทรัพย์สิน” จากผู้ที่ถูกหลอก6",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "tdri_romance_scam_s01_c01",
+  "source_id": "tdri_romance_scam",
+  "concept": "trait:responsible",
+  "keyword": "รับผิดชอบ",
+  "context": "และเคยเกิดกรณีการลวงรักครั้งใหญ่ที่เหยื่อซึ่งมีตำแหน่งสูงรับผิดชอบและมีสิทธิเข้าถึงการเงินของบริษัท ถูกมิจฉาชีพ Romance Scam ห",
+  "correct": false,
+  "note": "'รับผิดชอบ' = หน้าที่การงาน ไม่ใช่นิสัย",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_attraction2548_s12_c14",
+  "source_id": "thesis_attraction2548",
+  "concept": "attach:fearful",
+  "keyword": "แบบหวาดกลัว",
+  "context": "ห้กับคู่รักสมมติที่มีรูปแบบความผูกพันแบบหมกมุ่น (M = 88.50) แบบหวาดกลัว (M = 47.23) และแบบไม่สนใจ (M = 54.15) อย่างมีนัยสำคัญทางสถิ",
+  "correct": true,
+  "note": "",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ },
+ {
+  "chunk_id": "thesis_narcissism2553_s09_c07",
+  "source_id": "thesis_narcissism2553",
+  "concept": "rf:hot_temper",
+  "keyword": "ความโกรธ",
+  "context": "ค์การและเพื่อนร่วมงานจากบุคลิกภาพแบบหลงตนเอง ลักษณะนิสัยด้านความโกรธ และ สิ่งเร้าความเครียดในการทำงาน. วิทยานิพนธ์ปริญญามหาบัณฑิ",
+  "correct": false,
+  "note": "อยู่ในบรรณานุกรม ไม่ใช่เนื้อหา",
+  "reviewer": "Claude (อ่านบริบททีละคู่) — ควรให้คนยืนยันซ้ำ"
+ }
+]

@@ -138,6 +138,8 @@ def _handle(event):
     """เรียกจาก webhook (background) — ห้ามให้ exception หลุด; ตอบภายในเวลาของ replyToken ถ้าทำได้ ไม่งั้น push"""
     t0 = time.time()
     lid = event.get("source", {}).get("userId")
+    if event.get("source", {}).get("type") == "user" and event.get("type") in ("message", "postback"):
+        line_api.show_loading(lid)      # จุดเด้งระหว่างค้น + LLM (บางคำถามใช้ 10-30 วินาที)
     _trace.clear()
     log.start()
     try:

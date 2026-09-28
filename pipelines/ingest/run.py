@@ -104,9 +104,25 @@ def ingest(source, chunk_size, overlap, min_section_words):
                 "lang": "th",
                 **tag(text, sec["category"], concepts=source.get("tag_concepts", True)),
             })
+    chunks = dedupe(chunks, stats)
     sample_page = next((p for p in pages if "ส าคัญ" in p["text"]), pages[0])  # ตัวอย่าง before/after
     sample = before_after(sample_page["text"], "\n".join(l for l in dict(pages_lines)[sample_page["page"]] if l))
     return sections, chunks, source_report(source, pages, sections, chunks, stats, f"ok ({mode})"), sample
+
+
+def dedupe(chunks, stats):
+    """ตัด chunk ที่ข้อความซ้ำกันทุกตัวอักษร (ไม่นับช่องว่าง) ภายในเอกสารเดียวกัน เก็บอันแรกไว้
+    วัดจริง: ภาคผนวกวิทยานิพนธ์ความดึงดูด พิมพ์แบบสอบถามชุดเดิมซ้ำ 5 เงื่อนไขการทดลอง -> 18 chunk ซ้ำ
+    ซึ่งแย่งที่ใน top-k ของการค้น (chunk_id ที่ถูกตัดจะเว้นว่าง ไม่เลื่อนเลข เพื่อให้ id เดิมคงที่)"""
+    seen, kept = set(), []
+    for c in chunks:
+        key = "".join(c["text"].split())
+        if key in seen:
+            stats["duplicate_chunks_removed"] += 1
+            continue
+        seen.add(key)
+        kept.append(c)
+    return kept
 
 
 def main():

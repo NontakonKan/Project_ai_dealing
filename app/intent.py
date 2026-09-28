@@ -17,10 +17,21 @@ FOLLOWUP = ("ยกตัวอย่าง", "ขอรายละเอีย
 TOPIC_RESET = ("เปลี่ยนเรื่อง", "เรื่องใหม่", "ถามเรื่องอื่น")
 
 
+CONTINUE_PREFIX = ("แล้วถ้า", "แล้วควร", "แล้วเขา", "แล้วต้อง")
+PRONOUN_PREFIX = ("เขา", "เธอ")
+
+
 def is_followup(text):
     t = text.strip().lower()
     return not any(c in t for c in TOPIC_RESET) and (
-        any(c in t for c in FOLLOWUP) or t.startswith(("แล้วถ้า", "แล้วควร", "แล้วเขา", "แล้วต้อง", "เขา", "เธอ")))
+        any(c in t for c in FOLLOWUP) or t.startswith(CONTINUE_PREFIX + PRONOUN_PREFIX))
+
+
+def needs_context(text):
+    """ต้องมีบทสนทนาก่อนหน้าจึงเข้าใจได้ ("ข้อสองล่ะ", "แล้วควรทำยังไง")
+    ต่างจากคำถามที่แค่ขึ้นต้นด้วย เขา/เธอ ("เขาไม่ตอบแชท ทำไงดี") ซึ่งถามครั้งแรกได้โดยไม่ต้องมีประวัติ"""
+    t = text.strip().lower()
+    return any(c in t for c in FOLLOWUP) or t.startswith(CONTINUE_PREFIX)
 
 
 def classify(text: str, state: str = "ready", history=None) -> str:

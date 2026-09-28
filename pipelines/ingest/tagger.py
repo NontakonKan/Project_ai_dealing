@@ -12,7 +12,11 @@ from ..common.paths import LEXICON_FILE
 
 CONTEXT_WINDOW = 60  # ±ตัวอักษรรอบคำกำกวมที่ต้องมีคำบริบท (context_rules ใน concept_lexicon.json)
 MIN_ALIAS_LEN = 4  # alias สั้น (เช่น "วีน", "ด่า") match ผิดในข้อความวิชาการบ่อย
-SKIP_PREFIXES = ("hobby:",)  # งานอดิเรกไม่ใช่ความรู้เชิงจิตวิทยา + match ผิดบ่อย ("วาดภาพ" เชิงเปรียบเทียบ)
+SKIP_PREFIXES = ("hobby:",)
+# สุ่มตรวจ 50 คู่ (pipelines/ingest/tag_audit.py) precision 76%: ผิดเพราะคำปฏิเสธ 3 ("ไม่รับผิดชอบ", "การไม่นอกใจ",
+# "ไม่พูดหลอกลวง") -> ตรวจคำปฏิเสธกับ concept ทุกตัว
+# (ลองบังคับรอยคำด้วย PyThaiNLP แล้ว: แก้ "ผู้เลี้ยงดู|ถูกนำไป" ได้ 1 แต่ทำ tag ที่ถูกหาย 6 เพราะตัดคำต่างจาก lexicon -> ไม่ใช้)
+RE_NEGATED = re.compile(r"ไม่(?!ว่า)\S{0,4}$")    # "ไม่" + คำกริยาสั้นๆ ก่อนคำ ("ไม่พูด|หลอกลวง") / ยกเว้น "ไม่ว่า"  # งานอดิเรกไม่ใช่ความรู้เชิงจิตวิทยา + match ผิดบ่อย ("วาดภาพ" เชิงเปรียบเทียบ)
 
 
 @lru_cache(maxsize=1)
@@ -50,14 +54,22 @@ def _ok(text, m, rule) -> bool:
     return any(w in around for w in rule["near"])
 
 
-def _count(text, pats):
-    return sum(_ok(text, m, rule) for p, rule in pats for m in p.finditer(text))
+def _count(text, pats, negation=False):
+    """negation=True (ใช้กับ concept): ข้ามคำที่ตามหลังคำปฏิเสธ"""
+    n = 0
+    for p, rule in pats:
+        for m in p.finditer(text):
+            if negation and RE_NEGATED.search(text[max(0, m.start() - 8):m.start()]):
+                continue
+            n += _ok(text, m, rule)
+    return n
 
 
 def tag(text: str, category: str, concepts=True) -> dict:
     """concepts=False: ไม่ติด concept ความสัมพันธ์ (เอกสารการแพทย์ -> Graph ไม่ดึงไปตอบเรื่องคู่รัก, Dense ยังค้นเจอ)"""
     concept_pats, topic_pats = _patterns()
-    concepts = Counter({cid: c for cid, ps in concept_pats.items() if (c := _count(text, ps))}) if concepts else Counter()
+    concepts = Counter({cid: c for cid, ps in concept_pats.items() if (c := _count(text, ps, negation=True))}) \
+        if concepts else Counter()
     topics = [tid for tid, ps in topic_pats.items() if _count(text, ps)]
     ranked = [cid for cid, _ in concepts.most_common()]
     return {

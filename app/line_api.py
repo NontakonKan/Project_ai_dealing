@@ -51,6 +51,19 @@ def push(to, messages):
     _post("/message/push", {"to": to, "messages": messages[:5]})
 
 
+LOADING_SECONDS = 60   # LINE รับ 5-60 วินาที (ทีละ 5) — หายเองทันทีที่บอทส่งข้อความถึงผู้ใช้
+
+
+def show_loading(chat_id, seconds=LOADING_SECONDS):
+    """จุดเด้ง "กำลังพิมพ์" ในแชท 1:1 ระหว่างบอทประมวลผล (ไม่นับโควตาข้อความ) — ล้มเหลวก็ไม่เป็นไร ไม่ขวางการตอบ"""
+    if not LINE_CHANNEL_ACCESS_TOKEN or not chat_id:
+        return
+    try:
+        _post("/chat/loading/start", {"chatId": chat_id, "loadingSeconds": seconds})
+    except Exception:
+        pass
+
+
 def get_display_name(line_user_id):
     if not LINE_CHANNEL_ACCESS_TOKEN:
         return "ผู้ทดสอบ"
