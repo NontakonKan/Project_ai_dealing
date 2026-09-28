@@ -86,6 +86,14 @@ ollama serve   # ถ้ายังไม่รัน
 เลือกโมเดลต่องานใน `.env` ด้วย `LLM_<TASK>=api:<ชื่อโมเดล>` ถ้า API ล่มจะใช้โมเดล Local เดิมแทนเอง (`providers.py`)
 งานที่มีแชทดิบของผู้ใช้ (`extract_profile`, `extract_unmatch`, ตอบคุยเล่น) คงไว้ที่ Local เพื่อความเป็นส่วนตัว
 
+### ตั้งค่า 3 API keys สำหรับ LINE bot
+
+คัดลอก `.env.example` เป็น `.env` ที่ root แล้วใส่ `API_KEY_1`, `API_KEY_2`, `API_KEY_3` จากบัญชีของแต่ละคน ห้ามส่ง key เข้า Git หรือใส่ใน source code. ถ้ามี key อย่างน้อยหนึ่งตัว งาน `explain_match` จะใช้ `api:openai/gpt-5.6-luna` (x2) โดยอัตโนมัติ และใช้ Typhoon2 8B ในเครื่องเมื่อ API ใช้ไม่ได้. งานสกัดข้อมูลและ RAG ยังคงใช้ Local ตามค่าเดิม; เปลี่ยนเป็น API ได้ผ่าน `LLM_<TASK>` ถ้าต้องการ.
+
+ระบบหมุน key แบบ round-robin ต่อ request และข้าม key ที่ตอบ 401/403, 429 หรือ 5xx ชั่วคราว ก่อน fallback ไป Local. `Retry-After` ของ HTTP 429 เป็นตัวกำหนดเวลาพัก (ถ้าไม่มี ใช้ 60 วินาที). สถานะพักอยู่ในหน่วยความจำของ process; ถ้ารัน bot หลาย process จะไม่มีการประสานโควตาข้าม process. PSU gateway เป็นผู้ตรวจโควตารายวันจริง ระบบนี้ไม่ได้เพิ่มโควตาหรือรับประกันว่าแต่ละบัญชีใช้ไม่เกิน 1000 token/day. ตรวจนโยบายการใช้หลาย key ของผู้ให้บริการด้วย.
+
+ทดสอบโดยไม่ใช้ key จริง: `python -m unittest tests.test_api_keys -v`. หากต้องการทดสอบ API จริง ให้ตั้ง key ใน `.env` แล้วใช้ `python -m pipelines.llm.run demo` โดยคำสั่งนี้จะเรียก LLM และใช้โควตา.
+
 | explain_match (15 คู่, gemma3 เป็นกรรมการ) | faithfulness | helpfulness | cite | p50 | เครดิต |
 |---|---|---|---|---|---|
 | **api:PSU-LLM/psu-gemma** (ใช้จริง) | 4.73 | 4.13 | 100% | 2.2s | ฟรี |
