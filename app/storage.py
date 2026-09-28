@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS reports (target_id TEXT, rf_id TEXT, count INTEGER, P
 CREATE TABLE IF NOT EXISTS contacts (user_id TEXT PRIMARY KEY, contact TEXT, updated_at REAL);
 CREATE TABLE IF NOT EXISTS intros (
   id TEXT PRIMARY KEY, from_user TEXT, to_user TEXT, status TEXT, created_at REAL, decided_at REAL);
+CREATE TABLE IF NOT EXISTS counters (name TEXT PRIMARY KEY, value INTEGER);
 """
 
 
@@ -55,10 +56,23 @@ def get_line_user(line_user_id):
         return dict(r) | {"state_data": json.loads(r["state_data"])} if r else None
 
 
+def _next_user_number(c):
+    """เลขผู้ใช้ใหม่ ไม่นำเลขของคนที่ลบข้อมูลไปแล้วกลับมาใช้
+    เดิมใช้ COUNT(*)+1: มี L0001, L0002 แล้ว L0001 ลบข้อมูล -> คนใหม่ได้ L0002 ซ้ำ (IntegrityError)
+    และแม้ไม่ชน ก็อาจได้เลขของคนที่ลบไป ซึ่งยังถูกอ้างถึงในข้อมูลของผู้ใช้อื่น (events / intros)"""
+    row = c.execute("SELECT value FROM counters WHERE name='line_user'").fetchone()
+    top = c.execute("SELECT MAX(CAST(SUBSTR(user_id, 2) AS INTEGER)) FROM line_users "
+                    "WHERE user_id LIKE 'L%'").fetchone()[0] or 0
+    n = max(row[0] if row else 0, top) + 1
+    c.execute("INSERT INTO counters VALUES ('line_user', ?) "
+              "ON CONFLICT(name) DO UPDATE SET value=excluded.value", (n,))
+    return n
+
+
 def create_line_user(line_user_id, display_name):
     with db() as c:
-        n = c.execute("SELECT COUNT(*) FROM line_users").fetchone()[0]
-        uid = f"L{n + 1:04d}"
+        c.execute("BEGIN IMMEDIATE")     # ผู้ใช้ใหม่ 2 คนพร้อมกันต้องไม่ได้เลขเดียวกัน
+        uid = f"L{_next_user_number(c):04d}"
         now = time.time()
         c.execute("INSERT INTO line_users VALUES (?,?,?,?,?,?,?)", (line_user_id, uid, display_name, "new", "{}", now, now))
     return get_line_user(line_user_id)
