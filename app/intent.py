@@ -12,7 +12,29 @@ QUESTION = ("?", "ไหม", "มั้ย", "อย่างไร", "ยั�
             "อะไรดี", "วิธี", "ดูยังไง", "ดูไง", "ยังไงให้", "เหรอ", "หรอ", "ได้มั้ย", "ได้ไหม")
 
 
-def classify(text: str, state: str = "ready") -> str:
+FOLLOWUP = ("ยกตัวอย่าง", "ขอรายละเอียด", "อธิบายเพิ่ม", "ขยายความ", "ข้อแรก", "ข้อสอง", "ข้อสาม",
+            "ข้อที่", "เมื่อกี้", "ที่บอก", "แบบเดิม", "แบบนั้น", "แบบนี้", "เรื่องนี้", "เรื่องเดิม", "กับเขา", "กับเธอ", "คนเดิม", "ทำตามแล้ว", "ลองแล้ว")
+TOPIC_RESET = ("เปลี่ยนเรื่อง", "เรื่องใหม่", "ถามเรื่องอื่น")
+
+
+CONTINUE_PREFIX = ("แล้วถ้า", "แล้วควร", "แล้วเขา", "แล้วต้อง")
+PRONOUN_PREFIX = ("เขา", "เธอ")
+
+
+def is_followup(text):
+    t = text.strip().lower()
+    return not any(c in t for c in TOPIC_RESET) and (
+        any(c in t for c in FOLLOWUP) or t.startswith(CONTINUE_PREFIX + PRONOUN_PREFIX))
+
+
+def needs_context(text):
+    """ต้องมีบทสนทนาก่อนหน้าจึงเข้าใจได้ ("ข้อสองล่ะ", "แล้วควรทำยังไง")
+    ต่างจากคำถามที่แค่ขึ้นต้นด้วย เขา/เธอ ("เขาไม่ตอบแชท ทำไงดี") ซึ่งถามครั้งแรกได้โดยไม่ต้องมีประวัติ"""
+    t = text.strip().lower()
+    return any(c in t for c in FOLLOWUP) or t.startswith(CONTINUE_PREFIX)
+
+
+def classify(text: str, state: str = "ready", history=None) -> str:
     t = text.strip().lower()
     if state.startswith("onboard"):
         return "onboarding"
@@ -28,6 +50,11 @@ def classify(text: str, state: str = "ready") -> str:
         return "find_match"
     if any(k in t for k in UNMATCH):
         return "unmatch"
+    from .conversation import wants_recall
+    if wants_recall(t):
+        return "recall_memory"
+    if history and is_followup(t):
+        return "ask_advice"
     if any(k in t for k in QUESTION):
         return "ask_advice"
     return "chat"

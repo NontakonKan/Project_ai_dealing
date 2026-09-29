@@ -5,9 +5,10 @@ event ที่รองรับ: follow, unfollow, message(text), postback
 import sys
 import time
 import traceback
+import threading
 from urllib.parse import parse_qs
 
-from . import intent, line_api, log, storage
+from . import conversation, intent, line_api, log, storage
 from .flex import MENU, text
 from .flows import account, advice, chat, intro, match, onboarding, unmatch
 
@@ -28,7 +29,22 @@ def _summary(msgs):
 _trace = {}
 
 
+# Bounded lock pool: serialize one user's turns within a server process.
+# RLock also permits handle() to cover delivery while dispatch() protects direct callers.
+_CONVERSATION_LOCKS = [threading.RLock() for _ in range(64)]
+
+
+def _conversation_lock(event):
+    uid = event.get("source", {}).get("userId", "")
+    return _CONVERSATION_LOCKS[hash(uid) % len(_CONVERSATION_LOCKS)]
+
+
 def dispatch(event) -> list:
+    with _conversation_lock(event):
+        return _dispatch(event)
+
+
+def _dispatch(event) -> list:
     etype = event.get("type")
     lid = event.get("source", {}).get("userId")
     if not lid:
@@ -66,14 +82,44 @@ def dispatch(event) -> list:
             return onboarding.follow(u)
         if msg.strip() in ("ยินยอม", "ยินยอมให้หาคู่") and u["state"] != "onboard_consent":
             return onboarding.consent(u, True)
-        kind = intent.classify(msg, u["state"])
+        # Anchor history to the inserted row, never remove an assumed last row.
+        message_id = storage.add_message(u["user_id"], "user", msg)
+        history = storage.advice_history(u["user_id"], message_id)
+        kind = intent.classify(msg, u["state"], history=history)
+        with storage.db() as con:
+            con.execute("UPDATE messages SET intent=? WHERE id=?", (kind, message_id))
+        memories = []
+        if kind in {"chat", "ask_advice", "recall_memory"}:
+            memories = conversation.prepare(u["user_id"], msg, message_id, history)
+            if memories and intent.is_followup(msg) and kind != "recall_memory":
+                if kind == "chat":
+                    kind = "ask_advice"
+                    with storage.db() as con:
+                        con.execute("UPDATE messages SET intent=? WHERE id=?", (kind,message_id))
+                import json
+                # Explicitly labelled user context, never assistant-generated evidence.
+                memory_context = {"role": "user", "text":
+                    "บันทึกความจำส่วนตัว (ไม่ใช่หลักฐานความรู้; ข้อมูลใหม่แทนข้อมูลเก่าที่ขัดกัน): "
+                    + json.dumps(memories, ensure_ascii=False)}
+                history = [memory_context] + history
+        if kind == "recall_memory":
+            if not memories:
+                out = [text("ยังไม่พบบันทึกที่เกี่ยวข้องครับ ช่วยระบุหัวข้อที่เคยคุยอีกนิดได้ไหมครับ", MENU)]
+            else:
+                try:
+                    from pipelines.llm import tasks
+                    out = [text(tasks.recall_answer(msg, memories), MENU)]
+                except Exception:
+                    out = [text("ตอนนี้อ่านความจำไม่สำเร็จครับ ลองถามอีกครั้งได้ไหมครับ", MENU)]
+            for reply in out:
+                storage.add_message(u["user_id"], "bot", reply["text"], kind)
+            return out
         _trace.update(kind=kind, input=log.clip(msg) if kind != "contact" else "(ส่ง LINE ID — ไม่แสดงใน log)")
-        storage.add_message(u["user_id"], "user", msg, kind)
         out = {"onboarding": lambda: onboarding.answer(u, msg), "unmatch_reason": lambda: unmatch.reason(u, msg),
                "contact": lambda: intro.contact(u, msg),
                "delete_me": lambda: account.delete(u), "show_profile": lambda: account.show(u),
                "find_match": lambda: match.find(u), "unmatch": lambda: unmatch.ask_reason(u),
-               "ask_advice": lambda: advice.handle(u, msg), "chat": lambda: chat.handle(u, msg)}[kind]()
+               "ask_advice": lambda: advice.handle(u, msg, history=history), "chat": lambda: chat.handle(u, msg)}[kind]()
         for m in out:
             if m["type"] == "text" and kind != "delete_me":
                 storage.add_message(u["user_id"], "bot", m["text"], kind)
@@ -84,9 +130,16 @@ def dispatch(event) -> list:
 
 
 def handle(event):
+    with _conversation_lock(event):
+        return _handle(event)
+
+
+def _handle(event):
     """เรียกจาก webhook (background) — ห้ามให้ exception หลุด; ตอบภายในเวลาของ replyToken ถ้าทำได้ ไม่งั้น push"""
     t0 = time.time()
     lid = event.get("source", {}).get("userId")
+    if event.get("source", {}).get("type") == "user" and event.get("type") in ("message", "postback"):
+        line_api.show_loading(lid)      # จุดเด้งระหว่างค้น + LLM (บางคำถามใช้ 10-30 วินาที)
     _trace.clear()
     log.start()
     try:

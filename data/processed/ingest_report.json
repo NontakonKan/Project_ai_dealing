@@ -31,11 +31,11 @@
           6
         ],
         [
-          "rf:dishonest",
-          3
+          "trait:responsible",
+          2
         ],
         [
-          "trait:responsible",
+          "rf:dishonest",
           2
         ],
         [
@@ -86,7 +86,7 @@
         "max": 311,
         "mean": 229
       },
-      "chunks_with_concepts_pct": 62.5,
+      "chunks_with_concepts_pct": 60.0,
       "category_dist": {
         "theory": 40
       },
@@ -121,7 +121,7 @@
         ],
         [
           "trait:logical",
-          3
+          2
         ],
         [
           "rf:inconsistent",
@@ -148,7 +148,7 @@
           1
         ],
         [
-          "rf:no_boundaries",
+          "attach:secure",
           1
         ]
       ],
@@ -259,7 +259,7 @@
         ],
         [
           "rf:no_boundaries",
-          5
+          4
         ],
         [
           "trait:responsible",
@@ -316,22 +316,22 @@
       "pages_total": 178,
       "pages_used": 178,
       "n_sections": 15,
-      "n_chunks": 243,
+      "n_chunks": 225,
       "chunk_words": {
         "min": 105,
-        "p25": 231.0,
-        "median": 271.0,
-        "p75": 296.0,
+        "p25": 228.5,
+        "median": 267.0,
+        "p75": 294.0,
         "max": 332,
-        "mean": 255.0
+        "mean": 253.3
       },
-      "chunks_with_concepts_pct": 63.8,
+      "chunks_with_concepts_pct": 66.7,
       "category_dist": {
         "abstract": 7,
         "theory": 82,
         "method": 42,
         "results": 24,
-        "finding_discussion": 88
+        "finding_discussion": 70
       },
       "top_concepts": [
         [
@@ -360,14 +360,10 @@
         ],
         [
           "trait:extrovert",
-          8
+          4
         ],
         [
           "factor:life_satisfaction",
-          3
-        ],
-        [
-          "trait:logical",
           3
         ],
         [
@@ -387,6 +383,10 @@
           1
         ],
         [
+          "trait:logical",
+          1
+        ],
+        [
           "rf:inconsistent",
           1
         ],
@@ -400,7 +400,8 @@
         "broken_am_fixed": 0,
         "sara_am_fixed": 0,
         "noise_lines_removed": 2387,
-        "citations_removed": 1
+        "citations_removed": 1,
+        "duplicate_chunks_removed": 18
       }
     },
     {
@@ -441,7 +442,7 @@
         ],
         [
           "rf:dishonest",
-          11
+          9
         ],
         [
           "attach:anxious",
@@ -484,7 +485,7 @@
           1
         ],
         [
-          "trait:responsible",
+          "trait:adventurous",
           1
         ]
       ],
@@ -1043,10 +1044,6 @@
         ],
         [
           "rf:disrespect",
-          1
-        ],
-        [
-          "trait:logical",
           1
         ]
       ],

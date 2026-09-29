@@ -7,7 +7,7 @@ from pipelines.llm import parsing, tasks
 
 import re
 
-from .. import live
+from .. import intent, live
 from ..flex import MENU, text
 
 _retriever = None
@@ -24,16 +24,58 @@ def _plain(answer):
     return re.sub(r"\*\*|__|`|^#+\s*", "", answer, flags=re.M)
 
 
+# ข้อความบอทที่ไม่ใช่คำตอบ (ไม่มีข้อมูล / ถามกลับ) -> ห้ามให้ขั้นแปลงคำถามต่อเนื่องหยิบไปเป็นหัวข้อ
+# วัดจริง: ถาม "ยกตัวอย่างหน่อย" หลังบอทตอบ NO_INFO -> แปลงเป็น "ยกตัวอย่างเรื่องทฤษฎีความรัก รูปแบบความผูกพัน…"
+# (เอามาจากรายการหัวข้อในข้อความ NO_INFO) แล้วตอบเรื่อง intimacy ที่ไม่เกี่ยวกับคำถามเดิม
+NON_ANSWERS = (NO_INFO.split("\n")[0], "หมายถึงเรื่องไหนครับ", "ช่วยระบุเรื่องที่อยากถามต่อ", "ตอนนี้ผมประมวลผลคำถามต่อเนื่องไม่สำเร็จ")
+
+
+def _usable_history(history):
+    return [{**h, "text": "(บอทตอบว่าไม่มีข้อมูลเรื่องนี้ในคลังความรู้)"}
+            if h.get("role") == "assistant" and h.get("text", "").startswith(NON_ANSWERS) else h
+            for h in history]
+
+
+def _llm_note(out):
+    """โมเดลที่ตอบจริง (API หรือ fallback Local) + token/เครดิต จาก api_client (ไม่มี key ใน log)"""
+    m = out.get("llm") or {}
+    note = f" llm={out.get('model', '-')}"
+    if m.get("prompt_tokens") is not None:
+        note += f" tok={m.get('prompt_tokens')}+{m.get('gen_tokens')}"
+    if m.get("credits") is not None:
+        note += f" เครดิต={m['credits']}"
+    if m.get("cost_usd") is not None:
+        note += f" ${m['cost_usd']}"
+    return note
+
+
 def _no_link(title):
     """LINE แปลงข้อความที่ดูเหมือนโดเมน (xxx.co) เป็นลิงก์อัตโนมัติ -> อ้างอิงให้เห็นเป็นชื่อแหล่ง ไม่ใช่ลิงก์"""
     return RE_DOMAIN.sub(r"\1", title)
 
 
-def handle(line_user, msg):
+def handle(line_user, msg, history=None):
     global _retriever
+    history = _usable_history(history or [])
+    # Only carry the old topic into a clear follow-up, not every new question.
+    history = history if intent.is_followup(msg) else []
+    query = msg
+    if intent.is_followup(msg) and not history and not intent.needs_context(msg):
+        pass    # ขึ้นต้นด้วย เขา/เธอ แต่ครบในตัว ("เขาไม่ตอบแชท ทำไงดี") -> ตอบเป็นคำถามใหม่ ไม่ถามกลับ
+    elif intent.is_followup(msg):
+        if not history:
+            return [text("หมายถึงเรื่องไหนครับ ช่วยบอกหัวข้อหรือคำถามก่อนหน้าอีกนิดได้ไหมครับ", MENU)]
+        try:
+            query = tasks.rewrite_question(msg, history)
+        except tasks.AmbiguousFollowup:
+            return [text("ช่วยระบุเรื่องที่อยากถามต่ออีกนิดได้ไหมครับ เพื่อให้ผมค้นข้อมูลได้ตรงเรื่อง", MENU)]
+        except Exception:
+            # The model being unavailable does not mean conversation memory is missing.
+            return [text("ตอนนี้ผมประมวลผลคำถามต่อเนื่องไม่สำเร็จครับ ลองส่งอีกครั้งได้ไหมครับ", MENU)]
     if _retriever is None:
         _retriever = RoutedKnowledge(live.ctx())
-    found = search.find(_retriever, msg)   # ตอบเฉพาะเรื่องที่มีในคลังความรู้ ไม่ให้ LLM ใช้ความรู้ภายนอก
+    # ค้นด้วยคำถามเต็ม (คำถามต่อเนื่องถูกแปลงจากประวัติแล้ว) ตอบเฉพาะเรื่องที่มีในคลังความรู้
+    found = search.find(_retriever, query)
     res, route, n_before = found.result, found.route, found.n_before
     if found.topics:
         route += f" หัวข้อ={found.topics}"
@@ -41,17 +83,19 @@ def handle(line_user, msg):
         from .. import log
         log.note(f"route={route} ไม่มีความรู้ที่ตรงคำถาม (0/{n_before} ผ่านด่าน) → ตอบว่าไม่มีข้อมูล")
         return [text(NO_INFO, MENU)]
-    out = tasks.rag_answer(hint(msg, found.topics), res)   # แนบคำพ้องที่เอกสารใช้ (ทัก -> เริ่มต้นความสัมพันธ์)
+    # แนบคำพ้องที่เอกสารใช้ (ทัก -> เริ่มต้นความสัมพันธ์) + ประวัติสนทนา (ใช้เข้าใจบริบท ไม่ใช่หลักฐาน)
+    out = tasks.rag_answer(hint(msg, found.topics), res, history=history)
     dropped = 0
     if not out["citations"]["abstained"]:   # ด่านหลัง: ตัดประโยคที่ทวนคำถาม/ไม่มีหลักฐาน กันหลอน
         passages = [it.text for it in res.items if it.id in out["refs"]]
-        checked, dropped = verify_answer(msg, out["answer"], passages)
+        checked, dropped = verify_answer(query, out["answer"], passages)
         if checked is None:
             out["citations"]["abstained"] = True
         else:
             out["answer"], out["citations"] = checked, parsing.citations(checked, len(out["refs"]))
     from .. import log
     log.note(f"route={route} ผ่านด่าน {len(res.items)}/{n_before} ctx={len(out['refs'])} อ้างอิง={out['citations']['cited']}"
+             + (f" ต่อเนื่อง(ประวัติ {len(history)} ข้อความ)" if history else "") + _llm_note(out)
              + (f" ตัดประโยคไม่มีหลักฐาน {dropped}" if dropped else "") + (" (ตอบไม่ได้)" if out["citations"]["abstained"] else ""))
     if out["citations"]["abstained"]:
         return [text(NO_INFO, MENU)]
