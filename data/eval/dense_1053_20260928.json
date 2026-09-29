@@ -1,0 +1,24 @@
+[
+  {
+    "top_k": 5,
+    "threshold": 0.0,
+    "penalty_weight": 0.15,
+    "queries": 288,
+    "precision_at_k": 0.1132,
+    "recall_at_k": 0.1132,
+    "mrr": 0.2613,
+    "ndcg_at_k": 0.1203,
+    "violation_at_k": 0.125
+  },
+  {
+    "top_k": 10,
+    "threshold": 0.0,
+    "penalty_weight": 0.15,
+    "queries": 288,
+    "precision_at_k": 0.091,
+    "recall_at_k": 0.1819,
+    "mrr": 0.279,
+    "ndcg_at_k": 0.1571,
+    "violation_at_k": 0.1271
+  }
+]

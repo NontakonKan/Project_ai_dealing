@@ -34,7 +34,7 @@ LINE ──POST /callback──► server.py ──ตรวจลายเซ�
 | "โปรไฟล์ของฉัน" / "ลบข้อมูลของฉัน" | `account` | แสดงสิ่งที่ระบบจำ / ลบทุกอย่าง (PDPA) |
 
 ผู้ใช้จริงจับคู่ได้ทั้งกับผู้ใช้จำลองและกับผู้ใช้จริงคนอื่นที่คุยกับ OA
-`MOCK_USERS` ใน `app/.env` กำหนดผู้ใช้จำลองที่อยู่ใน pool: ตอนใช้งานจริงตั้งไว้ 6 คน (U031, U174 หญิง→ชาย · U050, U166 ชาย→หญิง · U172 หญิง→ทุกเพศ · U001 ชาย→ทุกเพศ) ใส่ `all` เพื่อใช้ทั้ง 300 คน
+`MOCK_USERS` ใน `.env` ที่ root กำหนดผู้ใช้จำลองที่อยู่ใน pool: ตอนใช้งานจริงตั้งไว้ 6 คน (U031, U174 หญิง→ชาย · U050, U166 ชาย→หญิง · U172 หญิง→ทุกเพศ · U001 ชาย→ทุกเพศ) ใส่ `all` เพื่อใช้ทั้ง 300 คน
 
 ## ทดสอบในเครื่อง (ไม่ต้องมี token)
 
@@ -50,9 +50,36 @@ simulator ใช้ฐานข้อมูลแยก `data/app/simulate.db` �
 
 ## ต่อ LINE จริง
 
+### รัน webhook บนเครื่องนี้ (Windows PowerShell)
+
+หลัง `git pull origin main` ให้รันจาก root ของโปรเจกต์บนเครื่องที่จะรับ webhook:
+
+```powershell
+py -m venv .venv
+$env:PYTHONUTF8 = "1"  # ให้ pip อ่าน requirements UTF-8 บน Windows ภาษาไทย
+.\.venv\Scripts\python.exe -m pip install -r requirements-app.txt -r requirements-dense.txt
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
+```
+
+ใส่ `LINE_CHANNEL_SECRET` และ `LINE_CHANNEL_ACCESS_TOKEN` ของ **Messaging API channel เดียวกัน** ใน `.env` ที่ root บนเครื่องนี้ ไฟล์เดียวกันนี้เก็บคีย์ API LLM ที่มีอยู่แล้วได้ ห้ามคัดลอก `.env.example` ทับ `.env` เดิม เพราะจะลบค่าที่ตั้งไว้ และห้ามส่งคีย์ผ่าน Git เครื่องที่ใช้ local LLM ต้องเปิด Ollama และมีโมเดลตาม config ด้วย
+
+ฐาน ChromaDB ไม่อยู่ใน Git จึงต้องสร้างบนเครื่องนี้ครั้งแรก (ข้ามได้ถ้ามี index ที่สร้างไว้แล้ว):
+
+```powershell
+.\.venv\Scripts\python.exe -m pipelines.dense.run build
+.\.venv\Scripts\python.exe -m app.check_line
+.\.venv\Scripts\python.exe -m app.rich_menu
+.\.venv\Scripts\python.exe -m app.rich_menu --publish
+.\.venv\Scripts\python.exe -m uvicorn app.server:api --host 0.0.0.0 --port 8000
+```
+
+`app.check_line` ตรวจว่ามีค่าคีย์ทั้งสองและไฟล์ rich menu ครบ โดยไม่แสดงค่าคีย์หรือเรียก LINE API ส่วน `--publish` เป็นขั้นที่อัปโหลดภาพและตั้ง default rich menu จริง ให้รันเมื่อพร้อมใช้ channel แล้ว คำสั่ง `uvicorn` ต้องเปิดค้างไว้ จากอีกหน้าต่างเปิด Cloudflare Quick Tunnel ด้วย `cloudflared tunnel --url http://localhost:8000` แล้วนำ HTTPS URL `https://....trycloudflare.com` ที่ได้ตามด้วย `/callback` ไปตั้งเป็น Webhook URL ใน LINE Developers Console เปิด Use webhook และกด Verify ตรวจ `http://localhost:8000/health` ว่า `line_configured` เป็น `true` จากนั้นลองกดทั้ง 4 ช่องบน LINE มือถือ Quick Tunnel ให้ URL ใหม่เมื่อเปิดใหม่ ต้องแก้ Webhook URL ทุกครั้งที่ URL เปลี่ยน
+
+หากเปลี่ยน LINE channel ให้เปลี่ยนคีย์ทั้งคู่และ publish rich menu บน channel ใหม่อีกครั้ง คำสั่ง publish จะแสดง ID เมนูเดิมสำหรับ rollback; อย่าเก็บ access token ในภาพหน้าจอหรือ log ที่ส่งต่อ
+
 1. [LINE Developers Console](https://developers.line.biz/console/) → สร้าง Provider → **Messaging API channel**
 2. แท็บ Basic settings: คัดลอก **Channel secret** / แท็บ Messaging API: กด Issue **Channel access token (long-lived)**
-3. สร้างไฟล์ `app/.env` (ไม่ขึ้น git):
+3. ใส่ค่าใน `.env` ที่ root (ไม่ขึ้น git):
    ```
    LINE_CHANNEL_SECRET=xxxxxxxx
    LINE_CHANNEL_ACCESS_TOKEN=xxxxxxxx
@@ -74,7 +101,7 @@ terminal ที่รัน uvicorn จะแสดง 1 บรรทัดต�
 19:09:36 │ L0002 น้องมิ้น │ 💞 find_match │ "หาคู่ให้หน่อย" → แนะนำ U027 (จำลอง) graph=0.27 dense=0.62 74% → [การ์ด] … │ 22.4s
 19:10:02 │ L0001 Nont     │ 👆 postback   │ กดปุ่ม intro → L0002 → ส่งคำขอทำความรู้จัก … → 📨 push ถึง L0002 │ 1.2s
 ```
-LINE ID ที่ผู้ใช้ส่งมาไม่ถูกแสดงใน log / ตั้ง `LOG_TEXT=0` ใน `app/.env` เพื่อซ่อนข้อความที่ผู้ใช้พิมพ์
+LINE ID ที่ผู้ใช้ส่งมาไม่ถูกแสดงใน log / ตั้ง `LOG_TEXT=0` ใน `.env` ที่ root เพื่อซ่อนข้อความที่ผู้ใช้พิมพ์
 
 อีกหน้าต่าง (ไม่ต้องหยุด bot):
 ```bash
@@ -110,7 +137,7 @@ LINE ID ที่ผู้ใช้ส่งมาไม่ถูกแสดง
 ## ไฟล์
 | ไฟล์ | หน้าที่ |
 |---|---|
-| `config.py` | env / `app/.env`, โมเดล, เพดาน, decay |
+| `config.py` | env / `.env` ที่ root, โมเดล, เพดาน, decay |
 | `server.py` | FastAPI `/callback` (ตรวจลายเซ็น) + `/health` |
 | `line_api.py` | ตรวจลายเซ็น, reply / push / get_profile (โหมดจำลองเมื่อไม่มี token) |
 | `handlers.py` | รับ event → เลือก flow + error handling |
@@ -139,11 +166,13 @@ LINE ID ที่ผู้ใช้ส่งมาไม่ถูกแสดง
 
 ## Rich Menu
 
-ภาพ `app/assets/rich_menu/menu.jpg` ใช้ภาพที่ให้มา แปลงเป็น JPEG 1527×1030 (ประมาณ 247 KB)
-ตาม [ข้อกำหนด LINE](https://developers.line.biz/en/reference/messaging-api/#upload-rich-menu-image)
-แบ่งพื้นที่ซ้ายบนเป็นโปรไฟล์ ซ้ายล่างเป็นถามบอต และด้านขวาเป็นหาคู่
+ภาพต้นฉบับอยู่ที่ `app/assets/rich_menu/menu-source.png`; ไฟล์ที่อัปโหลดคือ `menu.jpg`
+แปลงเป็น JPEG 1520×1035 (ประมาณ 236 KB) โดยคงภาพและข้อความเดิม
+ตาม [ข้อกำหนด LINE](https://developers.line.biz/en/reference/messaging-api/nojs/#upload-rich-menu-image)
+แบ่งพื้นที่ซ้ายสามช่องเป็นโปรไฟล์ / ถามบอต / ลบข้อมูล และด้านขวาเป็นหาคู่
 ปุ่มส่งข้อความเข้าระบบเดิม จึงยังเคารพขั้นตอน onboarding และสถานะที่ค้างอยู่
 ปุ่มถามบอตในสถานะ ready ชวนให้พิมพ์คำถาม โดยไม่เรียกโมเดลหรือเพิ่มข้อความเมนูลงความจำ
+ปุ่มลบข้อมูลเปิด Flex message ที่มีปุ่ม “ยืนยันลบข้อมูล” และ “ยกเลิก” อยู่ในการ์ด และลบจริงเมื่อกดยืนยันเท่านั้น
 
 ตรวจ JSON โดยไม่เรียก API:
 
@@ -151,7 +180,7 @@ LINE ID ที่ผู้ใช้ส่งมาไม่ถูกแสดง
 .venv/bin/python -m app.rich_menu
 ```
 
-ตั้ง `LINE_CHANNEL_ACCESS_TOKEN` ใน `app/.env` แล้วสร้าง/อัปโหลด/ตั้งเป็นเมนูเริ่มต้น:
+ตั้ง `LINE_CHANNEL_ACCESS_TOKEN` ใน `.env` ที่ root แล้วสร้าง/อัปโหลด/ตั้งเป็นเมนูเริ่มต้น:
 
 ```bash
 .venv/bin/python -m app.rich_menu --publish

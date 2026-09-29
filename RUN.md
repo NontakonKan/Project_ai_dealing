@@ -126,7 +126,7 @@ set -a; . graph/.env; set +a; .venv/bin/python -m graph.import_neo4j
 .venv/bin/pip install -r requirements-app.txt
 .venv/bin/python -m app.simulate --demo        # ✅ LLM เดโม 3 ซีน (ไม่ต้องมี token)
 .venv/bin/python -m app.simulate               # พิมพ์คุยเอง: #1 #2 = กดปุ่ม
-# ต่อ LINE จริง: ใส่ token ใน app/.env แล้ว
+# ต่อ LINE จริง: ใส่ LINE channel secret และ access token ใน .env ที่ root แล้ว
 .venv/bin/uvicorn app.server:api --host 0.0.0.0 --port 8000
 ngrok http 8000                                 # ตั้ง Webhook URL = https://<ngrok>/callback
 ```

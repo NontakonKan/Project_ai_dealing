@@ -1,7 +1,7 @@
 """log ของ bot ให้เห็นใน terminal ที่รัน uvicorn
 
 รูปแบบ:  18:42:01 │ L0002 น้องมิ้น │ 💬 chat      │ "ชอบทำอาหาร..." → จำได้: hobby:cooking │ 3.2s
-ตั้งค่าใน app/.env:
+ตั้งค่าใน .env ที่ root:
   LOG_LEVEL=INFO|DEBUG        (DEBUG = แสดงรายละเอียดทุกขั้น)
   LOG_TEXT=1|0                (0 = ไม่แสดงข้อความที่ผู้ใช้พิมพ์ ปกป้องความเป็นส่วนตัวเวลามีคนอื่นดูจอ)
 """
@@ -9,6 +9,10 @@ import contextvars
 import logging
 import os
 import sys
+
+from pipelines.common import env
+
+env.load()
 
 LOG_TEXT = os.getenv("LOG_TEXT", "1") != "0"
 logger = logging.getLogger("dealing")
