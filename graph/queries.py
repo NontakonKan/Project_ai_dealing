@@ -4,9 +4,16 @@ QUERIES = {
     "claims": """
         MATCH (c:DealingEntity:Claim {dataset:$dataset, snapshot:$snapshot})
               -[:SUPPORTED_BY]->(b:BookChunk)
+        OPTIONAL MATCH (c)-[:SUBJECT]->(subject:Concept)
+        OPTIONAL MATCH (c)-[:OBJECT]->(obj:Concept)
         OPTIONAL MATCH (c)-[:ABOUT]->(t:Concept)
+        WITH c, b, subject, obj, collect(DISTINCT t.id) AS concepts
         RETURN c.id AS claim_id, c.text AS quote, c.assertion AS status,
-               b.id AS chunk_id, b.source_id AS source_id, collect(t.id) AS concepts
+               subject.id AS subject_id, c.predicate AS predicate,
+               obj.id AS object_concept_id, c.object_text AS object_text,
+               c.polarity AS polarity, c.qualifier_text AS qualifier_text,
+               c.reviewed_by AS reviewed_by, c.reviewed_at AS reviewed_at,
+               b.id AS chunk_id, b.source_id AS source_id, concepts
         ORDER BY claim_id
     """,
     "summary": """

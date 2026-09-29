@@ -2,6 +2,8 @@
 import argparse
 import hashlib
 import json
+import re
+from collections import defaultdict
 from pathlib import Path
 
 from .model import Graph, validate
@@ -88,6 +90,7 @@ def build_graph(taxonomy, users, events, chunks, provenance=None, claims=None):
                    provenance="data/mock/events.jsonl")
 
     seen_chunks = set()
+    ordered_chunks = defaultdict(list)
     for chunk in chunks:
         cid = chunk["chunk_id"]
         if cid in seen_chunks:
@@ -100,10 +103,19 @@ def build_graph(taxonomy, users, events, chunks, provenance=None, claims=None):
                    "chapter_title", "section_title", "pages", "topics", "n_words", "lang")),
                    provenance="data/processed/book_chunks.jsonl")
         graph.edge(source, "HAS_CHUNK", cid, pages=chunk["pages"])
+        position = re.fullmatch(r"(.*_c)(\d+)", cid)
+        if position:
+            ordered_chunks[(chunk["source_id"], position.group(1))].append((int(position.group(2)), cid))
         for concept in chunk["concepts"]:
             graph.edge(cid, "ABOUT", concept, count=chunk.get("concept_counts", {}).get(concept, 1),
                        pages=chunk["pages"], assertion="keyword_tag_not_entailment",
                        provenance="pipelines/ingest/tagger.py")
+
+    for positions in ordered_chunks.values():
+        sequence = sorted(positions)
+        for (number, cid), (next_number, next_cid) in zip(sequence, sequence[1:]):
+            if next_number == number + 1:
+                graph.edge(cid, "NEXT_CHUNK", next_cid, assertion="document_order")
 
     if claims:
         from .claims import add_claims

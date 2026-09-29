@@ -2,6 +2,8 @@
 import argparse
 import json
 import re
+import statistics
+import time
 from pathlib import Path
 
 from .build import ROOT, build_graph, load_inputs, read_jsonl
@@ -80,12 +82,103 @@ def evaluate(claims, generate=False):
                 'Generated answers use Qwen3.5 for both variants, not production answer-model configuration']}
 
 
+def retrieval_benchmark(k=8):
+    """Read-only comparison on the existing question set; no model answers or output files."""
+    from pipelines.hybrid.context import HybridContext
+    from pipelines.hybrid.knowledge_eval import _relevant
+    from pipelines.hybrid.retrievers import DenseKnowledge, HybridKnowledge
+    from pipelines.llm.bench.datasets import rag
+    from .concepts import by_alias
+
+    ctx = HybridContext()
+    view = ctx.graph
+    graph = GraphKnowledge(view, use_embedding=False)
+    # Keep the same text index and source-diversity logic, removing only the
+    # graph edges used for topical and document-order traversal. This separates
+    # lexical gains from gains due to graph relationships.
+    inputs, provenance = load_inputs(ROOT / 'data')
+    raw, _ = build_graph(**inputs, provenance=provenance)
+    no_topic_order = {**raw, 'relationships': [edge for edge in raw['relationships']
+                                             if edge['type'] not in {'ABOUT', 'NEXT_CHUNK'}]}
+    lexical_ablation = GraphKnowledge(GraphView(no_topic_order), use_embedding=False)
+    dense = DenseKnowledge(ctx)
+    hybrid = HybridKnowledge(ctx)
+    hybrid.graph.use_embedding = False
+    questions = rag()
+    answerable = [q for q in questions if q['answerable']]
+    unanswerable = [q for q in questions if not q['answerable']]
+
+    def legacy(query):
+        scores = {}
+        for concept in by_alias(query):
+            for chunk_id, count in view.about.get(concept, []):
+                scores[chunk_id] = scores.get(chunk_id, 0) + count / 10
+        return [chunk_id for chunk_id in sorted(scores, key=lambda cid: (-min(1.0, scores[cid]), cid))[:k]]
+
+    retrievers = {
+        'legacy_tag_graph': legacy,
+        'graph_without_topic_order_edges': lambda query: [item.id for item in lexical_ablation.retrieve(query, k).items],
+        'dense': lambda query: [item.id for item in dense.retrieve(query, k).items],
+        'graph': lambda query: [item.id for item in graph.retrieve(query, k).items],
+        'hybrid_rrf': lambda query: [item.id for item in hybrid.retrieve(query, k).items],
+    }
+    results, hits_by_mode = {}, {}
+    for name, retrieve in retrievers.items():
+        hit = reciprocal_rank = 0.0
+        hits = {}
+        elapsed_ms = []
+        for q in answerable:
+            started = time.perf_counter()
+            ids = retrieve(q['question'])
+            elapsed_ms.append((time.perf_counter() - started) * 1000)
+            ranks = [i + 1 for i, cid in enumerate(ids)
+                     if _relevant(view.chunk_text(cid), q['expected_keywords'])]
+            hits[q['question']] = bool(ranks)
+            if ranks:
+                hit += 1
+                reciprocal_rank += 1 / ranks[0]
+        hits_by_mode[name] = hits
+        warm_ms = sorted(elapsed_ms[1:]) or sorted(elapsed_ms)
+        results[name] = {f'hit_at_{k}': round(hit / len(answerable), 3),
+                         f'mrr_at_{k}': round(reciprocal_rank / len(answerable), 3),
+                         'warm_p50_ms': round(statistics.median(warm_ms), 1),
+                         'warm_p95_ms': round(warm_ms[int(0.95 * (len(warm_ms) - 1))], 1),
+                         'empty_on_unanswerable': sum(not retrieve(q['question']) for q in unanswerable)}
+    graph_hits, dense_hits = hits_by_mode['graph'], hits_by_mode['dense']
+    pilot_edge_recovery = []
+    for name, question, targets in CASES:
+        if not targets:
+            continue
+        full = {item.id for item in graph.retrieve(question, k).items}
+        ablated = {item.id for item in lexical_ablation.retrieve(question, k).items}
+        if any(target in full and target not in ablated for target in targets):
+            pilot_edge_recovery.append(name)
+    return {'questions': len(questions), 'answerable': len(answerable),
+            'unanswerable': len(unanswerable), 'k': k, 'metrics': results,
+            'pilot_edge_recovery': pilot_edge_recovery,
+            'graph_hits_dense_misses': [q for q in graph_hits if graph_hits[q] and not dense_hits[q]],
+            'dense_hits_graph_misses': [q for q in dense_hits if dense_hits[q] and not graph_hits[q]],
+            'limitations': ['Relevance is a keyword heuristic, not human-reviewed answer quality.',
+                            'The question set was used during development, so it is not a held-out test.',
+                            'The application relevance and answer-verification gates are not run here.',
+                            'Claims without human review remain source chunks, not graph facts.']}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--claims', type=Path, required=True)
-    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--claims', type=Path)
+    parser.add_argument('--output', type=Path)
+    parser.add_argument('--retrieval-benchmark', action='store_true',
+                        help='Compare legacy Graph, Dense, current Graph and Hybrid on existing questions')
     parser.add_argument('--generate', action='store_true')
     args = parser.parse_args()
+    if args.retrieval_benchmark:
+        if args.claims or args.output or args.generate:
+            parser.error('--retrieval-benchmark does not use --claims, --output or --generate')
+        print(json.dumps(retrieval_benchmark(), ensure_ascii=False, indent=2))
+        return
+    if not args.claims or not args.output:
+        parser.error('Claim evaluation requires --claims and --output')
     report = evaluate(read_jsonl(args.claims), args.generate)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(report['summary'], indent=2))

@@ -1,8 +1,8 @@
 # Graph — PSU Dealing
 
-ส่วน Knowledge Graph ของโปรเจกต์ บน branch `dev/graph` ใช้ข้อมูลที่เตรียมแล้วใน `data/` สร้างโหนด ความสัมพันธ์ และหลักฐานที่ย้อนตรวจได้
+ส่วน Knowledge Graph ของโปรเจกต์ ใช้ข้อมูลที่เตรียมแล้วใน `data/` สร้างโหนด ความสัมพันธ์ และหลักฐานที่ย้อนตรวจได้
 
-**ขอบเขตตอนนี้เป็น Graph เท่านั้น:** ไม่มี embeddings, vector search, matcher, ranking, Hybrid RAG, LLM หรือ LINE integration
+Graph ใช้ร่วมกับ Dense/Hybrid RAG ของแอป: คืน chunk ต้นฉบับและเส้นทางหลักฐานให้ตัวตอบคำถาม ส่วนกฎ taxonomy ใช้กับ matcher แยกจากหลักฐานเอกสาร
 
 ## ตรวจข้อมูลก่อนนำเข้า
 
@@ -14,7 +14,7 @@ python3 -m graph.build
 
 คำสั่งนี้สร้างกราฟในหน่วยความจำ ตรวจโครงสร้าง แล้วแสดงรายงานใน terminal โดยไม่สร้างไฟล์ผลลัพธ์ การนำเข้าฐานข้อมูลใช้ `python3 -m graph.import_neo4j` ซึ่งอ่านข้อมูลจาก `data/` โดยตรง จึงไม่ต้องรัน build ก่อนทุกครั้ง
 
-ผลจากข้อมูลปัจจุบัน: **406 nodes / 6,619 relationships** ประกอบด้วยผู้ใช้ 300 คน แนวคิด 61 รายการ เอกสารที่มี chunks แล้ว 1 แหล่ง และ 44 chunks
+ผลจากข้อมูลปัจจุบัน (ไม่มี Claim ที่เปิดใช้): **1,459 nodes / 8,291 relationships** ประกอบด้วยผู้ใช้ 300 คน เอกสาร 37 แหล่ง, 1,053 chunks และ `NEXT_CHUNK` 707 เส้น
 
 ## โครงสร้างกราฟ
 
@@ -31,7 +31,10 @@ graph LR
   U -->|UNMATCHED / MATCHED / PASSED| V[User]
   T -->|COMPATIBLE_WITH / CONFLICTS_WITH / OPPOSITE_OF| T2[Concept]
   S[Source] -->|HAS_CHUNK| B[BookChunk]
+  B -->|NEXT_CHUNK| B2[BookChunk ถัดไป]
   B -->|ABOUT| K[Concept]
+  Q[Claim ที่ตรวจทานแล้ว] -->|SUBJECT / OBJECT| K
+  Q -->|SUPPORTED_BY| B
 ```
 
 `Concept` เป็น label ร่วมของ Hobby, Trait, CommStyle, Attachment, LoveLanguage, LoveComponent, RedFlag และ ResearchFactor ไม่สร้างรหัสแนวคิดใหม่เอง ใช้ taxonomy เดิมครบทั้ง 61 รหัส
@@ -46,6 +49,8 @@ graph LR
 | Compatibility rules | weight, reason, source ตาม taxonomy และ `symmetric: true`; บันทึกเส้นครั้งเดียว |
 | Source / BookChunk | source_id, chunk_id, chapter, section, pages, category, topics และข้อความต้นฉบับของ chunk |
 | ABOUT | จำนวนการพบคำและเลขหน้า; ระบุว่าเป็น keyword tag |
+| NEXT_CHUNK | ลำดับ chunk ติดกันภายในแหล่งและ section เดียวกัน; ใช้ขยายบริบท ไม่ใช่ข้อสรุปเชิงเหตุผล |
+| Claim / SUPPORTED_BY | ข้อกล่าวอ้างเชิงโครงสร้างและ chunk ต้นฉบับ; จะคืนเป็น graph fact เมื่อมีการตรวจทานจริงเท่านั้น |
 
 Life satisfaction และองค์ประกอบความรักเก็บ `value` บนเส้น ค่า lifestyle เก็บเป็น properties ของ User เพื่อไม่เพิ่ม taxonomy โดยพลการ
 
@@ -148,9 +153,9 @@ graph/
 
 รายละเอียดเมนูตามรุ่นดู [Neo4j Browser result frames](https://neo4j.com/docs/browser/operations/result-frames/) การ export จะครอบคลุมผล query ที่แสดงเท่านั้น ตัวอย่างที่มี LIMIT ไม่ใช่การ export กราฟทั้งหมด
 
-สำหรับ export ข้อมูลครบ active snapshot ให้ใช้สองคำสั่งท้าย `queries.cypher` ซึ่งไม่มี LIMIT และตรวจจำนวนแถวก่อนดาวน์โหลด: nodes 406 แถว และ relationships 6,619 แถวตามชุดปัจจุบัน ปรับ record limit ของ Browser หากตั้งไว้น้อยกว่านี้
+สำหรับ export ข้อมูลครบ active snapshot ให้ใช้สองคำสั่งท้าย `queries.cypher` ซึ่งไม่มี LIMIT และตรวจจำนวนแถวก่อนดาวน์โหลด: nodes 1,459 แถว และ relationships 8,291 แถวตามชุดปัจจุบัน ปรับ record limit ของ Browser หากตั้งไว้น้อยกว่านี้
 
-ไฟล์ SVG และ PNG ที่ export จาก Neo4j Browser สำหรับ snapshot ปัจจุบันอยู่ใน [`exports/`](exports/):
+ไฟล์ SVG และ PNG ที่ export จาก Neo4j Browser สำหรับ snapshot เก่าอยู่ใน [`exports/`](exports/); ตัวเลขในภาพยังไม่รวมเอกสารและ `NEXT_CHUNK` ที่เพิ่มภายหลัง:
 
 - `00_full_graph` — ภาพรวมทั้งหมด: 406 nodes, 6,619 relationships
 - `01_user_profile` — ความเชื่อมโยงของผู้ใช้ `U001`
@@ -189,8 +194,8 @@ Integration tests นำเข้าข้อมูลจริงซ้ำ ต�
 |---|---|
 | `view.py` | กราฟในหน่วยความจำจาก `build.py` (ทดลองได้โดยไม่เปิด Neo4j) |
 | `scorer.py` | feature ของคู่: prefers / theory (rule-paths) / hobby / love_language / lifestyle + red flag (AVOIDS ∩ REPORTED_AS) + appearance (SELF_DESCRIBED) + `graph_fact` อธิบายเหตุผล |
-| `concepts.py` | หา concept ในคำถาม: alias ตรงตัว + bge-m3 embedding (≥0.62) → จับประโยคเล่าเรื่องได้ เช่น "สงสัยว่าตัวเองจำผิด" → `rf:gaslighting` |
-| `retrieve.py` | `GraphKnowledge.retrieve()` คืน `RetrievalResult` (กฎ + BookChunk ที่ ABOUT concept) |
+| `concepts.py` | หา concept จาก alias แล้วเทียบคำถามกับ definition เมื่อชื่อไม่ตรง; bge-m3 เป็นทางเลือกท้ายสุดเมื่อเปิด Ollama |
+| `retrieve.py` | หา BookChunk จากข้อความและเส้น `ABOUT`, จัดอันดับด้วยชื่อ Source, กระจายแหล่ง และเดิน `NEXT_CHUNK`; Claim ที่ตรวจแล้วเท่านั้นเป็น `graph_fact` |
 | `queries.py` → `pair-features` | Cypher ที่คำนวณ feature ของคู่ใน Neo4j — ตรวจแล้วตรงกับ `scorer.py` 40/40 คู่ |
 
 ```bash
@@ -199,12 +204,34 @@ set -a; . graph/.env; set +a
 ```
 schema รองรับรูปลักษณ์ (`BodyType`/`SkinTone`/`Hygiene`, `SELF_DESCRIBED`) และ REPORTED_AS ชี้ได้เฉพาะ `RedFlag`
 
-## Claim extraction pilot (Qwen3.5 9B)
+ความรู้เอกสารถูกเชื่อมเป็น `Source -[:HAS_CHUNK]-> BookChunk -[:NEXT_CHUNK]-> BookChunk` ตามลำดับในแหล่งเดียวกัน
+และ `BookChunk -[:ABOUT]-> Concept` สำหรับแท็กหัวข้อ; `NEXT_CHUNK` บอกลำดับเอกสาร ไม่ได้แปลว่าเนื้อหาสอง chunk สนับสนุนกัน
+ตัวค้นใช้ character TF-IDF เป็นทางเข้าเมื่อคำถามไม่ตรงชื่อ concept แล้วใช้ชื่อ Source และ `ABOUT` ช่วยจัดอันดับ
+จำกัด chunk ต่อแหล่งเพื่อไม่ให้เอกสารเล่มใหญ่ยึด top-k; chunk ข้างเคียงจาก `NEXT_CHUNK` ถูกส่งเป็นข้อความต้นฉบับแยกชิ้น
+การตรวจความเกี่ยวข้องและคำตอบยังอยู่ในเส้นทาง Hybrid RAG ของแอป
+
+ทดลองเปรียบเทียบแบบอ่านอย่างเดียว ไม่เขียนไฟล์ผล:
+
+```bash
+.venv/bin/python -m graph.evaluate_claims --retrieval-benchmark
+```
+
+ผลล่าสุดบนคำถามเดิม 52 ข้อ (มีคำตอบ 41): Hit@8 ของ Graph แบบแท็กเดิม 0.122, Dense 0.707,
+Graph ใหม่ 0.829 และ Hybrid RRF 0.878; Graph พบข้อความตาม keyword ที่ Dense พลาด 7 ข้อ และกลับกัน 2 ข้อ
+เมื่อถอดเส้น `ABOUT` และ `NEXT_CHUNK` ออกจาก Graph ใหม่แต่คง text index เดิม Hit@8 ยังเป็น 0.829
+และ MRR@8 ลดจาก 0.655 เป็น 0.649 แสดงว่าผลหลักมาจากการค้นข้อความ ไม่ควรอ้างว่า graph edges ทำให้ผล 52 ข้อนี้ดีขึ้นทั้งหมด
+ใน pilot 5 คำถาม `ABOUT` ช่วยกู้ chunk ของคำถามอ้อมเรื่อง gaslighting ที่ text index อย่างเดียวพลาด
+Graph ใหม่ไม่คืนผลดิบใน 3/11 คำถามที่ไม่มีคำตอบ ขณะที่ Dense และ Hybrid ดิบยังคืน candidate ทุกข้อ
+เวลาค้นแบบ warm p50 ของ Graph ประมาณ 10 ms เทียบกับ Dense ประมาณ 90 ms และ Hybrid ประมาณ 104 ms บนเครื่องทดลองนี้
+ตัวเลขนี้ใช้ keyword heuristic และชุดคำถามเดียวกับที่ใช้ระหว่างพัฒนา จึงยังไม่ใช่การประเมินคำตอบแบบ blind review
+ผลค้นดิบอาจยังส่ง chunk ให้คำถามที่ไม่มีคำตอบได้ ต้องผ่าน relevance gate และการตรวจคำตอบของแอป
+
+## Evidence-backed Claims (Qwen3.5 9B)
 
 ใช้ `qwen3.5:9b` ผ่าน Ollama local และ JSON schema โดยไม่เรียก API ภายนอก
 ปิด thinking เฉพาะงานนี้เพื่อเก็บ output budget สำหรับ JSON; งานโมเดลอื่นใช้ค่าเดิม
-ให้โมเดลเลือก ID ย่อหน้าจากต้นฉบับและ concept IDs จากรายการปิด แล้วโปรแกรมคัดลอกข้อความเอง
-จึงไม่เสี่ยงต่อการที่โมเดลพิมพ์คำอ้างผิด; ย่อหน้าต้องยาว 20–1,200 ตัวอักษร และ chunk ไม่เกิน 6,500 ตัวอักษร
+ให้โมเดลเลือก ID ย่อหน้าจากต้นฉบับและ concept IDs จากรายการปิด พร้อมเสนอ subject, predicate, object, polarity และ qualifier
+โปรแกรมคัดข้อความอ้างอิง/object/qualifier จากต้นฉบับเองและปฏิเสธค่าที่ไม่อยู่ในข้อความ; ย่อหน้าต้องยาว 20–1,200 ตัวอักษร และ chunk ไม่เกิน 6,500 ตัวอักษร
 สกัดเฉพาะเอกสารความรู้ ไม่อ่านบทสนทนาผู้ใช้ และไม่สร้างกฎคะแนน Matching
 
 ```bash
@@ -212,25 +239,30 @@ ollama pull qwen3.5:9b
 .venv/bin/python -m graph.claims --source-id web_chula_attachment --limit 3 --output /tmp/claims-pilot.jsonl
 ```
 
-ตรวจ pilot ก่อนนำไปใช้: quote ต้องเป็นประโยคสมบูรณ์ เก็บคำปฏิเสธ/เงื่อนไขครบ และ concept ต้องตรงเนื้อหา
-การตรวจ substring ยืนยันเพียงว่าคัดลอกข้อความจริง ไม่ได้รับประกันความหมายหรือความถูกต้องของ concept
+การสกัดสร้าง Claim สถานะ `unverified` เท่านั้น: hash/substring/schema check ยืนยันที่มาและรูปแบบ แต่ไม่ยืนยันว่าการแยก subject–predicate–object ถูกต้อง
+ผู้ตรวจต้องทบทวนความหมาย ขั้วข้อความ และ qualifier จากต้นฉบับก่อนกำหนด `review_status: human_verified`, `reviewed_by` และ `reviewed_at` แบบ ISO 8601 พร้อม timezone
+อย่าแก้ status เป็น human verified อัตโนมัติจากคะแนนความมั่นใจของ LLM หรือจากการพบข้อความซ้ำ
 โมเดลอาจคืนรายการว่างเมื่อไม่มี Claim ที่เหมาะสม เปลี่ยนโมเดลทดลองได้ด้วย `--model`
-CLI ไม่เขียนทับไฟล์เดิมและจะไม่สร้าง output ถ้าสกัด chunk ใดล้มเหลว
+ข้อเสนอที่คัด `object_text`/`qualifier_text` ไม่ตรงต้นฉบับจะถูกข้ามพร้อม warning โดยเก็บข้อเสนออื่นที่ผ่านไว้ให้ตรวจทาน
+CLI ไม่เขียนทับไฟล์เดิมและจะไม่สร้าง output ถ้าการสกัด chunk ล้มเหลวทั้งขั้นตอน
 
 หลังตรวจแล้ว นำไฟล์ไปไว้ `data/processed/knowledge_claims.jsonl`
 `load_inputs()` จะโหลดอัตโนมัติเมื่อ build/import Neo4j หรือเปิด GraphView ใหม่
 หากไม่มีไฟล์นี้ ระบบใช้ Graph เดิมตามปกติ ไม่ต้องเปลี่ยน ChromaDB
 หาก chunk ต้นทางเปลี่ยนหรือลบ การ build จะปฏิเสธ Claim เก่า ต้องสกัดใหม่หรือนำรายการนั้นออก
 
-โครงสร้างเพิ่ม: `Claim -[:SUPPORTED_BY]-> BookChunk` และ `Claim -[:ABOUT]-> Concept`
-ข้อความ Claim เป็นคำอ้างต้นฉบับ ไม่ใช้การ paraphrase ที่อาจทำเงื่อนไขหาย
-สถานะคือ `llm_extracted_unverified` และลิงก์หลักฐานเป็น `exact_quote_not_semantic_verification`
-ตัวสร้างตรวจ hash ของ chunk, รหัส concept, ข้อความหลักฐาน และสร้าง ID คงที่เพื่อกันซ้ำ
+โครงสร้าง Claim: `Claim -[:SUBJECT]-> Concept`, `Claim -[:OBJECT]-> Concept` (ถ้า object เป็น concept),
+`Claim -[:ABOUT]-> Concept` สำหรับค้นหัวข้อ และ `Claim -[:SUPPORTED_BY]-> BookChunk` สำหรับย้อนไปยังหลักฐานตรง
+โหนดเก็บ predicate, polarity, object phrase, qualifier, model/extractor version และสถานะตรวจทาน
+`ABOUT` ยังคงเป็น topical tag เท่านั้น; retrieval ใช้มันหา chunk candidate และไม่สร้าง `graph_fact` จาก Claim ที่ยัง unverified
+เฉพาะ Claim ที่ human verified เท่านั้นจึงคืนเป็น `graph_fact` พร้อมข้อความต้นฉบับและ evidence path
+Compatibility rules ใน taxonomy ยังใช้กับ matching scorer แต่ไม่ถูกส่งเป็นหลักฐานเอกสารใน Graph RAG เพราะสถานะยัง unverified
+ID คงที่ครอบคลุมข้อมูล proposition และ source hash แต่ไม่รวมข้อมูลผู้ตรวจ จึงตรวจทานซ้ำได้โดยไม่เปลี่ยนตัวตนของ Claim
 
-Graph retrieval เดินจาก concept ผ่าน Claim ไป chunk ต้นทาง และเพิ่มคะแนนค้นเล็กน้อย
-คืน chunk เต็มชนิด `chunk` ให้ RAG ผ่านด่านความเกี่ยวข้องและตรวจคำตอบเดิม พร้อม metadata `claim_ids`
-ไม่ส่ง Claim เป็น `graph_fact` ที่อาจข้ามด่านหลักฐาน และไม่เปลี่ยน `scorer.py`
-เส้นทาง Dense อย่างเดียวจะยังไม่ใช้ Claim
+Graph retrieval ใช้ subject/object เพื่อดึง Claim ที่ตรงกับ concept และรองรับ path 2 hops จาก Claims ที่ตรวจทานแล้ว
+คืน proposition ทั้งสองข้อพร้อม source chunk แยกกัน ไม่สังเคราะห์ข้อเท็จจริงใหม่ที่ไม่มี passage รองรับ
+Claim ที่ยังไม่ตรวจสอบส่งได้เฉพาะ chunk ต้นฉบับเป็น candidate ผ่าน gate ความเกี่ยวข้องเดิม ไม่ส่งตัว Claim เป็น fact
+การเปลี่ยนนี้ไม่แตะ `scorer.py`; เส้นทาง Dense อย่างเดียวยังไม่ใช้ Claims
 
 ดูเฉพาะ Claims ใน active snapshot ผ่าน Neo4j Browser:
 
@@ -245,7 +277,7 @@ RETURN c,r,b,a,t LIMIT 50
 ก่อนขยายครบทุกเอกสาร ให้เทียบคำถามชุดเดิมระหว่าง Graph ที่ไม่มี/มี Claims
 วัดการค้นพบ chunk หลักฐาน คุณภาพคำตอบ และ latency; ยังไม่มีผลว่าดีกว่าระบบเดิม
 
-### ตัวกรอง concept ใน v2
+### ตัวกรองและโครงสร้าง Claim ใน v3
 
 ก่อนเรียก Qwen3.5 จำกัด concept ให้เหลือเฉพาะคำที่พบในย่อหน้า (label/alias และชื่ออังกฤษสำหรับ attachment/red flag)
 หลังสกัด ตรวจซ้ำรายย่อหน้าและตัดลิงก์ที่ไม่พบหลักฐาน พร้อม warning; Claim ที่ไม่เหลือลิงก์จะถูกข้าม
@@ -254,10 +286,11 @@ RETURN c,r,b,a,t LIMIT 50
 ตัวกรองนี้ลดการเดา แต่ยังพลาดคำพ้องใหม่และไม่ยืนยันว่าความหมายของ concept ถูกต้องทั้งหมด
 ไฟล์ Claim ที่โหลดเข้า Graph จะตรวจซ้ำและปฏิเสธข้อมูลผิด ไม่ตัดเงียบ ๆ ตอน import
 
-ตัวอย่างสำหรับตรวจใน Neo4j: `.venv/bin/python -m graph.explore claims`
+ตัวอย่างสำหรับตรวจ Claims และสถานะผู้ทบทวนใน Neo4j: `.venv/bin/python -m graph.explore claims`
 
 ผล pilot อยู่ใน `graph/experiments/claims_qwen35_pilot.jsonl` และผลตรวจใน `claims_qwen35_review.json`
-ทดสอบจริง 5 chunks จาก Attachment/Gaslighting ได้ 9 candidates ผ่านเงื่อนไขโครงสร้าง
+ผล pilot v2 เดิมเป็น candidate เก่าที่ไม่มี subject/predicate/object และใช้กับ extractor v3 ไม่ได้ ต้องสกัดใหม่ก่อนนำเข้า
+ผลการทดลองเดิมไม่แสดง retrieval improvement; การเพิ่ม Claim node อย่างเดียวไม่ถือเป็นหลักฐานว่าคุณภาพ Graph RAG ดีขึ้น
 ตรวจเนื้อหาพบ 1 รายการเป็นหัวข้อ ไม่ใช่ข้อกล่าวอ้าง จึงระบุ rejected ใน review
 ไฟล์ pilot เป็นผลดิบสำหรับประเมิน ไม่ใช่ไฟล์เปิดใช้งาน และไม่ถูกโหลดเข้า Graph อัตโนมัติ
 ยังต้องประเมินคุณภาพคำตอบ A/B และตรวจความหมายของลิงก์ก่อนขยายหรือ publish
@@ -265,12 +298,12 @@ RETURN c,r,b,a,t LIMIT 50
 ### ประเมินและทดลอง Neo4j (ยังไม่เปิดใช้จริง)
 
 ```bash
-.venv/bin/python -m graph.evaluate_claims --claims graph/experiments/claims_qwen35_accepted.jsonl --output /tmp/claims-eval.json
-# เพิ่ม --generate เพื่อลองคำตอบ Qwen3.5 ทั้งสองชุด (2 คำถาม รวม 4 คำตอบ)
-# ตั้ง environment ของ Neo4j ตามหัวข้อ import เดิมก่อนรัน:
-.venv/bin/python -m graph.import_neo4j --claims graph/experiments/claims_qwen35_accepted.jsonl --trial
+.venv/bin/python -m graph.evaluate_claims --claims /tmp/reviewed-claims-v3.jsonl --output /tmp/claims-eval.json
+# เพิ่ม --generate เพื่อทดลองคำตอบ Qwen3.5; ใช้ Claim v3 ที่ตรวจทานแล้วเท่านั้น
+.venv/bin/python -m graph.import_neo4j --claims /tmp/reviewed-claims-v3.jsonl --trial
 ```
 
+`claims_qwen35_accepted.jsonl` เดิมเป็น v2 ใช้กับ extractor v3 ไม่ได้ และยังไม่ใช่ข้อมูลสำหรับเปิดใช้จริง
 `--trial` เขียน snapshot แต่ไม่เปลี่ยน active_snapshot; การ import ปกติยังใช้พฤติกรรมเดิม
 ผลทดลอง `claims_qwen35_evaluation.json`: 5 คำถามที่มี chunk เป้าหมาย + 1 คำถามนอกเรื่อง
 Hit@8 และ MRR@8 เท่ากัน 0.2 ทั้งสองแบบ เป็นชุดคำถามเล็กที่เขียนจาก pilot ไม่ใช่ held-out benchmark

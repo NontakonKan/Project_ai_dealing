@@ -19,6 +19,23 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(len(event_edges), len(self.inputs["events"]))
         self.assertEqual(len({e["properties"]["event_id"] for e in event_edges}), len(event_edges))
 
+    def test_document_order_edges_follow_consecutive_chunks_in_same_source(self):
+        chunks = [
+            {'chunk_id': f'book_s00_c{i:02d}', 'source_id': 'book', 'pages': [i],
+             'concepts': [], 'text': f'ข้อความส่วนที่ {i}'}
+            for i in (0, 1, 3)
+        ] + [{'chunk_id': 'other_s00_c02', 'source_id': 'other', 'pages': [2],
+              'concepts': [], 'text': 'ข้อความอีกแหล่ง'}]
+        graph, _ = build_graph(self.inputs['taxonomy'], [], [], chunks)
+        links = [(e['source'], e['target']) for e in graph['relationships'] if e['type'] == 'NEXT_CHUNK']
+        self.assertEqual(links, [('book_s00_c00', 'book_s00_c01')])
+        forged = copy.deepcopy(graph)
+        edge = next(e for e in forged['relationships'] if e['type'] == 'NEXT_CHUNK')
+        edge['target'] = 'book_s00_c03'
+        forged['snapshot'] = content_hash(forged)
+        with self.assertRaisesRegex(ValueError, 'document-order'):
+            validate(forged)
+
     def test_output_is_order_independent(self):
         inputs = {**self.inputs, "users": list(reversed(self.inputs["users"])),
                   "events": list(reversed(self.inputs["events"])), "chunks": list(reversed(self.inputs["chunks"]))}

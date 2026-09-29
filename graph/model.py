@@ -2,9 +2,11 @@
 import hashlib
 import json
 import math
+import re
 from collections import Counter
 
-from .schema import DATASET, FORMAT_VERSION, LABELS, RELATIONS, RULE_RELATIONS
+from .schema import (CLAIM_ASSERTIONS, CLAIM_POLARITIES, CLAIM_PREDICATES, DATASET,
+                     FORMAT_VERSION, LABELS, RELATIONS, RULE_RELATIONS)
 
 
 def digest(value):
@@ -77,6 +79,8 @@ def validate(graph):
         nodes[n["id"]] = n
     edges = set()
     supported = set()
+    subjects, objects, about_concepts = {}, {}, {}
+    next_chunks, previous_chunks = set(), set()
     for e in graph["relationships"]:
         if not isinstance(e["id"], str) or not e["id"] or e["id"] in edges:
             raise ValueError(f"Invalid/duplicate edge ID: {e['id']}")
@@ -94,9 +98,35 @@ def validate(graph):
             claim, chunk = nodes[e["source"]]["properties"], nodes[e["target"]]["properties"]
             quote = claim.get("text")
             if (not isinstance(quote, str) or not quote or quote not in chunk.get("text", "")
-                    or p.get("evidence") != quote or claim.get("assertion") != "llm_extracted_unverified"):
+                    or p.get("evidence") != quote or claim.get("assertion") not in CLAIM_ASSERTIONS
+                    or p.get("assertion") != "exact_source_quote"
+                    or claim.get("chunk_id") != e["target"]):
                 raise ValueError("Claim lacks exact source evidence or extraction status")
+            if e["source"] in supported:
+                raise ValueError("Claim must link to exactly one source chunk")
             supported.add(e["source"])
+        if e["type"] == "NEXT_CHUNK":
+            left, right = nodes[e["source"]]["properties"], nodes[e["target"]]["properties"]
+            left_pos = re.fullmatch(r"(.*_c)(\d+)", e["source"])
+            right_pos = re.fullmatch(r"(.*_c)(\d+)", e["target"])
+            if (not left_pos or not right_pos or left.get("source_id") != right.get("source_id")
+                    or left_pos.group(1) != right_pos.group(1)
+                    or int(right_pos.group(2)) != int(left_pos.group(2)) + 1
+                    or p.get("assertion") != "document_order"
+                    or e["source"] in next_chunks or e["target"] in previous_chunks):
+                raise ValueError("Invalid document-order relationship")
+            next_chunks.add(e["source"])
+            previous_chunks.add(e["target"])
+        if e["type"] == "SUBJECT":
+            if e["source"] in subjects:
+                raise ValueError("Claim must have exactly one subject")
+            subjects[e["source"]] = e["target"]
+        if e["type"] == "OBJECT":
+            if e["source"] in objects:
+                raise ValueError("Claim can have at most one concept object")
+            objects[e["source"]] = e["target"]
+        if e["type"] == "ABOUT" and nodes[e["source"]]["label"] == "Claim":
+            about_concepts.setdefault(e["source"], set()).add(e["target"])
         for key in ("confidence", "weight"):
             if key in p and (type(p[key]) not in (int, float) or not 0 <= p[key] <= 1):
                 raise ValueError(f"Invalid {key}: {e['id']}")
@@ -104,8 +134,55 @@ def validate(graph):
             raise ValueError("Unusable report reached graph")
         if e["type"] in RULE_RELATIONS and p.get("assertion") != "unverified_taxonomy_rule":
             raise ValueError("Compatibility rule must retain its unverified status")
-    if any(n["label"] == "Claim" and nid not in supported for nid, n in nodes.items()):
-        raise ValueError("Claim must link to source evidence")
+    for nid, node in nodes.items():
+        if node["label"] != "Claim":
+            continue
+        props = node["properties"]
+        if nid not in supported:
+            raise ValueError("Claim must link to source evidence")
+        if (not isinstance(props.get("concept_ids"), list)
+                or any(not isinstance(concept, str) for concept in props["concept_ids"])
+                or len(set(props["concept_ids"])) != len(props["concept_ids"])
+                or set(props["concept_ids"]) != about_concepts.get(nid, set())
+                or props.get("subject_id") not in props["concept_ids"]):
+            raise ValueError("Claim concept links do not match its explicit ABOUT edges")
+        if nid not in subjects or subjects[nid] != props.get("subject_id"):
+            raise ValueError("Claim subject edge does not match its structured subject")
+        if props.get("object_concept_id"):
+            if objects.get(nid) != props["object_concept_id"]:
+                raise ValueError("Claim object edge does not match its structured object")
+        elif nid in objects:
+            raise ValueError("Claim has an object edge without an object concept")
+        if props.get("predicate") not in CLAIM_PREDICATES:
+            raise ValueError("Claim has an unknown predicate")
+        if props.get("polarity") not in CLAIM_POLARITIES:
+            raise ValueError("Claim has an unknown polarity")
+        quote, object_text = props.get("text", ""), props.get("object_text", "")
+        qualifier = props.get("qualifier_text", "")
+        if (not isinstance(object_text, str) or not 2 <= len(object_text) <= 240 or object_text not in quote
+                or not isinstance(qualifier, str) or len(qualifier) > 400
+                or (qualifier and qualifier not in quote)):
+            raise ValueError("Claim structure must preserve exact source phrases")
+        if props["assertion"] == "human_verified":
+            reviewer, reviewed_at = props.get("reviewed_by"), props.get("reviewed_at")
+            if not isinstance(reviewer, str) or not reviewer.strip() or not isinstance(reviewed_at, str):
+                raise ValueError("Human-verified claims require reviewer metadata")
+            try:
+                from datetime import datetime
+                timestamp = datetime.fromisoformat(reviewed_at.replace("Z", "+00:00"))
+            except (TypeError, ValueError) as exc:
+                raise ValueError("Claim review timestamp must be ISO 8601") from exc
+            if timestamp.tzinfo is None:
+                raise ValueError("Claim review timestamp must include a timezone")
+        elif props.get("reviewed_by") or props.get("reviewed_at"):
+            raise ValueError("Unverified claims cannot carry reviewer metadata")
+        expected_id = "claim:" + digest([
+            props.get("chunk_id"), props.get("chunk_hash"), quote,
+            sorted(props["concept_ids"]), props.get("subject_id"), props.get("predicate"),
+            props.get("object_concept_id") or "", object_text, props.get("polarity"), qualifier,
+        ])[:24]
+        if nid != expected_id:
+            raise ValueError("Claim ID does not match its structured evidence")
     if graph.get("snapshot") != content_hash(graph):
         raise ValueError("Graph content hash mismatch; rebuild before import")
     return {"nodes": len(nodes), "relationships": len(edges),
