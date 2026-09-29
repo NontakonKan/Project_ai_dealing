@@ -10,11 +10,11 @@ def load():
     global _loaded
     if _loaded:
         return
-    path = ROOT / ".env"
-    if path.exists():
-        for line in path.read_text(encoding="utf-8").splitlines():
-            if "=" in line and not line.strip().startswith("#"):
-                k, v = line.split("=", 1)
-                if v.strip():
-                    os.environ.setdefault(k.strip(), v.strip())
+    for p in (ROOT / ".env", ROOT / "app" / ".env"):
+        if p.exists():
+            for line in p.read_text(encoding="utf-8").splitlines():
+                if "=" in line and not line.strip().startswith("#"):
+                    k, v = line.split("=", 1)
+                    if v.strip():
+                        os.environ.setdefault(k.strip(), v.strip())
     _loaded = True
