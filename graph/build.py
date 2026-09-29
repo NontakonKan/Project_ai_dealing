@@ -2,19 +2,22 @@
 import argparse
 import hashlib
 import json
+import re
+from collections import defaultdict
 from pathlib import Path
 
 from .model import Graph, validate
 from .schema import EVENT_RELATIONS, GROUP_LABELS, pick
 
 ROOT = Path(__file__).resolve().parents[1]
+PACKAGED_CLAIMS = Path(__file__).with_name('knowledge_claims.jsonl')
 
 
 def read_jsonl(path):
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def build_graph(taxonomy, users, events, chunks, provenance=None):
+def build_graph(taxonomy, users, events, chunks, provenance=None, claims=None):
     graph = Graph()
     for group, label in GROUP_LABELS.items():
         for concept in taxonomy[group]:
@@ -88,6 +91,7 @@ def build_graph(taxonomy, users, events, chunks, provenance=None):
                    provenance="data/mock/events.jsonl")
 
     seen_chunks = set()
+    ordered_chunks = defaultdict(list)
     for chunk in chunks:
         cid = chunk["chunk_id"]
         if cid in seen_chunks:
@@ -100,14 +104,27 @@ def build_graph(taxonomy, users, events, chunks, provenance=None):
                    "chapter_title", "section_title", "pages", "topics", "n_words", "lang")),
                    provenance="data/processed/book_chunks.jsonl")
         graph.edge(source, "HAS_CHUNK", cid, pages=chunk["pages"])
+        position = re.fullmatch(r"(.*_c)(\d+)", cid)
+        if position:
+            ordered_chunks[(chunk["source_id"], position.group(1))].append((int(position.group(2)), cid))
         for concept in chunk["concepts"]:
             graph.edge(cid, "ABOUT", concept, count=chunk.get("concept_counts", {}).get(concept, 1),
                        pages=chunk["pages"], assertion="keyword_tag_not_entailment",
                        provenance="pipelines/ingest/tagger.py")
 
+    for positions in ordered_chunks.values():
+        sequence = sorted(positions)
+        for (number, cid), (next_number, next_cid) in zip(sequence, sequence[1:]):
+            if next_number == number + 1:
+                graph.edge(cid, "NEXT_CHUNK", next_cid, assertion="document_order")
+
+    if claims:
+        from .claims import add_claims
+        add_claims(graph, claims, chunks, taxonomy)
     result = graph.export(provenance or {})
     stats = validate(result)
-    covered = {e["target"] for e in result["relationships"] if e["type"] == "ABOUT"}
+    covered = {e["target"] for e in result["relationships"]
+               if e["type"] == "ABOUT" and graph.nodes[e["source"]]["label"] == "BookChunk"}
     concepts = {n["id"] for n in result["nodes"] if n["label"] in GROUP_LABELS.values()}
     stats.update(snapshot=result["snapshot"], skipped_unusable_reports=skipped_reports,
                  consented_users=sum(u["consent"]["matching"] is True for u in users),
@@ -129,6 +146,14 @@ def load_inputs(data_dir):
               for key, path in files.items()}
     provenance = {key: {"path": str(path.relative_to(data_dir)), "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
                   for key, path in files.items()}
+    claim_path = data_dir / "processed/knowledge_claims.jsonl"
+    if not claim_path.exists() and data_dir.resolve() == (ROOT / 'data').resolve():
+        claim_path = PACKAGED_CLAIMS
+    if claim_path.exists():
+        values["claims"] = read_jsonl(claim_path)
+        provenance["claims"] = {"path": 'graph/knowledge_claims.jsonl' if claim_path == PACKAGED_CLAIMS
+                                else str(claim_path.relative_to(data_dir)),
+                                "sha256": hashlib.sha256(claim_path.read_bytes()).hexdigest()}
     return values, provenance
 
 

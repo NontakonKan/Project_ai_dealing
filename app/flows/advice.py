@@ -74,7 +74,7 @@ def handle(line_user, msg, history=None):
             return [text("ตอนนี้ผมประมวลผลคำถามต่อเนื่องไม่สำเร็จครับ ลองส่งอีกครั้งได้ไหมครับ", MENU)]
     if _retriever is None:
         _retriever = RoutedKnowledge(live.ctx())
-    # ค้นด้วยคำถามเต็ม (คำถามต่อเนื่องถูกแปลงจากประวัติแล้ว) ตอบเฉพาะเรื่องที่มีในคลังความรู้
+    # Resolve conversation references before topic expansion and evidence filtering.
     found = search.find(_retriever, query)
     res, route, n_before = found.result, found.route, found.n_before
     if found.topics:

@@ -1,0 +1,11 @@
+{
+  "nodes": 1466,
+  "relationships": 7598,
+  "dataset": "psu_dealing_mock",
+  "snapshot": "1b9d1b01918dc95456486827ca207cc5952826d7bbe7464c1ac87022b63251f2",
+  "claims": 7,
+  "chunks": 4,
+  "active_snapshot_unchanged": true,
+  "active_snapshot": "93e2ddf6e5286de8db17c18a869d0d381337fdad86c29c39862c514e7dddbf15",
+  "idempotent_import": true
+}

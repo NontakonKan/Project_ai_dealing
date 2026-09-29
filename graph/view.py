@@ -15,6 +15,10 @@ class GraphView:
         self.nodes = {n["id"]: n for n in graph["nodes"]}
         self.out = defaultdict(lambda: defaultdict(dict))     # out[src][REL][dst] = props
         self.rules = {}                                      # (a, b) -> (rel, weight, reason)
+        self.claims_about = defaultdict(list)
+        self.claims_subject = defaultdict(list)
+        self.claims_object = defaultdict(list)
+        self.previous_chunks = defaultdict(list)
         self.about = defaultdict(list)                       # concept -> [(chunk_id, count)]
         for e in graph["relationships"]:
             p = e["properties"]
@@ -22,7 +26,19 @@ class GraphView:
                 self.rules[(e["source"], e["target"])] = self.rules[(e["target"], e["source"])] = \
                     (e["type"], p.get("weight", 0.0), p.get("reason", ""))
             elif e["type"] == "ABOUT":
-                self.about[e["target"]].append((e["source"], p.get("count", 1)))
+                if self.nodes[e["source"]]["label"] == "Claim":
+                    self.claims_about[e["target"]].append(e["source"])
+                else:
+                    self.about[e["target"]].append((e["source"], p.get("count", 1)))
+            elif e["type"] == "SUBJECT":
+                self.claims_subject[e["target"]].append(e["source"])
+                self.out[e["source"]][e["type"]][e["target"]] = p
+            elif e["type"] == "OBJECT":
+                self.claims_object[e["target"]].append(e["source"])
+                self.out[e["source"]][e["type"]][e["target"]] = p
+            elif e["type"] == "NEXT_CHUNK":
+                self.previous_chunks[e["target"]].append(e["source"])
+                self.out[e["source"]][e["type"]][e["target"]] = p
             else:
                 self.out[e["source"]][e["type"]][e["target"]] = p
 
