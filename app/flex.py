@@ -52,6 +52,19 @@ def _bubble(alt, body, buttons):
                              for lab, data, style in buttons]}}}
 
 
+def delete_confirmation_card():
+    """Persistent confirmation buttons inside a Flex message, not a quick reply."""
+    body = [
+        {"type": "text", "text": "ลบข้อมูลของฉัน", "size": "xl", "weight": "bold", "wrap": True},
+        {"type": "text", "text": "ต้องการลบข้อมูลทั้งหมดของคุณใช่ไหมครับ? การลบจะย้อนกลับไม่ได้",
+         "size": "sm", "color": "#6b7280", "wrap": True, "margin": "md"},
+    ]
+    return _bubble("ยืนยันการลบข้อมูลของฉัน", body, [
+        ("ยืนยันลบข้อมูล", "action=delete_confirm", "primary"),
+        ("ยกเลิก", "action=delete_cancel", "secondary"),
+    ])
+
+
 def match_card(candidate, score_pct, reasons, tip):
     """การ์ดแนะนำคู่ (ซีน 3) — ยังไม่มีช่องทางติดต่อ จนกว่าอีกฝ่ายจะยินยอม"""
     title, body = _profile_body(candidate, "🎯 เราพบคู่ที่น่าจะเข้ากับคุณ", score_pct, reasons, "💡 ทำไมระบบถึงแนะนำคู่นี้", tip)

@@ -34,8 +34,10 @@ class RichMenuTests(unittest.TestCase):
         with patch.object(handlers, "_user", return_value=user), \
              patch.object(handlers.account, "delete", return_value=[{"type": "text", "text": "deleted"}]) as delete:
             prompt = handlers.dispatch(event("delete_prompt"))[0]
-            self.assertIn("ยืนยัน", prompt["text"])
-            self.assertEqual([i["action"]["data"] for i in prompt["quickReply"]["items"]],
+            self.assertEqual(prompt["type"], "flex")
+            self.assertNotIn("quickReply", prompt)
+            self.assertIn("ย้อนกลับไม่ได้", prompt["contents"]["body"]["contents"][1]["text"])
+            self.assertEqual([i["action"]["data"] for i in prompt["contents"]["footer"]["contents"]],
                              ["action=delete_confirm", "action=delete_cancel"])
             delete.assert_not_called()
             self.assertIn("ยกเลิก", handlers.dispatch(event("delete_cancel"))[0]["text"])
