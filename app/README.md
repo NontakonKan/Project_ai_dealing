@@ -56,6 +56,7 @@ simulator ใช้ฐานข้อมูลแยก `data/app/simulate.db` �
 
 ```powershell
 py -m venv .venv
+$env:PYTHONUTF8 = "1"  # ให้ pip อ่าน requirements UTF-8 บน Windows ภาษาไทย
 .\.venv\Scripts\python.exe -m pip install -r requirements-app.txt -r requirements-dense.txt
 Copy-Item app\.env.example app\.env
 ```
@@ -72,7 +73,7 @@ Copy-Item app\.env.example app\.env
 .\.venv\Scripts\python.exe -m uvicorn app.server:api --host 0.0.0.0 --port 8000
 ```
 
-`app.check_line` ตรวจว่ามีค่าคีย์ทั้งสองและไฟล์ rich menu ครบ โดยไม่แสดงค่าคีย์หรือเรียก LINE API ส่วน `--publish` เป็นขั้นที่อัปโหลดภาพและตั้ง default rich menu จริง ให้รันเมื่อพร้อมใช้ channel แล้ว คำสั่ง `uvicorn` ต้องเปิดค้างไว้ จากอีกหน้าต่างให้เปิด HTTPS tunnel เช่น `ngrok http 8000` แล้วนำ URL ที่ได้ตามด้วย `/callback` ไปตั้งเป็น Webhook URL ใน LINE Developers Console เปิด Use webhook และกด Verify ตรวจ `http://localhost:8000/health` ว่า `line_configured` เป็น `true` จากนั้นลองกดทั้ง 4 ช่องบน LINE มือถือ
+`app.check_line` ตรวจว่ามีค่าคีย์ทั้งสองและไฟล์ rich menu ครบ โดยไม่แสดงค่าคีย์หรือเรียก LINE API ส่วน `--publish` เป็นขั้นที่อัปโหลดภาพและตั้ง default rich menu จริง ให้รันเมื่อพร้อมใช้ channel แล้ว คำสั่ง `uvicorn` ต้องเปิดค้างไว้ จากอีกหน้าต่างเปิด Cloudflare Quick Tunnel ด้วย `cloudflared tunnel --url http://localhost:8000` แล้วนำ HTTPS URL `https://....trycloudflare.com` ที่ได้ตามด้วย `/callback` ไปตั้งเป็น Webhook URL ใน LINE Developers Console เปิด Use webhook และกด Verify ตรวจ `http://localhost:8000/health` ว่า `line_configured` เป็น `true` จากนั้นลองกดทั้ง 4 ช่องบน LINE มือถือ Quick Tunnel ให้ URL ใหม่เมื่อเปิดใหม่ ต้องแก้ Webhook URL ทุกครั้งที่ URL เปลี่ยน
 
 หากเปลี่ยน LINE channel ให้เปลี่ยนคีย์ทั้งคู่และ publish rich menu บน channel ใหม่อีกครั้ง คำสั่ง publish จะแสดง ID เมนูเดิมสำหรับ rollback; อย่าเก็บ access token ในภาพหน้าจอหรือ log ที่ส่งต่อ
 
