@@ -9,7 +9,7 @@ import threading
 from urllib.parse import parse_qs
 
 from . import conversation, intent, line_api, log, storage
-from .flex import MENU, text
+from .flex import MENU, postback_quick, text
 from .flows import account, advice, chat, intro, match, onboarding, unmatch
 
 ERROR_TEXT = "ขอโทษครับ ตอนนี้ระบบขัดข้องชั่วคราว 🙏 ลองพิมพ์ใหม่อีกครั้งได้ไหมครับ"
@@ -75,6 +75,13 @@ def _dispatch(event) -> list:
             return match.pass_(u, target)
         if act == "unmatch":
             return unmatch.ask_reason(u, target)
+        if act == "delete_prompt":
+            return [postback_quick("ต้องการลบข้อมูลทั้งหมดของคุณใช่ไหมครับ? การลบจะย้อนกลับไม่ได้ หากแน่ใจให้กดยืนยันลบข้อมูล",
+                                   [("ยืนยันลบข้อมูล", "action=delete_confirm"), ("ยกเลิก", "action=delete_cancel")])]
+        if act == "delete_confirm":
+            return account.delete(u)
+        if act == "delete_cancel":
+            return [text("ยกเลิกการลบข้อมูลแล้วครับ", MENU)]
         return []
     if etype == "message" and event["message"].get("type") == "text":
         msg = event["message"]["text"]

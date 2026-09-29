@@ -1,0 +1,38 @@
+[
+  {
+    "config": "dense",
+    "Hit@5": 0.854,
+    "MRR@5": 0.733,
+    "hit_paraphrase": 0.85,
+    "empty_on_unanswerable": "0/11",
+    "health_leak": "0/37",
+    "ms_per_query": 810.6
+  },
+  {
+    "config": "graph",
+    "Hit@5": 0.122,
+    "MRR@5": 0.09,
+    "hit_paraphrase": 0.0,
+    "empty_on_unanswerable": "10/11",
+    "health_leak": "0/37",
+    "ms_per_query": 4044.6
+  },
+  {
+    "config": "hybrid rrf",
+    "Hit@5": 0.902,
+    "MRR@5": 0.75,
+    "hit_paraphrase": 0.85,
+    "empty_on_unanswerable": "0/11",
+    "health_leak": "0/37",
+    "ms_per_query": 4160.4
+  },
+  {
+    "config": "routed",
+    "Hit@5": 0.902,
+    "MRR@5": 0.78,
+    "hit_paraphrase": 0.9,
+    "empty_on_unanswerable": "0/11",
+    "health_leak": "0/37",
+    "ms_per_query": 8917.7
+  }
+]
