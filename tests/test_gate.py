@@ -46,6 +46,8 @@ class SlangTests(unittest.TestCase):
         from pipelines.hybrid.query_expand import hint, variants
         self.assertIn("ควรเริ่มต้นความสัมพันธ์ยังไงดี", variants("ควรเริ่มทักยังไงดี"))
         self.assertIn("เริ่มต้นความสัมพันธ์", hint("ควรเริ่มทักยังไงดี"))
+        self.assertIn("secure attachment รับการสนับสนุนจากคนอื่นอย่างไร",
+                      variants("secure attachment รับความช่วยเหลือจากคนอื่นอย่างไร"))
 
     def test_slang_only_whole_word(self):
         from pipelines.hybrid.query_expand import variants

@@ -45,6 +45,30 @@ class GraphRetrievalTests(unittest.TestCase):
         self.assertTrue(any(it.kind == "chunk" for it in res.items))
         self.assertFalse(any(it.kind == "graph_fact" for it in res.items))
 
+    def test_dismissing_attachment_finds_its_source(self):
+        query = "รูปแบบความผูกพันแบบหมางเมิน (Dismissing) เป็นอย่างไร"
+        self.assertEqual(concepts.by_alias(query), {"attach:avoidant"})
+        result = GraphKnowledge(self.g, use_embedding=False).retrieve(query, k=8)
+        self.assertIn("web_chula_attachment_s00_c03",
+                      [item.meta.get("chunk_id", item.id) for item in result.items])
+
+    def test_secure_details_recover_evidence_with_the_full_claim_corpus(self):
+        retriever = GraphKnowledge(self.g, use_embedding=False)
+        cases = [
+            ("secure attachment รับความช่วยเหลือจากคนอื่นอย่างไร",
+             "web_chula_attachment_s00_c02"),
+            ("secure attachment วิตกกังวลเมื่อต้องอยู่คนเดียวหรือไม่",
+             "thesis_attraction2548_s07_c36"),
+        ]
+        for query, target in cases:
+            with self.subTest(query=query):
+                items = retriever.retrieve(query, k=8).items
+                item = next((it for it in items if it.meta.get("chunk_id") == target), None)
+                self.assertIsNotNone(item)
+                self.assertEqual(item.kind, "chunk")
+                self.assertTrue(item.meta["evidence_paths"])
+                self.assertIn(item.text, self.g.chunk_text(target))
+
     def test_offtopic_returns_nothing(self):
         self.assertEqual(GraphKnowledge(self.g, use_embedding=False).retrieve("ราคาทองวันนี้").items, [])
 

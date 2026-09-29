@@ -13,7 +13,8 @@ from pipelines.common import taxonomy
 
 GROUPS = ("red_flags", "attachment_styles", "love_components", "traits", "comm_styles", "research_factors")
 EXTRA_KEYS = {"anxious": "attach:anxious", "avoidant": "attach:avoidant", "secure": "attach:secure",
-              "fearful": "attach:fearful", "sternberg": "love:intimacy", "สามเหลี่ยม": "love:intimacy"}
+              "fearful": "attach:fearful", "dismissing": "attach:avoidant",
+              "หมางเมิน": "attach:avoidant", "sternberg": "love:intimacy", "สามเหลี่ยม": "love:intimacy"}
 EMBED_MODEL, MIN_SCORE, MARGIN = "bge-m3", 0.62, 0.08
 DESCRIPTION_MIN_SCORE, DESCRIPTION_MARGIN = 0.30, 0.12
 

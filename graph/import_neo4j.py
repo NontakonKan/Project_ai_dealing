@@ -10,7 +10,7 @@ from .neo4j_store import connect, database, import_graph
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", type=Path, default=ROOT / "data")
-    parser.add_argument("--claims", type=Path, help="Explicit reviewed Claim JSONL for this import")
+    parser.add_argument("--claims", type=Path, help="Explicit source-bound Claim JSONL for this import")
     parser.add_argument("--trial", action="store_true", help="Store snapshot without changing active graph")
     args = parser.parse_args()
     inputs, provenance = load_inputs(args.data_dir)

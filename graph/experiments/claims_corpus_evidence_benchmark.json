@@ -1,0 +1,1202 @@
+{
+  "snapshot": "ba462c00ab55c04d28e46a2a3a1a1a063879c52b19beca702dde76fec6fdce10",
+  "claims": 96,
+  "llm_answers_generated": false,
+  "metrics": {
+    "dense": {
+      "hit_at_8": 0.4,
+      "mrr_at_8": 0.2
+    },
+    "graph_without_claims": {
+      "hit_at_8": 0.6,
+      "mrr_at_8": 0.3
+    },
+    "graph_with_claims": {
+      "hit_at_8": 1.0,
+      "mrr_at_8": 0.6666666666666667
+    },
+    "routed_hybrid": {
+      "hit_at_8": 1.0,
+      "mrr_at_8": 0.24
+    }
+  },
+  "cases": [
+    {
+      "case": "infant_care",
+      "question": "secure attachment เกิดจากการดูแลเด็กอย่างไร",
+      "target_chunks": [
+        "web_chula_attachment_s00_c00"
+      ],
+      "dense": {
+        "ids": [
+          "thesis_attraction2548_s06_c01",
+          "web_chula_attachment_s00_c00",
+          "thesis_attraction2548_s06_c00",
+          "web_chula_attachment_s00_c01",
+          "thesis_attraction2548_s06_c03",
+          "article_multilove2565_s17_c00",
+          "thesis_attraction2548_s06_c02",
+          "thesis_attraction2548_s06_c12"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "thesis_attraction2548_s06_c01",
+          "web_chula_attachment_s00_c00",
+          "thesis_attraction2548_s06_c00",
+          "web_chula_attachment_s00_c01",
+          "thesis_attraction2548_s06_c03",
+          "article_multilove2565_s17_c00",
+          "thesis_attraction2548_s06_c02",
+          "thesis_attraction2548_s06_c12"
+        ],
+        "reciprocal_rank": 0.5,
+        "evidence_paths": []
+      },
+      "graph_without_claims": {
+        "ids": [
+          "thesis_attraction2548_s13_c00",
+          "thesis_attraction2548_s14_c00",
+          "article_multilove2565_s09_c01",
+          "web_chula_attachment_s00_c00",
+          "web_chula_attachment_s00_c04",
+          "potential_love_bombing_s01_c01",
+          "article_multilove2565_s17_c00",
+          "thesis_narcissism2553_s09_c11"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "thesis_attraction2548_s13_c00",
+          "thesis_attraction2548_s14_c00",
+          "article_multilove2565_s09_c01",
+          "web_chula_attachment_s00_c00",
+          "web_chula_attachment_s00_c04",
+          "potential_love_bombing_s01_c01",
+          "article_multilove2565_s17_c00",
+          "thesis_narcissism2553_s09_c11"
+        ],
+        "reciprocal_rank": 0.25,
+        "evidence_paths": []
+      },
+      "graph_with_claims": {
+        "ids": [
+          "thesis_attraction2548_s07_c19",
+          "web_chula_attachment_s00_c00",
+          "web_chula_attachment_s00_c04",
+          "thesis_attraction2548_s06_c10",
+          "potential_love_bombing_s01_c01",
+          "thesis_narcissism2553_s01_c30",
+          "potential_love_bombing_s00_c00",
+          "thesis_narcissism2553_s00_c00"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "claim:0a3a19bbc0e5892ad25c8082",
+          "claim:c973d996cf241dde94b4d5c6",
+          "claim:52724a7ef2f92f5d3962fca6",
+          "claim:84b8deed162c84bae6a5dc6b",
+          "claim:23513d3feb61a3f825e5ecae",
+          "claim:e0dd07418635475bec4eccc8",
+          "potential_love_bombing_s00_c00",
+          "thesis_narcissism2553_s00_c00"
+        ],
+        "reciprocal_rank": 0.5,
+        "evidence_paths": [
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:0a3a19bbc0e5892ad25c8082",
+            "SUPPORTED_BY",
+            "thesis_attraction2548_s07_c19"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:c973d996cf241dde94b4d5c6",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c00"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:df0582283d77d6b9b2a57e7e",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c00"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:52724a7ef2f92f5d3962fca6",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:61d02ef3d81e90f4c0a4d574",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:6edf95314e0ceec64154b7a1",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:ab9bdaa164691f33d676b483",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:e86f6a7db0c074a1630cb24e",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:84b8deed162c84bae6a5dc6b",
+            "SUPPORTED_BY",
+            "thesis_attraction2548_s06_c10"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:23513d3feb61a3f825e5ecae",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:2e853f80aa857a9a2885799d",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:e0dd07418635475bec4eccc8",
+            "SUPPORTED_BY",
+            "thesis_narcissism2553_s01_c30"
+          ]
+        ]
+      },
+      "routed_hybrid": {
+        "ids": [
+          "web_chula_attachment_s00_c01",
+          "web_chula_attachment_s00_c05",
+          "thesis_attraction2548_s06_c01",
+          "thesis_attraction2548_s07_c19",
+          "web_chula_attachment_s00_c00",
+          "thesis_attraction2548_s06_c00",
+          "potential_love_bombing_s01_c01",
+          "article_multilove2565_s17_c00"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "web_chula_attachment_s00_c01",
+          "web_chula_attachment_s00_c05",
+          "thesis_attraction2548_s06_c01",
+          "claim:0a3a19bbc0e5892ad25c8082",
+          "web_chula_attachment_s00_c00",
+          "thesis_attraction2548_s06_c00",
+          "claim:23513d3feb61a3f825e5ecae",
+          "article_multilove2565_s17_c00"
+        ],
+        "reciprocal_rank": 0.2,
+        "evidence_paths": [
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:0a3a19bbc0e5892ad25c8082",
+            "SUPPORTED_BY",
+            "thesis_attraction2548_s07_c19"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:23513d3feb61a3f825e5ecae",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:2e853f80aa857a9a2885799d",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ]
+        ]
+      }
+    },
+    {
+      "case": "adult_support",
+      "question": "secure attachment รับความช่วยเหลือจากคนอื่นอย่างไร",
+      "target_chunks": [
+        "web_chula_attachment_s00_c02"
+      ],
+      "dense": {
+        "ids": [
+          "thesis_attraction2548_s14_c20",
+          "thesis_start_romance2549_s28_c01",
+          "thesis_attraction2548_s14_c19",
+          "thesis_attraction2548_s07_c08",
+          "thesis_start_romance2549_s154_c01",
+          "thesis_start_romance2549_s17_c02",
+          "thesis_attraction2548_s07_c11",
+          "thesis_attraction2548_s00_c01"
+        ],
+        "hit": false,
+        "reference_ids": [
+          "thesis_attraction2548_s14_c20",
+          "thesis_start_romance2549_s28_c01",
+          "thesis_attraction2548_s14_c19",
+          "thesis_attraction2548_s07_c08",
+          "thesis_start_romance2549_s154_c01",
+          "thesis_start_romance2549_s17_c02",
+          "thesis_attraction2548_s07_c11",
+          "thesis_attraction2548_s00_c01"
+        ],
+        "reciprocal_rank": 0,
+        "evidence_paths": []
+      },
+      "graph_without_claims": {
+        "ids": [
+          "thesis_attraction2548_s13_c00",
+          "thesis_attraction2548_s14_c00",
+          "web_chula_attachment_s00_c04",
+          "web_chula_attachment_s00_c00",
+          "potential_love_bombing_s01_c01",
+          "article_multilove2565_s17_c00",
+          "article_multilove2565_s09_c01",
+          "manarom_jealousy_s01_c00"
+        ],
+        "hit": false,
+        "reference_ids": [
+          "thesis_attraction2548_s13_c00",
+          "thesis_attraction2548_s14_c00",
+          "web_chula_attachment_s00_c04",
+          "web_chula_attachment_s00_c00",
+          "potential_love_bombing_s01_c01",
+          "article_multilove2565_s17_c00",
+          "article_multilove2565_s09_c01",
+          "manarom_jealousy_s01_c00"
+        ],
+        "reciprocal_rank": 0,
+        "evidence_paths": []
+      },
+      "graph_with_claims": {
+        "ids": [
+          "web_chula_attachment_s00_c04",
+          "web_chula_attachment_s00_c02",
+          "thesis_attraction2548_s07_c19",
+          "thesis_attraction2548_s07_c26",
+          "potential_love_bombing_s01_c01",
+          "thesis_narcissism2553_s01_c30",
+          "potential_love_bombing_s00_c00",
+          "thesis_narcissism2553_s00_c00"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "claim:52724a7ef2f92f5d3962fca6",
+          "claim:3d0e1090d69242fd649dceb1",
+          "claim:0a3a19bbc0e5892ad25c8082",
+          "claim:5051cdb30ab797b66189f104",
+          "claim:23513d3feb61a3f825e5ecae",
+          "claim:e0dd07418635475bec4eccc8",
+          "potential_love_bombing_s00_c00",
+          "thesis_narcissism2553_s00_c00"
+        ],
+        "reciprocal_rank": 0.5,
+        "evidence_paths": [
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:52724a7ef2f92f5d3962fca6",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:61d02ef3d81e90f4c0a4d574",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:6edf95314e0ceec64154b7a1",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:ab9bdaa164691f33d676b483",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:e86f6a7db0c074a1630cb24e",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:3d0e1090d69242fd649dceb1",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c02"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:d0bd6ff77f8ca14ab6525648",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c02"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:0a3a19bbc0e5892ad25c8082",
+            "SUPPORTED_BY",
+            "thesis_attraction2548_s07_c19"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:5051cdb30ab797b66189f104",
+            "SUPPORTED_BY",
+            "thesis_attraction2548_s07_c26"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:23513d3feb61a3f825e5ecae",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:2e853f80aa857a9a2885799d",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:e0dd07418635475bec4eccc8",
+            "SUPPORTED_BY",
+            "thesis_narcissism2553_s01_c30"
+          ]
+        ]
+      },
+      "routed_hybrid": {
+        "ids": [
+          "web_chula_attachment_s00_c05",
+          "thesis_attraction2548_s14_c20",
+          "web_chula_attachment_s00_c04",
+          "web_chula_attachment_s00_c02",
+          "thesis_start_romance2549_s28_c01",
+          "thesis_attraction2548_s14_c71",
+          "thesis_attraction2548_s14_c19",
+          "potential_love_bombing_s01_c01"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "web_chula_attachment_s00_c05",
+          "thesis_attraction2548_s14_c20",
+          "claim:52724a7ef2f92f5d3962fca6",
+          "claim:3d0e1090d69242fd649dceb1",
+          "thesis_start_romance2549_s28_c01",
+          "thesis_attraction2548_s14_c71",
+          "thesis_attraction2548_s14_c19",
+          "claim:23513d3feb61a3f825e5ecae"
+        ],
+        "reciprocal_rank": 0.25,
+        "evidence_paths": [
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:52724a7ef2f92f5d3962fca6",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:61d02ef3d81e90f4c0a4d574",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:6edf95314e0ceec64154b7a1",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:ab9bdaa164691f33d676b483",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:e86f6a7db0c074a1630cb24e",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:3d0e1090d69242fd649dceb1",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c02"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:d0bd6ff77f8ca14ab6525648",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c02"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:23513d3feb61a3f825e5ecae",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:2e853f80aa857a9a2885799d",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ]
+        ]
+      }
+    },
+    {
+      "case": "adult_self",
+      "question": "คนที่มี secure attachment มองตัวเองกับคนอื่นในแง่ไหน",
+      "target_chunks": [
+        "web_chula_attachment_s00_c02"
+      ],
+      "dense": {
+        "ids": [
+          "thesis_attraction2548_s07_c08",
+          "thesis_attraction2548_s07_c37",
+          "thesis_attraction2548_s07_c07",
+          "thesis_attraction2548_s14_c41",
+          "thesis_attraction2548_s07_c10",
+          "thesis_narcissism2553_s01_c12",
+          "web_chula_attachment_s00_c03",
+          "web_chula_attachment_s00_c04"
+        ],
+        "hit": false,
+        "reference_ids": [
+          "thesis_attraction2548_s07_c08",
+          "thesis_attraction2548_s07_c37",
+          "thesis_attraction2548_s07_c07",
+          "thesis_attraction2548_s14_c41",
+          "thesis_attraction2548_s07_c10",
+          "thesis_narcissism2553_s01_c12",
+          "web_chula_attachment_s00_c03",
+          "web_chula_attachment_s00_c04"
+        ],
+        "reciprocal_rank": 0,
+        "evidence_paths": []
+      },
+      "graph_without_claims": {
+        "ids": [
+          "thesis_attraction2548_s14_c00",
+          "thesis_attraction2548_s07_c32",
+          "potential_love_bombing_s01_c01",
+          "web_chula_attachment_s00_c02",
+          "web_chula_attachment_s00_c04",
+          "article_multilove2565_s17_c00",
+          "article_multilove2565_s09_c01",
+          "thesis_narcissism2553_s09_c11"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "thesis_attraction2548_s14_c00",
+          "thesis_attraction2548_s07_c32",
+          "potential_love_bombing_s01_c01",
+          "web_chula_attachment_s00_c02",
+          "web_chula_attachment_s00_c04",
+          "article_multilove2565_s17_c00",
+          "article_multilove2565_s09_c01",
+          "thesis_narcissism2553_s09_c11"
+        ],
+        "reciprocal_rank": 0.25,
+        "evidence_paths": []
+      },
+      "graph_with_claims": {
+        "ids": [
+          "web_chula_attachment_s00_c02",
+          "thesis_attraction2548_s07_c19",
+          "web_chula_attachment_s00_c04",
+          "potential_love_bombing_s01_c01",
+          "thesis_attraction2548_s07_c26",
+          "thesis_narcissism2553_s01_c30",
+          "potential_love_bombing_s00_c00",
+          "thesis_narcissism2553_s00_c00"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "claim:3d0e1090d69242fd649dceb1",
+          "claim:0a3a19bbc0e5892ad25c8082",
+          "claim:52724a7ef2f92f5d3962fca6",
+          "claim:23513d3feb61a3f825e5ecae",
+          "claim:5051cdb30ab797b66189f104",
+          "claim:e0dd07418635475bec4eccc8",
+          "potential_love_bombing_s00_c00",
+          "thesis_narcissism2553_s00_c00"
+        ],
+        "reciprocal_rank": 1.0,
+        "evidence_paths": [
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:3d0e1090d69242fd649dceb1",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c02"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:d0bd6ff77f8ca14ab6525648",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c02"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:0a3a19bbc0e5892ad25c8082",
+            "SUPPORTED_BY",
+            "thesis_attraction2548_s07_c19"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:52724a7ef2f92f5d3962fca6",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:61d02ef3d81e90f4c0a4d574",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:6edf95314e0ceec64154b7a1",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:ab9bdaa164691f33d676b483",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:e86f6a7db0c074a1630cb24e",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:23513d3feb61a3f825e5ecae",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:2e853f80aa857a9a2885799d",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:5051cdb30ab797b66189f104",
+            "SUPPORTED_BY",
+            "thesis_attraction2548_s07_c26"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:e0dd07418635475bec4eccc8",
+            "SUPPORTED_BY",
+            "thesis_narcissism2553_s01_c30"
+          ]
+        ]
+      },
+      "routed_hybrid": {
+        "ids": [
+          "web_chula_attachment_s00_c05",
+          "thesis_attraction2548_s07_c08",
+          "web_chula_attachment_s00_c02",
+          "thesis_attraction2548_s07_c37",
+          "thesis_attraction2548_s07_c19",
+          "web_chula_attachment_s00_c04",
+          "potential_love_bombing_s01_c01",
+          "thesis_narcissism2553_s01_c12"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "web_chula_attachment_s00_c05",
+          "thesis_attraction2548_s07_c08",
+          "claim:3d0e1090d69242fd649dceb1",
+          "thesis_attraction2548_s07_c37",
+          "claim:0a3a19bbc0e5892ad25c8082",
+          "claim:52724a7ef2f92f5d3962fca6",
+          "claim:23513d3feb61a3f825e5ecae",
+          "thesis_narcissism2553_s01_c12"
+        ],
+        "reciprocal_rank": 0.3333333333333333,
+        "evidence_paths": [
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:3d0e1090d69242fd649dceb1",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c02"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:d0bd6ff77f8ca14ab6525648",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c02"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:0a3a19bbc0e5892ad25c8082",
+            "SUPPORTED_BY",
+            "thesis_attraction2548_s07_c19"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:52724a7ef2f92f5d3962fca6",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:61d02ef3d81e90f4c0a4d574",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:6edf95314e0ceec64154b7a1",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:ab9bdaa164691f33d676b483",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:e86f6a7db0c074a1630cb24e",
+            "SUPPORTED_BY",
+            "web_chula_attachment_s00_c04"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:23513d3feb61a3f825e5ecae",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ],
+          [
+            "attach:secure",
+            "<-SUBJECT-",
+            "claim:2e853f80aa857a9a2885799d",
+            "SUPPORTED_BY",
+            "potential_love_bombing_s01_c01"
+          ]
+        ]
+      }
+    },
+    {
+      "case": "ghosting_duration",
+      "question": "Ghosting ทำไมความรู้สึกแย่ถึงค้างนาน",
+      "target_chunks": [
+        "thaipbs_ghosting_s02_c00"
+      ],
+      "dense": {
+        "ids": [
+          "web_chula_gaslighting_s00_c02",
+          "web_chula_guilt_trip_s00_c01",
+          "web_potential_boundary_s00_c01",
+          "web_chula_gaslighting_s00_c01",
+          "article_multilove2565_s13_c01",
+          "web_chula_guilt_trip_s00_c00",
+          "web_chula_guilt_trip_s00_c02",
+          "article_multilove2565_s13_c02"
+        ],
+        "hit": false,
+        "reference_ids": [
+          "web_chula_gaslighting_s00_c02",
+          "web_chula_guilt_trip_s00_c01",
+          "web_potential_boundary_s00_c01",
+          "web_chula_gaslighting_s00_c01",
+          "article_multilove2565_s13_c01",
+          "web_chula_guilt_trip_s00_c00",
+          "web_chula_guilt_trip_s00_c02",
+          "article_multilove2565_s13_c02"
+        ],
+        "reciprocal_rank": 0,
+        "evidence_paths": []
+      },
+      "graph_without_claims": {
+        "ids": [
+          "thaipbs_ghosting_s00_c00",
+          "web_potential_boundary_s00_c01",
+          "thaipbs_ghosting_s01_c01",
+          "web_potential_boundary_s00_c03",
+          "web_chula_gaslighting_s00_c01",
+          "web_chula_guilt_trip_s00_c01",
+          "chula_adults_minors_s00_c00",
+          "chula_love_fresh_up_s01_c02"
+        ],
+        "hit": false,
+        "reference_ids": [
+          "thaipbs_ghosting_s00_c00",
+          "web_potential_boundary_s00_c01",
+          "thaipbs_ghosting_s01_c01",
+          "web_potential_boundary_s00_c03",
+          "web_chula_gaslighting_s00_c01",
+          "web_chula_guilt_trip_s00_c01",
+          "chula_adults_minors_s00_c00",
+          "chula_love_fresh_up_s01_c02"
+        ],
+        "reciprocal_rank": 0,
+        "evidence_paths": []
+      },
+      "graph_with_claims": {
+        "ids": [
+          "thaipbs_ghosting_s00_c00",
+          "thaipbs_ghosting_s01_c01",
+          "thaipbs_ghosting_s02_c00",
+          "thaipbs_ghosting_s00_c01",
+          "thaipbs_ghosting_s01_c00"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "claim:63cf7f0a88b583cb7c457594",
+          "claim:2cbfb2773b8cff0a756e1050",
+          "claim:ff28e18053c3db65f3dde8e1",
+          "thaipbs_ghosting_s00_c01",
+          "thaipbs_ghosting_s01_c00"
+        ],
+        "reciprocal_rank": 0.3333333333333333,
+        "evidence_paths": [
+          [
+            "rf:ghosting",
+            "<-SUBJECT-",
+            "claim:63cf7f0a88b583cb7c457594",
+            "SUPPORTED_BY",
+            "thaipbs_ghosting_s00_c00"
+          ],
+          [
+            "rf:ghosting",
+            "<-SUBJECT-",
+            "claim:ba296245dfd8c00178a2fec4",
+            "SUPPORTED_BY",
+            "thaipbs_ghosting_s00_c00"
+          ],
+          [
+            "rf:ghosting",
+            "<-SUBJECT-",
+            "claim:2cbfb2773b8cff0a756e1050",
+            "SUPPORTED_BY",
+            "thaipbs_ghosting_s01_c01"
+          ],
+          [
+            "rf:ghosting",
+            "<-SUBJECT-",
+            "claim:84c6347bfab9c906c8c126bf",
+            "SUPPORTED_BY",
+            "thaipbs_ghosting_s01_c01"
+          ],
+          [
+            "rf:ghosting",
+            "<-SUBJECT-",
+            "claim:ff28e18053c3db65f3dde8e1",
+            "SUPPORTED_BY",
+            "thaipbs_ghosting_s02_c00"
+          ]
+        ]
+      },
+      "routed_hybrid": {
+        "ids": [
+          "web_chula_gaslighting_s00_c02",
+          "thaipbs_ghosting_s00_c00",
+          "web_chula_guilt_trip_s00_c01",
+          "thaipbs_ghosting_s01_c01",
+          "web_potential_boundary_s00_c01",
+          "thaipbs_ghosting_s02_c00",
+          "web_chula_gaslighting_s00_c01",
+          "article_multilove2565_s13_c01"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "web_chula_gaslighting_s00_c02",
+          "claim:63cf7f0a88b583cb7c457594",
+          "web_chula_guilt_trip_s00_c01",
+          "claim:2cbfb2773b8cff0a756e1050",
+          "web_potential_boundary_s00_c01",
+          "claim:ff28e18053c3db65f3dde8e1",
+          "web_chula_gaslighting_s00_c01",
+          "article_multilove2565_s13_c01"
+        ],
+        "reciprocal_rank": 0.16666666666666666,
+        "evidence_paths": [
+          [
+            "rf:ghosting",
+            "<-SUBJECT-",
+            "claim:63cf7f0a88b583cb7c457594",
+            "SUPPORTED_BY",
+            "thaipbs_ghosting_s00_c00"
+          ],
+          [
+            "rf:ghosting",
+            "<-SUBJECT-",
+            "claim:ba296245dfd8c00178a2fec4",
+            "SUPPORTED_BY",
+            "thaipbs_ghosting_s00_c00"
+          ],
+          [
+            "rf:ghosting",
+            "<-SUBJECT-",
+            "claim:2cbfb2773b8cff0a756e1050",
+            "SUPPORTED_BY",
+            "thaipbs_ghosting_s01_c01"
+          ],
+          [
+            "rf:ghosting",
+            "<-SUBJECT-",
+            "claim:84c6347bfab9c906c8c126bf",
+            "SUPPORTED_BY",
+            "thaipbs_ghosting_s01_c01"
+          ],
+          [
+            "rf:ghosting",
+            "<-SUBJECT-",
+            "claim:ff28e18053c3db65f3dde8e1",
+            "SUPPORTED_BY",
+            "thaipbs_ghosting_s02_c00"
+          ]
+        ]
+      }
+    },
+    {
+      "case": "gaslighting_self",
+      "question": "Gaslighting ทำให้คนถูกกระทำไม่มั่นใจในอะไร",
+      "target_chunks": [
+        "web_chula_gaslighting_s00_c02"
+      ],
+      "dense": {
+        "ids": [
+          "web_chula_gaslighting_s00_c00",
+          "web_chula_gaslighting_s00_c02",
+          "web_chula_gaslighting_s00_c01",
+          "web_chula_guilt_trip_s00_c00",
+          "web_chula_guilt_trip_s00_c01",
+          "web_potential_boundary_s00_c01",
+          "web_chula_ipv_s00_c05",
+          "web_chula_ipv_s00_c03"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "web_chula_gaslighting_s00_c00",
+          "web_chula_gaslighting_s00_c02",
+          "web_chula_gaslighting_s00_c01",
+          "web_chula_guilt_trip_s00_c00",
+          "web_chula_guilt_trip_s00_c01",
+          "web_potential_boundary_s00_c01",
+          "web_chula_ipv_s00_c05",
+          "web_chula_ipv_s00_c03"
+        ],
+        "reciprocal_rank": 0.5,
+        "evidence_paths": []
+      },
+      "graph_without_claims": {
+        "ids": [
+          "web_chula_gaslighting_s00_c02",
+          "web_chula_gaslighting_s00_c00",
+          "web_chula_guilt_trip_s00_c01",
+          "web_chula_guilt_trip_s00_c00",
+          "chula_adults_minors_s01_c01",
+          "potential_love_bombing_s01_c01",
+          "web_chula_ipv_s00_c02",
+          "web_pdf_shy_social_s00_c00"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "web_chula_gaslighting_s00_c02",
+          "web_chula_gaslighting_s00_c00",
+          "web_chula_guilt_trip_s00_c01",
+          "web_chula_guilt_trip_s00_c00",
+          "chula_adults_minors_s01_c01",
+          "potential_love_bombing_s01_c01",
+          "web_chula_ipv_s00_c02",
+          "web_pdf_shy_social_s00_c00"
+        ],
+        "reciprocal_rank": 1.0,
+        "evidence_paths": []
+      },
+      "graph_with_claims": {
+        "ids": [
+          "web_chula_gaslighting_s00_c02",
+          "web_chula_gaslighting_s00_c00",
+          "web_chula_guilt_trip_s00_c01",
+          "web_chula_guilt_trip_s00_c00",
+          "web_chula_gaslighting_s00_c01",
+          "web_chula_gaslighting_s00_c03"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "claim:5b971f56167b25efc7df6682",
+          "claim:00909cdc89a184ca8d647e1a",
+          "claim:6d6a78f2287055d6d86a8d7d",
+          "web_chula_guilt_trip_s00_c00",
+          "claim:976147485e2f0eb968b5b8ba",
+          "web_chula_gaslighting_s00_c03"
+        ],
+        "reciprocal_rank": 1.0,
+        "evidence_paths": [
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:5b971f56167b25efc7df6682",
+            "SUPPORTED_BY",
+            "web_chula_gaslighting_s00_c02"
+          ],
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:da88a6cca9120c4113a4b265",
+            "SUPPORTED_BY",
+            "web_chula_gaslighting_s00_c02"
+          ],
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:00909cdc89a184ca8d647e1a",
+            "SUPPORTED_BY",
+            "web_chula_gaslighting_s00_c00"
+          ],
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:9b85708d81b0b214f8366a95",
+            "SUPPORTED_BY",
+            "web_chula_gaslighting_s00_c00"
+          ],
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:6d6a78f2287055d6d86a8d7d",
+            "SUPPORTED_BY",
+            "web_chula_guilt_trip_s00_c01"
+          ],
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:7f636a92adaa0568df8d354a",
+            "SUPPORTED_BY",
+            "web_chula_guilt_trip_s00_c01"
+          ],
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:d2c16ddbaba45afc46ef12f2",
+            "SUPPORTED_BY",
+            "web_chula_guilt_trip_s00_c01"
+          ],
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:976147485e2f0eb968b5b8ba",
+            "SUPPORTED_BY",
+            "web_chula_gaslighting_s00_c01"
+          ]
+        ]
+      },
+      "routed_hybrid": {
+        "ids": [
+          "web_chula_guilt_trip_s00_c00",
+          "web_chula_gaslighting_s00_c03",
+          "web_chula_gaslighting_s00_c00",
+          "web_chula_gaslighting_s00_c02",
+          "web_chula_guilt_trip_s00_c01",
+          "web_chula_guilt_trip_s00_c01",
+          "web_potential_boundary_s00_c01",
+          "web_chula_ipv_s00_c05"
+        ],
+        "hit": true,
+        "reference_ids": [
+          "web_chula_guilt_trip_s00_c00",
+          "web_chula_gaslighting_s00_c03",
+          "web_chula_gaslighting_s00_c00",
+          "claim:5b971f56167b25efc7df6682",
+          "claim:6d6a78f2287055d6d86a8d7d",
+          "web_chula_guilt_trip_s00_c01",
+          "web_potential_boundary_s00_c01",
+          "web_chula_ipv_s00_c05"
+        ],
+        "reciprocal_rank": 0.25,
+        "evidence_paths": [
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:5b971f56167b25efc7df6682",
+            "SUPPORTED_BY",
+            "web_chula_gaslighting_s00_c02"
+          ],
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:da88a6cca9120c4113a4b265",
+            "SUPPORTED_BY",
+            "web_chula_gaslighting_s00_c02"
+          ],
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:6d6a78f2287055d6d86a8d7d",
+            "SUPPORTED_BY",
+            "web_chula_guilt_trip_s00_c01"
+          ],
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:7f636a92adaa0568df8d354a",
+            "SUPPORTED_BY",
+            "web_chula_guilt_trip_s00_c01"
+          ],
+          [
+            "rf:gaslighting",
+            "<-SUBJECT-",
+            "claim:d2c16ddbaba45afc46ef12f2",
+            "SUPPORTED_BY",
+            "web_chula_guilt_trip_s00_c01"
+          ]
+        ]
+      }
+    },
+    {
+      "case": "unrelated",
+      "question": "ราคาทองวันนี้เท่าไร",
+      "target_chunks": [],
+      "dense": {
+        "ids": [
+          "thesis_narcissism2553_s06_c04",
+          "thesis_narcissism2553_s09_c36",
+          "thesis_start_romance2549_s107_c01",
+          "thesis_start_romance2549_s107_c02",
+          "thesis_start_romance2549_s107_c03",
+          "thesis_narcissism2553_s09_c37",
+          "thesis_start_romance2549_s107_c04",
+          "thesis_start_romance2549_s79_c01"
+        ],
+        "hit": null,
+        "reference_ids": [
+          "thesis_narcissism2553_s06_c04",
+          "thesis_narcissism2553_s09_c36",
+          "thesis_start_romance2549_s107_c01",
+          "thesis_start_romance2549_s107_c02",
+          "thesis_start_romance2549_s107_c03",
+          "thesis_narcissism2553_s09_c37",
+          "thesis_start_romance2549_s107_c04",
+          "thesis_start_romance2549_s79_c01"
+        ],
+        "reciprocal_rank": 0,
+        "evidence_paths": []
+      },
+      "graph_without_claims": {
+        "ids": [],
+        "hit": null,
+        "reference_ids": [],
+        "reciprocal_rank": 0,
+        "evidence_paths": []
+      },
+      "graph_with_claims": {
+        "ids": [],
+        "hit": null,
+        "reference_ids": [],
+        "reciprocal_rank": 0,
+        "evidence_paths": []
+      },
+      "routed_hybrid": {
+        "ids": [
+          "thesis_narcissism2553_s06_c04",
+          "thesis_narcissism2553_s09_c36",
+          "thesis_start_romance2549_s107_c01",
+          "thesis_start_romance2549_s107_c02",
+          "thesis_start_romance2549_s107_c03",
+          "thesis_narcissism2553_s09_c37",
+          "thesis_start_romance2549_s107_c04",
+          "thesis_start_romance2549_s79_c01"
+        ],
+        "hit": null,
+        "reference_ids": [
+          "thesis_narcissism2553_s06_c04",
+          "thesis_narcissism2553_s09_c36",
+          "thesis_start_romance2549_s107_c01",
+          "thesis_start_romance2549_s107_c02",
+          "thesis_start_romance2549_s107_c03",
+          "thesis_narcissism2553_s09_c37",
+          "thesis_start_romance2549_s107_c04",
+          "thesis_start_romance2549_s79_c01"
+        ],
+        "reciprocal_rank": 0,
+        "evidence_paths": []
+      }
+    }
+  ],
+  "limitations": [
+    "Targeted source-labelled pilot, not a held-out test.",
+    "Source recovery and valid citations do not prove semantic answer correctness.",
+    "Claim structures retrieve original chunks only.",
+    "No external API or Chroma writes; answers are generated only with --generate."
+  ]
+}

@@ -1,0 +1,412 @@
+{
+  "description": "Source-linked explanations for the initial 43 curated Claims; this file is historical evidence context, not a status gate for corpus extraction.",
+  "source_corpus_hash": "fcc451a052ba70505331a1116110cfdf24354f2bdd05b72ab80196e6b5c2d5d3",
+  "initial_claims": 43,
+  "initial_covered_chunks": 23,
+  "initial_covered_sources": 7,
+  "evidence": [
+    {
+      "claim_id": "claim:c973d996cf241dde94b4d5c6",
+      "chunk_id": "web_chula_attachment_s00_c00",
+      "source_id": "web_chula_attachment",
+      "notes": "เทียบประธาน secure กับพฤติกรรมทารกในผลทดลองโดยตรง; ขยาย quote ให้ครบย่อหน้ารวมประโยคท้าย เก็บขอบเขตทารกและไม่แปลง resistant/avoidance เป็นรูปแบบผู้ใหญ่"
+    },
+    {
+      "claim_id": "claim:df0582283d77d6b9b2a57e7e",
+      "chunk_id": "web_chula_attachment_s00_c00",
+      "source_id": "web_chula_attachment",
+      "notes": "Ainsworth อธิบายความสัมพันธ์ระหว่างความผูกพันแบบมั่นคงของทารกกับผู้เลี้ยงดูที่ตอบสนองความต้องการ; ใช้ associated_with และเก็บประชากรทารก ไม่อนุมานเหตุและผลหรือความคงที่ตลอดชีวิต"
+    },
+    {
+      "claim_id": "claim:3d0e1090d69242fd649dceb1",
+      "chunk_id": "web_chula_attachment_s00_c02",
+      "source_id": "web_chula_attachment",
+      "notes": "ต้นฉบับระบุ secure ในกรอบรูปแบบความผูกพันของผู้ใหญ่และเต็มใจพึ่งพารับการสนับสนุนโดยตรง; เก็บเป็นลักษณะตามนิยาม ไม่รับประกันพฤติกรรมของบุคคลทุกสถานการณ์"
+    },
+    {
+      "claim_id": "claim:ff28e18053c3db65f3dde8e1",
+      "chunk_id": "thaipbs_ghosting_s02_c00",
+      "source_id": "thaipbs_ghosting",
+      "notes": "ผลเปรียบเทียบพบการตอบสนองต่อ Ghosting ช้ากว่าและยาวนานกว่าการถูกปฏิเสธโดยตรง; ขยาย quote ให้ครบข้อจำกัดความสัมพันธ์ระยะสั้นกับผู้ช่วยวิจัย ไม่ขยายผลเป็นคำทำนายความสัมพันธ์ในชีวิตจริง"
+    },
+    {
+      "claim_id": "claim:5b971f56167b25efc7df6682",
+      "chunk_id": "web_chula_gaslighting_s00_c02",
+      "source_id": "web_chula_gaslighting",
+      "notes": "ต้นฉบับระบุ gaslighting มักทำให้สงสัยตนเองโดยตรง; เก็บคำว่ามัก แก้ object ให้เป็นผลลัพธ์ไม่ซ้ำส่วนคำกริยาทำให้ และไม่ใช้สัญญาณเดียววินิจฉัยบุคคล"
+    },
+    {
+      "claim_id": "claim:d0bd6ff77f8ca14ab6525648",
+      "chunk_id": "web_chula_attachment_s00_c02",
+      "source_id": "web_chula_attachment",
+      "notes": "Secure ในโมเดลความผูกพันของผู้ใหญ่ มีมุมมองบวกต่อตนเองและผู้อื่น สบายใจกับความสัมพันธ์ใกล้ชิด และคงความเป็นตัวของตัวเอง เป็นคำอธิบายรูปแบบ ไม่ใช่ผลวินิจฉัยผู้ใช้ และไม่ซ้ำข้อเดิมที่เลือกเฉพาะการรับการสนับสนุน"
+    },
+    {
+      "claim_id": "claim:029c5ebcadac6a8c5a7f5256",
+      "chunk_id": "web_chula_attachment_s00_c03",
+      "source_id": "web_chula_attachment",
+      "notes": "Fearful ระบุทั้งมุมมองลบต่อตนและผู้อื่น รวมถึงการประเมินคุณค่าตนจากความสัมพันธ์ โดยเก็บย่อหน้าเต็มซึ่งอธิบายความกลัวความใกล้ชิดด้วย"
+    },
+    {
+      "claim_id": "claim:6b1e64e6e2a51f325802f264",
+      "chunk_id": "web_chula_attachment_s00_c03",
+      "source_id": "web_chula_attachment",
+      "notes": "Fearful มีลักษณะกลัวความใกล้ชิดเพราะคาดว่าจะเจ็บปวดหรือถูกเพิกเฉย ข้อกล่าวอ้างอธิบายความกลัว ไม่ได้ยืนยันว่าความใกล้ชิดจะทำให้ถูกทำร้ายจริง จึงใช้ characterized_by ไม่ใช่ causes"
+    },
+    {
+      "claim_id": "claim:8327801110c5fb3f1aa6dc79",
+      "chunk_id": "web_chula_attachment_s00_c03",
+      "source_id": "web_chula_attachment",
+      "notes": "เก็บข้อสรุปเชิงแนวโน้มของ Secure ต่อสัมพันธภาพกับคู่ ไม่ใช่รับประกันว่าจะมีความสัมพันธ์ดีทุกคน"
+    },
+    {
+      "claim_id": "claim:e86f6a7db0c074a1630cb24e",
+      "chunk_id": "web_chula_attachment_s00_c04",
+      "source_id": "web_chula_attachment",
+      "notes": "รายงานงานวิจัยเปรียบเทียบการประเมินปัญหาของ Secure กับรูปแบบอื่น เป็นการประเมินของบุคคล ไม่ใช่พิสูจน์ว่าปัญหารุนแรงน้อยลงจริง ย่อหน้าเต็มยังคงกลยุทธ์และเงื่อนไขการกลับไปเผชิญปัญหา"
+    },
+    {
+      "claim_id": "claim:61d02ef3d81e90f4c0a4d574",
+      "chunk_id": "web_chula_attachment_s00_c04",
+      "source_id": "web_chula_attachment",
+      "notes": "เมื่อพบปัญหาหนัก บุคคลแบบ Secure มองหาการสนับสนุน ตามข้อความงานวิจัย ไม่ได้ระบุว่าทุกคนหรือทุกปัญหาจะทำเช่นนี้"
+    },
+    {
+      "claim_id": "claim:ab9bdaa164691f33d676b483",
+      "chunk_id": "web_chula_attachment_s00_c04",
+      "source_id": "web_chula_attachment",
+      "notes": "คงคำว่าอาจ จึงเป็น uncertain และเก็บเงื่อนไขเมื่อรู้สึกดีขึ้นกลับไปเผชิญปัญหาในย่อหน้าเต็ม ไม่เปลี่ยนเป็นคำแนะนำให้หลีกเลี่ยงปัญหาถาวรหรือเรียกเป็น avoidant attachment"
+    },
+    {
+      "claim_id": "claim:52724a7ef2f92f5d3962fca6",
+      "chunk_id": "web_chula_attachment_s00_c04",
+      "source_id": "web_chula_attachment",
+      "notes": "Secure อาจเว้นระยะเพื่อสงบใจ และตามย่อหน้าสามารถกลับไปเผชิญปัญหาเมื่อรู้สึกดีขึ้น เก็บเงื่อนไขเวลาไว้ ไม่เท่ากับว่าปัญหาจะถูกแก้สำเร็จแน่นอน"
+    },
+    {
+      "claim_id": "claim:11c7601ae9010deb4e634ef0",
+      "chunk_id": "thesis_attraction2548_s01_c04",
+      "source_id": "thesis_attraction2548",
+      "notes": "Secure ในกรอบจำแนกความผูกพันผู้ใหญ่สองมิติอยู่ในกลุ่มวิตกกังวลต่ำและหลีกหนีต่ำ ข้อความเป็นนิยามของกรอบ ไม่ใช่สมมติฐานผลจับคู่และไม่ใช่คะแนนที่อนุมานให้ผู้ใช้"
+    },
+    {
+      "claim_id": "claim:84b8deed162c84bae6a5dc6b",
+      "chunk_id": "thesis_attraction2548_s06_c10",
+      "source_id": "thesis_attraction2548",
+      "notes": "Secure สามารถคงความสัมพันธ์ใกล้ชิดควบคู่กับความเป็นอิสระ ตามนิยาม Bartholomew และ Horowitz ที่วิทยานิพนธ์อ้าง เก็บการอ้างแหล่งเดิมและคำว่าศักยภาพ ไม่รับประกันผลความสัมพันธ์ของทุกคน"
+    },
+    {
+      "claim_id": "claim:966426cd8a21e20f21af881d",
+      "chunk_id": "thesis_attraction2548_s07_c36",
+      "source_id": "thesis_attraction2548",
+      "notes": "นิยาม Secure ในวิทยานิพนธ์ยอมรับการพึ่งพาซึ่งกันและกัน ไม่หมายถึงต้องพึ่งพาตลอดหรือสูญเสียความเป็นอิสระ; เป็นคำจำกัดความที่ใช้ในการวิจัย ไม่ใช่ผลทดลองของกลุ่มตัวอย่าง"
+    },
+    {
+      "claim_id": "claim:3c7a510dafd75aa46d87a801",
+      "chunk_id": "thesis_attraction2548_s07_c36",
+      "source_id": "thesis_attraction2548",
+      "notes": "ต้นฉบับกล่าวว่าไม่รู้สึกวิตกกังวลในการอยู่คนเดียวหรือไม่ได้รับการยอมรับ จึงแยกไม่ออกจาก object และเก็บ polarity=negated ข้อความเป็นนิยามรูปแบบ ไม่ใช่การรับประกันสุขภาพจิตของบุคคล; เป็นคำจำกัดความที่ใช้ในการวิจัย ไม่ใช่ผลทดลองของกลุ่มตัวอย่าง"
+    },
+    {
+      "claim_id": "claim:94e21e8915961c72b3d02711",
+      "chunk_id": "thesis_attraction2548_s07_c15",
+      "source_id": "thesis_attraction2548",
+      "notes": "Feeney และ Noller (1990) ตามที่วิทยานิพนธ์ทบทวน พบค่าเฉลี่ยระยะเวลาคบในกลุ่ม Secure มากกว่ารูปแบบอื่น เป็นผลของงานนั้น ไม่แปลงเป็นเหตุและผลหรือรับประกันความยืนยาวของคู่ใดคู่หนึ่ง; งาน Feeney และ Noller ที่อ้างใช้กรอบ 3 รูปแบบ secure/avoidant/anxious-unsure ตาม s07_c13 ไม่ขยายคำว่าแบบอื่นไปถึง fearful ใน taxonomy 4 รูปแบบ"
+    },
+    {
+      "claim_id": "claim:84176112681adad8112c35ca",
+      "chunk_id": "thesis_attraction2548_s07_c15",
+      "source_id": "thesis_attraction2548",
+      "notes": "ผล Feeney และ Noller (1990) ระบุคะแนนมาตรวัดความหวังที่ไม่ถูกตอบสนองต่ำในกลุ่ม Secure ไม่ได้ยืนยันว่าผู้มีรูปแบบนี้ไม่มีความผิดหวัง; งาน Feeney และ Noller ที่อ้างใช้กรอบ 3 รูปแบบ secure/avoidant/anxious-unsure ตาม s07_c13 ไม่ขยายคำว่าแบบอื่นไปถึง fearful ใน taxonomy 4 รูปแบบ"
+    },
+    {
+      "claim_id": "claim:a4360165c4324a2121eaf3b1",
+      "chunk_id": "thesis_attraction2548_s07_c16",
+      "source_id": "thesis_attraction2548",
+      "notes": "งาน Simpson (1990) ศึกษาคู่รักต่างเพศ 144 คู่แบบระยะยาว และรายงาน Secure มีการพึ่งพากัน ผูกมัด ไว้วางใจ และพึงพอใจมากกว่าแบบหลีกหนี เก็บประชากรและวิธีศึกษาใน quote/qualifier ใช้ associated_with ไม่ใช่ causes ไม่ขยายไปทุกคู่รักหรือกลุ่มอื่น"
+    },
+    {
+      "claim_id": "claim:9b85708d81b0b214f8366a95",
+      "chunk_id": "web_chula_gaslighting_s00_c00",
+      "source_id": "web_chula_gaslighting",
+      "notes": "ประธาน Gaslighting ถูกนิยามตรง ๆ ว่าเป็นรูปแบบหนึ่งของการควบคุมทางจิตใจ จึงใช้ part_of ไม่ใช่สรุปจากภาพยนตร์ เก็บย่อหน้านิยามครบรวมแหล่งอ้างอิงและขอบเขตความสัมพันธ์ เพื่อไม่จำกัดเฉพาะคู่รักหรืออ้างว่าเป็นคำวินิจฉัยบุคคล"
+    },
+    {
+      "claim_id": "claim:976147485e2f0eb968b5b8ba",
+      "chunk_id": "web_chula_gaslighting_s00_c01",
+      "source_id": "web_chula_gaslighting",
+      "notes": "ต้นฉบับจัดความวิตกกังวลและความกลัวทำผิดไว้ในรายการสัญญาณเตือนของ Gaslighting ใช้ associated_with แทนเหตุและผลหรือการวินิจฉัย รายการประกอบอื่นคงอยู่ใน quote ไม่กล่าวว่าวิตกกังวลเพียงอาการเดียวพิสูจน์ว่าถูก Gaslighting"
+    },
+    {
+      "claim_id": "claim:da88a6cca9120c4113a4b265",
+      "chunk_id": "web_chula_gaslighting_s00_c02",
+      "source_id": "web_chula_gaslighting",
+      "notes": "ต้นฉบับระบุการเผชิญกับ gaslight ซ้ำ ๆ จนทำให้สูญเสียความเป็นตัวตน จึงมีถ้อยคำเหตุและผลตรง เก็บเงื่อนไขซ้ำ ๆ และย่อหน้าที่กล่าวว่าหากพบสัญญาณและไม่มีทางแก้ การจบความสัมพันธ์อาจเหมาะสม ไม่แปลงเป็นคำสั่งให้ทุกคนเลิกความสัมพันธ์"
+    },
+    {
+      "claim_id": "claim:7f636a92adaa0568df8d354a",
+      "chunk_id": "web_chula_guilt_trip_s00_c01",
+      "source_id": "web_chula_guilt_trip",
+      "notes": "บทความกล่าวตรงว่า Gaslighting และ Guilt Trip มักเกิดควบคู่กัน ความสัมพันธ์เป็นการเกิดร่วม ไม่ใช่ข้อสรุปว่าอย่างหนึ่งทำให้อีกอย่างเกิด เก็บคำว่ามักและคำอธิบายของทั้งสองทริค ไม่มี concept Guilt Trip ใน taxonomy จึงไม่สร้าง OBJECT concept ปลอม"
+    },
+    {
+      "claim_id": "claim:d2c16ddbaba45afc46ef12f2",
+      "chunk_id": "web_chula_guilt_trip_s00_c01",
+      "source_id": "web_chula_guilt_trip",
+      "notes": "ย่อหน้าอยู่ใต้คำถามเปรียบเทียบและใช้คำว่าในขณะที่เพื่อแบ่งกลไก: Gaslighting ลดทอนความรู้สึกหรือประสบการณ์ ส่วน Guilt Trip กดดันให้รู้สึกเป็นฝ่ายผิด ใช้ differs_from ตามการเปรียบเทียบตรง ไม่กล่าวว่าทั้งสองเกิดร่วมกันไม่ได้และไม่แยกวินิจฉัยจากคำพูดตัวอย่าง"
+    },
+    {
+      "claim_id": "claim:6d6a78f2287055d6d86a8d7d",
+      "chunk_id": "web_chula_guilt_trip_s00_c01",
+      "source_id": "web_chula_guilt_trip",
+      "notes": "ประธานและกริยาตรง: โดย Gaslighting เป็นการลดทอนความรู้สึกของบุคคล ทำให้บุคคลมีความคิดว่า... เลือก object เป็นข้อความครบถึงเพียงเท่านั้น หลีกเลี่ยงสรุปใหม่หรือสลับผลลัพธ์ของ Guilt Trip เก็บย่อหน้าเปรียบเทียบครบเพื่อรักษาบริบท"
+    },
+    {
+      "claim_id": "claim:ba296245dfd8c00178a2fec4",
+      "chunk_id": "thaipbs_ghosting_s00_c00",
+      "source_id": "thaipbs_ghosting",
+      "notes": "ต้นฉบับนิยาม Ghosting ว่าตัดสินใจยุติความสัมพันธ์โดยไม่อธิบายและไม่รับการติดต่อภายหลัง จึงเก็บคำปฏิเสธใน object ของนิยามที่ยืนยัน ไม่ตั้ง polarity=negated ให้ทั้งข้อ และไม่ทำให้การตอบช้าชั่วคราวเป็น Ghosting ขอบเขตรวมงานและมิตรภาพตามต้นฉบับ"
+    },
+    {
+      "claim_id": "claim:63cf7f0a88b583cb7c457594",
+      "chunk_id": "thaipbs_ghosting_s00_c00",
+      "source_id": "thaipbs_ghosting",
+      "notes": "บทความรายงานงานวิจัยใน Computers in Human Behavior ด้วยถ้อยคำอาจก่อให้เกิดความเสียหายทางจิตใจที่ยั่งยืนกว่า จึงเก็บทั้งคำอาจใน qualifier และ polarity uncertain เปรียบเทียบกับการปฏิเสธโดยตรงตามต้นฉบับ ไม่อ้างว่าจะเป็นผลถาวรหรือเกิดกับทุกคน; อ่านส่วนวิธีวิจัยที่เป็นความสัมพันธ์สั้นกับผู้ช่วยวิจัยร่วมด้วย"
+    },
+    {
+      "claim_id": "claim:2cbfb2773b8cff0a756e1050",
+      "chunk_id": "thaipbs_ghosting_s01_c01",
+      "source_id": "thaipbs_ghosting",
+      "notes": "ผลการทดลองครั้งแรกกล่าวตรงว่าทั้งการถูกปฏิเสธและ Ghosting เพิ่มอารมณ์ด้านลบ จึงคงข้อความที่ระบุทั้งสองเงื่อนไขไว้ใน qualifier และ quote ที่มีวิธีแบ่งกลุ่ม 18/13/15 คน ไม่อ้างว่าเฉพาะ Ghosting เพิ่มอารมณ์ด้านลบหรือขยายผลเป็นความสัมพันธ์ยาวจริงทั้งหมด"
+    },
+    {
+      "claim_id": "claim:84c6347bfab9c906c8c126bf",
+      "chunk_id": "thaipbs_ghosting_s01_c01",
+      "source_id": "thaipbs_ghosting",
+      "notes": "งานทดลองรายงานความใกล้ชิดกับผู้อื่นน้อยลงในกลุ่มถูกปฏิเสธและ Ghosting; เก็บทั้งสองเงื่อนไขและวิธีทดลอง ใช้ associated_with และตัด OBJECT love:intimacy เพราะความใกล้ชิดทางสังคมทั่วไปไม่ยืนยันองค์ประกอบในทฤษฎี Sternberg"
+    },
+    {
+      "claim_id": "claim:37db3fed8071b16d65662445",
+      "chunk_id": "potential_love_bombing_s01_c00",
+      "source_id": "potential_love_bombing",
+      "notes": "หัวข้อไม่เคารพพื้นที่ส่วนตัวตรงกับ rf:no_boundaries และย่อหน้าแจกแจงการคอยเช็ก เรียกร้องเวลา และแยกจากคนอื่นในบริบทผู้ที่มีพฤติกรรม Love Bombing มักทำเช่นนี้ เก็บทั้งเงื่อนไข Love Bombing และคำว่ามัก ไม่กล่าวว่าความหึงธรรมดาหรือการให้ของขวัญเป็นพฤติกรรมควบคุมเสมอ"
+    },
+    {
+      "claim_id": "claim:2e853f80aa857a9a2885799d",
+      "chunk_id": "potential_love_bombing_s01_c01",
+      "source_id": "potential_love_bombing",
+      "notes": "บทความอธิบายรูปแบบความผูกพันโดยนิยามความรู้สึกเชื่อใจและสบายใจเวลาอยู่กับคนใกล้ชิดเป็นแบบมั่นคง ใช้เฉพาะประโยคนิยาม ไม่โยง secure กับผลวิจัย Love Bombing ที่จริงกล่าวถึงแบบไม่มั่นคงก่อนหน้า เก็บส่วนเปรียบเทียบการไม่ไว้ใจเพื่อเห็นเส้นแบ่งต้นฉบับ"
+    },
+    {
+      "claim_id": "claim:190beaee43f137d71c19d1eb",
+      "chunk_id": "article_multilove2565_s07_c00",
+      "source_id": "article_multilove2565",
+      "notes": "ต้นฉบับระบุ Intimacy, Passion และ Commitment เป็นองค์ประกอบในทฤษฎีสามเหลี่ยมความรักโดยตรง; เก็บข้อเสนอทางทฤษฎีและการอ้างผู้เขียน ไม่สรุปว่าแต่ละองค์ประกอบทำให้ความสัมพันธ์สำเร็จเสมอ"
+    },
+    {
+      "claim_id": "claim:47d9182b1205013aef35b125",
+      "chunk_id": "article_multilove2565_s07_c00",
+      "source_id": "article_multilove2565",
+      "notes": "ต้นฉบับระบุ Intimacy, Passion และ Commitment เป็นองค์ประกอบในทฤษฎีสามเหลี่ยมความรักโดยตรง; เก็บข้อเสนอทางทฤษฎีและการอ้างผู้เขียน ไม่สรุปว่าแต่ละองค์ประกอบทำให้ความสัมพันธ์สำเร็จเสมอ"
+    },
+    {
+      "claim_id": "claim:e18c31fcc4e19f4109e7e4c2",
+      "chunk_id": "article_multilove2565_s07_c00",
+      "source_id": "article_multilove2565",
+      "notes": "ต้นฉบับระบุ Intimacy, Passion และ Commitment เป็นองค์ประกอบในทฤษฎีสามเหลี่ยมความรักโดยตรง; เก็บข้อเสนอทางทฤษฎีและการอ้างผู้เขียน ไม่สรุปว่าแต่ละองค์ประกอบทำให้ความสัมพันธ์สำเร็จเสมอ"
+    },
+    {
+      "claim_id": "claim:a71663b31e5267dcfd58e950",
+      "chunk_id": "article_multilove2565_s06_c01",
+      "source_id": "article_multilove2565",
+      "notes": "ข้อความกล่าวโดยตรงว่าองค์ประกอบด้านความเสน่หามีความสัมพันธ์กับความใกล้ชิด; บันทึกเป็นความสัมพันธ์ร่วมกัน ไม่ใช้ causes หรืออนุมานว่าความใกล้ชิดบังคับให้เกิดความต้องการทางเพศ"
+    },
+    {
+      "claim_id": "claim:c2c69dbdd1b9c4f3da2263f9",
+      "chunk_id": "article_multilove2565_s06_c01",
+      "source_id": "article_multilove2565",
+      "notes": "ประโยคระบุว่าองค์ประกอบด้านความผูกมัดสัมพันธ์กับด้านใกล้ชิดและเสน่หา; object นี้เก็บเฉพาะด้านใกล้ชิดที่ถูกกล่าวโดยตรง ไม่สร้างความสัมพันธ์แบบเหตุและผล"
+    },
+    {
+      "claim_id": "claim:9ff538cd49e040a46b4bf5d6",
+      "chunk_id": "article_multilove2565_s06_c01",
+      "source_id": "article_multilove2565",
+      "notes": "อ่านทั้งย่อหน้าที่กล่าวถึงคู่รัก ครอบครัวและเพื่อน; ประโยคใช้คำว่ามักจะ จึงเก็บขอบเขตนี้และไม่แปลเป็นกฎว่าใกล้ชิดต้องปรากฏในทุกความสัมพันธ์"
+    },
+    {
+      "claim_id": "claim:fe01e4c9d457fb0d41585dc7",
+      "chunk_id": "article_multilove2565_s06_c01",
+      "source_id": "article_multilove2565",
+      "notes": "ต้นฉบับกล่าวถึงความผันแปรตามช่วงชีวิตพร้อมตัวอย่างครอบครัว เพื่อนและคนรัก; เก็บข้อจำกัดว่าบุคคลอาจแตกต่างกันตามประสบการณ์ ไม่เปลี่ยนตัวอย่างเป็นขั้นพัฒนาการที่ทุกคนต้องผ่าน"
+    },
+    {
+      "claim_id": "claim:afe6745879c2111238952ab3",
+      "chunk_id": "article_multilove2565_s06_c00",
+      "source_id": "article_multilove2565",
+      "notes": "ความสนิท (Intimate) ในบริบททฤษฎีเดียวกันหมายถึงองค์ประกอบ Intimacy; object เป็นส่วนของรายการคุณลักษณะที่ย่อหน้าระบุโดยตรง ไม่อ้างว่ารายการนี้ทำนายความสำเร็จของคู่รัก"
+    },
+    {
+      "claim_id": "claim:745aaec94bbc432d38bc7d32",
+      "chunk_id": "article_multilove2565_s06_c00",
+      "source_id": "article_multilove2565",
+      "notes": "ย่อหน้าระบุการตัดสินใจและการผูกมัด (Commitment) เกี่ยวกับการมีพันธะผูกพัน; เก็บเพียงนิยามในบททฤษฎี ไม่อนุมานว่าความสัมพันธ์ทุกแบบต้องแต่งงาน"
+    },
+    {
+      "claim_id": "claim:ed0ee9fe6305f4aba408fe64",
+      "chunk_id": "article_multilove2565_s11_c01",
+      "source_id": "article_multilove2565",
+      "notes": "ประโยคนิยามกล่าวว่าของขวัญเป็นสัญลักษณ์แห่งรักที่มองเห็นได้ตามแนวคิดภาษารัก; เอาเงื่อนไขของประโยคถัดไปออกจาก qualifier ของนิยามนี้ โดยยังเก็บทั้งย่อหน้าที่อธิบายความแตกต่างรายบุคคลและไม่อ้างราคาเป็นหลักฐานความรัก"
+    },
+    {
+      "claim_id": "claim:e15d61542dab6bea851705ff",
+      "chunk_id": "article_multilove2565_s11_c02",
+      "source_id": "article_multilove2565",
+      "notes": "เก็บเฉพาะประโยคนิยามสัมผัสทางกายในแนวคิดภาษารัก; ไม่สร้างคำแนะนำว่าทุกคนต้องยอมรับการสัมผัสและไม่อนุมานความยินยอมจากประเภทภาษารัก"
+    }
+  ],
+  "source_corrections": [
+    {
+      "previous_claim_id": "claim:224c6291f16241a7fc5a3e5b",
+      "claim_id": "claim:c973d996cf241dde94b4d5c6",
+      "changes": {
+        "quote": "ผลการทดลองพบว่า พฤติกรรมของทารกมีทั้งแบบที่แสดงถึงความมั่นคง (secure) คือ ทารกมีความวางใจผู้เลี้ยงดู กล้าสำรวจสิ่งต่างๆ ภายนอก ไม่สบายใจบ้างที่ผู้เลี้ยงดูจากไป และดีใจเมื่อผู้เลี้ยงดูกลับมา แต่ทารกบางคนแสดงรูปแบบความผูกพันแบบไม่มั่นคง (insecure) กล่าวคือ บ้างก็ต่อต้านต่อการจากไปของผู้เลี้ยงดูอย่างมาก และเมื่อผู้เลี้ยงดูกลับมาจะยึดหรือเกาะติดกับผู้เลี้ยงดูมากขึ้น (resistant) บ้างก็แสดงอาการเพิกเฉยต่อผู้เลี้ยงดู ไม่สนใจว่าผู้เลี้ยงดูจะอยู่หรือไม่ (avoidance) นอกจากนี้ยังพบว่าทารกบางคนมีรูปแบบที่ไม่แน่นอน (disorganize) คือมีการแสดงออกอย่างสับสน ทารกแสดงท่าทีว่าต้องการไปหาผู้เลี้ยงดูแต่ก็เปลี่ยนท่าทีและหันหลังกลับ"
+      },
+      "reason": "เทียบประธาน secure กับพฤติกรรมทารกในผลทดลองโดยตรง; ขยาย quote ให้ครบย่อหน้ารวมประโยคท้าย เก็บขอบเขตทารกและไม่แปลง resistant/avoidance เป็นรูปแบบผู้ใหญ่"
+    },
+    {
+      "previous_claim_id": "claim:34abc23872f433a554da882d",
+      "claim_id": "claim:ff28e18053c3db65f3dde8e1",
+      "changes": {
+        "quote": "แม้ว่าผลลัพธ์จะคล้ายกันแต่แนวทางการศึกษาแบบหลายวันของทีมวิจัยได้ให้ข้อมูลเชิงลึกที่มีค่าเกี่ยวกับพลวัตเชิงเวลาของการถูกเมินเฉยและการถูกปฏิเสธ ซึ่งช่วยให้เห็นถึงประสิทธิภาพของกระบวนการรับมือที่เกิดขึ้นจากรูปแบบต่าง ๆของการถูกตัดขาดความสัมพันธ์โดยสรุป การตอบสนองต่อการถูกปฏิเสธนั้นรวดเร็วกว่า กล่าวคือ มันเกิดขึ้นทันทีหลังเหตุการณ์และค่อย ๆ สงบลงในทางกลับกัน การหายตัวไปโดยไม่บอกกล่าว (Ghosting) กระตุ้นให้เกิดการตอบสนองที่ช้ากว่าและยาวนานกว่าทั้งนี้ การศึกษานี้ดำเนินการภายใต้เงื่อนไขที่ควบคุมได้ดังนั้นลักษณะของความสัมพันธ์ระยะสั้นระหว่างผู้เข้าร่วมและผู้ทำการทดสอบ (ผู้ช่วยวิจัย) จึงมีความซับซ้อนน้อยกว่าความสัมพันธ์ในชีวิตจริง ในขณะเดียวกัน ความสัมพันธ์ในชีวิตจริงผู้คนอาจมีเบาะแสทางบริบทที่ช่วยให้พวกเขาตีความสถานการณ์ได้การวิจัยในอนาคตอาจตรวจสอบว่าการหายตัวไปโดยไม่บอกกล่าวและการถูกปฏิเสธเกิดขึ้นในความสัมพันธ์โรแมนติกในชีวิตจริงจะมีระยะเวลานานกว่าหรือไม่อย่างไร…",
+        "qualifier_text": "การศึกษานี้ดำเนินการภายใต้เงื่อนไขที่ควบคุมได้ดังนั้นลักษณะของความสัมพันธ์ระยะสั้นระหว่างผู้เข้าร่วมและผู้ทำการทดสอบ (ผู้ช่วยวิจัย) จึงมีความซับซ้อนน้อยกว่าความสัมพันธ์ในชีวิตจริง"
+      },
+      "reason": "ผลเปรียบเทียบพบการตอบสนองต่อ Ghosting ช้ากว่าและยาวนานกว่าการถูกปฏิเสธโดยตรง; ขยาย quote ให้ครบข้อจำกัดความสัมพันธ์ระยะสั้นกับผู้ช่วยวิจัย ไม่ขยายผลเป็นคำทำนายความสัมพันธ์ในชีวิตจริง"
+    },
+    {
+      "previous_claim_id": "claim:fc2d55e35d92b8b5282feb2d",
+      "claim_id": "claim:5b971f56167b25efc7df6682",
+      "changes": {
+        "object_text": "คุณต้องสงสัยในตัวคุณเอง"
+      },
+      "reason": "ต้นฉบับระบุ gaslighting มักทำให้สงสัยตนเองโดยตรง; เก็บคำว่ามัก แก้ object ให้เป็นผลลัพธ์ไม่ซ้ำส่วนคำกริยาทำให้ และไม่ใช้สัญญาณเดียววินิจฉัยบุคคล"
+    },
+    {
+      "previous_claim_id": "claim:16cb327625a0bd7b1d932c16",
+      "claim_id": "claim:84c6347bfab9c906c8c126bf",
+      "changes": {
+        "object_concept_id": "",
+        "concept_ids": [
+          "rf:ghosting"
+        ]
+      },
+      "reason": "งานทดลองรายงานความใกล้ชิดกับผู้อื่นน้อยลงในกลุ่มถูกปฏิเสธและ Ghosting; เก็บทั้งสองเงื่อนไขและวิธีทดลอง ใช้ associated_with และตัด OBJECT love:intimacy เพราะความใกล้ชิดทางสังคมทั่วไปไม่ยืนยันองค์ประกอบในทฤษฎี Sternberg"
+    },
+    {
+      "previous_claim_id": "claim:6998c8e0b525cbe782e85ad1",
+      "claim_id": "claim:ed0ee9fe6305f4aba408fe64",
+      "changes": {
+        "qualifier_text": ""
+      },
+      "reason": "ประโยคนิยามกล่าวว่าของขวัญเป็นสัญลักษณ์แห่งรักที่มองเห็นได้ตามแนวคิดภาษารัก; เอาเงื่อนไขของประโยคถัดไปออกจาก qualifier ของนิยามนี้ โดยยังเก็บทั้งย่อหน้าที่อธิบายความแตกต่างรายบุคคลและไม่อ้างราคาเป็นหลักฐานความรัก"
+    }
+  ],
+  "excluded_proposals": [
+    {
+      "claim_id": "claim:2b19f08a0ecaeef83c97e00b",
+      "chunk_id": "potential_love_bombing_s00_c01",
+      "reason": "ความหลงใหลในช่วงโปรโมชันเป็นคำทั่วไป ต้นฉบับไม่ได้กำหนดเป็นองค์ประกอบ Passion ในทฤษฎี Sternberg จึงไม่ฝืนเชื่อม taxonomy"
+    }
+  ],
+  "not_extracted": [
+    {
+      "source_id": "web_chula_attachment",
+      "chunk_ids": [
+        "web_chula_attachment_s00_c00"
+      ],
+      "reason_th": "ไม่แปลง resistant/avoidance ของทารกเป็น anxious/avoidant ของผู้ใหญ่ และไม่ทำซ้ำ Secure ของทารกที่มีอยู่แล้ว"
+    },
+    {
+      "source_id": "web_chula_attachment",
+      "chunk_ids": [
+        "web_chula_attachment_s00_c02",
+        "web_chula_attachment_s00_c03",
+        "web_chula_attachment_s00_c04"
+      ],
+      "reason_th": "Preoccupied และ Dismissing ไม่ใช่ alias ที่ catalog รับรอง จึงไม่ฝืนสร้าง subject anxious/avoidant แม้ metadata tag ของ chunk จะมีอยู่"
+    },
+    {
+      "source_id": "web_chula_attachment",
+      "chunk_ids": [
+        "web_chula_attachment_s00_c04",
+        "web_chula_attachment_s00_c05"
+      ],
+      "reason_th": "secure base ไม่เท่ากับการจำแนกรูปแบบ Secure ของผู้ใหญ่ทุกกรณี และคำว่าความอบอุ่นในคำปฏิเสธไม่ได้ยืนยัน trait:kind จึงไม่สร้าง relation จาก alias อย่างเดียว"
+    },
+    {
+      "source_id": "thesis_attraction2548",
+      "chunk_ids": [
+        "thesis_attraction2548_s06_c03"
+      ],
+      "reason_th": "เป็นประชากรทารกและการจำแนกสามประเภท จึงไม่สร้างกลุ่มผู้ใหญ่จากคำ Avoidant/Anxious ที่บังเอิญตรง taxonomy"
+    },
+    {
+      "source_id": "thesis_attraction2548",
+      "chunk_ids": [
+        "thesis_attraction2548_s06_c08",
+        "thesis_attraction2548_s06_c09",
+        "thesis_attraction2548_s06_c10"
+      ],
+      "reason_th": "ข้ามข้อความที่ปะปนตาราง/ภาพ และข้ามนิยามหมกมุ่น/ไม่สนใจที่ไม่มี alias taxonomy ชัดเจน"
+    },
+    {
+      "source_id": "thesis_attraction2548",
+      "chunk_ids": [
+        "thesis_attraction2548_s13_c07",
+        "thesis_attraction2548_s13_c08",
+        "thesis_attraction2548_s13_c09",
+        "thesis_attraction2548_s13_c10"
+      ],
+      "reason_th": "ข้อผลการประเมินคู่รักสมมติต้องใช้ข้อมูลประชากรจาก chunk อื่นและแยกทิศการเปรียบเทียบภายใน/ระหว่างผู้ประเมิน ตัว schema สั้นอาจสูญเสียขอบเขต จึงไม่ย่อเป็นกฎจับคู่; โดยเฉพาะความต่างค่าเฉลี่ยระหว่างผู้ประเมิน Secure ไม่มีนัยสำคัญทางสถิติ"
+    },
+    {
+      "source_id": "manarom_jealousy",
+      "reason_th": "ไม่มี concept/alias ที่ระบุอารมณ์หึงหวงทั่วไปตามต้นฉบับโดยตรง; ไม่บังคับใช้ rf:possessive ซึ่งสื่อถึงการควบคุม และไม่กล่าวว่าอารมณ์หึงหวงทุกแบบเป็นความรุนแรง"
+    },
+    {
+      "source_id": "web_potential_boundary",
+      "reason_th": "ไม่มี concept/alias ที่ตรงกับ Healthy Boundary หรือการเคารพขอบเขตในย่อหน้าจริง; คำว่าวิ่งเป็นอุปมา ไม่ใช่ hobby:running จึงไม่ใช้"
+    },
+    {
+      "source_id": "web_healthaddict_friend_vs_partner",
+      "reason_th": "ไม่มี subject concept ที่ตรงกับการแบ่งเวลา/สื่อสารตาม alias ปัจจุบัน จึงไม่ตีความทุกปัญหาเพื่อนกับแฟนเป็น rf:friend_priority"
+    },
+    {
+      "source_id": "web_chula_ipv",
+      "reason_th": "ไม่มี concept ตรงกับความรุนแรงในคู่รักหรือรูปแบบ attachment ที่เขียนเป็นไทยในส่วนผลวิจัย; ไม่จับคำว่าใจเย็นหรือดูถูกในตัวอย่างมาแทนประธานงานวิจัย และไม่ยกผลการวิจัย 1,010 คนเป็นความจริงเกี่ยวกับทุกคน"
+    },
+    {
+      "source_id": "web_chula_guilt_trip",
+      "reason_th": "taxonomy ไม่มี Guilt Trip จึงใช้เฉพาะข้อที่มี Gaslighting เป็นประธาน ไม่สร้าง concept เองหรือเอาความใกล้ชิดทั่วไปมาแทน Guilt Trip"
+    },
+    {
+      "source_id": "potential_love_bombing",
+      "reason_th": "taxonomy ไม่มี Love Bombing โดยตรง; ไม่ใช้ ll:gifts เพื่อสรุปว่าภาษารักของขวัญเป็นการควบคุม และไม่เชื่อม secure attachment เข้ากับงานวิจัยที่กล่าวถึง insecure attachment"
+    },
+    {
+      "source_id": "thaipbs_ghosting",
+      "reason_th": "ไม่เพิ่มข้อสรุปช้ากว่าและยาวนานกว่าจาก s02_c00 ซ้ำกับ Claim เดิม และไม่แปลงงานทดลองความสัมพันธ์ระยะสั้นเป็นคำทำนายชีวิตจริงทั้งหมด"
+    },
+    {
+      "topic": "communication",
+      "reason": "ย่อหน้าการสื่อสารทั่วไปไม่ระบุ subject ที่ตรงกับ comm_styles ใน taxonomy อย่างชัดเจน จึงไม่ฝืนเชื่อมเป็นพูดตรงหรือพูดอ้อม"
+    },
+    {
+      "chunk_id": "article_multilove2565_s05_c01",
+      "reason": "นิยาม Passion จบกลางประโยคข้าม chunk จึงไม่ใช้เป็น Claim นิยามอิสระ"
+    },
+    {
+      "chunk_id": "article_multilove2565_s08_c00",
+      "reason": "คำว่าความหลงใหลหมายถึงประเภท Infatuated Love ในย่อหน้านี้ ไม่ใช้เป็น subject Passion เพียงเพราะตรง label"
+    }
+  ]
+}

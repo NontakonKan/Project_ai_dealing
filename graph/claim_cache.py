@@ -1,4 +1,4 @@
-"""Incremental extraction cache, separate from reviewed/published knowledge."""
+"""Incremental cache for source-grounded claim extraction."""
 import json
 import sqlite3
 import urllib.request
