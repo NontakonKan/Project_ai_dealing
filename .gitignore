@@ -15,3 +15,7 @@ app/.env
 
 # ฐานข้อมูล SQLite ทุกไฟล์ (แชทผู้ใช้จริง) — กันหลุดขึ้น git
 *.db
+
+# Log files
+logs/
+*.log

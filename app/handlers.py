@@ -51,16 +51,17 @@ def _dispatch(event) -> list:
         return []
     if etype == "follow":
         u = _user(lid)
-        _trace.update(user=u, kind="follow", input="เพิ่มเพื่อน OA")
+        _trace.update(user=u, kind="follow", input="เพิ่มเพื่อน OA", raw_input="เพิ่มเพื่อน OA")
         return onboarding.follow(u)
     u = _user(lid)
-    _trace.update(user=u, kind=etype, input="")
+    _trace.update(user=u, kind=etype, input="", raw_input="")
     if etype == "unfollow":
         return onboarding.unfollow(u)
     if etype == "postback":
         q = {k: v[0] for k, v in parse_qs(event["postback"]["data"]).items()}
         act, target = q.get("action"), q.get("target")
-        _trace.update(kind="postback", input=f"กดปุ่ม {act}" + (f" → {target}" if target else ""))
+        _trace.update(kind="postback", input=f"กดปุ่ม {act}" + (f" → {target}" if target else ""),
+                      raw_input=f"action={act}" + (f"&target={target}" if target else ""))
         if act == "consent":
             return onboarding.consent(u, q.get("v") == "yes")
         if act == "sensitive":
@@ -124,7 +125,8 @@ def _dispatch(event) -> list:
             for reply in out:
                 storage.add_message(u["user_id"], "bot", reply["text"], kind)
             return out
-        _trace.update(kind=kind, input=log.clip(msg) if kind != "contact" else "(ส่ง LINE ID — ไม่แสดงใน log)")
+        _trace.update(kind=kind, input=log.clip(msg) if kind != "contact" else "(ส่ง LINE ID — ไม่แสดงใน log)",
+                      raw_input=msg if kind != "contact" else "(LINE ID)")
         flows = {
             "onboarding": lambda: onboarding.answer(u, msg),
             "unmatch_reason": lambda: unmatch.reason(u, msg),
@@ -160,16 +162,27 @@ def _handle(event):
         line_api.show_loading(lid)      # จุดเด้งระหว่างค้น + LLM (บางคำถามใช้ 10-30 วินาที)
     _trace.clear()
     log.start()
+    err_detail = None
     try:
         msgs = dispatch(event)
         kind = _trace.get("kind", event.get("type"))
     except Exception as e:
         traceback.print_exc(file=sys.stderr)
+        err_detail = traceback.format_exc()
         msgs, kind = [text(ERROR_TEXT, MENU)], "error"
         log.note(f"{type(e).__name__}: {e}")
     if _trace.get("user") or kind == "error":
         parts = [p for p in (_trace.get("input"), log.notes(), _summary(msgs)) if p]
         log.event(_trace.get("user"), kind, " → ".join(parts), time.time() - t0)
+        log.record_reply(
+            user=_trace.get("user"),
+            kind=kind,
+            user_input=_trace.get("raw_input", _trace.get("input", "")),
+            notes=log.notes(),
+            msgs=msgs,
+            seconds=time.time() - t0,
+            error=err_detail,
+        )
     if not msgs:
         return msgs
     if event.get("replyToken") and time.time() - t0 < 50:
