@@ -50,9 +50,9 @@ simulator ใช้ฐานข้อมูลแยก `data/app/simulate.db` �
 
 ## ต่อ LINE จริง
 
-### ส่งต่อให้เพื่อนรัน webhook (Windows PowerShell)
+### รัน webhook บนเครื่องนี้ (Windows PowerShell)
 
-หลัง `git pull origin main` ให้เพื่อนรันจาก root ของโปรเจกต์บนเครื่องที่จะรับ webhook:
+หลัง `git pull origin main` ให้รันจาก root ของโปรเจกต์บนเครื่องที่จะรับ webhook:
 
 ```powershell
 py -m venv .venv
@@ -60,9 +60,9 @@ py -m venv .venv
 Copy-Item app\.env.example app\.env
 ```
 
-ให้เพื่อนใส่ `LINE_CHANNEL_SECRET` และ `LINE_CHANNEL_ACCESS_TOKEN` ของ **Messaging API channel เดียวกัน** ใน `app/.env` บนเครื่องเขาเอง ห้ามส่งคีย์ผ่าน Git หรือใส่ในไฟล์ตัวอย่าง ถ้ามี API LLM ให้ตั้งค่า root `.env` บนเครื่องนั้นแยกต่างหากตาม `pipelines/llm/README.md`; เครื่องที่ใช้ local LLM ต้องเปิด Ollama และมีโมเดลตาม config ด้วย
+ใส่ `LINE_CHANNEL_SECRET` และ `LINE_CHANNEL_ACCESS_TOKEN` ของ **Messaging API channel เดียวกัน** ใน `app/.env` บนเครื่องนี้ ห้ามส่งคีย์ผ่าน Git หรือใส่ในไฟล์ตัวอย่าง ถ้ามี API LLM ให้ตั้งค่า root `.env` บนเครื่องนี้แยกต่างหากตาม `pipelines/llm/README.md`; เครื่องที่ใช้ local LLM ต้องเปิด Ollama และมีโมเดลตาม config ด้วย
 
-ฐาน ChromaDB ไม่อยู่ใน Git จึงต้องสร้างบนเครื่องเพื่อนครั้งแรก:
+ฐาน ChromaDB ไม่อยู่ใน Git จึงต้องสร้างบนเครื่องนี้ครั้งแรก (ข้ามได้ถ้ามี index ที่สร้างไว้แล้ว):
 
 ```powershell
 .\.venv\Scripts\python.exe -m pipelines.dense.run build
@@ -72,7 +72,7 @@ Copy-Item app\.env.example app\.env
 .\.venv\Scripts\python.exe -m uvicorn app.server:api --host 0.0.0.0 --port 8000
 ```
 
-`app.check_line` ตรวจว่ามีค่าคีย์ทั้งสองและไฟล์ rich menu ครบ โดยไม่แสดงค่าคีย์หรือเรียก LINE API ส่วน `--publish` เป็นขั้นที่อัปโหลดภาพและตั้ง default rich menu จริง ให้เพื่อนรันเมื่อพร้อมใช้ channel แล้ว คำสั่ง `uvicorn` ต้องเปิดค้างไว้ จากอีกหน้าต่างให้เปิด HTTPS tunnel เช่น `ngrok http 8000` แล้วนำ URL ที่ได้ตามด้วย `/callback` ไปตั้งเป็น Webhook URL ใน LINE Developers Console เปิด Use webhook และกด Verify ตรวจ `http://localhost:8000/health` ว่า `line_configured` เป็น `true` จากนั้นลองกดทั้ง 4 ช่องบน LINE มือถือ
+`app.check_line` ตรวจว่ามีค่าคีย์ทั้งสองและไฟล์ rich menu ครบ โดยไม่แสดงค่าคีย์หรือเรียก LINE API ส่วน `--publish` เป็นขั้นที่อัปโหลดภาพและตั้ง default rich menu จริง ให้รันเมื่อพร้อมใช้ channel แล้ว คำสั่ง `uvicorn` ต้องเปิดค้างไว้ จากอีกหน้าต่างให้เปิด HTTPS tunnel เช่น `ngrok http 8000` แล้วนำ URL ที่ได้ตามด้วย `/callback` ไปตั้งเป็น Webhook URL ใน LINE Developers Console เปิด Use webhook และกด Verify ตรวจ `http://localhost:8000/health` ว่า `line_configured` เป็น `true` จากนั้นลองกดทั้ง 4 ช่องบน LINE มือถือ
 
 หากเปลี่ยน LINE channel ให้เปลี่ยนคีย์ทั้งคู่และ publish rich menu บน channel ใหม่อีกครั้ง คำสั่ง publish จะแสดง ID เมนูเดิมสำหรับ rollback; อย่าเก็บ access token ในภาพหน้าจอหรือ log ที่ส่งต่อ
 
