@@ -14,16 +14,19 @@ DATA_API = "https://api-data.line.me/v2/bot"
 
 def definition():
     return {
-        "size": {"width": 1527, "height": 1030},
+        "size": {"width": 1520, "height": 1035},
         "selected": True,
-        "name": "PSU Dealing — โปรไฟล์ / ถามบอต / หาคู่",
+        "name": "PSU Dealing — โปรไฟล์ / ถามบอต / ลบข้อมูล / หาคู่",
         "chatBarText": "เมนู",
         "areas": [
-            {"bounds": {"x": 0, "y": 0, "width": 511, "height": 515},
+            {"bounds": {"x": 0, "y": 0, "width": 510, "height": 365},
              "action": {"type": "message", "label": "โปรไฟล์", "text": "โปรไฟล์ของฉัน"}},
-            {"bounds": {"x": 0, "y": 515, "width": 511, "height": 515},
+            {"bounds": {"x": 0, "y": 365, "width": 510, "height": 325},
              "action": {"type": "message", "label": "ถามบอต", "text": "ถามบอต"}},
-            {"bounds": {"x": 511, "y": 0, "width": 1016, "height": 1030},
+            {"bounds": {"x": 0, "y": 690, "width": 510, "height": 345},
+             "action": {"type": "postback", "label": "ลบข้อมูล", "data": "action=delete_prompt",
+                        "displayText": "ลบข้อมูล"}},
+            {"bounds": {"x": 510, "y": 0, "width": 1010, "height": 1035},
              "action": {"type": "message", "label": "หาคู่", "text": "หาคู่ให้หน่อย"}},
         ],
     }
