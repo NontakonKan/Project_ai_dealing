@@ -34,7 +34,7 @@ LINE ──POST /callback──► server.py ──ตรวจลายเซ�
 | "โปรไฟล์ของฉัน" / "ลบข้อมูลของฉัน" | `account` | แสดงสิ่งที่ระบบจำ / ลบทุกอย่าง (PDPA) |
 
 ผู้ใช้จริงจับคู่ได้ทั้งกับผู้ใช้จำลองและกับผู้ใช้จริงคนอื่นที่คุยกับ OA
-`MOCK_USERS` ใน `app/.env` กำหนดผู้ใช้จำลองที่อยู่ใน pool: ตอนใช้งานจริงตั้งไว้ 6 คน (U031, U174 หญิง→ชาย · U050, U166 ชาย→หญิง · U172 หญิง→ทุกเพศ · U001 ชาย→ทุกเพศ) ใส่ `all` เพื่อใช้ทั้ง 300 คน
+`MOCK_USERS` ใน `.env` ที่ root กำหนดผู้ใช้จำลองที่อยู่ใน pool: ตอนใช้งานจริงตั้งไว้ 6 คน (U031, U174 หญิง→ชาย · U050, U166 ชาย→หญิง · U172 หญิง→ทุกเพศ · U001 ชาย→ทุกเพศ) ใส่ `all` เพื่อใช้ทั้ง 300 คน
 
 ## ทดสอบในเครื่อง (ไม่ต้องมี token)
 
@@ -58,10 +58,10 @@ simulator ใช้ฐานข้อมูลแยก `data/app/simulate.db` �
 py -m venv .venv
 $env:PYTHONUTF8 = "1"  # ให้ pip อ่าน requirements UTF-8 บน Windows ภาษาไทย
 .\.venv\Scripts\python.exe -m pip install -r requirements-app.txt -r requirements-dense.txt
-Copy-Item app\.env.example app\.env
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 ```
 
-ใส่ `LINE_CHANNEL_SECRET` และ `LINE_CHANNEL_ACCESS_TOKEN` ของ **Messaging API channel เดียวกัน** ใน `app/.env` บนเครื่องนี้ ห้ามส่งคีย์ผ่าน Git หรือใส่ในไฟล์ตัวอย่าง ถ้ามี API LLM ให้ตั้งค่า root `.env` บนเครื่องนี้แยกต่างหากตาม `pipelines/llm/README.md`; เครื่องที่ใช้ local LLM ต้องเปิด Ollama และมีโมเดลตาม config ด้วย
+ใส่ `LINE_CHANNEL_SECRET` และ `LINE_CHANNEL_ACCESS_TOKEN` ของ **Messaging API channel เดียวกัน** ใน `.env` ที่ root บนเครื่องนี้ ไฟล์เดียวกันนี้เก็บคีย์ API LLM ที่มีอยู่แล้วได้ ห้ามคัดลอก `.env.example` ทับ `.env` เดิม เพราะจะลบค่าที่ตั้งไว้ และห้ามส่งคีย์ผ่าน Git เครื่องที่ใช้ local LLM ต้องเปิด Ollama และมีโมเดลตาม config ด้วย
 
 ฐาน ChromaDB ไม่อยู่ใน Git จึงต้องสร้างบนเครื่องนี้ครั้งแรก (ข้ามได้ถ้ามี index ที่สร้างไว้แล้ว):
 
@@ -79,7 +79,7 @@ Copy-Item app\.env.example app\.env
 
 1. [LINE Developers Console](https://developers.line.biz/console/) → สร้าง Provider → **Messaging API channel**
 2. แท็บ Basic settings: คัดลอก **Channel secret** / แท็บ Messaging API: กด Issue **Channel access token (long-lived)**
-3. สร้างไฟล์ `app/.env` (ไม่ขึ้น git):
+3. ใส่ค่าใน `.env` ที่ root (ไม่ขึ้น git):
    ```
    LINE_CHANNEL_SECRET=xxxxxxxx
    LINE_CHANNEL_ACCESS_TOKEN=xxxxxxxx
@@ -101,7 +101,7 @@ terminal ที่รัน uvicorn จะแสดง 1 บรรทัดต�
 19:09:36 │ L0002 น้องมิ้น │ 💞 find_match │ "หาคู่ให้หน่อย" → แนะนำ U027 (จำลอง) graph=0.27 dense=0.62 74% → [การ์ด] … │ 22.4s
 19:10:02 │ L0001 Nont     │ 👆 postback   │ กดปุ่ม intro → L0002 → ส่งคำขอทำความรู้จัก … → 📨 push ถึง L0002 │ 1.2s
 ```
-LINE ID ที่ผู้ใช้ส่งมาไม่ถูกแสดงใน log / ตั้ง `LOG_TEXT=0` ใน `app/.env` เพื่อซ่อนข้อความที่ผู้ใช้พิมพ์
+LINE ID ที่ผู้ใช้ส่งมาไม่ถูกแสดงใน log / ตั้ง `LOG_TEXT=0` ใน `.env` ที่ root เพื่อซ่อนข้อความที่ผู้ใช้พิมพ์
 
 อีกหน้าต่าง (ไม่ต้องหยุด bot):
 ```bash
@@ -137,7 +137,7 @@ LINE ID ที่ผู้ใช้ส่งมาไม่ถูกแสดง
 ## ไฟล์
 | ไฟล์ | หน้าที่ |
 |---|---|
-| `config.py` | env / `app/.env`, โมเดล, เพดาน, decay |
+| `config.py` | env / `.env` ที่ root, โมเดล, เพดาน, decay |
 | `server.py` | FastAPI `/callback` (ตรวจลายเซ็น) + `/health` |
 | `line_api.py` | ตรวจลายเซ็น, reply / push / get_profile (โหมดจำลองเมื่อไม่มี token) |
 | `handlers.py` | รับ event → เลือก flow + error handling |
@@ -180,7 +180,7 @@ LINE ID ที่ผู้ใช้ส่งมาไม่ถูกแสดง
 .venv/bin/python -m app.rich_menu
 ```
 
-ตั้ง `LINE_CHANNEL_ACCESS_TOKEN` ใน `app/.env` แล้วสร้าง/อัปโหลด/ตั้งเป็นเมนูเริ่มต้น:
+ตั้ง `LINE_CHANNEL_ACCESS_TOKEN` ใน `.env` ที่ root แล้วสร้าง/อัปโหลด/ตั้งเป็นเมนูเริ่มต้น:
 
 ```bash
 .venv/bin/python -m app.rich_menu --publish

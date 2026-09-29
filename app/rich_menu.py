@@ -51,7 +51,7 @@ def request(method, path, payload=None, *, image=None):
 
 def publish():
     if not LINE_CHANNEL_ACCESS_TOKEN:
-        raise ValueError("ตั้ง LINE_CHANNEL_ACCESS_TOKEN ใน app/.env ก่อน publish")
+        raise ValueError("ตั้ง LINE_CHANNEL_ACCESS_TOKEN ใน .env ที่ root ก่อน publish")
     image = (ASSETS / "menu.jpg").read_bytes()
     if len(image) > 1_000_000:
         raise ValueError("Rich menu image must be at most 1 MB")

@@ -306,7 +306,7 @@ app/        ส่วน 7 LINE OA: server (webhook), handlers, intent, flows/, 
 ส่วนนี้ยังไม่มี RAG, embeddings หรือระบบจัดอันดับคู่
 
 ## ส่วน 7 System Integration (LINE)
-ดู [app/README.md](app/README.md) — ทดสอบในเครื่องได้ทันทีด้วย `python -m app.simulate --demo` (เดโม 3 ซีนจาก req.md) และต่อ LINE จริงด้วย `app/.env` + `uvicorn app.server:api` + `ngrok http 8000`
+ดู [app/README.md](app/README.md) — ทดสอบในเครื่องได้ด้วย `python -m app.simulate --demo` และต่อ LINE จริงด้วย `.env` ที่ root + `uvicorn app.server:api` + Cloudflare Tunnel
 
 
 
