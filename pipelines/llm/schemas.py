@@ -7,7 +7,7 @@ PROFILE_FIELDS = {
     "traits": ["traits"],
     "comm_style": ["comm_styles"],
     "self_described": ["body_types", "skin_tones"],             # รูปลักษณ์ที่ผู้พูดบอกเกี่ยวกับตัวเอง
-    "wants": ["traits", "body_types", "skin_tones", "hygiene"],  # สเปกที่อยากได้ (รวมรูปลักษณ์)
+    "wants": ["traits", "hobbies", "body_types", "skin_tones", "hygiene"],  # สเปกที่อยากได้ (รวมรูปลักษณ์ และงานอดิเรก)
     "avoids": ["red_flags", "body_types", "skin_tones"],
 }
 UNMATCH_FIELDS = {

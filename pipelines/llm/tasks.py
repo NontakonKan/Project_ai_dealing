@@ -23,6 +23,8 @@ def extract_profile(text, cfg=None) -> dict:
     stats.update(guards.drop_appearance_red_flags(clean))
     stats.update(guards.correct_appearance_ids(clean))
     stats.update(guards.correct_red_flag_ids(clean))
+    stats.update(guards.drop_invalid_avoids(clean, text))
+    stats.update(guards.drop_faculty_hallucinations(clean, text))
     return {"extracted": clean, "raw": res.text, "validation": dict(stats), "llm": res.metrics, "model": res.model}
 
 

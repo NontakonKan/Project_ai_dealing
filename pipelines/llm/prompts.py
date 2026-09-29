@@ -6,13 +6,16 @@ from .schemas import PROFILE_FIELDS, UNMATCH_FIELDS, allowed_ids
 def _id_list(fields, with_definitions=False):
     labels = taxonomy.labels()
     definitions = {t["id"]: t["definition"] for g in taxonomy.GROUPS for t in taxonomy.load().get(g, []) if t.get("definition")}
+    all_aliases = taxonomy.aliases()
     seen, lines = set(), []
     for ids in allowed_ids(fields).values():
         for i in ids:
             if i not in seen:
                 seen.add(i)
                 d = definitions.get(i)
-                lines.append(f"- {i} = {labels[i]}" + (f" (หมายถึง: {d})" if d and with_definitions else ""))
+                als = [a for a in all_aliases.get(i, []) if a != labels.get(i)][:3]
+                als_str = f" (คำคล้าย: {', '.join(als)})" if als else ""
+                lines.append(f"- {i} = {labels[i]}{als_str}" + (f" (หมายถึง: {d})" if d and with_definitions else ""))
     return "\n".join(lines)
 
 
@@ -20,12 +23,17 @@ EXTRACT_SYSTEM = """คุณคือระบบสกัดข้อมูล
 ตอบเป็น JSON เท่านั้น ใช้ได้เฉพาะรหัสในรายการ ห้ามเดา
 ทุกรายการต้องมี "evidence" = ข้อความที่คัดลอกมาจากแชทตรงตัว ถ้าไม่มีหลักฐานในแชทห้ามใส่
 field:
-- hobbies = สิ่งที่ผู้พูดชอบทำ เช่น "ชอบฟังเพลง", "ทำกับข้าว"
+- hobbies = สิ่งที่ผู้พูดชอบทำเอง เช่น "ชอบฟังเพลง", "ทำกับข้าว", "เวลาว่างชอบดูหนัง"
 - traits = นิสัยของผู้พูดเอง เช่น "เป็นคนใจเย็น", "ไม่ชอบที่คนเยอะ" (= trait:introvert)
 - comm_style = สไตล์การแชท/สื่อสารของผู้พูด
 - self_described = รูปร่าง/สีผิวที่ผู้พูดบอกเกี่ยวกับ "ตัวเอง" เช่น "เราหุ่นหมีนะ" (ห้ามเดา)
-- wants = นิสัยหรือรูปลักษณ์ที่ผู้พูดอยากได้ในคู่ ใช้เมื่อมีคำว่า "ชอบคน...", "อยากได้คน...", "สเปก..."
+- wants = นิสัย งานอดิเรก หรือรูปลักษณ์ที่ผู้พูดอยากได้ในคู่ ใช้เมื่อมีคำว่า "ชอบคน...", "อยากได้คน...", "สเปก..." เช่น "ชอบคนอ่านหนังสือ" -> wants: hobby:reading
 - avoids = พฤติกรรมหรือรูปลักษณ์ของคู่ที่ผู้พูดไม่ชอบ เช่น "ไม่เอาคน...", "ไม่ชอบคน..."
+
+ข้อควรระวัง:
+1. แยกให้ออกระหว่าง "ตัวเอง" กับ "คู่ที่ชอบ": ถ้าเป็นสิ่งที่ชอบในตัวคนอื่น ("ชอบคน...", "อยากได้คน...") ให้ใส่ใน wants ห้ามใส่ใน hobbies หรือ traits ของตัวผู้พูด
+2. คำปฏิเสธเชิงลบ ("ไม่ชอบคน...", "ไม่เอาคน...") เท่านั้นจึงใส่ใน avoids อย่าใส่ลักษณะเชิงบวกใน avoids เด็ดขาด
+3. ถ้าผู้ใช้พูดถึง "คณะ" (เช่น หมอ, แพทย์, วิศวะ, เภสัช, วิทย์, พยาบาล) ปล่อยผ่าน ห้ามแปลงเป็นความสะอาดหรือนิสัย
 
 รหัสที่ใช้ได้:
 {ids}"""
@@ -40,6 +48,10 @@ EXTRACT_FEWSHOT = [
      '"traits":[{"id":"trait:homebody","evidence":"วันหยุดอยู่บ้าน"}],"comm_style":[{"id":"comm:slow_texter","evidence":"ตอบแชทช้า"}],'
      '"self_described":[{"id":"body:curvy","evidence":"หุ่นหมี"}],'
      '"wants":[{"id":"trait:kind","evidence":"ใจดี"},{"id":"skin:fair","evidence":"ผิวขาว"}],"avoids":[]}'},
+    {"role": "user", "content": "แชท: ชอบคนอ่านหนังสือเยอะ เรียนคณะแพทย์ เวลาว่างชอบดูหนัง"},
+    {"role": "assistant", "content": '{"hobbies":[{"id":"hobby:movies","evidence":"ดูหนัง"}],'
+     '"traits":[],"comm_style":[],"self_described":[],'
+     '"wants":[{"id":"hobby:reading","evidence":"อ่านหนังสือ"}],"avoids":[]}'},
 ]
 
 UNMATCH_SYSTEM = """ผู้ใช้กำลังบอกเหตุผลที่เลิกคุยกับคู่ที่ระบบแนะนำ แยกเหตุผลเป็น 3 ช่อง (JSON):

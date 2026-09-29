@@ -38,8 +38,19 @@ def handle(line_user, msg):
     learned = merge_extraction(p, extracted, msg)
     new_fac = merge_faculty(p, fac, msg)
     history = storage.recent_messages(p["user_id"], HISTORY_TURNS)[:-1]
+
+    # แยกสิ่งที่จำได้ส่งให้แชทบอตพูดถึงอย่างถูกต้อง (ตัวเอง vs สเปกคู่)
+    learned_tags = []
+    for f in ("hobbies", "traits", "comm_style"):
+        for it in extracted.get(f, []):
+            learned_tags.append(it["id"])
+    for it in extracted.get("wants", []):
+        learned_tags.append(f"wants:{it['id']}")
+    for f in new_fac:
+        learned_tags.append(f"อยากได้คนเรียนคณะ{f}")
+
     with ThreadPoolExecutor(max_workers=2) as pool:           # 2 งานนี้ไม่ขึ้นต่อกัน -> ทำพร้อมกัน
-        reply_job = pool.submit(chat_reply, msg, history, learned + [f"อยากได้คนเรียนคณะ{f}" for f in new_fac])
+        reply_job = pool.submit(chat_reply, msg, history, learned_tags if (learned_tags or new_fac) else learned)
         values_job = pool.submit(_read_values, msg)
         reply, values = reply_job.result(), values_job.result()
     ask_sensitive = False
