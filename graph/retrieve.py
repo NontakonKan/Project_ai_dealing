@@ -21,7 +21,7 @@ PREDICATE_CUES = {
     "associated_with": ("สัมพันธ์", "เกี่ยวข้อง", "เกี่ยวกับ", "เชื่อมโยง"),
     "increases": ("เพิ่ม", "มากขึ้น", "สูงขึ้น", "ส่งเสริม"),
     "decreases": ("ลด", "น้อยลง", "ต่ำลง", "บรรเทา"),
-    "predicts": ("ทำนาย", "คาดการณ์"),
+    "predicts": ("ทำนาย", "พยากรณ์", "คาดการณ์"),
     "causes": ("ทำให้เกิด", "ก่อให้เกิด", "เป็นสาเหตุ"),
     "prevents": ("ป้องกัน", "ยับยั้ง"),
     "differs_from": ("แตกต่าง", "ไม่เหมือน"),
@@ -63,6 +63,13 @@ class _ChunkSearch:
         title_scores = (self.title_vectors @ vector.T).toarray().ravel()
         return {cid: float(text_scores[i] + 0.15 * title_scores[i])
                 for i, cid in enumerate(self.ids) if text_scores[i] or title_scores[i]}
+
+    def touches_phrases(self, query, phrases):
+        """Lexical routing hint only; shared n-grams do not prove entailment."""
+        if self.vectorizer is None or not phrases:
+            return False
+        query_vector = self.vectorizer.transform([query])
+        return bool((self.vectorizer.transform(phrases) @ query_vector.T).nnz)
 
 
 class GraphKnowledge:
@@ -110,11 +117,20 @@ class GraphKnowledge:
             candidate_ids.update(g.claims_about.get(concept, []))
             candidate_ids.update(g.claims_subject.get(concept, []))
             candidate_ids.update(g.claims_object.get(concept, []))
-        for claim_id in candidate_ids:
+        requested_predicate = self._requested_predicate(query)
+        for claim_id in sorted(candidate_ids):
+            claim = g.nodes[claim_id]['properties']
+            # A correlation candidate must not boost a prediction answer.
+            # Topical chunk search still runs independently of this relation.
+            if requested_predicate and claim['predicate'] != requested_predicate:
+                continue
             support = g.rel(claim_id, "SUPPORTED_BY")
             for chunk_id in support:
+                # Multiple claims from the same passage are not independent
+                # evidence; extraction count must not amplify its rank.
+                if not chunk_claims[chunk_id]:
+                    chunk_scores[chunk_id] += 0.1
                 chunk_claims[chunk_id].add(claim_id)
-                chunk_scores[chunk_id] += 0.1
             props = g.prop(claim_id, "assertion", "llm_extracted_unverified")
             if props != "human_verified" or claim_id not in claims_by_id:
                 continue
@@ -137,16 +153,31 @@ class GraphKnowledge:
                     chunk_scores[neighbor] = neighbor_score
                     chunk_neighbors[neighbor] = seed
 
+        # The document introduction can contain the definition/context needed
+        # to interpret a later quote. Follow Source/HAS_CHUNK rather than
+        # treating an isolated research result as the whole source.
+        source_context = defaultdict(set)
+        for chunk_id, claim_ids in list(chunk_claims.items()):
+            if not claim_ids:
+                continue
+            source = 'source:' + g.prop(chunk_id, 'source_id', '')
+            intro = min(g.rel(source, 'HAS_CHUNK'), default=None)
+            if intro and intro != chunk_id:
+                source_context[intro].add(chunk_id)
+                chunk_scores[intro] = max(chunk_scores[intro], 0.5 * chunk_scores[chunk_id])
+
         # Two-hop paths only join reviewed propositions with an explicit concept
         # object. Return both source-backed propositions; do not synthesize a
         # new fact whose wording has no single source passage.
         for first_id, first in claims.items():
             middle = first.get("object_concept_id")
-            if not middle or first["subject_id"] not in found:
+            if (not middle or first["subject_id"] not in found or requested_predicate
+                    or first['polarity'] != 'affirmed'):
                 continue
             for second_id in self.claims_by_subject.get(middle, []):
                 second = claims[second_id]
-                if second_id == first_id or second.get("object_concept_id") not in found:
+                if (second_id == first_id or second.get("object_concept_id") not in found
+                        or second['polarity'] != 'affirmed'):
                     continue
                 path_ids = [first_id, second_id]
                 score = 1.8
@@ -173,21 +204,51 @@ class GraphKnowledge:
             items.append(RetrievalItem(
                 claim_id, "graph_fact", self._claim_text(claim, g), round(score, 4), "graph",
                 {"path": path, "claim_ids": path_ids, "evidence_chunk_ids": support_ids,
+                 "evidence_paths": [[claim['subject_id'], '<-SUBJECT-', claim_id,
+                                     'SUPPORTED_BY', chunk_id, '<-HAS_CHUNK-',
+                                     'source:' + g.prop(chunk_id, 'source_id', '')]
+                                    for chunk_id in support_ids],
                  "source_id": claim.get("source_id"), "verification_status": "human_verified",
                  "predicate": claim["predicate"], "polarity": claim["polarity"],
                  "qualifier_text": claim.get("qualifier_text", "")},
             ))
 
+        has_claim_support = any(chunk_claims.values())
+        focus_claim_support = has_claim_support and index.touches_phrases(query, [
+            g.prop(cid, 'object_text', '') for ids in chunk_claims.values() for cid in sorted(ids)
+        ])
         for chunk_id, score in chunk_scores.items():
+            # When the query also touches a Claim's object, keep this channel within
+            # its graph neighbourhood. Filling a large RRF pool with unrelated
+            # lexical matches otherwise doubles Dense votes and buries the
+            # very evidence the graph recovered. Other questions about the
+            # concept retain the general search: the Claim set is not exhaustive.
+            neighbor_of = chunk_neighbors.get(chunk_id)
+            if focus_claim_support and not (chunk_claims[chunk_id]
+                    or chunk_id in source_context
+                    or (neighbor_of and chunk_claims[neighbor_of])):
+                continue
             source_id = g.prop(chunk_id, "source_id", "")
             path = ["source:" + source_id, "HAS_CHUNK", chunk_id]
             if chunk_concepts[chunk_id]:
                 path += ["ABOUT", *sorted(chunk_concepts[chunk_id])]
+            text, span = self._source_excerpt(chunk_id, chunk_claims[chunk_id])
+            quote_ids = sorted(cid for cid in chunk_claims[chunk_id] if cid not in claims)
+            # A source excerpt is a different context unit from the complete
+            # Dense chunk. Its existing Claim ID resolves provenance in the
+            # app and prevents Dense-first deduplication replacing the excerpt.
+            item_id = quote_ids[0] if quote_ids else chunk_id
             items.append(RetrievalItem(
-                chunk_id, "chunk", g.chunk_text(chunk_id), round(score, 4), "graph",
+                item_id, "chunk", text, round(score, 4), "graph",
                 {"path": path, "source_id": source_id, "pages": g.prop(chunk_id, "pages", []),
+                 "chunk_id": chunk_id, "category": g.prop(chunk_id, "category", ""),
+                 "source_text_range": span,
                  "concepts": sorted(chunk_concepts[chunk_id]), "claim_ids": sorted(chunk_claims[chunk_id]),
+                 "evidence_paths": [[g.prop(cid, 'subject_id'), '<-SUBJECT-', cid,
+                                     'SUPPORTED_BY', chunk_id]
+                                    for cid in sorted(chunk_claims[chunk_id])],
                  "adjacent_to": chunk_neighbors.get(chunk_id),
+                 "source_context_for": sorted(source_context[chunk_id]),
                  "claim_statuses": {cid: g.prop(cid, "assertion", "unknown")
                                     for cid in sorted(chunk_claims[chunk_id])}},
             ))
@@ -211,6 +272,30 @@ class GraphKnowledge:
         return RetrievalResult("graph", query, selected[:max(0, k)],
                                (time.perf_counter() - t0) * 1000)
 
+    def _source_excerpt(self, chunk_id, claim_ids):
+        """Return one contiguous source span covering matched quote paragraphs.
+
+        Rerankers truncate long mixed-topic chunks. A source excerpt retains
+        the entire quoted evidence (including conditions and negations), with
+        offsets into the unchanged BookChunk. No generated proposition or
+        synthetic joins are sent as evidence for unverified claims.
+        """
+        text = self.g.chunk_text(chunk_id)
+        spans = []
+        for claim_id in sorted(claim_ids):
+            quote = self.g.prop(claim_id, 'text', '')
+            start = text.find(quote) if quote else -1
+            if start >= 0:
+                spans.append((start, start + len(quote)))
+        start = min(s[0] for s in spans) if spans else 0
+        end = max(s[1] for s in spans) if spans else len(text)
+        # Preserve nearby conditions/negations in the same source paragraph.
+        # If OCR has no line breaks, retain that whole paragraph even if long.
+        start = text.rfind('\n', 0, start) + 1
+        paragraph_end = text.find('\n', end)
+        end = paragraph_end if paragraph_end >= 0 else len(text)
+        return text[start:end], [start, end]
+
     def _load_verified_claims(self):
         return {cid: node["properties"] for cid, node in self.g.nodes.items()
                 if node["label"] == "Claim"
@@ -219,6 +304,13 @@ class GraphKnowledge:
     @staticmethod
     def _predicate_matches(query, predicate):
         return any(cue in query.casefold() for cue in PREDICATE_CUES.get(predicate, ()))
+
+    @staticmethod
+    def _requested_predicate(query):
+        for predicate in ('predicts', 'causes', 'prevents'):
+            if any(cue in query.casefold() for cue in PREDICATE_CUES[predicate]):
+                return predicate
+        return None
 
     @staticmethod
     def _claim_text(claim, graph):

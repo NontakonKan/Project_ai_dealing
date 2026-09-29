@@ -13,6 +13,11 @@ from .schema import CLAIM_POLARITIES, CLAIM_PREDICATE_GUIDANCE, CLAIM_PREDICATES
 
 VERSION = 'extractive-claims-v3'
 DEFAULT_MODEL = 'qwen3.5:9b'
+_STRONG_PREDICATE_CUES = {
+    'predicts': ('ทำนาย', 'พยากรณ์', 'predict', 'forecast'),
+    'causes': ('ทำให้', 'ก่อให้เกิด', 'เป็นสาเหตุ', 'cause'),
+    'prevents': ('ป้องกัน', 'ยับยั้ง', 'prevent'),
+}
 
 
 def catalog(taxonomy):
@@ -51,6 +56,28 @@ def claim_identifier(row):
     return 'claim:' + digest(payload)[:24]
 
 
+def _predicate_evidenced(quote, predicate, object_text):
+    """For strong relations, require the verb beside the proposed outcome.
+
+    Merely finding 'predict' anywhere in a long quote can attach the wrong
+    target (for example predicting commitment, but mentioning satisfaction).
+    This structural check complements, rather than replaces, human review.
+    """
+    cues = _STRONG_PREDICATE_CUES.get(predicate)
+    if not cues:
+        return True
+    text = re.sub(r'\s+', '', quote.casefold())
+    target = re.sub(r'\s+', '', object_text.casefold())
+    for object_match in re.finditer(re.escape(target), text):
+        for cue in cues:
+            for cue_match in re.finditer(re.escape(cue), text):
+                gap = max(object_match.start() - cue_match.end(),
+                          cue_match.start() - object_match.end(), 0)
+                if gap <= 25:
+                    return True
+    return False
+
+
 def validate_claim(row, chunks, allowed):
     if not isinstance(row, dict):
         raise ValueError('Claim must be an object')
@@ -80,6 +107,8 @@ def validate_claim(row, chunks, allowed):
     object_text = row.get('object_text')
     if not isinstance(object_text, str) or not 2 <= len(object_text) <= 240 or object_text not in quote:
         raise ValueError('Claim object must be an exact phrase from the quoted passage')
+    if not _predicate_evidenced(quote, row['predicate'], object_text):
+        raise ValueError('Strong claim predicate must be explicit beside its object')
     qualifier = row.get('qualifier_text', '')
     if not isinstance(qualifier, str) or len(qualifier) > 400 or (qualifier and qualifier not in quote):
         raise ValueError('Claim qualifier must be an exact phrase from the quoted passage')
@@ -121,9 +150,38 @@ def _chat(model, messages, schema):
                            metrics={'truncated': data.get('done_reason') == 'length'})
 
 
+def source_passages(text, max_chars=600, overlap=120):
+    """Cover long OCR lines with overlapping, exact source substrings.
+
+    Many ingested articles have no line breaks. Dropping lines over 1,200
+    characters silently excluded their claims, even when the chunk was valid.
+    """
+    result = {}
+    for line in text.splitlines():
+        if len(line.strip()) < 20:
+            continue
+        start = 0
+        while start < len(line):
+            end = min(start + max_chars, len(line))
+            if end < len(line):
+                # Prefer a nearby clause boundary, but never discard the tail
+                # when OCR has removed punctuation and spaces entirely.
+                boundary = max((line.rfind(mark, end - 160, end) for mark in ('。', '.', '!', '?', ' ', 'ฯ')),
+                               default=-1)
+                if boundary > start + max_chars - 160:
+                    end = boundary + 1
+            passage = line[start:end].strip()
+            if len(passage) >= 20:
+                result[f'p{len(result)}'] = passage
+            if end == len(line):
+                break
+            start = max(start + 1, end - overlap)
+    return result
+
+
 def extract(chunk, taxonomy, model=DEFAULT_MODEL):
     allowed = catalog(taxonomy)
-    passages = {f"p{i}": t for i, t in enumerate(chunk["text"].splitlines()) if 20 <= len(t) <= 1200}
+    passages = source_passages(chunk['text'])
     if not passages:
         raise ValueError("No complete passages within extraction limits; split source first")
     allowed = {cid: c for cid, c in allowed.items()
@@ -169,7 +227,8 @@ def extract(chunk, taxonomy, model=DEFAULT_MODEL):
     if len(chunk['text']) > 6500:
         raise ValueError('Chunk too long for pilot extraction; split it before extracting')
     result = _chat(model, [{'role': 'system', 'content': system},
-        {'role': 'user', 'content': json.dumps({'concepts': allowed, 'document': chunk['text'], 'passages': passages, 'allowed_concepts_per_passage': passage_concepts}, ensure_ascii=False)}],
+        {'role': 'user', 'content': json.dumps({'concepts': allowed, 'passages': passages,
+                                              'allowed_concepts_per_passage': passage_concepts}, ensure_ascii=False)}],
         schema)
     if result.metrics.get('truncated'):
         raise ValueError('Truncated model output')

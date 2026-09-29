@@ -79,8 +79,11 @@ class BuildTests(unittest.TestCase):
             self.assertEqual(props["text"], original["text"])
             self.assertEqual(props["pages"], original["pages"])
         # ไม่ผูกกับข้อมูลชุดใด: concept ที่ไม่มีเส้น ABOUT ต้องถูกรายงานครบ และไม่มีตัวที่มี chunk ถูกรายงานผิด
-        covered = {e["target"] for e in self.graph["relationships"] if e["type"] == "ABOUT"}
-        concepts = {n["id"] for n in self.graph["nodes"] if n["label"] not in ("User", "Source", "BookChunk")}
+        chunks = {n['id'] for n in self.graph['nodes'] if n['label'] == 'BookChunk'}
+        covered = {e["target"] for e in self.graph["relationships"]
+                   if e["type"] == "ABOUT" and e['source'] in chunks}
+        concepts = {n["id"] for n in self.graph["nodes"]
+                    if n["label"] not in ("User", "Source", "BookChunk", "Claim")}
         self.assertEqual(set(self.report["concepts_without_chunks"]), concepts - covered)
 
     def test_parallel_events_are_not_collapsed(self):

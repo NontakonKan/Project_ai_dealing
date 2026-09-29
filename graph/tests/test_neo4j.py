@@ -58,6 +58,17 @@ class Neo4jTests(unittest.TestCase):
         rows = read_graph(self.driver, QUERIES["chunks"], {"concept_id": "rf:stonewalling"}, self.db)
         self.assertEqual(rows, [])
 
+    def test_claim_paths_preserve_source_quotes_and_review_status(self):
+        rows = read_graph(self.driver, QUERIES['claim-evidence'],
+                          {'concept_id': 'attach:secure'}, self.db)
+        nodes = {n['id']: n for n in self.graph['nodes']}
+        expected = {e['source'] for e in self.graph['relationships']
+                    if e['type'] in {'SUBJECT', 'OBJECT'} and e['target'] == 'attach:secure'}
+        self.assertEqual({row['claim_id'] for row in rows}, expected)
+        for row in rows:
+            self.assertIn(row['quote'], nodes[row['chunk_id']]['properties']['text'])
+            self.assertEqual(row['review_status'], nodes[row['claim_id']]['properties']['assertion'])
+
 
 if __name__ == "__main__":
     unittest.main()

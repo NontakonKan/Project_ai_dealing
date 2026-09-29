@@ -14,7 +14,8 @@ python3 -m graph.build
 
 คำสั่งนี้สร้างกราฟในหน่วยความจำ ตรวจโครงสร้าง แล้วแสดงรายงานใน terminal โดยไม่สร้างไฟล์ผลลัพธ์ การนำเข้าฐานข้อมูลใช้ `python3 -m graph.import_neo4j` ซึ่งอ่านข้อมูลจาก `data/` โดยตรง จึงไม่ต้องรัน build ก่อนทุกครั้ง
 
-ผลจากข้อมูลปัจจุบัน (ไม่มี Claim ที่เปิดใช้): **1,441 nodes / 8,237 relationships** ประกอบด้วยผู้ใช้ 300 คน เอกสาร 37 แหล่ง, 1,035 chunks และ `NEXT_CHUNK` 685 เส้น
+ผลจากข้อมูลปัจจุบัน: **1,446 nodes / 8,252 relationships** ประกอบด้วยผู้ใช้ 300 คน เอกสาร 37 แหล่ง, 1,035 chunks, `NEXT_CHUNK` 685 เส้น และ Claim 5 ข้อใน [`knowledge_claims.jsonl`](knowledge_claims.jsonl)
+Claims ทั้ง 5 ยังเป็น `unverified` ใช้ชี้ข้อความต้นฉบับเพื่อค้นคืน ไม่ถูกส่งเป็นข้อสรุปที่ตรวจโดยคนแล้ว
 
 ## โครงสร้างกราฟ
 
@@ -33,11 +34,11 @@ graph LR
   S[Source] -->|HAS_CHUNK| B[BookChunk]
   B -->|NEXT_CHUNK| B2[BookChunk ถัดไป]
   B -->|ABOUT| K[Concept]
-  Q[Claim ที่ตรวจทานแล้ว] -->|SUBJECT / OBJECT| K
+  Q[Claim พร้อมสถานะการตรวจทาน] -->|SUBJECT / OBJECT| K
   Q -->|SUPPORTED_BY| B
 ```
 
-`Concept` เป็น label ร่วมของ Hobby, Trait, CommStyle, Attachment, LoveLanguage, LoveComponent, RedFlag และ ResearchFactor ไม่สร้างรหัสแนวคิดใหม่เอง ใช้ taxonomy เดิมครบทั้ง 61 รหัส
+`Concept` เป็น label ร่วมของประเภทแนวคิดใน taxonomy ไม่สร้างรหัสแนวคิดใหม่เอง ใช้ 61 รหัสหลักและ 8 รหัสด้านรูปลักษณ์ รวม 69 รหัส
 
 | ข้อมูล | สิ่งที่เก็บ |
 |---|---|
@@ -122,6 +123,7 @@ Python อ่าน environment variables โดยตรง ไม่ได้�
 .venv/bin/python -m graph.explore rule-paths --user-id U001 --other-id U002
 .venv/bin/python -m graph.explore reports
 .venv/bin/python -m graph.explore chunks --concept-id attach:secure
+.venv/bin/python -m graph.explore claim-evidence --concept-id attach:secure
 ```
 
 `shared` กับ `rule-paths` ใช้ผู้ใช้สองคนที่ระบุเพื่อสำรวจเส้นทางเท่านั้น ไม่หาผู้สมัคร ไม่คิดคะแนน ไม่เรียงอันดับคู่ ผลลัพธ์เป็นข้อมูล JSON ที่ตรวจสอบได้
@@ -153,7 +155,7 @@ graph/
 
 รายละเอียดเมนูตามรุ่นดู [Neo4j Browser result frames](https://neo4j.com/docs/browser/operations/result-frames/) การ export จะครอบคลุมผล query ที่แสดงเท่านั้น ตัวอย่างที่มี LIMIT ไม่ใช่การ export กราฟทั้งหมด
 
-สำหรับ export ข้อมูลครบ active snapshot ให้ใช้สองคำสั่งท้าย `queries.cypher` ซึ่งไม่มี LIMIT และตรวจจำนวนแถวก่อนดาวน์โหลด: nodes 1,441 แถว และ relationships 8,237 แถวตามชุดปัจจุบัน ปรับ record limit ของ Browser หากตั้งไว้น้อยกว่านี้
+สำหรับ export ข้อมูลครบ active snapshot ให้ใช้สองคำสั่งท้าย `queries.cypher` ซึ่งไม่มี LIMIT และตรวจจำนวนแถวก่อนดาวน์โหลด: nodes 1,446 แถว และ relationships 8,252 แถวตามชุดปัจจุบัน ปรับ record limit ของ Browser หากตั้งไว้น้อยกว่านี้
 
 ไฟล์ SVG และ PNG ที่ export จาก Neo4j Browser สำหรับ snapshot เก่าอยู่ใน [`exports/`](exports/); ตัวเลขในภาพยังไม่รวมเอกสารและ `NEXT_CHUNK` ที่เพิ่มภายหลัง:
 
@@ -170,7 +172,7 @@ graph/
 python3 -m unittest discover -s graph/tests -v
 ```
 
-การทดสอบนี้ไม่ต้องเปิด Neo4j และจะ skip live integration 3 tests หากต้องการทดสอบนำเข้าจริง ให้นำ environment ของฐานข้อมูลโปรเจกต์หรือฐานทดลองมาใช้ก่อน:
+การทดสอบนี้ไม่ต้องเปิด Neo4j และจะ skip live integration 4 tests หากต้องการทดสอบนำเข้าจริง ให้นำ environment ของฐานข้อมูลโปรเจกต์หรือฐานทดลองมาใช้ก่อน:
 
 ```bash
 GRAPH_NEO4J_TEST=1 .venv/bin/python -m unittest discover -s graph/tests -v
@@ -218,9 +220,9 @@ schema รองรับรูปลักษณ์ (`BodyType`/`SkinTone`/`Hyg
 
 ผลล่าสุดบนคำถามเดิม 52 ข้อ (มีคำตอบ 41): Hit@8 ของ Graph แบบแท็กเดิม 0.122, Dense 0.707,
 Graph ใหม่ 0.829 และ Hybrid RRF 0.878; Graph พบข้อความตาม keyword ที่ Dense พลาด 7 ข้อ และกลับกัน 2 ข้อ
-เมื่อถอดเส้น `ABOUT` และ `NEXT_CHUNK` ออกจาก Graph ใหม่แต่คง text index เดิม Hit@8 ยังเป็น 0.829
-และ MRR@8 ลดจาก 0.655 เป็น 0.649 แสดงว่าผลหลักมาจากการค้นข้อความ ไม่ควรอ้างว่า graph edges ทำให้ผล 52 ข้อนี้ดีขึ้นทั้งหมด
-ใน pilot 5 คำถาม `ABOUT` ช่วยกู้ chunk ของคำถามอ้อมเรื่อง gaslighting ที่ text index อย่างเดียวพลาด
+เมื่อถอด Claims, `ABOUT` และ `NEXT_CHUNK` แต่คง text index เดิม Hit@8 ยังเป็น 0.829 และ MRR@8 เป็น 0.649
+Graph ที่ไม่มี Claims มี MRR@8 0.655 ส่วน Graph ที่มี Claims เป็น 0.647: การจัดอันดับในชุดกว้างนี้ยังไม่ดีขึ้น
+ผลหลักในชุด 52 ข้อมาจากการค้นข้อความ ไม่ควรอ้างว่า graph edges ทำให้ผลนี้ดีขึ้นทั้งหมด
 Graph ใหม่ไม่คืนผลดิบใน 3/11 คำถามที่ไม่มีคำตอบ ขณะที่ Dense และ Hybrid ดิบยังคืน candidate ทุกข้อ
 เวลาค้นแบบ warm p50 ของ Graph ประมาณ 10 ms เทียบกับ Dense ประมาณ 90 ms และ Hybrid ประมาณ 104 ms บนเครื่องทดลองนี้
 ตัวเลขนี้ใช้ keyword heuristic และชุดคำถามเดียวกับที่ใช้ระหว่างพัฒนา จึงยังไม่ใช่การประเมินคำตอบแบบ blind review
@@ -231,7 +233,10 @@ Graph ใหม่ไม่คืนผลดิบใน 3/11 คำถาม�
 ใช้ `qwen3.5:9b` ผ่าน Ollama local และ JSON schema โดยไม่เรียก API ภายนอก
 ปิด thinking เฉพาะงานนี้เพื่อเก็บ output budget สำหรับ JSON; งานโมเดลอื่นใช้ค่าเดิม
 ให้โมเดลเลือก ID ย่อหน้าจากต้นฉบับและ concept IDs จากรายการปิด พร้อมเสนอ subject, predicate, object, polarity และ qualifier
-โปรแกรมคัดข้อความอ้างอิง/object/qualifier จากต้นฉบับเองและปฏิเสธค่าที่ไม่อยู่ในข้อความ; ย่อหน้าต้องยาว 20–1,200 ตัวอักษร และ chunk ไม่เกิน 6,500 ตัวอักษร
+โปรแกรมคัดข้อความอ้างอิง/object/qualifier จากต้นฉบับเองและปฏิเสธค่าที่ไม่อยู่ในข้อความ
+บรรทัด OCR ที่ยาวถูกแบ่งเป็นช่วงต้นฉบับไม่เกิน 600 ตัวอักษรซ้อนกัน 120 ตัวอักษร โดยพยายามใช้ขอบเขตวลี
+ช่วงสั้นกว่า 20 ตัวอักษรถูกข้าม; บางช่วงอาจเริ่มกลางวลี ผู้ตรวจต้องอ่าน chunk เต็มก่อนยืนยันความหมาย
+ขั้นนี้ครอบคลุม chunks ปัจจุบัน 1,035/1,035 ข้อ เทียบกับเดิม 887/1,035 ข้อที่มีบรรทัดใช้สกัดได้
 สกัดเฉพาะเอกสารความรู้ ไม่อ่านบทสนทนาผู้ใช้ และไม่สร้างกฎคะแนน Matching
 
 ```bash
@@ -246,9 +251,11 @@ ollama pull qwen3.5:9b
 ข้อเสนอที่คัด `object_text`/`qualifier_text` ไม่ตรงต้นฉบับจะถูกข้ามพร้อม warning โดยเก็บข้อเสนออื่นที่ผ่านไว้ให้ตรวจทาน
 CLI ไม่เขียนทับไฟล์เดิมและจะไม่สร้าง output ถ้าการสกัด chunk ล้มเหลวทั้งขั้นตอน
 
-หลังตรวจแล้ว นำไฟล์ไปไว้ `data/processed/knowledge_claims.jsonl`
-`load_inputs()` จะโหลดอัตโนมัติเมื่อ build/import Neo4j หรือเปิด GraphView ใหม่
-หากไม่มีไฟล์นี้ ระบบใช้ Graph เดิมตามปกติ ไม่ต้องเปลี่ยน ChromaDB
+`load_inputs()` ใช้ `data/processed/knowledge_claims.jsonl` ถ้ามี มิฉะนั้นใช้ไฟล์ [`graph/knowledge_claims.jsonl`](knowledge_claims.jsonl) สำหรับ data directory มาตรฐาน
+ไฟล์ใน graph ประกอบด้วยข้อเสนอจาก Qwen3.5 ที่ตรวจข้อความตรงกับต้นฉบับแล้ว 5 ข้อ แต่ยังไม่ได้รับสถานะ human verified
+เมื่อใช้ data directory อื่น ระบบไม่เติม Claims ของชุดมาตรฐานให้เอง
+build/import Neo4j หรือเปิด GraphView ใหม่จะอ่านไฟล์นี้อัตโนมัติ; แอปที่เปิดค้างต้องสร้าง context ใหม่หรือ restart เพื่อโหลดการเปลี่ยนข้อมูล
+ไม่ต้องเปลี่ยน ChromaDB
 หาก chunk ต้นทางเปลี่ยนหรือลบ การ build จะปฏิเสธ Claim เก่า ต้องสกัดใหม่หรือนำรายการนั้นออก
 
 โครงสร้าง Claim: `Claim -[:SUBJECT]-> Concept`, `Claim -[:OBJECT]-> Concept` (ถ้า object เป็น concept),
@@ -261,7 +268,17 @@ ID คงที่ครอบคลุมข้อมูล proposition แล�
 
 Graph retrieval ใช้ subject/object เพื่อดึง Claim ที่ตรงกับ concept และรองรับ path 2 hops จาก Claims ที่ตรวจทานแล้ว
 คืน proposition ทั้งสองข้อพร้อม source chunk แยกกัน ไม่สังเคราะห์ข้อเท็จจริงใหม่ที่ไม่มี passage รองรับ
-Claim ที่ยังไม่ตรวจสอบส่งได้เฉพาะ chunk ต้นฉบับเป็น candidate ผ่าน gate ความเกี่ยวข้องเดิม ไม่ส่งตัว Claim เป็น fact
+Claim ที่ยังไม่ตรวจสอบส่งได้เฉพาะข้อความต้นฉบับเป็น candidate ผ่าน gate ความเกี่ยวข้องเดิม ไม่ส่งตัว Claim เป็น fact
+เมื่อมี Claim ตรงหัวข้อ จะส่งช่วงข้อความต่อเนื่องที่ครอบคลุมย่อหน้าของ quotes ทุกข้อ พร้อม `source_text_range: [start, end]` สำหรับย้อนตรวจใน BookChunk เต็ม
+ไม่ต่อวลีจากคนละช่วงเข้าด้วยกัน; ถ้า OCR ไม่มีการแบ่งบรรทัดจะเก็บย่อหน้านั้นทั้งย่อหน้าเพื่อรักษาเงื่อนไขและข้อจำกัด
+ข้อความช่วงนี้ยังมี `kind: chunk` แต่ใช้ Claim ID เป็นรหัส context และ `meta.chunk_id` ชี้ BookChunk เดิม เพื่อไม่ให้ Dense-first deduplication แทนที่ช่วงหลักฐานด้วย chunk เต็ม
+Claim ID นี้อ่าน source_id จาก Graph ได้ตามปกติ; การใช้รหัสดังกล่าวไม่ได้ยืนยัน subject/predicate/object เป็นข้อเท็จจริง
+เมื่อพบ Claim path และคำถามมี n-gram ตรงกับ object phrase ช่องค้น Graph จำกัดผลไว้ที่ chunks หลักฐาน, chunk ข้างเคียง และ chunk แรกจาก Source เดียวกัน แทนการเติม pool ด้วย lexical matches ที่ไม่มีเส้นหลักฐาน
+chunk แรกใช้ประกอบนิยามและบริบทของ quote ผ่าน `Source — HAS_CHUNK → BookChunk`; ระบุ `source_context_for` แต่ไม่ได้สร้าง `SUPPORTED_BY` ให้ข้อความที่ไม่ได้ถูกอ้าง
+การตรวจ n-gram นี้ใช้เลือกช่องค้นเท่านั้น ไม่ใช่การตรวจความจริงหรือความหมาย
+Dense ยังค้นทั่วคลัง; เมื่อไม่พบ Claim path หรือถามแง่มุมอื่นที่ไม่ตรง object phrase ระบบ Graph ใช้ lexical search + ABOUT + NEXT_CHUNK ตามเดิม เพราะชุด Claims ยังไม่ครอบคลุมทุกแง่มุม
+หลาย Claims ใน chunk เดียวกันเพิ่มคะแนนค้นได้เพียงครั้งเดียว เพื่อไม่ให้การสกัดซ้ำเพิ่มน้ำหนักหลักฐาน
+คำถามที่ระบุการทำนาย/เหตุ/การป้องกันจะไม่ใช้ Claim คนละ predicate เพิ่มอันดับหรือคืนเป็น fact และไม่อนุมานสอง hops เป็นเหตุสัมพันธ์ใหม่
 การเปลี่ยนนี้ไม่แตะ `scorer.py`; เส้นทาง Dense อย่างเดียวยังไม่ใช้ Claims
 
 ดูเฉพาะ Claims ใน active snapshot ผ่าน Neo4j Browser:
@@ -275,7 +292,32 @@ RETURN c,r,b,a,t LIMIT 50
 
 ทดสอบ: `.venv/bin/python -m unittest discover -s graph/tests`
 ก่อนขยายครบทุกเอกสาร ให้เทียบคำถามชุดเดิมระหว่าง Graph ที่ไม่มี/มี Claims
-วัดการค้นพบ chunk หลักฐาน คุณภาพคำตอบ และ latency; ยังไม่มีผลว่าดีกว่าระบบเดิม
+วัดการค้นพบ chunk หลักฐาน คุณภาพคำตอบ และ latency; ผลเฉพาะชุดสาธิตด้านล่างไม่ใช่หลักฐานว่าทุกหัวข้อดีขึ้น
+
+### ทดสอบประโยชน์ของเส้นหลักฐาน
+
+```bash
+.venv/bin/python -m graph.evaluate_claims --evidence-benchmark
+.venv/bin/python -m graph.evaluate_claims --evidence-benchmark --generate
+```
+
+คำสั่งแสดงผลใน terminal โดยไม่สร้างไฟล์หรือเขียน ChromaDB; `--generate` เรียก Typhoon2 8B local ผ่าน relevance gate และ answer verifier เดิม
+มีทั้ง Dense, Graph ที่ไม่มี/มี Claims และ Routed Hybrid แบบเดียวกับตัวค้นของแอป
+ไม่ได้ทดสอบ LINE webhook, conversation history หรือ LLM topic rewrite รอบสอง; รายงานตรวจหมายเลข citation โดยไม่แก้หรือซ่อนข้อผิดพลาดของคำตอบ
+ใช้คำถามเป้าหมาย 5 ข้อพร้อม ID ของ chunk หลักฐาน และคำถามนอกคลัง 1 ข้อ:
+
+| ตัวดึง | Hit@8 (5 ข้อ) | MRR@8 |
+|---|---:|---:|
+| Dense | 0.40 | 0.200 |
+| Graph ไม่มี Claims | 0.60 | 0.300 |
+| Graph มี Claims | 1.00 | 0.900 |
+| Routed Hybrid | 1.00 | 0.350 |
+
+ตัวอย่าง `secure attachment รับความช่วยเหลือจากคนอื่นอย่างไร`: Dense และ Graph ที่ไม่มี Claims ไม่พบ chunk เป้าหมายใน top 8
+Graph เดิน `attach:secure ← SUBJECT — Claim — SUPPORTED_BY → web_chula_attachment_s00_c02` และส่งย่อหน้าที่ระบุว่าเต็มใจพึ่งพาและรับการสนับสนุนจากผู้อื่น
+ทดสอบกับ Typhoon2 8B แล้วตอบเนื้อหานี้พร้อมอ้างอิงได้ผ่าน gate เดิม; เมื่อใช้ chunk เต็มกับตัวรวมผลเดิม เคยถูก gate ตัดจนตอบว่าไม่มีข้อมูล
+จึงใช้ความสัมพันธ์เพื่อกู้หลักฐานที่การจัดอันดับข้อความอย่างเดียวพลาด และตรวจได้ว่าเส้นนั้นชี้ quote ไหนจากเอกสารใด
+ชุดนี้เลือกจาก Claims ที่มีอยู่ จึงเป็น targeted pilot ไม่ใช่ held-out test; Hit@8 ไม่เท่ากับความถูกต้องของคำตอบทุกข้อ
 
 ### ตัวกรองและโครงสร้าง Claim ใน v3
 
@@ -284,6 +326,8 @@ RETURN c,r,b,a,t LIMIT 50
 `attach:secure` ต้องพบคำเฉพาะ เช่น `ความผูกพันแบบมั่นคง` หรือ `secure` ไม่ใช่เพียง `มั่นคง`
 ภาษาอังกฤษตรวจขอบเขตคำเพื่อไม่ให้ `insecure` ถูกจับเป็น `secure`
 ตัวกรองนี้ลดการเดา แต่ยังพลาดคำพ้องใหม่และไม่ยืนยันว่าความหมายของ concept ถูกต้องทั้งหมด
+predicate แบบ `predicts`, `causes`, `prevents` ต้องมีคำกริยาชัดเจนอยู่ห่างจาก object ไม่เกิน 25 ตัวอักษรหลังตัดช่องว่าง
+การพบคำว่า “ทำนาย” ในย่อหน้าเดียวกันแต่ทำนายคนละตัวแปรจะถูกปฏิเสธ ตัวกรองนี้ยังเป็น lexical guard ไม่ใช่การตรวจ entailment ทางความหมาย
 ไฟล์ Claim ที่โหลดเข้า Graph จะตรวจซ้ำและปฏิเสธข้อมูลผิด ไม่ตัดเงียบ ๆ ตอน import
 
 ตัวอย่างสำหรับตรวจ Claims และสถานะผู้ทบทวนใน Neo4j: `.venv/bin/python -m graph.explore claims`
@@ -295,7 +339,7 @@ RETURN c,r,b,a,t LIMIT 50
 ไฟล์ pilot เป็นผลดิบสำหรับประเมิน ไม่ใช่ไฟล์เปิดใช้งาน และไม่ถูกโหลดเข้า Graph อัตโนมัติ
 ยังต้องประเมินคุณภาพคำตอบ A/B และตรวจความหมายของลิงก์ก่อนขยายหรือ publish
 
-### ประเมินและทดลอง Neo4j (ยังไม่เปิดใช้จริง)
+### ผลทดลอง v2 เดิม (ไม่ใช่ active Claims v3)
 
 ```bash
 .venv/bin/python -m graph.evaluate_claims --claims /tmp/reviewed-claims-v3.jsonl --output /tmp/claims-eval.json

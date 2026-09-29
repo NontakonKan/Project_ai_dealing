@@ -4,7 +4,7 @@ from unittest.mock import patch
 from types import SimpleNamespace
 
 from graph.build import build_graph
-from graph.claims import VERSION, DEFAULT_MODEL, claim_identifier, extract
+from graph.claims import VERSION, DEFAULT_MODEL, claim_identifier, extract, source_passages
 from graph.model import digest, validate, content_hash
 from graph.schema import GROUP_LABELS
 from graph.view import GraphView
@@ -33,7 +33,8 @@ class ClaimTests(unittest.TestCase):
         with patch('graph.retrieve.concept_detector.detect', return_value={'trait:test'}):
             result = GraphKnowledge(GraphView(graph)).retrieve('สื่อสาร')
         self.assertEqual(len(result.items), 1)
-        self.assertEqual(result.items[0].id, 'c1')
+        self.assertEqual(result.items[0].id, self.row['claim_id'])
+        self.assertEqual(result.items[0].meta['chunk_id'], 'c1')
         self.assertEqual(result.items[0].kind, 'chunk')
         self.assertEqual(result.items[0].text, self.chunk['text'])
         self.assertEqual(result.items[0].meta['claim_ids'], [self.row['claim_id']])
@@ -50,9 +51,109 @@ class ClaimTests(unittest.TestCase):
         self.assertEqual(fact.id, self.row['claim_id'])
         self.assertEqual(fact.meta['verification_status'], 'human_verified')
         self.assertEqual(fact.meta['evidence_chunk_ids'], ['c1'])
+        self.assertEqual(fact.meta['evidence_paths'], [
+            ['trait:test', '<-SUBJECT-', self.row['claim_id'],
+             'SUPPORTED_BY', 'c1', '<-HAS_CHUNK-', 'source:s1']])
         self.assertEqual(fact.meta['predicate'], 'decreases')
         self.assertIn(self.chunk['text'], fact.text)
         self.assertIn('ในคู่รักบางกลุ่ม', fact.text)
+
+    def test_source_excerpt_keeps_paragraph_conditions_and_exact_offsets(self):
+        quote = self.chunk['text']
+        paragraph = quote + ' งานนี้ยังไม่ยืนยันความเป็นเหตุเป็นผล'
+        chunk = {**self.chunk, 'text': 'หัวข้ออื่นก่อนหน้า\n' + paragraph + '\nหัวข้ออื่นถัดไป'}
+        row = {**self.row, 'chunk_hash': digest(chunk)}
+        row['claim_id'] = claim_identifier(row)
+        graph, _ = build_graph(self.tax, [], [], [chunk], claims=[row])
+        with patch('graph.retrieve.concept_detector.detect', return_value={'trait:test'}):
+            item = GraphKnowledge(GraphView(graph)).retrieve('สื่อสาร').items[0]
+        self.assertEqual(item.kind, 'chunk')
+        self.assertEqual(item.text, paragraph)
+        start, end = item.meta['source_text_range']
+        self.assertEqual(chunk['text'][start:end], item.text)
+        self.assertIn('ยังไม่ยืนยัน', item.text)
+
+    def test_hybrid_keeps_graph_source_excerpt_when_dense_has_the_full_chunk(self):
+        from pipelines.hybrid.retrievers import HybridKnowledge
+        from unittest.mock import Mock
+        chunk = {**self.chunk, 'text': 'หัวข้ออื่นก่อนหน้า\n' + self.chunk['text'] + '\nหัวข้ออื่นถัดไป'}
+        row = {**self.row, 'chunk_hash': digest(chunk)}
+        row['claim_id'] = claim_identifier(row)
+        graph, _ = build_graph(self.tax, [], [], [chunk], claims=[row])
+        view = GraphView(graph)
+        dense = Mock()
+        dense.search.return_value = [{'id': 'c1', 'text': chunk['text'], 'score': 0.7}]
+        hybrid = HybridKnowledge(SimpleNamespace(graph=view, dense=dense))
+        with patch('graph.retrieve.concept_detector.detect', return_value={'trait:test'}):
+            items = {it.id: it for it in hybrid.retrieve('สื่อสาร').items}
+        self.assertEqual(items['c1'].text, chunk['text'])
+        excerpt = items[row['claim_id']]
+        self.assertEqual(excerpt.kind, 'chunk')
+        self.assertEqual(excerpt.text, self.row['quote'])
+        self.assertEqual(view.prop(excerpt.id, 'source_id'), 's1')
+        self.assertEqual(excerpt.meta['chunk_id'], 'c1')
+
+    def test_claim_count_does_not_amplify_a_source_chunk_score(self):
+        other = {**self.row, 'predicate': 'associated_with'}
+        other['claim_id'] = claim_identifier(other)
+        with patch('graph.retrieve.concept_detector.detect', return_value={'trait:test'}):
+            single = GraphKnowledge(GraphView(self.build([self.row]))).retrieve('สื่อสาร').items[0]
+            multiple = GraphKnowledge(GraphView(self.build([self.row, other]))).retrieve('สื่อสาร').items[0]
+        self.assertEqual(single.score, multiple.score)
+        self.assertEqual(multiple.meta['chunk_id'], 'c1')
+        self.assertEqual(len(multiple.meta['claim_ids']), 2)
+
+    def test_other_aspects_of_a_concept_keep_the_lexical_fallback(self):
+        other = {'chunk_id': 'c2', 'source_id': 's2', 'pages': [2], 'concepts': [],
+                 'text': 'banana pineapple banana orange'}
+        graph, _ = build_graph(self.tax, [], [], [self.chunk, other], claims=[self.row])
+        with patch('graph.retrieve.concept_detector.detect', return_value={'trait:test'}):
+            items = GraphKnowledge(GraphView(graph)).retrieve('banana').items
+        self.assertTrue(any(it.id == 'c2' for it in items))
+
+    def test_large_graph_pool_does_not_double_unrelated_dense_votes(self):
+        other = {'chunk_id': 'c2', 'source_id': 's2', 'pages': [2], 'concepts': [],
+                 'text': 'ความขัดแย้ง banana pineapple banana orange'}
+        graph, _ = build_graph(self.tax, [], [], [self.chunk, other], claims=[self.row])
+        with patch('graph.retrieve.concept_detector.detect', return_value={'trait:test'}):
+            items = GraphKnowledge(GraphView(graph)).retrieve('ความขัดแย้ง', 40).items
+        self.assertFalse(any(it.id == 'c2' for it in items))
+        self.assertTrue(any(it.meta['chunk_id'] == 'c1' for it in items))
+
+    def test_later_claim_recovers_its_source_introduction(self):
+        chunk = {**self.chunk, 'chunk_id': 'book_s00_c02'}
+        intro = {**chunk, 'chunk_id': 'book_s00_c00', 'text': 'นิยามและบริบทของการศึกษาฉบับนี้'}
+        middle = {**chunk, 'chunk_id': 'book_s00_c01', 'text': 'รายละเอียดขั้นตอนการศึกษาต่อเนื่อง'}
+        row = {**self.row, 'chunk_id': chunk['chunk_id'], 'chunk_hash': digest(chunk)}
+        row['claim_id'] = claim_identifier(row)
+        graph, _ = build_graph(self.tax, [], [], [intro, middle, chunk], claims=[row])
+        with patch('graph.retrieve.concept_detector.detect', return_value={'trait:test'}):
+            items = GraphKnowledge(GraphView(graph)).retrieve('ความขัดแย้ง').items
+        item = next(it for it in items if it.id == intro['chunk_id'])
+        self.assertEqual(item.text, intro['text'])
+        self.assertEqual(item.meta['source_context_for'], [chunk['chunk_id']])
+        self.assertEqual(item.meta['claim_ids'], [])
+
+    def test_prediction_question_does_not_promote_a_different_claim(self):
+        reviewed = {**self.row, 'review_status': 'human_verified', 'reviewed_by': 'reviewer-1',
+                    'reviewed_at': '2026-09-28T12:00:00+07:00'}
+        graph = self.build([reviewed])
+        with patch('graph.retrieve.concept_detector.detect', return_value={'trait:test'}):
+            result = GraphKnowledge(GraphView(graph)).retrieve('การสื่อสารทำนายความขัดแย้งไหม')
+        self.assertFalse(any(item.kind == 'graph_fact' for item in result.items))
+        self.assertTrue(all(not item.meta['claim_ids'] for item in result.items))
+
+    def test_strong_predicate_must_target_the_outcome_beside_its_cue(self):
+        chunk = {**self.chunk, 'text': 'การสื่อสารทำนายการผูกมัดในความสัมพันธ์ แต่ความขัดแย้งเป็นอีกตัวแปรหนึ่ง'}
+        row = {**self.row, 'chunk_hash': digest(chunk), 'quote': chunk['text'],
+               'predicate': 'predicts', 'object_text': 'ความขัดแย้ง',
+               'qualifier_text': '', 'polarity': 'affirmed'}
+        row['claim_id'] = claim_identifier(row)
+        with self.assertRaisesRegex(ValueError, 'Strong claim predicate'):
+            build_graph(self.tax, [], [], [chunk], claims=[row])
+        row['object_text'] = 'การผูกมัด'
+        row['claim_id'] = claim_identifier(row)
+        build_graph(self.tax, [], [], [chunk], claims=[row])
 
     def test_two_hop_retrieval_returns_both_reviewed_source_claims(self):
         self.tax['traits'] = [
@@ -169,6 +270,14 @@ class ClaimTests(unittest.TestCase):
             result.metrics = {'truncated': True}
             with self.assertRaises(ValueError):
                 extract(self.chunk, self.tax)
+
+    def test_long_ocr_line_remains_extractable_with_exact_passages(self):
+        line = 'ก' * 900 + 'การสื่อสารช่วยลดความขัดแย้งในคู่รัก' + 'ข' * 600
+        passages = source_passages(line)
+        self.assertGreaterEqual(len(passages), 2)
+        self.assertTrue(all(20 <= len(p) <= 600 and p in line for p in passages.values()))
+        self.assertTrue(any('การสื่อสารช่วยลดความขัดแย้ง' in p for p in passages.values()))
+        self.assertEqual(passages, source_passages(line))
 
     def test_invalid_model_proposal_does_not_discard_valid_claim(self):
         import json

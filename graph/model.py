@@ -163,6 +163,9 @@ def validate(graph):
                 or not isinstance(qualifier, str) or len(qualifier) > 400
                 or (qualifier and qualifier not in quote)):
             raise ValueError("Claim structure must preserve exact source phrases")
+        from .claims import _predicate_evidenced
+        if not _predicate_evidenced(quote, props['predicate'], object_text):
+            raise ValueError('Strong claim predicate must be explicit beside its object')
         if props["assertion"] == "human_verified":
             reviewer, reviewed_at = props.get("reviewed_by"), props.get("reviewed_at")
             if not isinstance(reviewer, str) or not reviewer.strip() or not isinstance(reviewed_at, str):

@@ -10,6 +10,7 @@ from .model import Graph, validate
 from .schema import EVENT_RELATIONS, GROUP_LABELS, pick
 
 ROOT = Path(__file__).resolve().parents[1]
+PACKAGED_CLAIMS = Path(__file__).with_name('knowledge_claims.jsonl')
 
 
 def read_jsonl(path):
@@ -146,9 +147,12 @@ def load_inputs(data_dir):
     provenance = {key: {"path": str(path.relative_to(data_dir)), "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
                   for key, path in files.items()}
     claim_path = data_dir / "processed/knowledge_claims.jsonl"
+    if not claim_path.exists() and data_dir.resolve() == (ROOT / 'data').resolve():
+        claim_path = PACKAGED_CLAIMS
     if claim_path.exists():
         values["claims"] = read_jsonl(claim_path)
-        provenance["claims"] = {"path": str(claim_path.relative_to(data_dir)),
+        provenance["claims"] = {"path": 'graph/knowledge_claims.jsonl' if claim_path == PACKAGED_CLAIMS
+                                else str(claim_path.relative_to(data_dir)),
                                 "sha256": hashlib.sha256(claim_path.read_bytes()).hexdigest()}
     return values, provenance
 

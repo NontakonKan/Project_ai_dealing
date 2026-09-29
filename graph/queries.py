@@ -1,6 +1,17 @@
 """Read-only graph inspection, without matching scores, ranking or RAG."""
 
 QUERIES = {
+    "claim-evidence": """
+        MATCH (concept:DealingEntity:Concept {dataset:$dataset, snapshot:$snapshot, id:$concept_id})
+              <-[role:SUBJECT|OBJECT]-(claim:Claim)-[:SUPPORTED_BY]->(chunk:BookChunk)
+              <-[:HAS_CHUNK]-(source:Source)
+        RETURN claim.id AS claim_id, type(role) AS matched_role,
+               claim.assertion AS review_status, claim.predicate AS predicate,
+               claim.polarity AS polarity, claim.qualifier_text AS qualifier,
+               claim.text AS quote, chunk.id AS chunk_id, chunk.pages AS pages,
+               source.source_id AS source_id, source.title AS title
+        ORDER BY source_id, chunk_id, claim_id
+    """,
     "claims": """
         MATCH (c:DealingEntity:Claim {dataset:$dataset, snapshot:$snapshot})
               -[:SUPPORTED_BY]->(b:BookChunk)
