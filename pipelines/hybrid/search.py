@@ -61,6 +61,7 @@ def _neighbors(g, items):
 
 
 def find(retriever, query, k=8) -> Found:
+    query = re.sub(r"\s+", " ", query.strip())
     raw = retriever.retrieve(query, k)
     route = raw.items[0].meta.get("route", "-") if raw.items else "-"
     n_before = len(raw.items)

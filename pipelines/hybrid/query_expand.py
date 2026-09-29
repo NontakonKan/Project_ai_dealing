@@ -60,6 +60,14 @@ COLLOQUIAL = {
     "กลัวผูกมัด": ("หลีกเลี่ยงความผูกพัน", "รูปแบบความผูกพัน"),
     "ทะเลาะ": ("ความขัดแย้งในคู่รัก", "การจัดการอารมณ์"),
     "สามเหลี่ยมความรัก": ("ทฤษฎีสามเหลี่ยมแห่งความรัก", "Sternberg"),
+    "red flag": ("สัญญาณเตือนอันตราย", "ความสัมพันธ์ท็อกซิก", "toxic relationship", "พฤติกรรมอันตราย"),
+    "red flags": ("สัญญาณเตือนอันตราย", "ความสัมพันธ์ท็อกซิก", "toxic relationship"),
+    "เรดแฟลก": ("สัญญาณเตือนอันตราย", "ความสัมพันธ์ท็อกซิก", "toxic relationship"),
+    "yellow flag": ("สัญญาณที่ต้องระวัง", "ข้อควรระวังในความสัมพันธ์"),
+    "green flag": ("สัญญาณความสัมพันธ์ที่ดี", "ลักษณะคนรักที่ดี"),
+    "นัดครั้งแรก": ("นัดครั้งแรกควรทำอย่างไร", "การออกเดท", "การนัดกับคนที่เพิ่งรู้จัก"),
+    "นัดยังไง": ("นัดครั้งแรกควรทำอย่างไร", "การนัดกับคนที่เพิ่งรู้จัก"),
+    "เดทแรก": ("นัดครั้งแรกควรทำอย่างไร", "การออกเดท"),
 }
 MAX_VARIANTS = 5
 
@@ -74,8 +82,18 @@ def partner_term(query: str):
 
 
 def _slang_variants(query: str) -> list:
+    import re
+    q_norm = re.sub(r"\s+", " ", query.strip())
+    q_lower = q_norm.lower()
+    # 1. Match multi-word / English phrases directly (e.g. "red flag", "yellow flag", "นัดครั้งแรก")
+    for phrase, alts in COLLOQUIAL.items():
+        if " " in phrase or any(c.isascii() and c.isalpha() for c in phrase):
+            if phrase in q_lower:
+                pattern = re.compile(re.escape(phrase), re.IGNORECASE)
+                return [pattern.sub(alt, q_norm) for alt in alts]
+    # 2. Token-based matching for Thai compound words
     from pythainlp.tokenize import word_tokenize
-    tokens = word_tokenize(query, engine="newmm", keep_whitespace=True)
+    tokens = word_tokenize(q_norm, engine="newmm", keep_whitespace=True)
     for i in range(len(tokens)):
         for n in (2, 1):                         # "ขอไลน์" ถูกตัดเป็น "ขอ"+"ไลน์" -> ดูคู่คำติดกันก่อน
             phrase = "".join(tokens[i:i + n])

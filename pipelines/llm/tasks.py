@@ -109,8 +109,16 @@ def summarize_memory(rows, existing):
             break
         compact.append(item)
         used += cost
-    result = providers.chat(model, prompts.memory_messages(rows, compact),
-                            replace(cfg.gen, num_ctx=8192, num_predict=1200), fmt="json")
+    try:
+        result = providers.chat(model, prompts.memory_messages(rows, compact),
+                                replace(cfg.gen, num_ctx=8192, num_predict=1200), fmt="json")
+    except Exception as e:
+        if cfg.model != model and (providers.is_api(cfg.model) or cfg.fallback):
+            fallback_model = cfg.fallback if cfg.fallback and cfg.fallback != model else cfg.model
+            result = providers.chat(fallback_model, prompts.memory_messages(rows, compact),
+                                    replace(cfg.gen, num_ctx=8192, num_predict=1200), fmt="json")
+        else:
+            raise e
     if result.metrics.get('truncated'):
         raise ValueError('Truncated memory update')
     return json.loads(result.text)['changes']

@@ -1,4 +1,5 @@
 """คุยเล่น (ซีน 1): สกัดบุคลิก/สเปก/ค่านิยม -> merge โปรไฟล์ -> ตอบแบบเพื่อน"""
+import re
 from concurrent.futures import ThreadPoolExecutor
 from pipelines.llm import tasks
 from pipelines.profile import faculty
@@ -27,9 +28,39 @@ QUESTION_CUES = ("อะไร", "กว่า", "ไหม", "มั้ย", "�
 ADVICE_CUES = ("ทำไม", "ยังไง", "อย่างไร", "ควร", "ไหม", "มั้ย", "ปรึกษา", "วิธี", "ทำไง")
 
 
+def _extract_text_avoids(text: str) -> list:
+    """สกัดสิ่งที่ผู้ใช้บอกว่าไม่ชอบโดยตรงจากข้อความ เพื่อบันทึกเป็นสเปกหลีกเลี่ยง"""
+    negative_patterns = [
+        r"(?:ไม่ชอบ|ไม่เอา|เกลียด|รับไม่ได้กับ|ไม่โอเคกับ)\s*(?:คน(?:ที่)?)?\s*([^\s,.;]+(?: [^\s,.;]+)?)",
+    ]
+    custom = []
+    for pat in negative_patterns:
+        for m in re.finditer(pat, text):
+            val = m.group(1).strip()
+            val = re.sub(r"(?:ครับ|ค่ะ|จ้า|นะ|เลย|มากๆ|มาก)$", "", val).strip()
+            if val and len(val) >= 2 and val not in ("อะไร", "ใคร", "ไหน", "ไหม", "ทำไม", "ยังไง"):
+                custom.append(val)
+    return custom
+
+
 def handle(line_user, msg):
     p = load(line_user)
     before = set(p["appearance"]["pending_consent"])
+
+    # ตรวจสอบการทักทายล้วนๆ
+    is_greeting = any(w in msg.lower() for w in ["หวัดดี", "สวัสดี", "ดีครับ", "ดีค่ะ", "hello", "hi", "hey"])
+    if is_greeting and len(msg.strip()) <= 15 and not any(k in msg for k in ["ชอบ", "อยาก", "ไม่ชอบ", "หาคู่", "ปรึกษา"]):
+        greeting_text = (
+            f"สวัสดีครับคุณ {p.get('display_name') or ''}! 😊 ผมเป็นบอทหาคู่และที่ปรึกษาความรักของชาว ม.อ. 💙\n\n"
+            "วันนี้อยากให้ผมช่วยหาคนคุย เล่าสเปก หรือมีเรื่องความรักความสัมพันธ์อยากปรึกษา พิมพ์บอกผมได้เลยนะครับ!"
+        )
+        return [text(greeting_text, MENU if ready_to_match(p) else None)]
+
+    # ตรวจสอบคำถามเกี่ยวกับชื่อของตนเอง
+    if any(q in msg for q in ["ผมชื่ออะไร", "กระผมชื่ออะไร", "ฉันชื่ออะไร", "หนูชื่ออะไร", "เราชื่ออะไร", "จำชื่อผมได้ไหม"]):
+        dname = p.get("display_name") or line_user.get("display_name") or "คุณ"
+        return [text(f"คุณคือคุณ '{dname}' ครับ 😊\n\nสามารถพิมพ์ 'โปรไฟล์ของฉัน' เพื่อดูข้อมูลที่ผมจำได้ทั้งหมด หรือพิมพ์บอกข้อมูลเพิ่มเติมได้เลยนะครับ!", MENU if ready_to_match(p) else None)]
+
     try:
         extracted = tasks.extract_profile(msg)["extracted"]
     except Exception:
@@ -39,6 +70,12 @@ def handle(line_user, msg):
     skip = tuple(fac["spans"]) + VALUE_ONLY
     for field in ("hobbies", "traits", "comm_style", "wants", "avoids"):
         extracted[field] = [x for x in extracted.get(field, []) if not any(w in x.get("evidence", "") for w in skip)]
+
+    # สกัดสิ่งที่ไม่ชอบจากบริบทคำพูดโดยตรง (เช่น "ไม่ชอบคนที่ชื่อเมษ")
+    for ca in _extract_text_avoids(msg):
+        if not any(ca in x.get("evidence", "") or ca in x.get("id", "") for x in extracted.get("avoids", [])):
+            extracted.setdefault("avoids", []).append({"id": f"custom:{ca}", "name": ca, "evidence": ca})
+
     learned = merge_extraction(p, extracted, msg)
     new_fac = merge_faculty(p, fac, msg)
     history = storage.recent_messages(p["user_id"], HISTORY_TURNS)[:-1]
@@ -55,6 +92,8 @@ def handle(line_user, msg):
             learned_tags.append(it["id"])
     for it in extracted.get("wants", []):
         learned_tags.append(f"wants:{it['id']}")
+    for it in extracted.get("avoids", []):
+        learned_tags.append(f"ไม่ชอบคนที่:{it.get('name', it['id'].replace('custom:', ''))}")
     for f in new_fac:
         learned_tags.append(f"อยากได้คนเรียนคณะ{f}")
 

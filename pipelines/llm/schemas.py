@@ -8,7 +8,7 @@ PROFILE_FIELDS = {
     "comm_style": ["comm_styles"],
     "self_described": ["body_types", "skin_tones"],             # รูปลักษณ์ที่ผู้พูดบอกเกี่ยวกับตัวเอง
     "wants": ["traits", "hobbies", "body_types", "skin_tones", "hygiene"],  # สเปกที่อยากได้ (รวมรูปลักษณ์ และงานอดิเรก)
-    "avoids": ["red_flags", "body_types", "skin_tones"],
+    "avoids": ["red_flags", "traits", "hobbies", "hygiene", "body_types", "skin_tones"],
 }
 UNMATCH_FIELDS = {
     "red_flags": ["red_flags"],                   # พฤติกรรม -> เก็บที่ผู้พูด + รายงานอีกฝ่าย

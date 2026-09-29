@@ -87,8 +87,13 @@ def merge_extraction(profile, extracted, text=""):
     for it in extracted.get("avoids", []):
         prefs["wants"] = [x for x in prefs["wants"] if x["id"] != it["id"]]      # ไม่ชอบแล้ว = เอาออกจากที่อยากได้
         if it["id"] not in {x["id"] for x in prefs["avoids"]}:
-            prefs["avoids"].append({"id": it["id"], "weight": 0.7, "source": "stated", "count": 1})
-            learned.append(it["id"])
+            item = {"id": it["id"], "weight": 0.7, "source": "stated", "count": 1}
+            if "name" in it:
+                item["name"] = it["name"]
+            elif it["id"].startswith("custom:"):
+                item["name"] = it["id"].split("custom:", 1)[1]
+            prefs["avoids"].append(item)
+            learned.append(it.get("name") or it["id"])
     routed = policy.route_profile(extracted, profile["appearance"]["consent_sensitive"])
     for it in routed["self_described"]:
         if it["id"] not in {x["id"] for x in profile["appearance"]["self_described"]}:
@@ -182,11 +187,12 @@ def build_summaries(profile):
     wants = [x for x in profile["preferences"]["wants"] if x["id"] not in appearance]
     fac_wants = profile["preferences"].get("faculty_wants", [])
     avoids = [x for x in profile["preferences"]["avoids"] if x["id"] not in appearance]
+    avoid_names = [lab.get(x["id"], x.get("name", x["id"].replace("custom:", ""))) for x in avoids]
     profile["summaries"] = {
         "persona_text": " ".join(x for x in parts if x).strip(),
         "preference_text": (f"อยากได้คนที่ {names(wants)} " if wants else "")
         + (f"อยากได้คนเรียนคณะ{' หรือ '.join(fac_wants)} " if fac_wants else "") + " ".join(profile["values"]["want_text"]),
-        "avoid_text": f"ไม่ชอบคนที่ {names(avoids)}" if avoids else "",
+        "avoid_text": f"ไม่ชอบคนที่ {', '.join(avoid_names)}" if avoid_names else "",
         "values_text": " ".join(profile["values"]["self_text"]),
         "values_want_text": " ".join(profile["values"]["want_text"]),
     }
@@ -205,7 +211,7 @@ def ready_to_match(profile) -> bool:
 def describe(profile) -> str:
     """สิ่งที่ระบบจำได้ (ความโปร่งใส: ผู้ใช้ขอดูได้ทุกเมื่อ)"""
     lab = taxonomy.labels()
-    names = lambda xs: ", ".join(lab.get(x["id"], x["id"]) for x in xs) or "-"
+    names = lambda xs: ", ".join(lab.get(x["id"], x.get("name", x["id"].replace("custom:", ""))) for x in xs) or "-"
     p, pr = profile["persona"], profile["preferences"]
     return (f"📋 สิ่งที่ผมจำได้เกี่ยวกับคุณ\n"
             f"• งานอดิเรก: {names(p['hobbies'])}\n• นิสัย: {names(p['traits'])}\n"
