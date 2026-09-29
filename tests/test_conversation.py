@@ -75,28 +75,30 @@ class ConversationTests(unittest.TestCase):
         self.assertTrue(intent.is_followup('เขายังไม่ตอบเลย ควรทำยังไง'))
 
     def test_retrieval_uses_rewrite_answer_uses_original_and_history(self):
+        from pipelines.hybrid.search import Found
         self.turn()
         h = self.history()
         item = RetrievalItem('chunk1', 'chunk', 'knowledge', 1.0, 'dense')
         result = RetrievalResult('hybrid', 'query', [item], 1.0)
-        retriever = SimpleNamespace(retrieve=lambda *a: result)
+        retriever = SimpleNamespace()
         output = {'answer': 'คำตอบต่อเนื่อง [1]', 'refs': ['chunk1'], 'citations': {'cited': [1], 'abstained': False}}
+        # ค้นผ่าน search.find (ค้น + ด่านความเกี่ยวข้อง + แปลงคำถาม) ด้วยคำถามที่แปลงจากประวัติแล้ว
         with patch.object(advice, '_retriever', retriever), \
-             patch.object(advice.search, 'find', return_value=advice.search.Found(result, topics=['การสื่อสาร'])) as search, \
+             patch.object(advice.search, 'find', return_value=Found(result, 'dense', 1, ['การสื่อสาร'])) as find, \
              patch.object(tasks, 'rewrite_question', return_value='ตัวอย่างคุยกับแฟนที่เงียบใส่') as rewrite, \
              patch.object(tasks, 'rag_answer', return_value=output) as answer, \
              patch.object(advice, 'verify_answer', return_value=('คำตอบต่อเนื่อง [1]', 0)) as verify, \
              patch.object(advice.live, 'ctx', return_value=SimpleNamespace(graph=SimpleNamespace(prop=lambda *a: None))):
             advice.handle({}, 'ช่วยยกตัวอย่างหน่อย', history=h)
             rewrite.assert_called_once_with('ช่วยยกตัวอย่างหน่อย', h)
-            search.assert_called_once_with(retriever, 'ตัวอย่างคุยกับแฟนที่เงียบใส่')
+            find.assert_called_once_with(retriever, 'ตัวอย่างคุยกับแฟนที่เงียบใส่')
             answer.assert_called_once_with(advice.hint('ช่วยยกตัวอย่างหน่อย', ['การสื่อสาร']), result, history=h)
             verify.assert_called_once_with('ตัวอย่างคุยกับแฟนที่เงียบใส่', 'คำตอบต่อเนื่อง [1]', ['knowledge'])
             rewrite.reset_mock()
             advice.handle({}, 'ทฤษฎีความรักคืออะไร', history=h)
             rewrite.assert_not_called()
             answer.assert_called_with(advice.hint('ทฤษฎีความรักคืออะไร', ['การสื่อสาร']), result, history=[])
-            search.assert_called_with(retriever, 'ทฤษฎีความรักคืออะไร')
+            find.assert_called_with(retriever, 'ทฤษฎีความรักคืออะไร')
             verify.assert_called_with('ทฤษฎีความรักคืออะไร', 'คำตอบต่อเนื่อง [1]', ['knowledge'])
 
     def test_missing_or_failed_rewrite_asks_for_clarification(self):

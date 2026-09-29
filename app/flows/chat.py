@@ -35,8 +35,8 @@ def handle(line_user, msg):
     skip = tuple(fac["spans"]) + VALUE_ONLY
     for field in ("hobbies", "traits", "comm_style", "wants", "avoids"):
         extracted[field] = [x for x in extracted.get(field, []) if not any(w in x.get("evidence", "") for w in skip)]
-    learned = merge_extraction(p, extracted)
-    new_fac = merge_faculty(p, fac)
+    learned = merge_extraction(p, extracted, msg)
+    new_fac = merge_faculty(p, fac, msg)
     history = storage.recent_messages(p["user_id"], HISTORY_TURNS)[:-1]
     with ThreadPoolExecutor(max_workers=2) as pool:           # 2 งานนี้ไม่ขึ้นต่อกัน -> ทำพร้อมกัน
         reply_job = pool.submit(chat_reply, msg, history, learned + [f"อยากได้คนเรียนคณะ{f}" for f in new_fac])

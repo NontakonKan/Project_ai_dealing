@@ -56,7 +56,7 @@ def rag_answer(query, retrieval, cfg=None, history=None) -> dict:
 def rewrite_query(query, kb_topics=(), cfg=None) -> list:
     """-> คำถามทั่วไป ไม่เกิน 3 แบบ (ใช้ค้นเท่านั้น ไม่ใช่คำตอบ) — ด่านความเกี่ยวข้องใช้คะแนนสูงสุดของทุกแบบ"""
     cfg = cfg or TASKS["rewrite_query"]
-    res = providers.chat(cfg.model, prompts.rewrite_messages(query, kb_topics), cfg.gen, fallback=cfg.fallback or None)
+    res = providers.chat(cfg.model, prompts.search_rewrite_messages(query, kb_topics), cfg.gen, fallback=cfg.fallback or None)
     lines = (re.sub(r"^\s*(?:[-*•]|\d+[.)])\s*", "", l).strip() for l in res.text.splitlines())
     return [l for l in lines if 3 <= len(l) <= 100][:3]
 

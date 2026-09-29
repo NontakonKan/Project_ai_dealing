@@ -39,10 +39,11 @@ class GraphRetrievalTests(unittest.TestCase):
     def setUpClass(cls):
         cls.g = GraphView.load()
 
-    def test_alias_concepts_and_rules(self):
+    def test_alias_concepts_do_not_turn_matching_rules_into_evidence(self):
         self.assertIn("attach:anxious", concepts.by_alias("คนที่เป็น anxious กับ avoidant"))
         res = GraphKnowledge(self.g, use_embedding=False).retrieve("คนที่เป็น anxious กับ avoidant คบกันจะเป็นอย่างไร")
-        self.assertTrue(any(it.kind == "graph_fact" and "CONFLICTS_WITH" in it.text for it in res.items))
+        self.assertTrue(any(it.kind == "chunk" for it in res.items))
+        self.assertFalse(any(it.kind == "graph_fact" for it in res.items))
 
     def test_offtopic_returns_nothing(self):
         self.assertEqual(GraphKnowledge(self.g, use_embedding=False).retrieve("ราคาทองวันนี้").items, [])

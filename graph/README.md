@@ -14,7 +14,7 @@ python3 -m graph.build
 
 คำสั่งนี้สร้างกราฟในหน่วยความจำ ตรวจโครงสร้าง แล้วแสดงรายงานใน terminal โดยไม่สร้างไฟล์ผลลัพธ์ การนำเข้าฐานข้อมูลใช้ `python3 -m graph.import_neo4j` ซึ่งอ่านข้อมูลจาก `data/` โดยตรง จึงไม่ต้องรัน build ก่อนทุกครั้ง
 
-ผลจากข้อมูลปัจจุบัน (ไม่มี Claim ที่เปิดใช้): **1,459 nodes / 8,291 relationships** ประกอบด้วยผู้ใช้ 300 คน เอกสาร 37 แหล่ง, 1,053 chunks และ `NEXT_CHUNK` 707 เส้น
+ผลจากข้อมูลปัจจุบัน (ไม่มี Claim ที่เปิดใช้): **1,441 nodes / 8,237 relationships** ประกอบด้วยผู้ใช้ 300 คน เอกสาร 37 แหล่ง, 1,035 chunks และ `NEXT_CHUNK` 685 เส้น
 
 ## โครงสร้างกราฟ
 
@@ -153,7 +153,7 @@ graph/
 
 รายละเอียดเมนูตามรุ่นดู [Neo4j Browser result frames](https://neo4j.com/docs/browser/operations/result-frames/) การ export จะครอบคลุมผล query ที่แสดงเท่านั้น ตัวอย่างที่มี LIMIT ไม่ใช่การ export กราฟทั้งหมด
 
-สำหรับ export ข้อมูลครบ active snapshot ให้ใช้สองคำสั่งท้าย `queries.cypher` ซึ่งไม่มี LIMIT และตรวจจำนวนแถวก่อนดาวน์โหลด: nodes 1,459 แถว และ relationships 8,291 แถวตามชุดปัจจุบัน ปรับ record limit ของ Browser หากตั้งไว้น้อยกว่านี้
+สำหรับ export ข้อมูลครบ active snapshot ให้ใช้สองคำสั่งท้าย `queries.cypher` ซึ่งไม่มี LIMIT และตรวจจำนวนแถวก่อนดาวน์โหลด: nodes 1,441 แถว และ relationships 8,237 แถวตามชุดปัจจุบัน ปรับ record limit ของ Browser หากตั้งไว้น้อยกว่านี้
 
 ไฟล์ SVG และ PNG ที่ export จาก Neo4j Browser สำหรับ snapshot เก่าอยู่ใน [`exports/`](exports/); ตัวเลขในภาพยังไม่รวมเอกสารและ `NEXT_CHUNK` ที่เพิ่มภายหลัง:
 

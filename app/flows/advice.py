@@ -24,6 +24,31 @@ def _plain(answer):
     return re.sub(r"\*\*|__|`|^#+\s*", "", answer, flags=re.M)
 
 
+# ข้อความบอทที่ไม่ใช่คำตอบ (ไม่มีข้อมูล / ถามกลับ) -> ห้ามให้ขั้นแปลงคำถามต่อเนื่องหยิบไปเป็นหัวข้อ
+# วัดจริง: ถาม "ยกตัวอย่างหน่อย" หลังบอทตอบ NO_INFO -> แปลงเป็น "ยกตัวอย่างเรื่องทฤษฎีความรัก รูปแบบความผูกพัน…"
+# (เอามาจากรายการหัวข้อในข้อความ NO_INFO) แล้วตอบเรื่อง intimacy ที่ไม่เกี่ยวกับคำถามเดิม
+NON_ANSWERS = (NO_INFO.split("\n")[0], "หมายถึงเรื่องไหนครับ", "ช่วยระบุเรื่องที่อยากถามต่อ", "ตอนนี้ผมประมวลผลคำถามต่อเนื่องไม่สำเร็จ")
+
+
+def _usable_history(history):
+    return [{**h, "text": "(บอทตอบว่าไม่มีข้อมูลเรื่องนี้ในคลังความรู้)"}
+            if h.get("role") == "assistant" and h.get("text", "").startswith(NON_ANSWERS) else h
+            for h in history]
+
+
+def _llm_note(out):
+    """โมเดลที่ตอบจริง (API หรือ fallback Local) + token/เครดิต จาก api_client (ไม่มี key ใน log)"""
+    m = out.get("llm") or {}
+    note = f" llm={out.get('model', '-')}"
+    if m.get("prompt_tokens") is not None:
+        note += f" tok={m.get('prompt_tokens')}+{m.get('gen_tokens')}"
+    if m.get("credits") is not None:
+        note += f" เครดิต={m['credits']}"
+    if m.get("cost_usd") is not None:
+        note += f" ${m['cost_usd']}"
+    return note
+
+
 def _no_link(title):
     """LINE แปลงข้อความที่ดูเหมือนโดเมน (xxx.co) เป็นลิงก์อัตโนมัติ -> อ้างอิงให้เห็นเป็นชื่อแหล่ง ไม่ใช่ลิงก์"""
     return RE_DOMAIN.sub(r"\1", title)
@@ -31,11 +56,13 @@ def _no_link(title):
 
 def handle(line_user, msg, history=None):
     global _retriever
-    history = history or []
+    history = _usable_history(history or [])
     # Only carry the old topic into a clear follow-up, not every new question.
     history = history if intent.is_followup(msg) else []
     query = msg
-    if intent.is_followup(msg):
+    if intent.is_followup(msg) and not history and not intent.needs_context(msg):
+        pass    # ขึ้นต้นด้วย เขา/เธอ แต่ครบในตัว ("เขาไม่ตอบแชท ทำไงดี") -> ตอบเป็นคำถามใหม่ ไม่ถามกลับ
+    elif intent.is_followup(msg):
         if not history:
             return [text("หมายถึงเรื่องไหนครับ ช่วยบอกหัวข้อหรือคำถามก่อนหน้าอีกนิดได้ไหมครับ", MENU)]
         try:
@@ -56,6 +83,7 @@ def handle(line_user, msg, history=None):
         from .. import log
         log.note(f"route={route} ไม่มีความรู้ที่ตรงคำถาม (0/{n_before} ผ่านด่าน) → ตอบว่าไม่มีข้อมูล")
         return [text(NO_INFO, MENU)]
+    # แนบคำพ้องที่เอกสารใช้ (ทัก -> เริ่มต้นความสัมพันธ์) + ประวัติสนทนา (ใช้เข้าใจบริบท ไม่ใช่หลักฐาน)
     out = tasks.rag_answer(hint(msg, found.topics), res, history=history)
     dropped = 0
     if not out["citations"]["abstained"]:   # ด่านหลัง: ตัดประโยคที่ทวนคำถาม/ไม่มีหลักฐาน กันหลอน
@@ -67,6 +95,7 @@ def handle(line_user, msg, history=None):
             out["answer"], out["citations"] = checked, parsing.citations(checked, len(out["refs"]))
     from .. import log
     log.note(f"route={route} ผ่านด่าน {len(res.items)}/{n_before} ctx={len(out['refs'])} อ้างอิง={out['citations']['cited']}"
+             + (f" ต่อเนื่อง(ประวัติ {len(history)} ข้อความ)" if history else "") + _llm_note(out)
              + (f" ตัดประโยคไม่มีหลักฐาน {dropped}" if dropped else "") + (" (ตอบไม่ได้)" if out["citations"]["abstained"] else ""))
     if out["citations"]["abstained"]:
         return [text(NO_INFO, MENU)]

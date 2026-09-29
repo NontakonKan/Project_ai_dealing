@@ -3,6 +3,7 @@
 schema เดียวกับ data/mock/users.json -> Graph, Dense, Hybrid ใช้ได้ทันที
 ข้อมูลไม่โตตามจำนวนแชท: รายการเดิมเพิ่มแค่ confidence/evidence_count, เกินเพดานตัดตัวที่ confidence ต่ำสุด
 """
+import re
 import time
 from datetime import date
 
@@ -13,6 +14,14 @@ from pipelines.hybrid.values_extract import LABELS, SENSITIVE
 from .config import DECAY_HALF_LIFE_DAYS, MAX_HOBBIES, MAX_TRAITS, MIN_CONFIDENCE
 
 CONF_NEW, CONF_STEP = 0.6, 0.15
+# ผู้ใช้เปลี่ยนความชอบ ("เปลี่ยนใจชอบผิวดำ") -> ค่าใหม่แทนค่าเดิม ไม่ใช่เพิ่มต่อท้าย
+# วัดจริง (LINE): "ผิวขาว" + "เปลี่ยนใจชอบผิวดำ" -> โปรไฟล์เป็น "ผิวขาว, ผิวเข้ม" (ขัดกันเอง)
+CHANGE_CUES = ("เปลี่ยนใจ", "เปลี่ยนเป็น", "เปลี่ยนไป", "แก้เป็น", "แก้ไข", "ไม่เอาแล้ว", "ไม่ชอบแล้ว",
+               "ตอนนี้ชอบ", "ตอนนี้อยากได้")
+RE_INSTEAD = re.compile(r"(?<!ผิว)(?<!สี)แทน")    # "...แทน" = เปลี่ยน แต่ "ผิวแทน" / "สีแทน" คือสีผิว
+# กลุ่มที่เลือกได้ค่าเดียวเมื่อเปลี่ยนใจ (สีผิว / รูปร่าง) — นิสัย/งานอดิเรกชอบหลายอย่างพร้อมกันได้ จึงไม่ลบของเดิม
+EXCLUSIVE = ("skin", "body")
+ANY_FACULTY = ("ไม่จำกัดคณะ", "คณะไหนก็ได้", "คณะอะไรก็ได้")
 GENDER = {"ชาย": "M", "หญิง": "F", "อื่นๆ": "NB"}
 
 
@@ -47,19 +56,38 @@ def _cap(items, n, key="confidence"):
     del items[n:]
 
 
-def merge_extraction(profile, extracted):
-    """ผลจาก pipelines.llm.tasks.extract_profile -> โปรไฟล์ (คืนรายการที่จำได้ใหม่ ไว้ให้บอทพูดถึง)"""
+def is_change(text: str) -> bool:
+    text = text or ""
+    return any(c in text for c in CHANGE_CUES) or bool(RE_INSTEAD.search(text))
+
+
+def _replace_group(items, tid):
+    """เปลี่ยนใจในกลุ่มที่เลือกได้ค่าเดียว: ลบค่าอื่นในกลุ่มเดียวกัน (skin:fair ออกเมื่อได้ skin:dark)"""
+    group = tid.split(":")[0]
+    if group in EXCLUSIVE:
+        items[:] = [x for x in items if x["id"] == tid or x["id"].split(":")[0] != group]
+
+
+def merge_extraction(profile, extracted, text=""):
+    """ผลจาก pipelines.llm.tasks.extract_profile -> โปรไฟล์ (คืนรายการที่จำได้ใหม่ ไว้ให้บอทพูดถึง)
+    text = ข้อความต้นทาง ใช้ดูว่าผู้ใช้กำลัง "เปลี่ยนใจ" หรือไม่"""
     p, learned = profile["persona"], []
+    change = is_change(text)
+    prefs = profile["preferences"]
     for field, target in (("hobbies", p["hobbies"]), ("traits", p["traits"]), ("comm_style", p["comm_style"])):
         for it in extracted.get(field, []):
             _bump(target, it["id"])
             learned.append(it["id"])
     for it in extracted.get("wants", []):
-        _bump(profile["preferences"]["wants"], it["id"], key="weight")
+        if change:
+            _replace_group(prefs["wants"], it["id"])
+        prefs["avoids"] = [x for x in prefs["avoids"] if x["id"] != it["id"]]    # อยากได้แล้ว = ไม่ใช่สิ่งที่ไม่ชอบ
+        _bump(prefs["wants"], it["id"], key="weight")
         learned.append(it["id"])
     for it in extracted.get("avoids", []):
-        if it["id"] not in {x["id"] for x in profile["preferences"]["avoids"]}:
-            profile["preferences"]["avoids"].append({"id": it["id"], "weight": 0.7, "source": "stated", "count": 1})
+        prefs["wants"] = [x for x in prefs["wants"] if x["id"] != it["id"]]      # ไม่ชอบแล้ว = เอาออกจากที่อยากได้
+        if it["id"] not in {x["id"] for x in prefs["avoids"]}:
+            prefs["avoids"].append({"id": it["id"], "weight": 0.7, "source": "stated", "count": 1})
             learned.append(it["id"])
     routed = policy.route_profile(extracted, profile["appearance"]["consent_sensitive"])
     for it in routed["self_described"]:
@@ -107,12 +135,19 @@ def set_sensitive_consent(profile, yes: bool):
     v["pending"] = {}
 
 
-def merge_faculty(profile, parsed: dict) -> list:
-    """ผลจาก pipelines.profile.faculty.parse -> คณะที่อยากได้ (+ คณะตัวเองถ้ายังไม่มี)"""
+def merge_faculty(profile, parsed: dict, text="") -> list:
+    """ผลจาก pipelines.profile.faculty.parse -> คณะที่อยากได้ (+ คณะตัวเอง)
+    เปลี่ยนใจ -> คณะใหม่แทนของเดิม / "ไม่จำกัดคณะ" -> ล้างรายการ / คณะตัวเองแก้ได้เมื่อบอกว่าเปลี่ยน"""
     wants = profile["preferences"].setdefault("faculty_wants", [])
+    if any(c in (text or "") for c in ANY_FACULTY):
+        wants.clear()
+        return []
+    change = is_change(text)
+    if change and parsed["wants"]:
+        wants.clear()
     new = [f for f in parsed["wants"] if f not in wants]
     wants.extend(new)
-    if parsed["self"] and not profile["demographic"].get("faculty"):
+    if parsed["self"] and (change or not profile["demographic"].get("faculty")):
         profile["demographic"]["faculty"] = parsed["self"]
     return new
 

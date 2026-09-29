@@ -18,14 +18,35 @@
 
 **L5:** Dataset/KB อย่างเป็นระบบ มี Cleaning, Chunking, Metadata, เตรียมข้อมูลทั้ง Vector และ Graph อธิบายเหตุผลได้
 
-- [x] ทะเบียนแหล่ง: URL / หน่วยงาน / ปี / ระดับความน่าเชื่อถือ — `pipelines/ingest/sources.py`, `data/new_docs/candidates.json`
-- [x] รายงานการสกัดรายเอกสาร (หน้า, chunk, สถิติการทำความสะอาด) — `data/processed/ingest_report.json`
+**เอกสารหลักของหัวข้อนี้: [data_card.md](data_card.md)** (สร้างใหม่ด้วย `python -m pipelines.ingest.data_card` หลังสกัดทุกครั้ง)
+
+ชุดข้อมูลและที่มา
+- [x] ทะเบียนแหล่ง 37 แหล่ง: URL / หน่วยงาน / ปี / ระดับความน่าเชื่อถือ — `pipelines/ingest/sources.py`, `data/new_docs/candidates.json`
+- [x] เกณฑ์เลือกแหล่ง: หน่วยงานรัฐ / มหาวิทยาลัย / วารสาร / สถาบันวิจัย / โรงพยาบาล / สื่อสาธารณะ ไม่ใช้บล็อกไลฟ์สไตล์ — data card §1
+- [x] **Data card:** ตารางแหล่ง × ชนิด × ความน่าเชื่อถือ × หมวด × หน้าที่ใช้ × chunk × % concept — data card §2
+- [x] แหล่งที่ตัดออกพร้อมเหตุผล 8 แหล่ง (ธนาคารกรุงเทพ, กรมสุขภาพจิต, BNH, ooca บล็อก/โหลดด้วยสคริปต์ + 4 แหล่งที่ผู้ดูแลถอด) — data card §3
+- [x] ข้อมูลผู้ใช้จำลอง 300 คน + แชท / เหตุการณ์ / คู่เฉลย สำหรับจับคู่ (ระบุว่าเป็นข้อมูลสังเคราะห์) — data card §9
+
+Cleaning / Chunking / Metadata
+- [x] ขั้นตอนเตรียมข้อมูล 7 ขั้น พร้อมตัวเลข (PUA 20,165 จุด, บรรทัดขยะ 4,018 ฯลฯ) — data card §4, `data/processed/ingest_report.json`
 - [x] วัดคุณภาพ OCR ด้วย CER/WER (8.0% → 4.3%) + หน้าที่คนตรวจจากภาพ 101 หน้า — `pipelines/ingest/ocr_eval.py`
-- [x] เกณฑ์เลือกแหล่ง: หน่วยงานรัฐ / มหาวิทยาลัย / วารสาร / สถาบันวิจัย / โรงพยาบาล ไม่ใช้บล็อกไลฟ์สไตล์
-- [ ] **Data card 1 หน้า:** ตารางแหล่ง × หมวด × จำนวน chunk × เหตุผลที่เลือก × แหล่งที่ตัดออกพร้อมเหตุผล (ธนาคารกรุงเทพ, กรมสุขภาพจิต, BNH, ooca)
-- [ ] **สุ่มตรวจ concept tag ~50 chunk** แล้วรายงาน precision (รอบนี้เจอบั๊กแล้ว 2 ตัว: "มั่นคงปลอดภัยไซเบอร์", "รู้สึกผิดหวัง" แก้ด้วยกฎ `not_before`)
-- [ ] อธิบายเหตุผลการตัด chunk (300 คำ, overlap 15%) พร้อมตัวเลขประกอบ
-- [ ] หมายเหตุลิขสิทธิ์ / PII (ตัดอีเมลผู้เขียน, ปกปิดชื่อเยาวชน) + ยืนยันว่า repo เป็น private
+- [x] PDF ที่สร้างจากเว็บอ่านกลับได้ตรงต้นฉบับ 99.7–100% (แก้ปัญหาฟอนต์ไทยทำวรรณยุกต์หาย) — `pipelines/ingest/collect.py`
+- [x] **ตัด chunk ซ้ำ** 18 อัน (ภาคผนวกแบบสอบถามพิมพ์ซ้ำ) → 1,035 chunk — `run.dedupe`
+- [x] **เหตุผลการตัด chunk พร้อมตัวเลข:** 300 คำ overlap 15% — p50 261 คำ / 323 token, เกิน 512 token ของ reranker 1.6% จึงอ่านเป็นช่วง — data card §5
+- [x] Metadata 8 กลุ่ม field พร้อมหน้าที่ของแต่ละ field — data card §6
+
+เตรียมข้อมูลสำหรับ Vector และ Graph
+- [x] Vector: bge-m3 → ChromaDB / Graph: chunk → `BookChunk`, concept → edge `ABOUT` ชุดเดียวกับโปรไฟล์ผู้ใช้ — data card §7
+- [x] **สุ่มตรวจ concept tag 50 คู่:** precision 76% → เครื่องมือ `pipelines/ingest/tag_audit.py`, ผล `data/eval/concept_tag_audit.json`
+- [x] แก้ tag จากผลตรวจ: คำปฏิเสธ ("ไม่รับผิดชอบ", "การไม่นอกใจ") ผิด 3 → 0 โดย tag ที่ถูกไม่หาย (80.9% ในชุดเดิม) + กฎ `not_before` ("มั่นคงปลอดภัยไซเบอร์", "รู้สึกผิดหวัง")
+- [x] ทดลองบังคับรอยคำด้วย PyThaiNLP แล้วไม่ใช้ (แก้ได้ 1 แต่ tag ที่ถูกหาย 6) — บันทึกเหตุผลไว้ใน `tagger.py`
+- [ ] ให้**คน**ยืนยันผลตรวจ 50 คู่ (ตอนนี้ Claude เป็นผู้ตรวจ) และสุ่มชุดใหม่ 50 คู่เพื่อวัดหลังแก้แบบไม่ลำเอียง (`tag_audit sample` เปลี่ยน SEED)
+- [ ] ข้อจำกัดที่เหลือ: tag ผิดความหมาย ("อบอุ่น" = ครอบครัว, "รับผิดชอบ" = หน้าที่งาน) และ tag จากบรรณานุกรม — ระบุในข้อจำกัดของรายงาน
+
+ลิขสิทธิ์ / ข้อมูลส่วนบุคคล
+- [x] หมายเหตุลิขสิทธิ์และ PII: ตัดอีเมลผู้เขียน, ข้อมูลอ่อนไหว (ศาสนา อาหาร) ต้องยินยอม, ไม่เก็บ LINE ID / เบอร์ในความจำ — data card §10
+- [x] ยืนยันแล้วว่า `.env` และ `data/app/` (แชทจริง) อยู่ใน `.gitignore`
+- [ ] ยืนยันใน GitHub → Settings ว่า repo เป็น **private** (ตรวจจากเครื่องไม่ได้ เพราะไม่มี `gh`)
 
 ## 2. Dense RAG (15) — ผู้รับผิดชอบ: ฟาริก
 
@@ -33,7 +54,7 @@
 
 - [x] bge-m3 + ChromaDB, cross-encoder rerank (bge-reranker-v2-m3), จำกัด 3 chunk ต่อแหล่ง
 - [x] มีคำสั่งวัด `python -m pipelines.dense.run evaluate` (Precision / Recall / MRR / nDCG)
-- [ ] ⚠️ **รัน evaluate ใหม่** — คลังเปลี่ยนจาก 876 → 1,053 chunk ตัวเลขเดิมใช้ไม่ได้
+- [ ] ⚠️ **รัน evaluate ใหม่** — คลังเปลี่ยนจาก 876 → 1,035 chunk ตัวเลขเดิมใช้ไม่ได้
 - [ ] ตาราง Top-K × threshold × reranking (มี / ไม่มี) → Hit@5, เวลา
 - [ ] ablation ขนาด chunk (200 / 300 / 500 คำ) → Hit@5, เวลาค้น
 - [ ] เทียบโมเดล embedding (มีโครง e5-base แล้ว) ในตารางเดียว
@@ -42,7 +63,7 @@
 
 **L5:** Node / Relationship มีความหมาย ใช้ Graph ตอบคำถามจริง **อธิบายได้ว่า Graph แก้ข้อจำกัดของ Dense อย่างไร**
 
-- [x] Graph 1,459 nodes / 7,584 relationships, `python -m graph.build` ตรวจโครงสร้างผ่าน
+- [x] Graph 1,441 nodes / 7,552 relationships, `python -m graph.build` ตรวจโครงสร้างผ่าน
 - [x] กฎความเข้ากันได้ (COMPATIBLE_WITH / CONFLICTS_WITH / OPPOSITE_OF) ใช้ตอบคำถามจริง
 - [x] แปลงกฎเป็นประโยคธรรมดาก่อน rerank: "anxious กับ avoidant เข้ากันไหม" 0.00 → 0.96
 - [ ] ⚠️ กฎ taxonomy ยังเป็น "imported assumptions" (รายงาน graph ระบุเอง) — **ผูกแต่ละกฎกับ chunk / งานวิจัยที่รองรับ** หรือระบุชัดว่าเป็นสมมติฐาน
@@ -80,6 +101,8 @@
 **L5 API:** จัดการ Prompt, Context, **Token และ Error** พร้อมวิเคราะห์ **Response Time และ Cost**
 
 - [x] Fallback API → Local อัตโนมัติทุกงาน (`api:` prefix ใน `.env`)
+- [x] หมุนเวียน API key 3 ตัว + พัก key ที่ error (401/403 = 1 ชม., 429 = ตาม Retry-After, 5xx = 15 วิ.) — `api_client.py` (branch luna)
+- [x] log ต่อคำถาม: โมเดลที่ตอบจริง (API หรือ fallback Local) + token เข้า/ออก + เครดิต / ค่าใช้จ่าย — `advice._llm_note`
 - [x] Benchmark explain_match: psu-gemma 2.2s vs Typhoon 12.5s, คุณภาพ 4.73 vs 4.53
 - [x] เหตุผลเปลี่ยน rag_answer เป็น psu-gemma: Typhoon แต่งเลขอ้างอิงเกิน / ลอก chunk ดิบ
 - [ ] **ทดสอบ fallback จริง** (ปิด API / ใส่ key ผิด → บอทยังตอบด้วย Typhoon) แล้วบันทึกผล
@@ -94,6 +117,9 @@
 **L5:** User → Query Processing → Dense / Graph Retrieval → Hybrid Fusion → LLM → Answer ครบ มี Error Handling และ Architecture ชัดเจน
 
 - [x] LINE OA webhook, preload โมเดลตอนเริ่ม server, log ต่อข้อความ (route / ผ่านด่าน / อ้างอิง / เวลา)
+- [x] ความจำบทสนทนา (คำถามต่อเนื่อง "ยกตัวอย่าง", "ข้อสอง") + ความจำระยะยาว รวมเข้ากับ `search.find` — `app/flows/advice.py`, `app/conversation.py`
+- [x] ไม่ให้ข้อความ "ไม่มีข้อมูล" ของบอทถูกใช้เป็นหัวข้อคำถามต่อเนื่อง + คำถามแรกที่ขึ้นต้น เขา/เธอ ตอบได้ทันที — `tests/test_followup.py`
+- [x] จุดเด้ง "กำลังพิมพ์" ระหว่างบอทประมวลผล (LINE loading animation, ไม่กินโควตาข้อความ) — `line_api.show_loading`, `tests/test_line_loading.py`
 - [x] กันลิงก์ในชื่อแหล่ง (LINE auto-link) และตัด markdown ก่อนส่ง LINE
 - [ ] **แผนภาพสถาปัตยกรรม:** LINE → intent → ค้นหา → ด่านความเกี่ยวข้อง → LLM → ตรวจหลักฐาน → ตอบ
 - [ ] **smoke test end-to-end** 1 สคริปต์: ส่ง 10 ข้อความผ่าน flow จริง แล้วเช็คว่าไม่ error

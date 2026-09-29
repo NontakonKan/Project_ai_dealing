@@ -228,26 +228,6 @@
    "file": "การใช้คำสรรพนามของนักศึกษา.pdf"
   },
   {
-   "id": "bnh_love_bombing",
-   "url": "https://www.bnhhospital.com/th/article/love-bombing-toxic-relationship",
-   "title": "รู้เท่าทันก่อนถอนตัวไม่ขึ้น Love Bombing ทุ่มเทก่อนแล้วบงการ",
-   "org": "โรงพยาบาลบีเอ็นเอช (BNH Hospital)",
-   "category": "toxic_relationship",
-   "quality": "clinical",
-   "gap": "ความสัมพันธ์ที่เร่งเร็วเกินไป / love bombing",
-   "file": "Love Bombing ทุ่มเทก่อนแล้วบงการ.pdf"
-  },
-  {
-   "id": "ooca_love_bombing",
-   "url": "https://ooca.co/blog/what-is-love-bombing-signs-toxic-relationship/",
-   "title": "Love Bombing นิยามเริ่มรักแบบใหม่ ที่คนรุ่นใหม่ใช้แทนคำว่าช่วงโปร",
-   "org": "ooca (แพลตฟอร์มปรึกษานักจิตวิทยา/จิตแพทย์)",
-   "category": "toxic_relationship",
-   "quality": "clinical",
-   "gap": "สัญญาณ love bombing",
-   "file": "Love Bombing สัญญาณเตือน.pdf"
-  },
-  {
    "id": "potential_love_bombing",
    "url": "https://thepotential.org/life/love-bombing/",
    "title": "Love Bombing: เมื่อการทุ่มเทความรักมากมายเป็นเพียงเหยื่อล่อไปสู่ความสัมพันธ์ท็อกซิก",
@@ -278,6 +258,28 @@
    "quality": "government",
    "gap": "การปฏิเสธ",
    "reason": "หน้าเว็บโหลดเนื้อหาด้วยสคริปต์ ดึงข้อความไม่ได้"
+  },
+  {
+   "id": "bnh_love_bombing",
+   "url": "https://www.bnhhospital.com/th/article/love-bombing-toxic-relationship",
+   "title": "รู้เท่าทันก่อนถอนตัวไม่ขึ้น Love Bombing ทุ่มเทก่อนแล้วบงการ",
+   "org": "โรงพยาบาลบีเอ็นเอช (BNH Hospital)",
+   "category": "toxic_relationship",
+   "quality": "clinical",
+   "gap": "ความสัมพันธ์ที่เร่งเร็วเกินไป / love bombing",
+   "file": "Love Bombing ทุ่มเทก่อนแล้วบงการ.pdf",
+   "reason": "เว็บบล็อกการดาวน์โหลดอัตโนมัติ (HTTP 403) — ไม่หลบการบล็อก"
+  },
+  {
+   "id": "ooca_love_bombing",
+   "url": "https://ooca.co/blog/what-is-love-bombing-signs-toxic-relationship/",
+   "title": "Love Bombing นิยามเริ่มรักแบบใหม่ ที่คนรุ่นใหม่ใช้แทนคำว่าช่วงโปร",
+   "org": "ooca (แพลตฟอร์มปรึกษานักจิตวิทยา/จิตแพทย์)",
+   "category": "toxic_relationship",
+   "quality": "clinical",
+   "gap": "สัญญาณ love bombing",
+   "file": "Love Bombing สัญญาณเตือน.pdf",
+   "reason": "เว็บบล็อกการดาวน์โหลดอัตโนมัติ (HTTP 403) — ไม่หลบการบล็อก"
   }
  ]
 }

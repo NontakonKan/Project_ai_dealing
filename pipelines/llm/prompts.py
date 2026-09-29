@@ -149,7 +149,7 @@ REWRITE_FEWSHOT = [
 ]
 
 
-def rewrite_messages(query, kb_topics=()):
+def search_rewrite_messages(query, kb_topics=()):
     """kb_topics = ชื่อเอกสารในคลังความรู้ -> ให้บรรทัด 2 ใช้คำของหัวข้อที่ตรงเรื่อง (ค้นเจอด้วยคำแบบเอกสาร)"""
     system = REWRITE_SYSTEM
     if kb_topics:
