@@ -90,6 +90,13 @@ class MultiExtractionAndGuardsTests(unittest.TestCase):
         self.assertIn("แมวกับไก่ ตัวอะไรอร่อยกว่า", SYSTEM)
         self.assertIn("ห้ามเล่นตามน้ำ", SYSTEM)
 
+    def test_out_of_domain_intent_classification(self):
+        from app import intent_model
+        for q in ["หมากับแมวอะไรน่ารักกว่า", "แมวกับไก่ ตัวอะไรอร่อยกว่า", "1+1 ได้เท่าไหร่"]:
+            k, _ = intent_model.classify(q, use_llm=False)
+            self.assertEqual(k, "out_of_domain", q)
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_question_does_not_extract_values(self):
+        from app.flows.chat import _read_values
+        self.assertEqual(_read_values("หมากับแมวอะไรน่ารักกว่า"), [])
+        self.assertEqual(_read_values("แมวกับไก่ ตัวไหนอร่อยกว่า"), [])

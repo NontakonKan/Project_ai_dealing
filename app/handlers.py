@@ -134,6 +134,7 @@ def _dispatch(event) -> list:
             "find_match": lambda: match.find(u),
             "unmatch": lambda: unmatch.ask_reason(u),
             "ask_advice": lambda: advice.handle(u, msg, history=history),
+            "out_of_domain": lambda: [text("เรื่องนี้ผมไม่มีข้อมูลและไม่สามารถตอบได้ครับ 😅 ผมเป็นผู้ช่วยหาคู่และให้คำปรึกษาเรื่องความสัมพันธ์สำหรับนักศึกษา ม.อ. เท่านั้นครับ\n\nสามารถเล่าสเปกคนที่ชอบ ปรึกษาปัญหาความรัก หรือพิมพ์ 'หาคู่ให้หน่อย' ได้เลยนะครับ!", MENU)],
             "chat": lambda: chat.handle(u, msg),
         }
         out = flows.get(kind, lambda: chat.handle(u, msg))()

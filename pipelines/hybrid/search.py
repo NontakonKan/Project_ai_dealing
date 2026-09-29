@@ -15,7 +15,7 @@ from functools import lru_cache
 
 from .gate import filter_relevant
 
-REWRITE_BELOW = 0.3     # รอบแรกได้หน้าที่เกี่ยวข้องสูงสุดต่ำกว่านี้ -> ลองแปลงคำถาม
+REWRITE_BELOW = 0.45    # รอบแรกได้หน้าที่เกี่ยวข้องสูงสุดต่ำกว่านี้ -> ลองแปลงคำถามเพื่อครอบคลุมบริบทที่หลากหลาย
 NEIGHBOR_OF = 3         # ดึง chunk ข้างเคียงของหน้าที่ผ่านด่านกี่อันดับแรก
 _CID = re.compile(r"^(.*_c)(\d+)$")
 

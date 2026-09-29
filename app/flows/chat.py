@@ -23,6 +23,10 @@ SENSITIVE_ASK = ("เรื่องศาสนา/อาหาร (เช่�
                  "จะใช้เฉพาะตอนคำนวณคู่ ไม่แสดงบนการ์ดหรือบอกใคร (ไม่ยินยอมก็ใช้งานได้ปกติ)")
 
 
+QUESTION_CUES = ("อะไร", "กว่า", "ไหม", "มั้ย", "หรือเปล่า", "ตัวไหน", "ทำไม", "ยังไง", "อย่างไร")
+ADVICE_CUES = ("ทำไม", "ยังไง", "อย่างไร", "ควร", "ไหม", "มั้ย", "ปรึกษา", "วิธี", "ทำไง")
+
+
 def handle(line_user, msg):
     p = load(line_user)
     before = set(p["appearance"]["pending_consent"])
@@ -39,6 +43,11 @@ def handle(line_user, msg):
     new_fac = merge_faculty(p, fac, msg)
     history = storage.recent_messages(p["user_id"], HISTORY_TURNS)[:-1]
 
+    # ถ้าผู้ใช้ถามคำถามในแชทแต่ไม่มีข้อมูลโปรไฟล์ ให้ส่งไปค้น RAG ทันที (ไม่คุยเล่นเอง)
+    if any(c in msg for c in ADVICE_CUES) and not (learned or new_fac):
+        from . import advice
+        return advice.handle(line_user, msg, history=history)
+
     # แยกสิ่งที่จำได้ส่งให้แชทบอตพูดถึงอย่างถูกต้อง (ตัวเอง vs สเปกคู่)
     learned_tags = []
     for f in ("hobbies", "traits", "comm_style"):
@@ -53,6 +62,12 @@ def handle(line_user, msg):
         reply_job = pool.submit(chat_reply, msg, history, learned_tags if (learned_tags or new_fac) else learned)
         values_job = pool.submit(_read_values, msg)
         reply, values = reply_job.result(), values_job.result()
+
+    # ถ้าไม่มีข้อมูลโปรไฟล์และไม่ได้เล่าสเปก ให้เตือนขอบเขตงานอย่างสุภาพ ไม่ตอบกวน/เล่นมุก
+    if not (learned or new_fac or values) and any(q in msg for q in QUESTION_CUES):
+        reply = ("เรื่องนี้ผมไม่มีข้อมูลและไม่สามารถตอบได้ครับ 😅 ผมเป็นผู้ช่วยหาคู่และให้คำปรึกษาเรื่องความสัมพันธ์สำหรับนักศึกษา ม.อ. เท่านั้นครับ\n\n"
+                 "สามารถเล่าสเปกคนที่ชอบ ปรึกษาปัญหาความรัก หรือพิมพ์ \"หาคู่ให้หน่อย\" ได้เลยนะครับ!")
+
     ask_sensitive = False
     for side, part, v in values:
         ask_sensitive |= merge_values(p, {side: v}, part)
@@ -75,8 +90,8 @@ def handle(line_user, msg):
 
 
 def _read_values(msg):
-    """แยกประโยคเรื่องตัวเอง / สเปก แล้วให้ LLM อ่านค่านิยม (ใช้เฉพาะข้อความที่มีคำเกี่ยวกับค่านิยม)"""
-    if not any(c in msg for c in VALUE_CUES):
+    """แยกประโยคเรื่องตัวเอง / สเปก แล้วให้ LLM อ่านค่านิยม (ใช้เฉพาะข้อความที่มีคำเกี่ยวกับค่านิยม และไม่ใช่คำถาม)"""
+    if any(q in msg for q in QUESTION_CUES) or not any(c in msg for c in VALUE_CUES):
         return []
     from pipelines.hybrid.values_extract import extract
     cut = min((msg.find(c) for c in WANT_CUES if c in msg), default=-1)
