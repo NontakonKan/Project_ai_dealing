@@ -1,0 +1,396 @@
+{
+  "model": "qwen3.5:9b",
+  "accepted_claims": 7,
+  "graph_stats": {
+    "nodes": 1466,
+    "relationships": 7598,
+    "nodes_by_label": {
+      "Attachment": 4,
+      "BodyType": 4,
+      "BookChunk": 1053,
+      "Claim": 7,
+      "CommStyle": 4,
+      "Hobby": 18,
+      "Hygiene": 1,
+      "LoveComponent": 3,
+      "LoveLanguage": 5,
+      "RedFlag": 10,
+      "ResearchFactor": 5,
+      "SkinTone": 3,
+      "Source": 37,
+      "Trait": 12,
+      "User": 300
+    },
+    "relationships_by_type": {
+      "ABOUT": 712,
+      "AVOIDS": 571,
+      "COMPATIBLE_WITH": 6,
+      "CONFLICTS_WITH": 6,
+      "HAS_CHUNK": 1053,
+      "HAS_FACTOR": 300,
+      "HAS_LOVE_COMPONENT": 900,
+      "HAS_LOVE_LANGUAGE": 373,
+      "HAS_TRAIT": 1398,
+      "LIKES": 748,
+      "MATCHED": 163,
+      "OPPOSITE_OF": 2,
+      "PASSED": 97,
+      "PREFERS": 737,
+      "REPORTED_AS": 17,
+      "SELF_DESCRIBED": 327,
+      "SUPPORTED_BY": 7,
+      "UNMATCHED": 181
+    },
+    "snapshot": "1b9d1b01918dc95456486827ca207cc5952826d7bbe7464c1ac87022b63251f2",
+    "skipped_unusable_reports": 84,
+    "consented_users": 288,
+    "concepts_without_chunks": [
+      "body:athletic",
+      "body:average",
+      "body:slim",
+      "comm:frequent_texter",
+      "comm:gentle",
+      "comm:slow_texter",
+      "factor:disclose_family",
+      "factor:disclose_friends",
+      "hobby:baking",
+      "hobby:cafe",
+      "hobby:concert",
+      "hobby:cooking",
+      "hobby:drawing",
+      "hobby:football",
+      "hobby:gaming",
+      "hobby:gym",
+      "hobby:hiking",
+      "hobby:lofi_music",
+      "hobby:movies",
+      "hobby:party",
+      "hobby:pets",
+      "hobby:photography",
+      "hobby:reading",
+      "hobby:running",
+      "hobby:travel",
+      "hobby:volunteer",
+      "ll:acts_of_service",
+      "ll:quality_time",
+      "ll:words",
+      "rf:stonewalling",
+      "skin:dark",
+      "skin:tan",
+      "trait:ambitious",
+      "trait:homebody",
+      "trait:introvert",
+      "trait:spontaneous"
+    ],
+    "warnings": [
+      "Synthetic users and events; no real-world matching accuracy is measured.",
+      "Compatibility rules are imported assumptions, not independently verified findings.",
+      "ABOUT means a keyword tag, not proof that a chunk supports a compatibility rule.",
+      "Non-consenting users remain in the mock graph for inspection; future matching must filter both users.",
+      "Report counts come from prepared profiles; independent reporters are not re-verified here."
+    ]
+  },
+  "matching_unchanged_for_3_pairs": true,
+  "summary": {
+    "baseline": {
+      "hit_at_8": 0.2,
+      "mrr_at_8": 0.2
+    },
+    "claims": {
+      "hit_at_8": 0.2,
+      "mrr_at_8": 0.2
+    }
+  },
+  "cases": [
+    {
+      "case": "secure",
+      "question": "secure attachment มองตนเองและผู้อื่นอย่างไร",
+      "target_chunks": [
+        "web_chula_attachment_s00_c02"
+      ],
+      "baseline": {
+        "ids": [
+          "rule:attach:secure:attach:secure",
+          "thesis_attraction2548_s12_c09",
+          "thesis_attraction2548_s12_c13",
+          "thesis_attraction2548_s13_c14",
+          "thesis_attraction2548_s07_c42",
+          "thesis_attraction2548_s08_c03",
+          "thesis_attraction2548_s13_c04",
+          "thesis_attraction2548_s07_c24"
+        ],
+        "hit_at_8": false,
+        "reciprocal_rank": 0,
+        "target_recall_at_8": 0.0,
+        "latency_ms": 0.6560019974131137,
+        "answer_sample": {
+          "answer": "ไม่มีข้อมูล evidence ที่ระบุชัดเจนว่า secure attachment มองตนเองและผู้อื่นอย่างไรในเชิงจิตวิทยาโดยตรงจากข้อความต้นฉบับ แต่มีหลักฐานเกี่ยวกับ 'การประเมิน' (perception) ของบุคคลที่มีรูปแบบความผูกพันแบบมั่นคงต่อผู้อื่น และแนวโน้มที่ผู้ที่มีรูปแบบความผูกพันแบบมั่นคงมักถูกมองว่ามีเสน่ห์ดึงดูดใจมากที่สุด",
+          "evidence": [
+            {
+              "chunk_id": "thesis_attraction2548_s13_c09",
+              "quote": "ในการประเมินผู้ที่มีรูปแบบความผูกพันแบบไม่สนใจ ผู้ที่มีรูปแบบความผูกพันแบบไม่สนใจ มีคะแนนการประเมินความดึงดูดใจสูงกว่าผู้ที่มีรูปแบบความผูกพันแบบมั่นคง แบบหมกมุ่น และแบบหวาดกลัว อย่างมีนัยสำคัญทางสถิติที่ระดับ .05"
+            },
+            {
+              "chunk_id": "thesis_attraction2548_s13_c14",
+              "quote": "สรุปในภาพรวม งานวิจัยนี้ได้แสดงให้เห็นว่า ความดึงดูดใจระหว่างบุคคลขึ้นอยู่กับรูปแบบความผูกพันของบุคคลทั้งสองฝ่าย ไม่ใช่ฝ่ายใดฝ่ายหนึ่ง อย่างไรก็ตาม รูปแบบความผูกพันแบบมั่นคงเป็นรูปแบบที่ดึงดูดใจมากที่สุด ไม่ว่าบุคคลผู้นั้นจะมีรูปแบบความผูกพันแบบใดก็ตาม"
+            },
+            {
+              "chunk_id": "thesis_attraction2548_s07_c42",
+              "quote": "เมื่อเปรียบเทียบระหว่างผู้อ่านเรื่องซึ่งมีรูปแบบความผูกพันแตกต่างกัน อ่านเรื่องที่คู่รักสมมติในเรื่องมีรูปแบบความผูกพันแบบมั่นคง คนอ่านทั้ง 4 แบบ ก็จะประเมินคะแนนความดึงดูดใจในระดับพอ ๆ กันเพราะโดยธรรมชาติแล้ว ใคร ๆ ก็ต่างชอบคนที่มีรูปแบบความผูกพันแบบมั่นคง"
+            },
+            {
+              "chunk_id": "thesis_attraction2548_s07_c24",
+              "quote": "หากเปรียบเทียบกันระหว่างผู้ประเมินความดึงดูดใจซึ่งมีรูปแบบความผูกพันแตกต่างกัน 4 แบบ ผู้ประเมินคนที่มีรูปแบบความผูกพันเหมือนกับรูปแบบความผูกพันของผู้ถูกประเมิน จะประเมินระดับความดึงดูดใจสูงกว่าผู้ประเมินที่ไม่ได้มีรูปแบบความผูกพันเหมือนกับผู้ถูกประเมิน"
+            }
+          ],
+          "quote_checks": [
+            false,
+            true,
+            true,
+            true
+          ]
+        }
+      },
+      "claims": {
+        "ids": [
+          "rule:attach:secure:attach:secure",
+          "thesis_attraction2548_s12_c09",
+          "thesis_attraction2548_s12_c13",
+          "thesis_attraction2548_s13_c14",
+          "thesis_attraction2548_s07_c42",
+          "thesis_attraction2548_s08_c03",
+          "thesis_attraction2548_s13_c04",
+          "thesis_attraction2548_s07_c24"
+        ],
+        "hit_at_8": false,
+        "reciprocal_rank": 0,
+        "target_recall_at_8": 0.0,
+        "latency_ms": 0.568666000617668,
+        "answer_sample": {
+          "answer": "ไม่มีข้อมูล evidence ที่ระบุชัดเจนว่า secure attachment มองตนเองและผู้อื่นอย่างไรในเชิงจิตวิทยาโดยตรงจากข้อความต้นฉบับ แต่มีหลักฐานเกี่ยวกับ 'การประเมิน' (perception) ของบุคคลที่มีรูปแบบความผูกพันแบบมั่นคงต่อผู้อื่น และแนวโน้มที่ผู้ที่มีรูปแบบความผูกพันแบบมั่นคงมักถูกมองว่ามีเสน่ห์ดึงดูดใจมากที่สุด",
+          "evidence": [
+            {
+              "chunk_id": "thesis_attraction2548_s13_c09",
+              "quote": "ในการประเมินผู้ที่มีรูปแบบความผูกพันแบบไม่สนใจ ผู้ที่มีรูปแบบความผูกพันแบบไม่สนใจ มีคะแนนการประเมินความดึงดูดใจสูงกว่าผู้ที่มีรูปแบบความผูกพันแบบมั่นคง แบบหมกมุ่น และแบบหวาดกลัว อย่างมีนัยสำคัญทางสถิติที่ระดับ .05"
+            },
+            {
+              "chunk_id": "thesis_attraction2548_s13_c14",
+              "quote": "สรุปในภาพรวม งานวิจัยนี้ได้แสดงให้เห็นว่า ความดึงดูดใจระหว่างบุคคลขึ้นอยู่กับรูปแบบความผูกพันของบุคคลทั้งสองฝ่าย ไม่ใช่ฝ่ายใดฝ่ายหนึ่ง อย่างไรก็ตาม รูปแบบความผูกพันแบบมั่นคงเป็นรูปแบบที่ดึงดูดใจมากที่สุด ไม่ว่าบุคคลผู้นั้นจะมีรูปแบบความผูกพันแบบใดก็ตาม"
+            },
+            {
+              "chunk_id": "thesis_attraction2548_s07_c42",
+              "quote": "เมื่อเปรียบเทียบระหว่างผู้อ่านเรื่องซึ่งมีรูปแบบความผูกพันแตกต่างกัน อ่านเรื่องที่คู่รักสมมติในเรื่องมีรูปแบบความผูกพันแบบมั่นคง คนอ่านทั้ง 4 แบบ ก็จะประเมินคะแนนความดึงดูดใจในระดับพอ ๆ กันเพราะโดยธรรมชาติแล้ว ใคร ๆ ก็ต่างชอบคนที่มีรูปแบบความผูกพันแบบมั่นคง"
+            },
+            {
+              "chunk_id": "thesis_attraction2548_s07_c24",
+              "quote": "หากเปรียบเทียบกันระหว่างผู้ประเมินความดึงดูดใจซึ่งมีรูปแบบความผูกพันแตกต่างกัน 4 แบบ ผู้ประเมินคนที่มีรูปแบบความผูกพันเหมือนกับรูปแบบความผูกพันของผู้ถูกประเมิน จะประเมินระดับความดึงดูดใจสูงกว่าผู้ประเมินที่ไม่ได้มีรูปแบบความผูกพันเหมือนกับผู้ถูกประเมิน"
+            }
+          ],
+          "quote_checks": [
+            false,
+            true,
+            true,
+            true
+          ]
+        }
+      }
+    },
+    {
+      "case": "caregiver",
+      "question": "ความผูกพันแบบมั่นคง secure ในทารกสัมพันธ์กับการดูแลอย่างไร",
+      "target_chunks": [
+        "web_chula_attachment_s00_c00",
+        "web_chula_attachment_s00_c01"
+      ],
+      "baseline": {
+        "ids": [
+          "rule:attach:secure:attach:secure",
+          "thesis_attraction2548_s12_c09",
+          "thesis_attraction2548_s12_c13",
+          "thesis_attraction2548_s13_c14",
+          "thesis_attraction2548_s07_c42",
+          "thesis_attraction2548_s08_c03",
+          "thesis_attraction2548_s13_c04",
+          "thesis_attraction2548_s07_c24"
+        ],
+        "hit_at_8": false,
+        "reciprocal_rank": 0,
+        "target_recall_at_8": 0.0,
+        "latency_ms": 0.5111270002089441
+      },
+      "claims": {
+        "ids": [
+          "rule:attach:secure:attach:secure",
+          "thesis_attraction2548_s12_c09",
+          "thesis_attraction2548_s12_c13",
+          "thesis_attraction2548_s13_c14",
+          "thesis_attraction2548_s07_c42",
+          "thesis_attraction2548_s08_c03",
+          "thesis_attraction2548_s13_c04",
+          "thesis_attraction2548_s07_c24"
+        ],
+        "hit_at_8": false,
+        "reciprocal_rank": 0,
+        "target_recall_at_8": 0.0,
+        "latency_ms": 0.3314280002086889
+      }
+    },
+    {
+      "case": "intimacy",
+      "question": "ความใกล้ชิดเกี่ยวข้องกับมิติหลีกเลี่ยงอย่างไร",
+      "target_chunks": [
+        "web_chula_attachment_s00_c02"
+      ],
+      "baseline": {
+        "ids": [
+          "thesis_narcissism2553_s01_c05",
+          "thesis_start_romance2549_s17_c01",
+          "thesis_start_romance2549_s18_c00",
+          "chula_situationships_s00_c01",
+          "chula_dating_hookup_s00_c01",
+          "article_multilove2565_s06_c01",
+          "chula_situationships_s00_c00",
+          "thesis_attraction2548_s07_c05"
+        ],
+        "hit_at_8": false,
+        "reciprocal_rank": 0,
+        "target_recall_at_8": 0.0,
+        "latency_ms": 0.21971599926473573
+      },
+      "claims": {
+        "ids": [
+          "thesis_narcissism2553_s01_c05",
+          "thesis_start_romance2549_s17_c01",
+          "thesis_start_romance2549_s18_c00",
+          "chula_situationships_s00_c01",
+          "chula_dating_hookup_s00_c01",
+          "article_multilove2565_s06_c01",
+          "chula_situationships_s00_c00",
+          "thesis_attraction2548_s07_c05"
+        ],
+        "hit_at_8": false,
+        "reciprocal_rank": 0,
+        "target_recall_at_8": 0.0,
+        "latency_ms": 0.23640700237592682
+      }
+    },
+    {
+      "case": "gaslighting",
+      "question": "gaslighting พบได้เฉพาะคู่รักหรือไม่",
+      "target_chunks": [
+        "web_chula_gaslighting_s00_c00"
+      ],
+      "baseline": {
+        "ids": [
+          "web_chula_gaslighting_s00_c00",
+          "web_chula_gaslighting_s00_c02",
+          "web_chula_gaslighting_s00_c01",
+          "web_chula_guilt_trip_s00_c01",
+          "web_chula_guilt_trip_s00_c00",
+          "chula_adults_minors_s01_c01",
+          "web_healthaddict_friend_vs_partner_s00_c00"
+        ],
+        "hit_at_8": true,
+        "reciprocal_rank": 1.0,
+        "target_recall_at_8": 1.0,
+        "latency_ms": 0.08454999988316558,
+        "answer_sample": {
+          "answer": "Gaslighting ไม่พบได้เฉพาะคู่รักเท่านั้น แต่สามารถเกิดขึ้นได้ในทุกรูปแบบความสัมพันธ์",
+          "evidence": [
+            {
+              "chunk_id": "web_chula_gaslighting_s00_c00",
+              "quote": "Gaslighting จึงเป็นรูปแบบหนึ่งของการควบคุมทางจิตใจ (psychological manipulation) ในความสัมพันธ์ด้วยการปลูกฝังเมล็ดพันธ์ของความแคลงใจ ความสงสัย และความไม่เชื่อมั่นในตนเองซึ่งพบได้ในทุกรูปแบบความสัมพันธ์ ไม่เพียงแต่เชิงโรแมนติกเท่านั้น แต่ยังรวมไปถึงครอบครัว เพื่อน สังคมการศึกษา และสังคมการทำงานอีกด้วย"
+            },
+            {
+              "chunk_id": "web_chula_gaslighting_s00_c01",
+              "quote": "การปกป้องตนเองและระมัดระวังไม่ให้ถูกทำลายความมั่นใจในตนเองด้วยหลุมกับดักทางจิตใจนี้อาจมีได้หลายหนทาง เช่น... แต่เมื่อเราลองคิดทบทวนในสิ่งที่ได้ฟังและสิ่งที่ตนคิดนั้นเราจะพบว่ากับดักทางจิตวิทยาชนิดนี้อยู่รอบตัวเราในทุกความสัมพันธ์"
+            }
+          ],
+          "quote_checks": [
+            true,
+            false
+          ]
+        }
+      },
+      "claims": {
+        "ids": [
+          "web_chula_gaslighting_s00_c00",
+          "web_chula_gaslighting_s00_c02",
+          "web_chula_gaslighting_s00_c01",
+          "web_chula_guilt_trip_s00_c01",
+          "web_chula_guilt_trip_s00_c00",
+          "chula_adults_minors_s01_c01",
+          "web_healthaddict_friend_vs_partner_s00_c00"
+        ],
+        "hit_at_8": true,
+        "reciprocal_rank": 1.0,
+        "target_recall_at_8": 1.0,
+        "latency_ms": 0.17117400057031773,
+        "answer_sample": {
+          "answer": "Gaslighting ไม่พบได้เฉพาะคู่รักเท่านั้น แต่สามารถเกิดขึ้นได้ในทุกรูปแบบความสัมพันธ์",
+          "evidence": [
+            {
+              "chunk_id": "web_chula_gaslighting_s00_c00",
+              "quote": "Gaslighting จึงเป็นรูปแบบหนึ่งของการควบคุมทางจิตใจ (psychological manipulation) ในความสัมพันธ์ด้วยการปลูกฝังเมล็ดพันธ์ของความแคลงใจ ความสงสัย และความไม่เชื่อมั่นในตนเองซึ่งพบได้ในทุกรูปแบบความสัมพันธ์ ไม่เพียงแต่เชิงโรแมนติกเท่านั้น แต่ยังรวมไปถึงครอบครัว เพื่อน สังคมการศึกษา และสังคมการทำงานอีกด้วย"
+            },
+            {
+              "chunk_id": "web_chula_gaslighting_s00_c01",
+              "quote": "การปกป้องตนเองและระมัดระวังไม่ให้ถูกทำลายความมั่นใจในตนเองด้วยหลุมกับดักทางจิตใจนี้อาจมีได้หลายหนทาง เช่น... แต่เมื่อเราลองคิดทบทวนในสิ่งที่ได้ฟังและสิ่งที่ตนคิดนั้นเราจะพบว่ากับดักทางจิตวิทยาชนิดนี้อยู่รอบตัวเราในทุกความสัมพันธ์"
+            }
+          ],
+          "quote_checks": [
+            true,
+            false
+          ]
+        }
+      }
+    },
+    {
+      "case": "paraphrase",
+      "question": "คนรักทำให้เราสงสัยความจำตัวเองเรียกว่าอะไร",
+      "target_chunks": [
+        "web_chula_gaslighting_s00_c00"
+      ],
+      "baseline": {
+        "ids": [],
+        "hit_at_8": false,
+        "reciprocal_rank": 0,
+        "target_recall_at_8": 0.0,
+        "latency_ms": 0.10019999899668619
+      },
+      "claims": {
+        "ids": [],
+        "hit_at_8": false,
+        "reciprocal_rank": 0,
+        "target_recall_at_8": 0.0,
+        "latency_ms": 0.06423199738492258
+      }
+    },
+    {
+      "case": "unrelated",
+      "question": "ราคาทองวันนี้เท่าไร",
+      "target_chunks": [],
+      "baseline": {
+        "ids": [],
+        "hit_at_8": null,
+        "reciprocal_rank": 0,
+        "target_recall_at_8": null,
+        "latency_ms": 0.058972000260837376
+      },
+      "claims": {
+        "ids": [],
+        "hit_at_8": null,
+        "reciprocal_rank": 0,
+        "target_recall_at_8": null,
+        "latency_ms": 0.08207500286516733
+      }
+    }
+  ],
+  "limitations": [
+    "Small targeted pilot, not held-out benchmark",
+    "Real alias concept detection; embeddings disabled to isolate graph changes",
+    "No ChromaDB or production RAG gates used",
+    "Exact quote checks do not establish semantic correctness",
+    "Generated answers use Qwen3.5 for both variants, not production answer-model configuration"
+  ]
+}

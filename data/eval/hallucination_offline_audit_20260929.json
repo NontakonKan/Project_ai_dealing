@@ -1,0 +1,28 @@
+{
+  "source": "data\\eval\\rag_judge\\20260928_204553\\rows.jsonl",
+  "n": 52,
+  "answerable": 41,
+  "unanswerable": 11,
+  "answerable_answered": 36,
+  "unanswerable_refused": 11,
+  "answered": 36,
+  "judge_supported": 36,
+  "judge_on_question": 36,
+  "judge_unsupported_qids": [],
+  "judge_off_question_qids": [],
+  "answerable_refused_qids": [
+    "Q12",
+    "Q33",
+    "Q38",
+    "Q42",
+    "Q45"
+  ],
+  "unanswerable_answered_qids": [],
+  "missing_text_citation_qids": [],
+  "missing_metadata_citation_qids": [],
+  "latency_p50_ms": 13940,
+  "latency_p95_ms": 35580,
+  "writer": "api:PSU-LLM/psu-gemma",
+  "judge": "gemma3:12b",
+  "independent_human_verified": false
+}

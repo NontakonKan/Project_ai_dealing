@@ -1,6 +1,32 @@
 """Read-only graph inspection, without matching scores, ranking or RAG."""
 
 QUERIES = {
+    "claim-evidence": """
+        MATCH (concept:DealingEntity:Concept {dataset:$dataset, snapshot:$snapshot, id:$concept_id})
+              <-[role:SUBJECT|OBJECT]-(claim:Claim)-[:SUPPORTED_BY]->(chunk:BookChunk)
+              <-[:HAS_CHUNK]-(source:Source)
+        RETURN claim.id AS claim_id, type(role) AS matched_role,
+               claim.assertion AS review_status, claim.predicate AS predicate,
+               claim.polarity AS polarity, claim.qualifier_text AS qualifier,
+               claim.text AS quote, chunk.id AS chunk_id, chunk.pages AS pages,
+               source.source_id AS source_id, source.title AS title
+        ORDER BY source_id, chunk_id, claim_id
+    """,
+    "claims": """
+        MATCH (c:DealingEntity:Claim {dataset:$dataset, snapshot:$snapshot})
+              -[:SUPPORTED_BY]->(b:BookChunk)
+        OPTIONAL MATCH (c)-[:SUBJECT]->(subject:Concept)
+        OPTIONAL MATCH (c)-[:OBJECT]->(obj:Concept)
+        OPTIONAL MATCH (c)-[:ABOUT]->(t:Concept)
+        WITH c, b, subject, obj, collect(DISTINCT t.id) AS concepts
+        RETURN c.id AS claim_id, c.text AS quote, c.assertion AS status,
+               subject.id AS subject_id, c.predicate AS predicate,
+               obj.id AS object_concept_id, c.object_text AS object_text,
+               c.polarity AS polarity, c.qualifier_text AS qualifier_text,
+               c.reviewed_by AS reviewed_by, c.reviewed_at AS reviewed_at,
+               b.id AS chunk_id, b.source_id AS source_id, concepts
+        ORDER BY claim_id
+    """,
     "summary": """
         MATCH (n:DealingEntity {dataset:$dataset, snapshot:$snapshot})
         UNWIND [label IN labels(n) WHERE NOT label IN ['DealingEntity', 'Concept']] AS label

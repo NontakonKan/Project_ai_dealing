@@ -1,2 +1,3 @@
-# Only needed for Neo4j import/exploration; building the graph uses the stdlib.
+# Building the graph uses the stdlib. Retrieval uses scikit-learn for lexical entry points.
 neo4j>=5.28,<6
+scikit-learn>=1.4,<2

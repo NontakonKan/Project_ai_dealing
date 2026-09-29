@@ -1,18 +1,14 @@
-"""ค่าตั้งของ service — อ่านจาก environment / app/.env (ไม่ขึ้น git)
+"""ค่าตั้งของ service — อ่านจาก environment / .env ที่ root (ไม่ขึ้น git)
 
 LINE_CHANNEL_SECRET / LINE_CHANNEL_ACCESS_TOKEN ว่าง = โหมดจำลอง (ไม่ส่งจริง ใช้กับ app.simulate)
 """
 import os
 from pathlib import Path
 
+from pipelines.common import env
 from pipelines.common.paths import DATA
 
-ENV_FILE = Path(__file__).with_name(".env")
-if ENV_FILE.exists():
-    for line in ENV_FILE.read_text(encoding="utf-8").splitlines():
-        if "=" in line and not line.strip().startswith("#"):
-            k, v = line.split("=", 1)
-            os.environ.setdefault(k.strip(), v.strip())
+env.load()
 
 LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET", "")
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", "")

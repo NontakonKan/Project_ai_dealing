@@ -1,0 +1,114 @@
+[
+  {
+    "qid": "Q02",
+    "question": "ปัจจัยใดทำนายความพึงพอใจในความสัมพันธ์ของนิสิตได้",
+    "retrieved": 2,
+    "passed_gate": 2,
+    "refused_by_gate": false,
+    "ids_after_gate": [
+      "thesis_narcissism2553_s01_c35",
+      "thesis_narcissism2553_s03_c13"
+    ],
+    "ms": 80850
+  },
+  {
+    "qid": "Q05",
+    "question": "การเปิดเผยความสัมพันธ์ต่อเพื่อนและครอบครัวเกี่ยวข้องกับความพึงพอใจในความสัมพันธ์ไหม",
+    "retrieved": 2,
+    "passed_gate": 2,
+    "refused_by_gate": false,
+    "ids_after_gate": [
+      "thesis_start_romance2549_s35_c00",
+      "thesis_start_romance2549_s35_c01"
+    ],
+    "ms": 27619
+  },
+  {
+    "qid": "Q10",
+    "question": "ค่าเทอมคณะวิศวกรรมศาสตร์ ม.อ. เท่าไร",
+    "retrieved": 0,
+    "passed_gate": 0,
+    "refused_by_gate": true,
+    "ids_after_gate": [],
+    "ms": 13645
+  },
+  {
+    "qid": "Q29",
+    "question": "ร้านอาหารแถวหาดใหญ่ร้านไหนอร่อย",
+    "retrieved": 0,
+    "passed_gate": 0,
+    "refused_by_gate": true,
+    "ids_after_gate": [],
+    "ms": 9358
+  },
+  {
+    "qid": "Q30",
+    "question": "ราคาทองวันนี้เท่าไร",
+    "retrieved": 2,
+    "passed_gate": 2,
+    "refused_by_gate": false,
+    "ids_after_gate": [
+      "thesis_narcissism2553_s09_c37",
+      "thesis_narcissism2553_s09_c36"
+    ],
+    "ms": 12495
+  },
+  {
+    "qid": "Q39",
+    "question": "เดตแรกควรพาไปกินที่ไหนดี",
+    "retrieved": 1,
+    "passed_gate": 1,
+    "refused_by_gate": false,
+    "ids_after_gate": [
+      "secnia_dating_app_s01_c01"
+    ],
+    "ms": 26372
+  },
+  {
+    "qid": "Q40",
+    "question": "จะสารภาพรักยังไงให้ไม่เขิน",
+    "retrieved": 0,
+    "passed_gate": 0,
+    "refused_by_gate": true,
+    "ids_after_gate": [],
+    "ms": 24104
+  },
+  {
+    "qid": "Q41",
+    "question": "ครบรอบ 1 ปีควรซื้อของขวัญอะไรให้แฟน",
+    "retrieved": 0,
+    "passed_gate": 0,
+    "refused_by_gate": true,
+    "ids_after_gate": [],
+    "ms": 20656
+  },
+  {
+    "qid": "Q43",
+    "question": "ไปเดตควรแต่งตัวยังไง",
+    "retrieved": 0,
+    "passed_gate": 0,
+    "refused_by_gate": true,
+    "ids_after_gate": [],
+    "ms": 28424
+  },
+  {
+    "qid": "Q44",
+    "question": "จะชวนเขาไปดูหนังยังไงให้ไม่แปลก",
+    "retrieved": 1,
+    "passed_gate": 1,
+    "refused_by_gate": false,
+    "ids_after_gate": [
+      "chula_love_fresh_up_s01_c00"
+    ],
+    "ms": 32363
+  },
+  {
+    "qid": "Q46",
+    "question": "จีบรุ่นพี่ในคณะดีไหม",
+    "retrieved": 0,
+    "passed_gate": 0,
+    "refused_by_gate": true,
+    "ids_after_gate": [],
+    "ms": 10314
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "model": "qwen3.5:9b",
+  "source_chunks": 5,
+  "candidate_claims": 9,
+  "structural_validation": "passed for all candidates",
+  "retrieval_check": "Each candidate leads to its original chunk; concept detection mocked to isolate graph traversal",
+  "matching_check": "Three user pairs unchanged; not a full matching benchmark",
+  "rejected": [
+    {
+      "claim_id": "claim:acdaa9564b98dc680fdd592e",
+      "reason": "Heading only, not a complete assertion"
+    }
+  ],
+  "remaining_claims": 8,
+  "limitations": [
+    "Lexical matching is not semantic verification",
+    "Overlapping chunks can produce repeated passages",
+    "No answer-quality A/B evaluation yet",
+    "Not imported into active Neo4j or runtime claims file"
+  ]
+}

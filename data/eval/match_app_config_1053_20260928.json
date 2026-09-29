@@ -1,0 +1,26 @@
+[
+  {
+    "config": "app MATCH_CFG",
+    "mode": "hybrid",
+    "K": 5,
+    "P@K": 0.3201,
+    "R@K": 0.3201,
+    "MRR": 0.6383,
+    "nDCG@K": 0.3541,
+    "Violation@K": 0.1278,
+    "ms_per_user": 15.7,
+    "queries": 288
+  },
+  {
+    "config": "app MATCH_CFG",
+    "mode": "hybrid",
+    "K": 10,
+    "P@K": 0.2392,
+    "R@K": 0.4785,
+    "MRR": 0.6474,
+    "nDCG@K": 0.4413,
+    "Violation@K": 0.1233,
+    "ms_per_user": 15.7,
+    "queries": 288
+  }
+]
