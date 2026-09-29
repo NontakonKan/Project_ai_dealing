@@ -9,7 +9,7 @@ import threading
 from urllib.parse import parse_qs
 
 from . import conversation, intent, line_api, log, storage
-from .flex import MENU, text
+from .flex import MENU, postback_quick, text
 from .flows import account, advice, chat, intro, match, onboarding, unmatch
 
 ERROR_TEXT = "ขอโทษครับ ตอนนี้ระบบขัดข้องชั่วคราว 🙏 ลองพิมพ์ใหม่อีกครั้งได้ไหมครับ"
@@ -71,6 +71,17 @@ def _dispatch(event) -> list:
             return intro.request(u, target)
         if act in ("accept", "decline"):
             return intro.decide(u, q.get("req"), act == "accept")
+        if act == "delete":
+            if q.get("v") == "yes":
+                return account.delete(u)
+            return [text("ยกเลิกแล้วครับ ข้อมูลของคุณยังอยู่ครบ 🙂", MENU)]
+        if act == "delete_prompt":
+            return [postback_quick("ต้องการลบข้อมูลทั้งหมดของคุณใช่ไหมครับ? การลบจะย้อนกลับไม่ได้ หากแน่ใจให้กดยืนยันลบข้อมูล",
+                                   [("ยืนยันลบข้อมูล", "action=delete_confirm"), ("ยกเลิก", "action=delete_cancel")])]
+        if act == "delete_confirm":
+            return account.delete(u)
+        if act == "delete_cancel":
+            return [text("ยกเลิกการลบข้อมูลแล้วครับ", MENU)]
         if act == "pass":
             return match.pass_(u, target)
         if act == "unmatch":
@@ -80,22 +91,22 @@ def _dispatch(event) -> list:
         msg = event["message"]["text"]
         if u["state"] == "new":
             return onboarding.follow(u)
+        if msg.strip() == "ถามบอต" and u["state"] == "ready":
+            return [text("อยากถามหรือปรึกษาเรื่องอะไรครับ พิมพ์คำถามมาได้เลย เช่น วิธีเริ่มคุยกับคนที่ชอบ หรือการตั้งขอบเขตในความสัมพันธ์", MENU)]
         if msg.strip() in ("ยินยอม", "ยินยอมให้หาคู่") and u["state"] != "onboard_consent":
             return onboarding.consent(u, True)
         # Anchor history to the inserted row, never remove an assumed last row.
         message_id = storage.add_message(u["user_id"], "user", msg)
         history = storage.advice_history(u["user_id"], message_id)
         kind = intent.classify(msg, u["state"], history=history)
+        if intent.LAST:
+            log.note(f"เจตนา={intent.LAST['raw']} ตัดสินด้วย {intent.LAST['by']} {intent.LAST['top'][:2]}")
         with storage.db() as con:
             con.execute("UPDATE messages SET intent=? WHERE id=?", (kind, message_id))
         memories = []
-        if kind in {"chat", "ask_advice", "recall_memory"}:
+        if kind in {"ask_advice", "recall_memory"}:
             memories = conversation.prepare(u["user_id"], msg, message_id, history)
             if memories and intent.is_followup(msg) and kind != "recall_memory":
-                if kind == "chat":
-                    kind = "ask_advice"
-                    with storage.db() as con:
-                        con.execute("UPDATE messages SET intent=? WHERE id=?", (kind,message_id))
                 import json
                 # Explicitly labelled user context, never assistant-generated evidence.
                 memory_context = {"role": "user", "text":
@@ -115,11 +126,18 @@ def _dispatch(event) -> list:
                 storage.add_message(u["user_id"], "bot", reply["text"], kind)
             return out
         _trace.update(kind=kind, input=log.clip(msg) if kind != "contact" else "(ส่ง LINE ID — ไม่แสดงใน log)")
-        out = {"onboarding": lambda: onboarding.answer(u, msg), "unmatch_reason": lambda: unmatch.reason(u, msg),
-               "contact": lambda: intro.contact(u, msg),
-               "delete_me": lambda: account.delete(u), "show_profile": lambda: account.show(u),
-               "find_match": lambda: match.find(u), "unmatch": lambda: unmatch.ask_reason(u),
-               "ask_advice": lambda: advice.handle(u, msg, history=history), "chat": lambda: chat.handle(u, msg)}[kind]()
+        flows = {
+            "onboarding": lambda: onboarding.answer(u, msg),
+            "unmatch_reason": lambda: unmatch.reason(u, msg),
+            "contact": lambda: intro.contact(u, msg),
+            "delete_me": lambda: account.confirm_delete(u),
+            "show_profile": lambda: account.show(u),
+            "find_match": lambda: match.find(u),
+            "unmatch": lambda: unmatch.ask_reason(u),
+            "ask_advice": lambda: advice.handle(u, msg, history=history),
+            "chat": lambda: chat.handle(u, msg),
+        }
+        out = flows.get(kind, lambda: chat.handle(u, msg))()
         for m in out:
             if m["type"] == "text" and kind != "delete_me":
                 storage.add_message(u["user_id"], "bot", m["text"], kind)

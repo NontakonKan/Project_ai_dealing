@@ -60,6 +60,8 @@ TASKS = {
     "rag_answer": TaskConfig(TYPHOON_8B, GenConfig(temperature=0.1, num_ctx=6144, num_predict=512), context_budget=3000),
     # คำถามเล่าสถานการณ์ -> หัวข้อที่เอกสารใช้ (ใช้เฉพาะเมื่อค้นรอบแรกไม่เจอ ดู pipelines/hybrid/search.py)
     "rewrite_query": TaskConfig(QWEN_7B, GenConfig(temperature=0.0, num_ctx=2048, num_predict=160)),
+    # แยกเจตนาข้อความเมื่อ SBERT+BM25 ก้ำกึ่ง (app/intent_model.py) — Local: ข้อความผู้ใช้ไม่ออกนอกเครื่อง
+    "classify_intent": TaskConfig(QWEN_7B, GenConfig(temperature=0.0, num_ctx=1024, num_predict=12)),
     "explain_match": TaskConfig(TYPHOON_8B, GenConfig(temperature=0.3, num_ctx=6144, num_predict=400), context_budget=2500),
 }
 

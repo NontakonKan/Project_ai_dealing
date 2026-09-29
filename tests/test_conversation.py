@@ -66,7 +66,7 @@ class ConversationTests(unittest.TestCase):
         h = self.history()
         for q in ('ช่วยยกตัวอย่างหน่อย', 'ขอรายละเอียดข้อสอง', 'แล้วถ้าเขายังทำแบบเดิมล่ะ'):
             self.assertEqual(intent.classify(q, history=h), 'ask_advice')
-            self.assertEqual(intent.classify(q), 'chat')
+            self.assertEqual(intent.classify(q), 'ask_advice')
         self.assertEqual(intent.classify('หาคู่ให้หน่อย', history=h), 'find_match')
         self.assertEqual(intent.classify('ลบข้อมูลของฉัน', history=h), 'delete_me')
         self.assertEqual(intent.classify('ช่วยยกตัวอย่างหน่อย', 'await_contact', h), 'contact')

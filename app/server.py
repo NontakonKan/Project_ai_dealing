@@ -23,6 +23,8 @@ def _preload(c):
     t0 = time.time()
     c.dense                      # ChromaDB
     encode(["warmup"])           # bge-m3 (sentence-transformers)
+    from .intent_model import _index
+    _index()                     # เข้ารหัสประโยคตัวอย่างของแต่ละเจตนา (แยกเจตนาด้วยความหมาย)
     from pipelines.hybrid.reranker import _model
     _model().predict([("warmup", "warmup")], show_progress_bar=False)   # cross-encoder ของด่านความเกี่ยวข้อง (ตอบปรึกษา)
     for m in {TASKS["extract_profile"].model, CHAT_MODEL}:

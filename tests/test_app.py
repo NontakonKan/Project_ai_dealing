@@ -30,12 +30,13 @@ class IntentTests(unittest.TestCase):
     def test_classify(self):
         self.assertEqual(intent.classify("หาคู่ให้หน่อย"), "find_match")
         self.assertEqual(intent.classify("แฟนเงียบใส่ ควรทำยังไง"), "ask_advice")
-        self.assertEqual(intent.classify("วันนี้ทำกับข้าวกินเอง"), "chat")
+        self.assertEqual(intent.classify("วันนี้ทำกับข้าวกินเอง"), "chat")        # เล่าเรื่องตัวเอง -> ให้ chat เรียนรู้งานอดิเรก
         self.assertEqual(intent.classify("ลบข้อมูลของฉัน"), "delete_me")
         self.assertEqual(intent.classify("ชาย", "onboard_gender"), "onboarding")
         self.assertEqual(intent.classify("ติดเพื่อน", "await_unmatch_reason"), "unmatch_reason")
         self.assertEqual(intent.classify("จะรู้ได้ไงว่าเค้าเริ่มชอบผม"), "ask_advice")   # คำถามภาษาพูด -> ตอบจากคลังความรู้
-        self.assertEqual(intent.classify("ชอบผู้หญิงเรียนวิศวะ"), "chat")
+        self.assertEqual(intent.classify("ชอบผู้หญิงเรียนวิศวะ"), "chat")         # บอกสเปค -> chat จำคณะที่อยากได้
+        self.assertEqual(intent.classify("ลบโปรไฟล์"), "delete_me")              # log จริง: เคยตกไปเป็นคำถามปรึกษา
 
 
 class ChatReplyCleanTests(unittest.TestCase):
@@ -86,7 +87,15 @@ class OnboardingFlowTests(unittest.TestCase):
         p = storage.load_profile(u["user_id"])
         self.assertEqual((p["demographic"]["gender"], p["demographic"]["seeking"], p["demographic"]["age"]), ("F", ["M"], 21))
         self.assertEqual(u["state"], "ready")
-        self._send({"type": "message", "message": {"type": "text", "text": "ลบข้อมูลของฉัน"}})
+        chat_out = self._send({"type": "message", "message": {"type": "text", "text": "ชอบคนอ่านหนังสือเยอะ"}})
+        self.assertTrue(len(chat_out) > 0)
+        self.assertNotIn(handlers.ERROR_TEXT, chat_out[0]["text"])
+        out = self._send({"type": "message", "message": {"type": "text", "text": "ลบข้อมูลของฉัน"}})
+        self.assertIn("ยืนยันลบ", str(out))                                      # ต้องกดยืนยันก่อน ไม่ลบทันที
+        self.assertIsNotNone(storage.get_line_user("Utest"))
+        self._send({"type": "postback", "postback": {"data": "action=delete&v=no"}})
+        self.assertIsNotNone(storage.get_line_user("Utest"))                     # ยกเลิก = ข้อมูลยังอยู่
+        self._send({"type": "postback", "postback": {"data": "action=delete&v=yes"}})
         self.assertIsNone(storage.get_line_user("Utest"))
 
 

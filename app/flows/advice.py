@@ -14,6 +14,24 @@ _retriever = None
 NO_INFO = ("เรื่องนี้ยังไม่มีในคลังความรู้ของผมครับ 🙏 ผมจะตอบเฉพาะจากเอกสารที่ตรวจสอบแล้วเท่านั้น\n"
            "ผมตอบได้ดีเรื่องทฤษฎีความรัก รูปแบบความผูกพัน red flag การเลิกรา การจัดการอารมณ์ และการตั้งขอบเขตครับ")
 
+RE_MATH = re.compile(r"^[\d\s+\-*/=^().%]+$")
+
+ADVICE_PROMPTS = {
+    re.sub(r"[!?.#@$%^&*()_+=~`\-\s]+", "", p).lower()
+    for p in (
+        "อยากปรึกษาเรื่องความรักหน่อย", "ปรึกษาเรื่องความรัก", "อยากปรึกษา", "ขอปรึกษา", "ปรึกษาหน่อย",
+        "ถามบอต", "ถามหน่อย", "มีเรื่องจะถาม", "สวัสดี", "หวัดดี", "ดีครับ", "ดีค่ะ", "hello", "hi"
+    )
+}
+
+ADVICE_INVITE = ("ยินดีครับ! สามารถพิมพ์คำถามหรือเล่าเรื่องความรักที่อยากปรึกษาได้เลยครับ 😊\n\n"
+                 "ผมพร้อมตอบจากเอกสารและงานวิจัยที่ตรวจสอบแล้ว เช่น:\n"
+                 "• สัญญาณเตือนอันตราย (Red Flags) ในความสัมพันธ์\n"
+                 "• รูปแบบความผูกพัน (Attachment Styles)\n"
+                 "• การรับมือเมื่ออีกฝ่ายเงียบใส่ หรือการสื่อสารที่มีปัญหา\n"
+                 "• การตั้งขอบเขต (Healthy Boundaries) และการรับมือการเลิกรา")
+
+
 
 RE_DOMAIN = re.compile(r"(?:https?://)?(?:[A-Za-z0-9-]+\.)*?([A-Za-z0-9-]+)\.(?:co\.th|ac\.th|or\.th|go\.th|com|co|org|net|th|io)"
                        r"(?:/[^\s)]*)?")
@@ -27,7 +45,7 @@ def _plain(answer):
 # ข้อความบอทที่ไม่ใช่คำตอบ (ไม่มีข้อมูล / ถามกลับ) -> ห้ามให้ขั้นแปลงคำถามต่อเนื่องหยิบไปเป็นหัวข้อ
 # วัดจริง: ถาม "ยกตัวอย่างหน่อย" หลังบอทตอบ NO_INFO -> แปลงเป็น "ยกตัวอย่างเรื่องทฤษฎีความรัก รูปแบบความผูกพัน…"
 # (เอามาจากรายการหัวข้อในข้อความ NO_INFO) แล้วตอบเรื่อง intimacy ที่ไม่เกี่ยวกับคำถามเดิม
-NON_ANSWERS = (NO_INFO.split("\n")[0], "หมายถึงเรื่องไหนครับ", "ช่วยระบุเรื่องที่อยากถามต่อ", "ตอนนี้ผมประมวลผลคำถามต่อเนื่องไม่สำเร็จ")
+NON_ANSWERS = (NO_INFO.split("\n")[0], ADVICE_INVITE.split("\n")[0], "หมายถึงเรื่องไหนครับ", "ช่วยระบุเรื่องที่อยากถามต่อ", "ตอนนี้ผมประมวลผลคำถามต่อเนื่องไม่สำเร็จ")
 
 
 def _usable_history(history):
@@ -56,6 +74,15 @@ def _no_link(title):
 
 def handle(line_user, msg, history=None):
     global _retriever
+    t_clean = re.sub(r"[!?.#@$%^&*()_+=~`\-\s]+", "", msg).lower()
+    if t_clean in ADVICE_PROMPTS:
+        return [text(ADVICE_INVITE, MENU)]
+
+    if RE_MATH.match(msg.strip()) or len(re.findall(r"[\u0E00-\u0E7Fa-zA-Z]", msg)) < 2:
+        from .. import log
+        log.note("คำถามนอกขอบเขต RAG → ตอบว่าไม่มีข้อมูล")
+        return [text(NO_INFO, MENU)]
+
     history = _usable_history(history or [])
     # Only carry the old topic into a clear follow-up, not every new question.
     history = history if intent.is_followup(msg) else []

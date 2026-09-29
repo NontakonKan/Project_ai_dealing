@@ -1,15 +1,10 @@
-"""แยกเจตนาข้อความ (rule-based อธิบายได้ ไม่เปลือง LLM)
+"""แยกเจตนาข้อความ
 
-ลำดับ: สถานะที่ค้างอยู่ (onboarding / รอเหตุผลเลิกคุย) > คำสั่ง > คำถามปรึกษา > คุยเล่น
+ลำดับ: สถานะที่ค้างอยู่ (onboarding / รอเหตุผลเลิกคุย / รอ LINE ID) > เจตนาจากความหมาย (app/intent_model.py)
+คำสั่งและคำถามไม่ใช้การดักคำตายตัวแล้ว: SBERT + BM25 + LLM เมื่อก้ำกึ่ง
+วัดจริงชุดสด 26 ประโยค (python -m app.intent_eval --fresh): กฎคำตายตัว 50% -> 100%
 """
-FIND_MATCH = ("หาคู่", "หาคน", "แนะนำคน", "แนะนำคู่", "จับคู่", "match", "หาแฟน")
-SHOW_PROFILE = ("โปรไฟล์ของฉัน", "โปรไฟล์ฉัน", "จำอะไรเกี่ยวกับ", "ข้อมูลของฉัน")
-DELETE_ME = ("ลบข้อมูลของฉัน", "ลบข้อมูลฉัน", "ลบบัญชี")
-UNMATCH = ("เลิกคุย", "ไม่คุยต่อ", "ไม่ไปต่อ")
-QUESTION = ("?", "ไหม", "มั้ย", "อย่างไร", "ยังไง", "ทำไง", "ทำยังไง", "คืออะไร", "ควร", "ทำไม", "เป็นไง", "แบบไหน", "ปรึกษา",
-            "ได้ไง", "ได้ยังไง", "จะรู้", "รู้ได้", "หรือเปล่า", "รึเปล่า", "เปล่า?", "ดีไหม", "ดีมั้ย", "ยังไงดี", "ไงดี",
-            "แนะนำหน่อย", "ขอคำแนะนำ", "ขอวิธี", "มีวิธี", "เทคนิค", "สอนหน่อย", "อะไรบ้าง", "เท่าไร", "เท่าไหร่", "กี่",
-            "อะไรดี", "วิธี", "ดูยังไง", "ดูไง", "ยังไงให้", "เหรอ", "หรอ", "ได้มั้ย", "ได้ไหม")
+LAST = {}   # การตัดสินล่าสุด (เจตนาอันดับต้น + ตัดสินด้วยอะไร) ไว้เขียน log
 
 
 FOLLOWUP = ("ยกตัวอย่าง", "ขอรายละเอียด", "อธิบายเพิ่ม", "ขยายความ", "ข้อแรก", "ข้อสอง", "ข้อสาม",
@@ -42,19 +37,8 @@ def classify(text: str, state: str = "ready", history=None) -> str:
         return "unmatch_reason"
     if state == "await_contact":
         return "contact"
-    if any(k in t for k in DELETE_ME):
-        return "delete_me"
-    if any(k in t for k in SHOW_PROFILE):
-        return "show_profile"
-    if any(k in t for k in FIND_MATCH):
-        return "find_match"
-    if any(k in t for k in UNMATCH):
-        return "unmatch"
-    from .conversation import wants_recall
-    if wants_recall(t):
-        return "recall_memory"
-    if history and is_followup(t):
-        return "ask_advice"
-    if any(k in t for k in QUESTION):
-        return "ask_advice"
-    return "chat"
+    from .intent_model import ROUTE, classify as by_meaning
+    kind, info = by_meaning(text.strip())
+    LAST.clear()
+    LAST.update(info, raw=kind)
+    return ROUTE.get(kind, kind)

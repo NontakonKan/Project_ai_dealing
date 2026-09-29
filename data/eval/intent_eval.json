@@ -1,0 +1,111 @@
+{
+ "กฎคำตายตัว (เดิม)": {
+  "accuracy": 0.449,
+  "correct": 22,
+  "n": 49,
+  "ms_per_msg": 0,
+  "decided_by": {
+   "rule": 49
+  },
+  "wrong": [
+   "มีใครน่าสนใจแนะนำบ้าง → chat (ควรเป็น find_match)",
+   "อยากเจอคนใหม่ๆ → chat (ควรเป็น find_match)",
+   "ขอคนที่เข้ากันได้หน่อยครับ → chat (ควรเป็น find_match)",
+   "เปิดดูคู่แนะนำ → chat (ควรเป็น find_match)",
+   "มีคนโสดแนะนำไหม → ask_advice (ควรเป็น find_match)",
+   "ข้อมูลผมที่บันทึกไว้ → chat (ควรเป็น show_profile)",
+   "ดูสิ่งที่บอทรู้เกี่ยวกับเรา → chat (ควรเป็น show_profile)",
+   "โปรไฟล์ผมเป็นยังไงบ้าง → ask_advice (ควรเป็น show_profile)",
+   "เปิดประวัติของฉันหน่อย → chat (ควรเป็น show_profile)",
+   "ระบบเก็บอะไรของผมไว้ → chat (ควรเป็น show_profile)",
+   "ส่งลบโปรไฟล์ → chat (ควรเป็น delete_me)",
+   "ลบโปรไฟล์ → chat (ควรเป็น delete_me)",
+   "ลบข้อมูลทิ้งทั้งหมด → chat (ควรเป็น delete_me)",
+   "ไม่ใช้แล้ว ลบให้ด้วย → chat (ควรเป็น delete_me)",
+   "ขอให้ลืมข้อมูลของผมทั้งหมด → chat (ควรเป็น delete_me)",
+   "ลบแอคเคานต์ → chat (ควรเป็น delete_me)",
+   "remove my data → chat (ควรเป็น delete_me)",
+   "ไม่อยากคุยกับคนที่แนะนำแล้ว → chat (ควรเป็น unmatch)",
+   "คนนี้ไม่ใช่สเปค ขอผ่าน → chat (ควรเป็น unmatch)",
+   "หยุดคุยกับเขาแล้ว → chat (ควรเป็น unmatch)",
+   "ขอยกเลิกการจับคู่ → find_match (ควรเป็น unmatch)",
+   "จำที่ผมเล่าเมื่อวานได้ป่าว → chat (ควรเป็น recall_memory)",
+   "คราวที่แล้วเราคุยอะไรกันนะ → chat (ควรเป็น recall_memory)",
+   "ส่งข้อความหาคนที่ชอบตอนดึกดีไหม → find_match (ควรเป็น ask_advice)",
+   "ขอตัวอย่างเพิ่มหน่อย → chat (ควรเป็น ask_advice)",
+   "ข้อสามหมายความว่าไง → chat (ควรเป็น ask_advice)",
+   "ถ้าเขายังเงียบอยู่ล่ะ → chat (ควรเป็น ask_advice)"
+  ]
+ },
+ "BM25 อย่างเดียว": {
+  "accuracy": 0.735,
+  "correct": 36,
+  "n": 49,
+  "ms_per_msg": 233,
+  "decided_by": {
+   "similarity": 49
+  },
+  "wrong": [
+   "เปิดดูคู่แนะนำ → unmatch (ควรเป็น find_match)",
+   "ดูสิ่งที่บอทรู้เกี่ยวกับเรา → delete_me (ควรเป็น show_profile)",
+   "เปิดประวัติของฉันหน่อย → delete_me (ควรเป็น show_profile)",
+   "ส่งลบโปรไฟล์ → show_profile (ควรเป็น delete_me)",
+   "ลบโปรไฟล์ → show_profile (ควรเป็น delete_me)",
+   "ลบแอคเคานต์ → find_match (ควรเป็น delete_me)",
+   "remove my data → find_match (ควรเป็น delete_me)",
+   "ขอยกเลิกการจับคู่ → delete_me (ควรเป็น unmatch)",
+   "คราวที่แล้วเราคุยอะไรกันนะ → find_match (ควรเป็น recall_memory)",
+   "ส่งข้อความหาคนที่ชอบตอนดึกดีไหม → find_match (ควรเป็น ask_advice)",
+   "แฟนเช็คโทรศัพท์ตลอด ปกติไหม → show_profile (ควรเป็น ask_advice)",
+   "หวัดดี → find_match (ควรเป็น chat)",
+   "ผมอายุ 21 → delete_me (ควรเป็น chat)"
+  ]
+ },
+ "SBERT อย่างเดียว": {
+  "accuracy": 0.918,
+  "correct": 45,
+  "n": 49,
+  "ms_per_msg": 15,
+  "decided_by": {
+   "similarity": 49
+  },
+  "wrong": [
+   "ทำไมเลิกกันแล้วยังคิดถึง → recall_memory (ควรเป็น ask_advice)",
+   "คุยกันครั้งแรกควรชวนไปดูหนังไหม → find_match (ควรเป็น ask_advice)",
+   "จะบอกเลิกยังไงให้เจ็บน้อยที่สุด → unmatch (ควรเป็น ask_advice)",
+   "อยากได้แฟนผิวแทน → find_match (ควรเป็น chat)"
+  ]
+ },
+ "SBERT + BM25": {
+  "accuracy": 0.898,
+  "correct": 44,
+  "n": 49,
+  "ms_per_msg": 14,
+  "decided_by": {
+   "similarity": 49
+  },
+  "wrong": [
+   "เปิดประวัติของฉันหน่อย → delete_me (ควรเป็น show_profile)",
+   "ส่งลบโปรไฟล์ → show_profile (ควรเป็น delete_me)",
+   "ลบโปรไฟล์ → show_profile (ควรเป็น delete_me)",
+   "ทำไมเลิกกันแล้วยังคิดถึง → recall_memory (ควรเป็น ask_advice)",
+   "อยากได้แฟนผิวแทน → find_match (ควรเป็น chat)"
+  ]
+ },
+ "SBERT + BM25 + LLM (ใช้จริง)": {
+  "accuracy": 0.918,
+  "correct": 45,
+  "n": 49,
+  "ms_per_msg": 49,
+  "decided_by": {
+   "similarity": 41,
+   "llm": 8
+  },
+  "wrong": [
+   "ส่งลบโปรไฟล์ → show_profile (ควรเป็น delete_me)",
+   "ส่งข้อความหาคนที่ชอบตอนดึกดีไหม → find_match (ควรเป็น ask_advice)",
+   "ทำไมเลิกกันแล้วยังคิดถึง → recall_memory (ควรเป็น ask_advice)",
+   "อยากได้แฟนผิวแทน → find_match (ควรเป็น chat)"
+  ]
+ }
+}
