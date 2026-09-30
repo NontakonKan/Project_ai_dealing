@@ -1,0 +1,47 @@
+[
+ {
+  "model": "bge-reranker-v2-m3 (ใช้จริง)",
+  "model_id": "BAAI/bge-reranker-v2-m3",
+  "Hit@1": 0.744,
+  "MRR@5": 0.806,
+  "AUROC": 0.827,
+  "ms_per_pair": 82.1,
+  "n_questions": 39
+ },
+ {
+  "model": "bge-reranker-large",
+  "model_id": "BAAI/bge-reranker-large",
+  "Hit@1": 0.692,
+  "MRR@5": 0.765,
+  "AUROC": 0.816,
+  "ms_per_pair": 64.1,
+  "n_questions": 39
+ },
+ {
+  "model": "bge-reranker-base",
+  "model_id": "BAAI/bge-reranker-base",
+  "Hit@1": 0.667,
+  "MRR@5": 0.75,
+  "AUROC": 0.707,
+  "ms_per_pair": 17.8,
+  "n_questions": 39
+ },
+ {
+  "model": "mMiniLM-L12 (mMARCO)",
+  "model_id": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+  "Hit@1": 0.692,
+  "MRR@5": 0.755,
+  "AUROC": 0.874,
+  "ms_per_pair": 6.4,
+  "n_questions": 39
+ },
+ {
+  "model": "BERT-multilingual (MS MARCO)",
+  "model_id": "amberoad/bert-multilingual-passage-reranking-msmarco",
+  "Hit@1": 0.308,
+  "MRR@5": 0.448,
+  "AUROC": 0.667,
+  "ms_per_pair": 23.1,
+  "n_questions": 39
+ }
+]

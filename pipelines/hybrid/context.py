@@ -18,7 +18,34 @@ class HybridContext:
 
     @cached_property
     def graph(self) -> GraphView:
+        """GRAPH_BACKEND=neo4j (ค่าเริ่มต้น): อ่านกราฟจาก Neo4j ด้วย Cypher ทุกคำขอ (graph/neo4j_view.py)
+        GRAPH_BACKEND=memory: สร้างกราฟในหน่วยความจำจากไฟล์ใน data/ (ใช้ทดลอง/ประเมินผลโดยไม่เปิด Neo4j)
+        Neo4j ต่อไม่ได้ -> ใช้กราฟในหน่วยความจำแทนอัตโนมัติ (บอทยังตอบได้) พร้อมแจ้งเตือน"""
+        import logging
+        import os
+        log = logging.getLogger("graph")
+        if os.getenv("GRAPH_BACKEND", "neo4j").lower() == "neo4j":
+            try:
+                from graph.neo4j_view import Neo4jGraphView
+                view = Neo4jGraphView.connect()
+                self._warn_if_stale(view, log)
+                self.graph_backend = "neo4j"
+                return view
+            except Exception as e:
+                log.warning("ต่อ Neo4j ไม่ได้ (%s) -> ใช้กราฟในหน่วยความจำ", type(e).__name__)
+        self.graph_backend = "memory"
         return GraphView.load()
+
+    @staticmethod
+    def _warn_if_stale(view, log):
+        """chunk ใน Neo4j ต้องตรงกับคลังความรู้ที่ใช้ค้น (ChromaDB) — ไม่ตรง = ลืม import หลังสกัดใหม่"""
+        from ..common.io_utils import read_jsonl
+        from ..common.paths import PROCESSED
+        local = {c["chunk_id"] for c in read_jsonl(PROCESSED / "book_chunks.jsonl")}
+        remote = {r["id"] for r in view._read("MATCH (n:BookChunk {dataset:$dataset, snapshot:$snapshot}) RETURN n.id AS id")}
+        if local != remote:
+            log.warning("Neo4j ไม่ตรงกับคลังความรู้ (chunk ในเครื่อง %d / ใน Neo4j %d) -> รัน python -m graph.import_neo4j",
+                        len(local), len(remote))
 
     @cached_property
     def values_vectors(self) -> dict:

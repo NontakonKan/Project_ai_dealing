@@ -72,10 +72,20 @@ def register(profile):
 
 
 def _graph_ready(profile):
-    """build_graph ต้องการ field ครบแบบ mock"""
+    """build_graph ต้องการ field ครบแบบ mock — กรอง custom: IDs ออกเพราะไม่มีใน taxonomy"""
     d = profile["demographic"]
-    return {**profile, "demographic": {**d, "age": d.get("age") or 0, "gender": d.get("gender") or "NB"},
-            "persona": {**profile["persona"], "attachment_style": profile["persona"].get("attachment_style") or None}}
+    prefs = profile["preferences"]
+    # custom:xxx (เช่น ชื่อคน หรือคำเฉพาะที่ผู้ใช้พิมพ์) ไม่ใช่ concept node ใน taxonomy
+    # → ถ้าใส่ลงกราฟจะเกิด Dangling relationship ตอน validate
+    clean_prefs = {
+        **prefs,
+        "avoids": [x for x in prefs.get("avoids", []) if not x["id"].startswith("custom:")],
+        "wants":  [x for x in prefs.get("wants",  []) if not x["id"].startswith("custom:")],
+    }
+    return {**profile,
+            "demographic": {**d, "age": d.get("age") or 0, "gender": d.get("gender") or "NB"},
+            "persona": {**profile["persona"], "attachment_style": profile["persona"].get("attachment_style") or None},
+            "preferences": clean_prefs}
 
 
 def dense_for_live(user_id, cfg=HybridConfig()):

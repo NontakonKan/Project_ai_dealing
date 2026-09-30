@@ -65,6 +65,7 @@ def find(retriever, query, k=8) -> Found:
     raw = retriever.retrieve(query, k)
     route = raw.items[0].meta.get("route", "-") if raw.items else "-"
     n_before = len(raw.items)
+    first = list(raw.items)                      # filter_relevant ตัด raw.items ทิ้ง -> เก็บทุกตัวไว้เอาคะแนนไปใช้ต่อ
     res = filter_relevant(query, raw)
     if _top(res) >= REWRITE_BELOW:
         return Found(res, route, n_before)
@@ -77,7 +78,9 @@ def find(retriever, query, k=8) -> Found:
         return Found(res, route, n_before)
     res2 = retriever.retrieve(query, k, extra=topics)
     res2.items += _neighbors(retriever.g, res2.items)
-    res2 = filter_relevant(query, res2, extra=topics)
+    # รอบ 2 ไม่ให้คะแนนคู่ที่รอบแรกให้ไปแล้ว: chunk เดิมเทียบเฉพาะคำถามที่แปลงใหม่ (ผลเท่าเดิม เร็วขึ้น)
+    known = {it.id: it.meta["relevance"] for it in first if "relevance" in it.meta}
+    res2 = filter_relevant(query, res2, extra=topics, known=known)
     if _top(res2) <= _top(res):
         return Found(res, route, n_before)
     return Found(res2, route, n_before, topics)

@@ -390,3 +390,20 @@ entries เก่าอาจยังอยู่ใน cache บนดิส�
 
 Cache เป็นผลสกัดที่ยังไม่ผ่านการตรวจเนื้อหา ไม่ใช่ Graph ที่อนุมัติแล้ว
 การสกัดจะไม่ import Neo4j หรือเขียนไฟล์ `knowledge_claims.jsonl` อัตโนมัติ
+
+## บอทอ่านกราฟจาก Neo4j ทุกคำขอ
+
+`HybridContext.graph` ใช้ `graph/neo4j_view.py` (Cypher) เป็นค่าเริ่มต้น — interface เดียวกับ `GraphView`
+จึงใช้อัลกอริทึมเดิมใน `graph/retrieve.py` และ `graph/scorer.py` ได้โดยไม่ต้องแก้
+
+| | |
+|---|---|
+| เลือก backend | `GRAPH_BACKEND=neo4j` (ค่าเริ่มต้น) หรือ `memory` |
+| Neo4j ต่อไม่ได้ | ใช้กราฟในหน่วยความจำแทนอัตโนมัติ + log เตือน |
+| ข้อมูลเก่า | ตอนเปิด server เทียบ chunk ใน Neo4j กับ `book_chunks.jsonl` ถ้าไม่ตรง log ให้รัน `python -m graph.import_neo4j` |
+| ผู้ใช้ LINE | เขียนลง Neo4j (`live=true`) ตอนโปรไฟล์เปลี่ยน · ลบข้อมูล = `DETACH DELETE` ออกจาก Neo4j ด้วย |
+| ความถูกต้อง | `python -m unittest graph.tests.test_neo4j_parity` — คะแนนคู่ เหตุผลบนการ์ด กฎ และผลค้นความรู้ ตรงกับกราฟในหน่วยความจำ |
+| ความเร็ว | ค้นความรู้ ~85 ms/คำถาม (11–15 queries) · หาคู่ 150 ผู้สมัคร ~0.3 s (prefetch เส้นขาออกใน Cypher เดียว) |
+
+ค่า `NEO4J_*` อ่านจาก `graph/.env` เอง (ไม่ต้อง `source` ก่อนเปิด server) — ต้องเปิด Neo4j (`docker compose -f graph/compose.yaml up -d`) ก่อน uvicorn
+หลังสกัด/สร้างกราฟใหม่ทุกครั้ง ต้อง `import_neo4j` ใหม่ ไม่อย่างนั้นบอทจะใช้กราฟชุดเก่า

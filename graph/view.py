@@ -53,6 +53,11 @@ class GraphView:
             if e["type"] not in RULE_SIGN and e["type"] != "ABOUT":
                 self.out[e["source"]][e["type"]][e["target"]] = e["properties"]
 
+    def remove(self, user_id):
+        """ผู้ใช้ลบข้อมูล -> เอาโหนดและเส้นขาออกของเขาออก (interface เดียวกับ Neo4jGraphView.remove)"""
+        self.nodes.pop(user_id, None)
+        self.out.pop(user_id, None)
+
     @classmethod
     def load(cls, data_dir=None):
         inputs, provenance = load_inputs(data_dir or ROOT / "data")

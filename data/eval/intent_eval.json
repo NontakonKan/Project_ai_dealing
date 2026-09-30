@@ -38,16 +38,18 @@
   ]
  },
  "BM25 อย่างเดียว": {
-  "accuracy": 0.735,
-  "correct": 36,
+  "accuracy": 0.694,
+  "correct": 34,
   "n": 49,
-  "ms_per_msg": 233,
+  "ms_per_msg": 273,
   "decided_by": {
    "similarity": 49
   },
   "wrong": [
+   "มีใครน่าสนใจแนะนำบ้าง → show_partners (ควรเป็น find_match)",
    "เปิดดูคู่แนะนำ → unmatch (ควรเป็น find_match)",
    "ดูสิ่งที่บอทรู้เกี่ยวกับเรา → delete_me (ควรเป็น show_profile)",
+   "โปรไฟล์ผมเป็นยังไงบ้าง → show_partners (ควรเป็น show_profile)",
    "เปิดประวัติของฉันหน่อย → delete_me (ควรเป็น show_profile)",
    "ส่งลบโปรไฟล์ → show_profile (ควรเป็น delete_me)",
    "ลบโปรไฟล์ → show_profile (ควรเป็น delete_me)",
@@ -55,40 +57,37 @@
    "remove my data → find_match (ควรเป็น delete_me)",
    "ขอยกเลิกการจับคู่ → delete_me (ควรเป็น unmatch)",
    "คราวที่แล้วเราคุยอะไรกันนะ → find_match (ควรเป็น recall_memory)",
-   "ส่งข้อความหาคนที่ชอบตอนดึกดีไหม → find_match (ควรเป็น ask_advice)",
    "แฟนเช็คโทรศัพท์ตลอด ปกติไหม → show_profile (ควรเป็น ask_advice)",
-   "หวัดดี → find_match (ควรเป็น chat)",
-   "ผมอายุ 21 → delete_me (ควรเป็น chat)"
+   "จะบอกเลิกยังไงให้เจ็บน้อยที่สุด → unmatch (ควรเป็น ask_advice)",
+   "ผมอายุ 21 → delete_me (ควรเป็น chat)",
+   "ชอบคนที่รักสัตว์ → ask_advice (ควรเป็น chat)"
   ]
  },
  "SBERT อย่างเดียว": {
-  "accuracy": 0.918,
-  "correct": 45,
+  "accuracy": 0.939,
+  "correct": 46,
   "n": 49,
   "ms_per_msg": 15,
   "decided_by": {
    "similarity": 49
   },
   "wrong": [
-   "ทำไมเลิกกันแล้วยังคิดถึง → recall_memory (ควรเป็น ask_advice)",
-   "คุยกันครั้งแรกควรชวนไปดูหนังไหม → find_match (ควรเป็น ask_advice)",
+   "มีใครน่าสนใจแนะนำบ้าง → show_partners (ควรเป็น find_match)",
    "จะบอกเลิกยังไงให้เจ็บน้อยที่สุด → unmatch (ควรเป็น ask_advice)",
    "อยากได้แฟนผิวแทน → find_match (ควรเป็น chat)"
   ]
  },
  "SBERT + BM25": {
-  "accuracy": 0.898,
-  "correct": 44,
+  "accuracy": 0.939,
+  "correct": 46,
   "n": 49,
   "ms_per_msg": 14,
   "decided_by": {
    "similarity": 49
   },
   "wrong": [
-   "เปิดประวัติของฉันหน่อย → delete_me (ควรเป็น show_profile)",
-   "ส่งลบโปรไฟล์ → show_profile (ควรเป็น delete_me)",
-   "ลบโปรไฟล์ → show_profile (ควรเป็น delete_me)",
-   "ทำไมเลิกกันแล้วยังคิดถึง → recall_memory (ควรเป็น ask_advice)",
+   "มีใครน่าสนใจแนะนำบ้าง → show_partners (ควรเป็น find_match)",
+   "จะบอกเลิกยังไงให้เจ็บน้อยที่สุด → unmatch (ควรเป็น ask_advice)",
    "อยากได้แฟนผิวแทน → find_match (ควรเป็น chat)"
   ]
  },
@@ -96,16 +95,16 @@
   "accuracy": 0.918,
   "correct": 45,
   "n": 49,
-  "ms_per_msg": 49,
+  "ms_per_msg": 58,
   "decided_by": {
-   "similarity": 41,
-   "llm": 8
+   "similarity": 42,
+   "llm": 7
   },
   "wrong": [
-   "ส่งลบโปรไฟล์ → show_profile (ควรเป็น delete_me)",
    "ส่งข้อความหาคนที่ชอบตอนดึกดีไหม → find_match (ควรเป็น ask_advice)",
-   "ทำไมเลิกกันแล้วยังคิดถึง → recall_memory (ควรเป็น ask_advice)",
-   "อยากได้แฟนผิวแทน → find_match (ควรเป็น chat)"
+   "love bombing คืออะไร → out_of_domain (ควรเป็น ask_advice)",
+   "อยากได้แฟนผิวแทน → find_match (ควรเป็น chat)",
+   "วันนี้ฝนตกเบื่อจัง → out_of_domain (ควรเป็น chat)"
   ]
  }
 }

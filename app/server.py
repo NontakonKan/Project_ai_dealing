@@ -27,6 +27,11 @@ def _preload(c):
     _index()                     # เข้ารหัสประโยคตัวอย่างของแต่ละเจตนา (แยกเจตนาด้วยความหมาย)
     from pipelines.hybrid.reranker import _model
     _model().predict([("warmup", "warmup")], show_progress_bar=False)   # cross-encoder ของด่านความเกี่ยวข้อง (ตอบปรึกษา)
+    from pipelines.hybrid.retrievers import RoutedKnowledge
+    from .flows import advice
+    advice._retriever = RoutedKnowledge(c)
+    advice._retriever.retrieve("warmup", 1)   # กราฟ (Neo4j) + ดัชนีค้นข้อความของ chunk: ครั้งแรกใช้ ~3 วินาที
+    log.logger.info(f"🕸️ กราฟ: {getattr(c, 'graph_backend', '?')} (snapshot {c.graph.snapshot[:12]})")
     for m in {TASKS["extract_profile"].model, CHAT_MODEL}:
         if not providers.is_api(m):
             try:

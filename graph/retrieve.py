@@ -213,6 +213,8 @@ class GraphKnowledge:
                  "qualifier_text": claim.get("qualifier_text", "")},
             ))
 
+        if hasattr(g, "prefetch_nodes"):   # Neo4j: ดึง property ของ chunk ทั้งหมดที่ได้คะแนนใน Cypher เดียว
+            g.prefetch_nodes(list(chunk_scores))
         has_claim_support = any(chunk_claims.values())
         focus_claim_support = has_claim_support and index.touches_phrases(query, [
             g.prop(cid, 'object_text', '') for ids in chunk_claims.values() for cid in sorted(ids)

@@ -75,11 +75,12 @@ def _write_snapshot(tx, graph, activate=True):
 
 
 def _counts(tx, dataset, snapshot):
-    nodes = tx.run("MATCH (n:DealingEntity {dataset:$dataset, snapshot:$snapshot}) RETURN count(n) AS n",
-                   dataset=dataset, snapshot=snapshot).single()["n"]
+    # ผู้ใช้ LINE ที่บอทเขียนเพิ่ม (live=true, graph/neo4j_view.py) ไม่ใช่ข้อมูลที่ import -> ไม่นับ
+    nodes = tx.run("MATCH (n:DealingEntity {dataset:$dataset, snapshot:$snapshot}) WHERE n.live IS NULL "
+                   "RETURN count(n) AS n", dataset=dataset, snapshot=snapshot).single()["n"]
     relationships = tx.run(
         "MATCH (:DealingEntity {dataset:$dataset, snapshot:$snapshot})-[r]->"
-        "(:DealingEntity {dataset:$dataset, snapshot:$snapshot}) RETURN count(r) AS n",
+        "(:DealingEntity {dataset:$dataset, snapshot:$snapshot}) WHERE r.live IS NULL RETURN count(r) AS n",
         dataset=dataset, snapshot=snapshot).single()["n"]
     return {"nodes": nodes, "relationships": relationships}
 

@@ -10,7 +10,7 @@ from urllib.parse import parse_qs
 
 from . import conversation, intent, line_api, log, storage
 from .flex import MENU, delete_confirmation_card, postback_quick, text
-from .flows import account, advice, chat, intro, match, onboarding, unmatch
+from .flows import account, advice, chat, intro, match, onboarding, partners, unmatch
 
 ERROR_TEXT = "ขอโทษครับ ตอนนี้ระบบขัดข้องชั่วคราว 🙏 ลองพิมพ์ใหม่อีกครั้งได้ไหมครับ"
 
@@ -133,6 +133,7 @@ def _dispatch(event) -> list:
             "contact": lambda: intro.contact(u, msg),
             "delete_me": lambda: account.confirm_delete(u),
             "show_profile": lambda: account.show(u),
+            "show_partners": lambda: partners.show(u),
             "find_match": lambda: match.find(u),
             "unmatch": lambda: unmatch.ask_reason(u),
             "ask_advice": lambda: advice.handle(u, msg, history=history),

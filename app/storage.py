@@ -252,6 +252,15 @@ def decide_intro(intro_id, status):
         c.execute("UPDATE intros SET status=?, decided_at=? WHERE id=?", (status, time.time(), intro_id))
 
 
+def interactions(user_id):
+    """ทุกอย่างที่ผู้ใช้เคยทำกับคนอื่น (ไว้สรุปว่าตอนนี้คุยกับใคร): คำขอทำความรู้จักทั้งสองทาง, events ที่ผู้ใช้เป็นคนทำ, คู่ที่ระบบแนะนำ"""
+    with db() as c:
+        intros = [dict(r) for r in c.execute("SELECT * FROM intros WHERE from_user=? OR to_user=?", (user_id, user_id))]
+        events = [dict(r) for r in c.execute("SELECT type, about_user, ts FROM events WHERE from_user=?", (user_id,))]
+        suggestions = [dict(r) for r in c.execute("SELECT candidate_id, ts FROM suggestions WHERE user_id=?", (user_id,))]
+    return {"intros": intros, "events": events, "suggestions": suggestions}
+
+
 def line_id_of(user_id):
     with db() as c:
         r = c.execute("SELECT line_user_id FROM line_users WHERE user_id=?", (user_id,)).fetchone()
@@ -271,6 +280,7 @@ def delete_user(line_user_id):
                     "DELETE FROM conversation_memory_revisions WHERE user_id=?",
                     "DELETE FROM conversation_memory_state WHERE user_id=?"):
             c.execute(sql, (u["user_id"],))
+        c.execute("DELETE FROM intros WHERE from_user=? OR to_user=?", (u["user_id"], u["user_id"]))
         c.execute("DELETE FROM line_users WHERE line_user_id=?", (line_user_id,))
 
 

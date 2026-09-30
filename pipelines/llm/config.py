@@ -54,15 +54,15 @@ QWEN_7B = "qwen2.5:latest"
 
 TASKS = {
     # ป้อนข้อมูลเข้า Dense/Graph: แชท -> JSON รหัส taxonomy
-    "extract_profile": TaskConfig(QWEN_7B, GenConfig(num_ctx=2048, num_predict=384), fmt="schema", prompt="few_shot"),
+    "extract_profile": TaskConfig(QWEN_7B, GenConfig(num_ctx=2048, num_predict=640), fmt="schema", prompt="few_shot"),
     "extract_unmatch": TaskConfig(QWEN_7B, GenConfig(num_ctx=1024, num_predict=256), fmt="schema", prompt="few_shot"),
     # ใช้ context จาก Dense/Graph/Hybrid
-    "rag_answer": TaskConfig(TYPHOON_8B, GenConfig(temperature=0.1, num_ctx=6144, num_predict=512), context_budget=3000),
+    "rag_answer": TaskConfig(TYPHOON_8B, GenConfig(temperature=0.3, num_ctx=4096, num_predict=250), context_budget=2000),
     # คำถามเล่าสถานการณ์ -> หัวข้อที่เอกสารใช้ (ใช้เฉพาะเมื่อค้นรอบแรกไม่เจอ ดู pipelines/hybrid/search.py)
     "rewrite_query": TaskConfig(QWEN_7B, GenConfig(temperature=0.0, num_ctx=2048, num_predict=160)),
     # แยกเจตนาข้อความเมื่อ SBERT+BM25 ก้ำกึ่ง (app/intent_model.py) — Local: ข้อความผู้ใช้ไม่ออกนอกเครื่อง
     "classify_intent": TaskConfig(QWEN_7B, GenConfig(temperature=0.0, num_ctx=1024, num_predict=12)),
-    "explain_match": TaskConfig(TYPHOON_8B, GenConfig(temperature=0.3, num_ctx=6144, num_predict=400), context_budget=2500),
+    "explain_match": TaskConfig(TYPHOON_8B, GenConfig(temperature=0.3, num_ctx=4096, num_predict=300), context_budget=2000),
 }
 
 # Hybrid LLM: เปลี่ยนโมเดลของแต่ละงานได้ใน .env เช่น LLM_EXPLAIN_MATCH=api:PSU-LLM/psu-gemma

@@ -1,0 +1,57 @@
+[
+ {
+  "model": "bge-m3 (ใช้จริง)",
+  "model_id": "BAAI/bge-m3",
+  "Hit@5": 0.854,
+  "MRR@5": 0.733,
+  "intent_acc": 0.96,
+  "n_questions": 41,
+  "n_intent": 75,
+  "dim": 1024,
+  "chunks_per_s": 11.9
+ },
+ {
+  "model": "e5-large",
+  "model_id": "intfloat/multilingual-e5-large",
+  "Hit@5": 0.902,
+  "MRR@5": 0.796,
+  "intent_acc": 0.947,
+  "n_questions": 41,
+  "n_intent": 75,
+  "dim": 1024,
+  "chunks_per_s": 6.2
+ },
+ {
+  "model": "e5-base",
+  "model_id": "intfloat/multilingual-e5-base",
+  "Hit@5": 0.854,
+  "MRR@5": 0.713,
+  "intent_acc": 0.92,
+  "n_questions": 41,
+  "n_intent": 75,
+  "dim": 768,
+  "chunks_per_s": 20.1
+ },
+ {
+  "model": "LaBSE",
+  "model_id": "sentence-transformers/LaBSE",
+  "Hit@5": 0.683,
+  "MRR@5": 0.534,
+  "intent_acc": 0.947,
+  "n_questions": 41,
+  "n_intent": 75,
+  "dim": 768,
+  "chunks_per_s": 21.1
+ },
+ {
+  "model": "MiniLM-L12",
+  "model_id": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "Hit@5": 0.707,
+  "MRR@5": 0.606,
+  "intent_acc": 0.813,
+  "n_questions": 41,
+  "n_intent": 75,
+  "dim": 384,
+  "chunks_per_s": 75.7
+ }
+]

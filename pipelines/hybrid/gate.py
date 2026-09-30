@@ -33,16 +33,24 @@ def _score_text(it):
     return f"คนแบบ{a} กับคนแบบ{b} {_REL_TH.get(rel, 'มีความสัมพันธ์กัน')}" + (f" เพราะ{reason}" if reason else "")
 
 
-def filter_relevant(query, result, min_score=MIN_SCORE, extra=()):
+def filter_relevant(query, result, min_score=MIN_SCORE, extra=(), known=None):
     """คืน RetrievalResult เดิมที่เหลือเฉพาะ item ที่เกี่ยวข้อง (ใส่คะแนนไว้ใน meta.relevance)
-    ใช้คะแนนสูงสุดของทุกแบบคำถาม (คนคุย / แฟน / อีกฝ่าย) — ดู query_expand.py"""
+    ใช้คะแนนสูงสุดของทุกแบบคำถาม (คนคุย / แฟน / อีกฝ่าย) — ดู query_expand.py
+
+    known = {item id: คะแนนจากรอบก่อน (ได้จากแบบคำถามพื้นฐานครบแล้ว)} -> item นั้นให้คะแนนเพิ่มเฉพาะกับแบบคำถามใหม่ (extra)
+    ผลเท่าเดิมทุกตัวอักษร (คะแนน = ค่าสูงสุดของทุกแบบ) แต่ไม่ต้องให้ cross-encoder อ่านคู่เดิมซ้ำ
+    วัดจริง: รอบแปลงคำถามให้คะแนน 88 คู่ใหม่ทั้งหมด (~2.5 s) ทั้งที่ครึ่งหนึ่งให้คะแนนไปแล้วในรอบแรก"""
     from .query_expand import variants
     # กฎจากกราฟก็ต้องผ่านด่านเดียวกัน — วัดจริง "จะทักแชทคนที่แอบชอบก่อนดีไหม": กฎ "ทักแชทบ่อย/ตอบแชทช้า" 0.02
     # เคยข้ามด่านและถูกวางเป็น [1] เหนือหน้าวิทยานิพนธ์ที่ตอบตรง (0.65) -> LLM ตอบว่าไม่มีข้อมูล
     chunks = list(result.items)
-    pairs = [(i, q, w) for i, it in enumerate(chunks) for w in _windows(_score_text(it)) for q in variants(query, extra)]
+    known = known or {}
+    every = variants(query, extra)
+    new_only = [q for q in every if q not in set(variants(query))]
+    pairs = [(i, q, w) for i, it in enumerate(chunks) for w in _windows(_score_text(it))
+             for q in (new_only if it.id in known else every)]
     scores = _model().predict([(q, w) for _, q, w in pairs], show_progress_bar=False) if pairs else []
-    best = {}
+    best = {i: known[it.id] for i, it in enumerate(chunks) if it.id in known}
     for (i, _, _), s in zip(pairs, scores):
         best[i] = max(best.get(i, 0.0), float(s))
     for i, it in enumerate(chunks):

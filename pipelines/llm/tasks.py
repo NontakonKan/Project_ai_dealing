@@ -18,13 +18,17 @@ def _fmt(cfg, schema_fn):
 def extract_profile(text, cfg=None) -> dict:
     cfg = cfg or TASKS["extract_profile"]
     res = providers.chat(cfg.model, prompts.extract_messages(text, cfg.prompt), cfg.gen, _fmt(cfg, schemas.profile_schema), fallback=cfg.fallback or None)
+    allowed = schemas.allowed_ids(schemas.PROFILE_FIELDS)
     obj = parsing.parse_json(res.text)
-    clean, stats = parsing.validate(obj, text, schemas.allowed_ids(schemas.PROFILE_FIELDS))
+    truncated = obj is None and (obj := parsing.parse_partial(res.text, allowed)) is not None
+    clean, stats = parsing.validate(obj, text, allowed)
+    stats["truncated_salvaged"] += truncated
     stats.update(guards.drop_appearance_red_flags(clean))
     stats.update(guards.correct_appearance_ids(clean))
     stats.update(guards.correct_red_flag_ids(clean))
     stats.update(guards.drop_invalid_avoids(clean, text))
     stats.update(guards.drop_faculty_hallucinations(clean, text))
+    stats.update(guards.drop_semantic_mismatch(clean))
     return {"extracted": clean, "raw": res.text, "validation": dict(stats), "llm": res.metrics, "model": res.model}
 
 
@@ -44,11 +48,15 @@ def extract_unmatch(reason, cfg=None) -> dict:
             "llm": res.metrics, "model": res.model}
 
 
-def rag_answer(query, retrieval, cfg=None, history=None) -> dict:
-    """retrieval = RetrievalResult จาก Dense / Graph / Hybrid ตัวใดก็ได้"""
+def rag_answer(query, retrieval, cfg=None, history=None, partner=None) -> dict:
+    """retrieval = RetrievalResult จาก Dense / Graph / Hybrid ตัวใดก็ได้
+    partner = {name, facts} ของคนที่ผู้ใช้กำลังคุยด้วย (ถ้ามี) -> บรรทัดท้ายปรับคำแนะนำให้เข้ากับคนนั้น"""
     cfg = cfg or TASKS["rag_answer"]
     pack = ctx.build(retrieval, cfg.context_budget)
-    res = providers.chat(cfg.model, prompts.rag_messages(query, pack.text, cfg.prompt, history=history), cfg.gen, fallback=cfg.fallback or None)
+    res = providers.chat(cfg.model, prompts.rag_messages(query, pack.text, cfg.prompt, history=history, partner=partner),
+                         cfg.gen, fallback=cfg.fallback or None)
+    if not res.text or not res.text.strip():
+        raise ValueError("rag_answer: model returned empty output (check num_predict / context budget)")
     return {"answer": res.text, "citations": parsing.citations(res.text, len(pack.refs)), "refs": pack.refs,
             "context": {"mode": retrieval.mode, "used_tokens": pack.used_tokens, "dropped": pack.dropped,
                         "kinds": pack.kinds, "retrieval_ms": round(retrieval.latency_ms, 2)},

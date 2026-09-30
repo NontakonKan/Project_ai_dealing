@@ -19,4 +19,5 @@ def delete(line_user):
     uid = line_user["user_id"]
     storage.delete_user(line_user["line_user_id"])
     live.ctx().users.pop(uid, None)
+    live.ctx().graph.remove(uid)       # Neo4j เก็บถาวร: ต้องลบออกจากกราฟด้วย ไม่ใช่แค่จาก DB ของแอป
     return [text("ลบข้อมูลทั้งหมดของคุณแล้วครับ 🗑️ ถ้าอยากเริ่มใหม่ ทักผมมาได้เสมอนะครับ")]

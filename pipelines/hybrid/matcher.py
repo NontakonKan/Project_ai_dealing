@@ -24,6 +24,8 @@ def rank(ctx, user_id, mode="hybrid", cfg=None, top_k=10, explain=False) -> list
     cfg = cfg or HybridConfig()
     cands = ctx.candidates(user_id)
     g = ctx.graph
+    if hasattr(g, "prefetch"):          # Neo4j: ดึงเส้นขาออกของทุกคนใน Cypher เดียว แทนการยิงทีละ rel()
+        g.prefetch([user_id, *cands])
     info = {c: graph_scorer.pair(g, user_id, c) for c in cands}
     dense = {c: r["score"] for c, r in dense_scores(ctx, user_id, cfg).items() if c in info} if mode != "graph" else {}
     graph = {c: info[c]["graph_score"] for c in cands}

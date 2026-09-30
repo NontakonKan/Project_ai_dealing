@@ -3,12 +3,13 @@ from pipelines.hybrid import search
 from pipelines.hybrid.gate import verify_answer
 from pipelines.hybrid.query_expand import hint
 from pipelines.hybrid.retrievers import RoutedKnowledge
-from pipelines.llm import parsing, tasks
+from pipelines.llm import parsing, prompts, tasks
 
 import re
 
 from .. import intent, live
 from ..flex import MENU, text
+from . import partners
 
 _retriever = None
 NO_INFO = ("เรื่องนี้ยังไม่มีในคลังความรู้ของผมครับ 🙏 ผมจะตอบเฉพาะจากเอกสารที่ตรวจสอบแล้วเท่านั้น\n"
@@ -72,6 +73,40 @@ def _no_link(title):
     return RE_DOMAIN.sub(r"\1", title)
 
 
+def _split_partner_line(answer):
+    """แยกบรรทัด "👉 กับ<ชื่อ>:" ออกจากคำตอบหลัก (verify_answer รวมประโยคเป็นย่อหน้าเดียว ต้องแยกก่อน)"""
+    main, tailored = [], []
+    for line in answer.splitlines():
+        (tailored if line.strip().startswith(prompts.PARTNER_MARK) else main).append(line)
+    return "\n".join(main).strip(), (tailored[-1].strip() if tailored else "")
+
+
+def _mentions(line, facts):
+    """บรรทัดที่ปรับต้องอ้างลักษณะที่ให้ไปจริง ("ชอบเล่นดนตรี" -> คำว่า ดนตรี ในบรรทัดก็นับ)"""
+    from pythainlp.tokenize import word_tokenize
+    # คำกริยาทั่วไปไม่นับ: "เล่นดนตรี" ต้องเจอ "ดนตรี" ไม่ใช่แค่ "เล่น" (ไม่งั้น "เล่นบาส" ที่แต่งขึ้นจะผ่าน)
+    words = {w for f in facts for w in word_tokenize(f, keep_whitespace=False)
+             if len(w) >= 3 and w not in GENERIC_WORDS} | set(facts)
+    return any(w in line for w in words)
+
+
+GENERIC_WORDS = {"เล่น", "ชอบ", "การ", "ความ", "ทำ", "ดู", "ฟัง", "ไป", "เป็น", "มี", "คน", "อ่าน", "เที่ยว"}
+
+
+def _check_partner_line(query, line, out, items, partner):
+    """บรรทัดปรับตามคนคุยใช้ได้เมื่อ: อ้างอิงคำแนะนำใน CONTEXT + พูดถึงลักษณะที่ให้ไปจริง
+    + มีหลักฐานเมื่อเทียบกับ (เอกสารที่อ้าง + ลักษณะของอีกฝ่าย) — ไม่งั้นทิ้งบรรทัดนี้ ตอบแบบทั่วไปอย่างเดียว"""
+    cited = [n for n in parsing.citations(line, len(out["refs"]))["cited"] if 1 <= n <= len(out["refs"])]
+    if not cited or not _mentions(line, partner["facts"]):
+        return None, "ไม่อ้างอิง/ไม่พูดถึงลักษณะของอีกฝ่าย"
+    about = "ลักษณะของอีกฝ่าย: " + ", ".join(partner["facts"])
+    passages = [items[out["refs"][n - 1]] + "\n" + about for n in cited if out["refs"][n - 1] in items]
+    body = line.strip()[len(prompts.PARTNER_MARK):].strip()
+    head, _, rest = body.partition(":")
+    checked, _ = verify_answer(query, rest.strip(), passages)
+    return (f"{prompts.PARTNER_MARK} {head.strip()}: {checked}" if checked else None), ("ผ่าน" if checked else "ไม่มีหลักฐาน")
+
+
 def handle(line_user, msg, history=None):
     global _retriever
     t_clean = re.sub(r"[!?.#@$%^&*()_+=~`\-\s]+", "", msg).lower()
@@ -111,8 +146,18 @@ def handle(line_user, msg, history=None):
         log.note(f"route={route} ไม่มีความรู้ที่ตรงคำถาม (0/{n_before} ผ่านด่าน) → ตอบว่าไม่มีข้อมูล")
         return [text(NO_INFO, MENU)]
     # แนบคำพ้องที่เอกสารใช้ (ทัก -> เริ่มต้นความสัมพันธ์) + ประวัติสนทนา (ใช้เข้าใจบริบท ไม่ใช่หลักฐาน)
-    out = tasks.rag_answer(hint(msg, found.topics), res, history=history)
-    dropped = 0
+    # อยู่ในช่วงคุยกับใครอยู่ -> ปรับคำแนะนำให้เข้ากับนิสัย/งานอดิเรกของคนนั้น (เนื้อหายังมาจากคลังความรู้เท่านั้น)
+    partner = partners.talking_to(line_user["user_id"]) if line_user.get("user_id") else None
+    try:
+        out = tasks.rag_answer(hint(msg, found.topics), res, history=history, partner=partner)
+    except ValueError as _e:
+        from .. import log
+        log.note(f"rag_answer error: {_e} → fallback NO_INFO")
+        return [text(NO_INFO, MENU)]
+    dropped, tailored, why = 0, None, ""
+    main, partner_line = _split_partner_line(out["answer"])
+    if partner_line:
+        out["answer"], out["citations"] = main, parsing.citations(main, len(out["refs"]))
     if not out["citations"]["abstained"]:   # ด่านหลัง: ตัดประโยคที่ทวนคำถาม/ไม่มีหลักฐาน กันหลอน
         passages = [it.text for it in res.items if it.id in out["refs"]]
         checked, dropped = verify_answer(query, out["answer"], passages)
@@ -120,14 +165,20 @@ def handle(line_user, msg, history=None):
             out["citations"]["abstained"] = True
         else:
             out["answer"], out["citations"] = checked, parsing.citations(checked, len(out["refs"]))
+            if partner and partner_line:
+                tailored, why = _check_partner_line(query, partner_line, out, {it.id: it.text for it in res.items}, partner)
     from .. import log
     log.note(f"route={route} ผ่านด่าน {len(res.items)}/{n_before} ctx={len(out['refs'])} อ้างอิง={out['citations']['cited']}"
              + (f" ต่อเนื่อง(ประวัติ {len(history)} ข้อความ)" if history else "") + _llm_note(out)
-             + (f" ตัดประโยคไม่มีหลักฐาน {dropped}" if dropped else "") + (" (ตอบไม่ได้)" if out["citations"]["abstained"] else ""))
+             + (f" ตัดประโยคไม่มีหลักฐาน {dropped}" if dropped else "") + (" (ตอบไม่ได้)" if out["citations"]["abstained"] else "")
+             + (f" คนคุย={partner['user_id']} ปรับบริบท={why or 'ไม่ได้ปรับ'}" if partner else ""))
     if out["citations"]["abstained"]:
         return [text(NO_INFO, MENU)]
     g = live.ctx().graph
     sources = []
+    if tailored:
+        out["answer"] += "\n\n" + tailored
+        out["citations"] = parsing.citations(out["answer"], len(out["refs"]))
     for n in out["citations"]["cited"]:
         if 1 <= n <= len(out["refs"]):
             ref = out["refs"][n - 1]

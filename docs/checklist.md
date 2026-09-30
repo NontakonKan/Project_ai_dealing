@@ -72,7 +72,9 @@ Cleaning / Chunking / Metadata
 - [ ] ⚠️ กฎ taxonomy ยังเป็น "imported assumptions" (รายงาน graph ระบุเอง) — **ผูกแต่ละกฎกับ chunk / งานวิจัยที่รองรับ** หรือระบุชัดว่าเป็นสมมติฐาน
 - [ ] **ตัวอย่างคำถามที่ Dense ตอบไม่ได้แต่ Graph ตอบได้** 3–5 ข้อ พร้อมเหตุผล (เช่น คำถามเชิงความสัมพันธ์ระหว่างลักษณะ 2 แบบ)
 - [ ] แผนภาพ schema (node / edge types) + ตัวอย่าง query 2–3 แบบ + ภาพจาก Neo4j
-- [ ] เช็คว่า import เข้า Neo4j ด้วยข้อมูลชุดล่าสุดแล้ว (`python -m graph.import_neo4j`)
+- [x] import เข้า Neo4j ด้วยข้อมูลชุดล่าสุดแล้ว (snapshot `b5f0d72d1d12`, 1,446 nodes / 8,252 relations)
+- [x] **บอท query Neo4j ด้วย Cypher ทุกคำขอ** (`graph/neo4j_view.py`) — ผลตรงกับกราฟในหน่วยความจำ 4/4 (`graph.tests.test_neo4j_parity`) · ค้นความรู้ ~85 ms · หาคู่ ~0.3 s · Neo4j ล่มสลับเป็นกราฟในหน่วยความจำอัตโนมัติ
+- [x] ผู้ใช้ LINE เขียนลง Neo4j และลบออกเมื่อผู้ใช้ลบข้อมูล (Neo4j เก็บถาวร)
 
 ## 4. Hybrid RAG (20) ⭐ หัวใจของการประเมิน
 

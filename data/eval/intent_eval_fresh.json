@@ -1,11 +1,11 @@
 {
  "กฎคำตายตัว (เดิม)": {
-  "accuracy": 0.5,
+  "accuracy": 0.448,
   "correct": 13,
-  "n": 26,
+  "n": 29,
   "ms_per_msg": 0,
   "decided_by": {
-   "rule": 26
+   "rule": 29
   },
   "wrong": [
    "ขอดูคนที่แมตช์กับผม → chat (ควรเป็น find_match)",
@@ -20,54 +20,61 @@
    "คนที่แนะนำมาไม่โอเค ขอเลิก → chat (ควรเป็น unmatch)",
    "ไม่อยากคุยกับคู่นี้แล้ว → chat (ควรเป็น unmatch)",
    "ขอข้ามคนนี้ → chat (ควรเป็น unmatch)",
+   "ตอนนี้ผมกำลังคุยอยู่กับใคร → chat (ควรเป็น show_partners)",
+   "เช็คให้หน่อยว่าเคยแมตช์กับใครบ้าง → chat (ควรเป็น show_partners)",
+   "คนที่ผมขอทำความรู้จักตอบหรือยัง → chat (ควรเป็น show_partners)",
    "แล้วถ้าเขาโกรธล่ะ → chat (ควรเป็น ask_advice)"
   ]
  },
  "BM25 อย่างเดียว": {
-  "accuracy": 0.962,
-  "correct": 25,
-  "n": 26,
-  "ms_per_msg": 430,
+  "accuracy": 0.931,
+  "correct": 27,
+  "n": 29,
+  "ms_per_msg": 454,
   "decided_by": {
-   "similarity": 26
+   "similarity": 29
   },
   "wrong": [
+   "ขอดูว่าบอทเก็บอะไรของฉันไว้ → show_partners (ควรเป็น show_profile)",
    "ข้อมูลส่วนตัวของผมในระบบ → delete_me (ควรเป็น show_profile)"
   ]
  },
  "SBERT อย่างเดียว": {
-  "accuracy": 0.962,
-  "correct": 25,
-  "n": 26,
-  "ms_per_msg": 14,
+  "accuracy": 0.966,
+  "correct": 28,
+  "n": 29,
+  "ms_per_msg": 16,
   "decided_by": {
-   "similarity": 26
+   "similarity": 29
   },
   "wrong": [
    "ขอข้ามคนนี้ → find_match (ควรเป็น unmatch)"
   ]
  },
  "SBERT + BM25": {
-  "accuracy": 0.962,
-  "correct": 25,
-  "n": 26,
+  "accuracy": 0.966,
+  "correct": 28,
+  "n": 29,
   "ms_per_msg": 14,
   "decided_by": {
-   "similarity": 26
+   "similarity": 29
   },
   "wrong": [
    "ขอข้ามคนนี้ → find_match (ควรเป็น unmatch)"
   ]
  },
  "SBERT + BM25 + LLM (ใช้จริง)": {
-  "accuracy": 1.0,
-  "correct": 26,
-  "n": 26,
-  "ms_per_msg": 52,
+  "accuracy": 0.931,
+  "correct": 27,
+  "n": 29,
+  "ms_per_msg": 77,
   "decided_by": {
-   "similarity": 21,
-   "llm": 5
+   "similarity": 23,
+   "llm": 6
   },
-  "wrong": []
+  "wrong": [
+   "situationship คืออะไร → chat (ควรเป็น ask_advice)",
+   "ฮ่าๆ ตลกดี → out_of_domain (ควรเป็น chat)"
+  ]
  }
 }

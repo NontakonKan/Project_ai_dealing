@@ -7,6 +7,7 @@
 4. fallback_added: คำรูปลักษณ์/สุขอนามัยที่ LLM ตกหล่นในเหตุผลเลิกคุย -> เติมจาก keyword detector
 """
 from collections import Counter
+from functools import lru_cache
 
 from ..common import taxonomy
 from ..feedback import sensitive
@@ -29,7 +30,7 @@ def drop_appearance_red_flags(clean: dict, fields=("red_flags", "avoids")) -> Co
 
 
 def correct_appearance_ids(clean: dict, fields=("appearance", "hygiene", "self_described", "wants", "avoids")) -> Counter:
-    """evidence ของรายการรูปลักษณ์ต้องตรงกับรหัส ถ้า keyword detector ชี้รหัสอื่นในหมวดเดียวกัน -> แก้ให้ถูก"""
+    """evidence ของรายการรูปลักษณ์ต้องตรงกับรหัส ถ้า keyword detector ชี้รหัสอื่นในหมวดเดียวกัน -> แก้ให้ถูก ไม่พบคำรูปลักษณ์เลย -> ทิ้ง"""
     stats, appearance = Counter(), taxonomy.appearance_ids()
     for f in fields:
         out, seen = [], set()
@@ -38,7 +39,10 @@ def correct_appearance_ids(clean: dict, fields=("appearance", "hygiene", "self_d
                 group = taxonomy.group_of(it["id"])
                 hits = [h["id"] for h in sensitive.detect(it.get("evidence", ""), mode="unmatch")
                         if taxonomy.group_of(h["id"]) == group]
-                if hits and it["id"] not in hits:
+                if not hits:     # evidence ไม่มีคำรูปลักษณ์เลย (วัดจริง: skin:fair จาก "ไม่ค่อยออกไปไหน") -> ข้อมูลอ่อนไหวที่แต่งขึ้น ทิ้ง
+                    stats["appearance_no_evidence"] += 1
+                    continue
+                if it["id"] not in hits:
                     it = {**it, "id": hits[0], "corrected_from": it["id"]}
                     stats["appearance_id_corrected"] += 1
             if it["id"] not in seen:
@@ -135,4 +139,42 @@ def drop_faculty_hallucinations(clean: dict, text: str = "") -> Counter:
                 keep.append(it)
         if field in clean:
             clean[field] = keep
+    return stats
+
+
+# ---- id ต้องตรงความหมายกับ evidence (SBERT) ----
+# validate ตรวจแค่ว่า evidence มีในข้อความจริง ไม่ได้ตรวจว่า id ตรงกับ evidence
+# วัดจริง (bge-m3, อันดับของ id ที่โมเดลเลือกในกลุ่มเดียวกัน): "เวลาว่างชอบเล่นดนตรี" -> hobby:movies อันดับ 18/19,
+# "หาคนรักจริง" -> hobby:movies อันดับ 17 · ที่ถูก: ชอบหมา->pets, เข้ายิม->gym, อ่านนิยาย->reading, ดูเน็ตฟลิกซ์->movies อันดับ 1 ทั้งหมด
+SEMANTIC_PREFIXES = ("hobby", "trait", "comm")
+SEMANTIC_TOP_K = 3
+
+
+@lru_cache(maxsize=8)
+def _concept_index(prefix):
+    from ..dense.embedding import encode
+    labels, aliases = taxonomy.labels(), taxonomy.aliases()
+    ids = [i for i in labels if i.split(":")[0] == prefix]
+    return ids, encode([labels[i] + " " + " ".join(aliases.get(i, [])[:8]) for i in ids])
+
+
+def drop_semantic_mismatch(clean: dict, fields=("hobbies", "traits", "comm_style", "wants"), top_k=SEMANTIC_TOP_K) -> Counter:
+    """ทิ้งรายการที่ id ไม่อยู่ใน top_k ของ concept ที่ใกล้ evidence ที่สุด (เทียบเฉพาะกลุ่มเดียวกัน เช่น hobby กับ hobby)"""
+    stats = Counter()
+    todo = [(f, it) for f in fields for it in clean.get(f, []) if it["id"].split(":")[0] in SEMANTIC_PREFIXES]
+    if not todo:
+        return stats
+    from ..dense.embedding import encode
+    vecs = encode([it.get("evidence", "") for _, it in todo], role="query")
+    bad = set()
+    for (f, it), v in zip(todo, vecs):
+        ids, mat = _concept_index(it["id"].split(":")[0])
+        sims = mat @ v
+        rank = int((sims > sims[ids.index(it["id"])]).sum()) + 1 if it["id"] in ids else len(ids) + 1
+        if rank > top_k:
+            bad.add(id(it))
+            stats["semantic_mismatch"] += 1
+    for f in fields:
+        if f in clean:
+            clean[f] = [it for it in clean[f] if id(it) not in bad]
     return stats

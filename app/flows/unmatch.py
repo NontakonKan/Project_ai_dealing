@@ -4,17 +4,28 @@ from pipelines.feedback.apply import apply_unmatch
 from pipelines.llm import tasks
 
 from .. import live, storage
-from ..flex import text
+from ..flex import postback_quick, text
+from . import partners
 from .common import event_id, load, save
 
 
 def ask_reason(line_user, target=None):
+    """กดจากการ์ด = รู้เป้าหมาย / พิมพ์เอง = ดูประวัติว่าตอนนี้คุยกับใคร (หลายคน -> ให้เลือก ไม่เดา)"""
     p = load(line_user)
-    target = target or next(iter(sorted(storage.suggested(p["user_id"]))), None)
     if not target:
-        return [text("ยังไม่มีคนที่ผมแนะนำให้เลยครับ 🙂", [("หาคู่ให้หน่อย", "หาคู่ให้หน่อย")])]
+        active = [x for x in partners.history(p["user_id"]) if x["status"] in partners.ACTIVE]
+        if not active:
+            return [text("ตอนนี้คุณยังไม่ได้คุยกับใครที่ผมแนะนำเลยครับ 🙂", [("หาคู่ให้หน่อย", "หาคู่ให้หน่อย")])]
+        talking = [x for x in active if x["status"] in partners.TALKING]
+        if len(talking) > 1 or (not talking and len(active) > 1):
+            options = (talking or active)[:4]
+            return [postback_quick("ตอนนี้คุณคุยอยู่หลายคน จะเลิกคุยกับใครครับ?",
+                                   [(partners.name_of(x["user_id"]).split(" · ")[0], f"action=unmatch&target={x['user_id']}")
+                                    for x in options])]
+        target = (talking or active)[0]["user_id"]
     storage.set_state(line_user["line_user_id"], "await_unmatch_reason", {"target": target})
-    return [text("เสียใจด้วยนะครับ 🙏 ขอเหตุผลสั้นๆ หน่อยได้ไหมครับ ว่าตรงไหนที่ไม่โอเค "
+    return [text(f"เลิกคุยกับ {partners.name_of(target)} นะครับ\n"
+                 "เสียใจด้วยนะครับ 🙏 ขอเหตุผลสั้นๆ หน่อยได้ไหมครับ ว่าตรงไหนที่ไม่โอเค "
                  "(อีกฝ่ายจะไม่เห็นสิ่งที่คุณบอกผม) ผมจะใช้หาคนที่เข้ากับคุณมากขึ้น")]
 
 

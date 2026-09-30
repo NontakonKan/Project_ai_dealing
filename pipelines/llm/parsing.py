@@ -25,8 +25,47 @@ def parse_json(text: str):
     return None
 
 
+RE_ITEM = re.compile(r'\{[^{}]*?"id"\s*:\s*"[^"]+"[^{}]*\}')
+RE_FIELD = re.compile(r'"(\w+)"\s*:\s*\[')
+
+
+def parse_partial(text: str, fields):
+    """JSON ที่ถูกตัดกลางคัน (โมเดลเขียนเกิน num_predict) -> เก็บเฉพาะรายการที่ปิดวงเล็บครบ
+
+    วัดจริง: ข้อความยาว ("ผมชอบหมา รักสัตว์ เวลาว่างชอบเล่นดนตรี ...") โมเดลเขียนรายการขยะซ้ำจนเกิน 384 token
+    -> parse_json ล้ม -> ทิ้งทุกรายการ รวม hobby:pets ที่ถูกต้อง; รายการที่กู้ได้ยังต้องผ่าน validate ทุกด่านเหมือนเดิม
+    """
+    marks = [(m.group(1), m.end()) for m in RE_FIELD.finditer(text or "") if m.group(1) in fields]
+    if not marks:
+        return None
+    out = {}
+    for i, (f, start) in enumerate(marks):
+        end = marks[i + 1][1] if i + 1 < len(marks) else len(text)
+        items = []
+        for m in RE_ITEM.finditer(text[start:end]):
+            try:
+                items.append(json.loads(m.group(0)))
+            except json.JSONDecodeError:
+                continue
+        out.setdefault(f, []).extend(items)
+    return out
+
+
 def _norm(s):
     return re.sub(r"\s+", "", s or "").lower()
+
+
+RE_EV_SPLIT = re.compile(r"\s*[,，、/]\s*")
+
+
+def _found(evidence, src):
+    """evidence ต้องมีในข้อความจริง — โมเดลมักเขียนหลายท่อนคั่นด้วยจุลภาค ("ชอบสังสรรค์กับเพื่อน, ไปคอน")
+    ทั้งก้อนไม่มีในแชท แต่ทุกท่อนมี -> นับว่ามีหลักฐาน (ทุกท่อนต้องมีจริง ไม่ใช่แค่บางท่อน)"""
+    whole = _norm(evidence)
+    if whole in src:
+        return True
+    parts = [_norm(x) for x in RE_EV_SPLIT.split(evidence or "") if _norm(x)]
+    return len(parts) > 1 and all(x in src for x in parts)
 
 
 def validate(obj, source_text, allowed: dict, require_evidence=True):
@@ -46,7 +85,7 @@ def validate(obj, source_text, allowed: dict, require_evidence=True):
                 stats["invalid_id"] += 1
                 continue
             ev = _norm(it.get("evidence"))
-            if require_evidence and (not ev or ev not in src):
+            if require_evidence and (not ev or not _found(it.get("evidence"), src)):
                 stats["no_evidence"] += 1
                 continue
             if it["id"] in seen:
