@@ -176,10 +176,10 @@ def retrieval_benchmark(k=8):
             'pilot_edge_recovery': pilot_edge_recovery,
             'graph_hits_dense_misses': [q for q in graph_hits if graph_hits[q] and not dense_hits[q]],
             'dense_hits_graph_misses': [q for q in dense_hits if dense_hits[q] and not graph_hits[q]],
-            'limitations': ['Relevance is a keyword heuristic, not human-reviewed answer quality.',
+            'limitations': ['Relevance is a keyword heuristic; answer quality is not measured.',
                             'The question set was used during development, so it is not a held-out test.',
                             'The application relevance and answer-verification gates are not run here.',
-                            'Claims without human review remain source chunks, not graph facts.']}
+                            'Claims guide retrieval of original source chunks; they are not answer facts.']}
 
 
 def evidence_benchmark(k=8, generate=False):
@@ -215,12 +215,12 @@ def evidence_benchmark(k=8, generate=False):
                          f'mrr_at_{k}': sum(row['reciprocal_rank'] for row in scored) / len(scored)}
     claims = [node for node in ctx.graph.nodes.values() if node['label'] == 'Claim']
     return {'snapshot': ctx.graph.snapshot, 'claims': len(claims),
-            'human_verified_claims': sum(node['properties']['assertion'] == 'human_verified' for node in claims),
+            'llm_answers_generated': generate,
             'metrics': metrics, 'cases': rows,
             'limitations': ['Targeted source-labelled pilot, not a held-out test.',
                             'Source recovery and valid citations do not prove semantic answer correctness.',
-                            'Unverified claim structures retrieve original chunks only.',
-                            'Local answer model is used explicitly; no external API or Chroma writes.']}
+                            'Claim structures retrieve original chunks only.',
+                            'No external API or Chroma writes; answers are generated only with --generate.']}
 
 
 def _pipeline_answer(query, result):

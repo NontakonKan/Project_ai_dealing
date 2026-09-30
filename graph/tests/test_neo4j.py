@@ -58,7 +58,7 @@ class Neo4jTests(unittest.TestCase):
         rows = read_graph(self.driver, QUERIES["chunks"], {"concept_id": "rf:stonewalling"}, self.db)
         self.assertEqual(rows, [])
 
-    def test_claim_paths_preserve_source_quotes_and_review_status(self):
+    def test_claim_paths_preserve_source_quotes(self):
         rows = read_graph(self.driver, QUERIES['claim-evidence'],
                           {'concept_id': 'attach:secure'}, self.db)
         nodes = {n['id']: n for n in self.graph['nodes']}
@@ -67,7 +67,7 @@ class Neo4jTests(unittest.TestCase):
         self.assertEqual({row['claim_id'] for row in rows}, expected)
         for row in rows:
             self.assertIn(row['quote'], nodes[row['chunk_id']]['properties']['text'])
-            self.assertEqual(row['review_status'], nodes[row['claim_id']]['properties']['assertion'])
+            self.assertNotIn('review_status', row)
 
 
 if __name__ == "__main__":

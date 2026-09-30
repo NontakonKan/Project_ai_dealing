@@ -5,8 +5,14 @@ import math
 import re
 from collections import Counter
 
-from .schema import (CLAIM_ASSERTIONS, CLAIM_POLARITIES, CLAIM_PREDICATES, DATASET,
+from .schema import (CLAIM_POLARITIES, CLAIM_PREDICATES, DATASET,
                      FORMAT_VERSION, LABELS, RELATIONS, RULE_RELATIONS)
+
+CLAIM_NODE_FIELDS = frozenset({
+    "text", "display_name", "model", "extractor_version", "chunk_id",
+    "chunk_hash", "concept_ids", "source_id", "subject_id", "predicate",
+    "object_concept_id", "object_text", "polarity", "qualifier_text",
+})
 
 
 def digest(value):
@@ -98,10 +104,10 @@ def validate(graph):
             claim, chunk = nodes[e["source"]]["properties"], nodes[e["target"]]["properties"]
             quote = claim.get("text")
             if (not isinstance(quote, str) or not quote or quote not in chunk.get("text", "")
-                    or p.get("evidence") != quote or claim.get("assertion") not in CLAIM_ASSERTIONS
+                    or p.get("evidence") != quote
                     or p.get("assertion") != "exact_source_quote"
                     or claim.get("chunk_id") != e["target"]):
-                raise ValueError("Claim lacks exact source evidence or extraction status")
+                raise ValueError("Claim lacks exact source evidence")
             if e["source"] in supported:
                 raise ValueError("Claim must link to exactly one source chunk")
             supported.add(e["source"])
@@ -138,6 +144,8 @@ def validate(graph):
         if node["label"] != "Claim":
             continue
         props = node["properties"]
+        if set(props) - CLAIM_NODE_FIELDS:
+            raise ValueError("Claim contains unsupported metadata")
         if nid not in supported:
             raise ValueError("Claim must link to source evidence")
         if (not isinstance(props.get("concept_ids"), list)
@@ -166,19 +174,6 @@ def validate(graph):
         from .claims import _predicate_evidenced
         if not _predicate_evidenced(quote, props['predicate'], object_text):
             raise ValueError('Strong claim predicate must be explicit beside its object')
-        if props["assertion"] == "human_verified":
-            reviewer, reviewed_at = props.get("reviewed_by"), props.get("reviewed_at")
-            if not isinstance(reviewer, str) or not reviewer.strip() or not isinstance(reviewed_at, str):
-                raise ValueError("Human-verified claims require reviewer metadata")
-            try:
-                from datetime import datetime
-                timestamp = datetime.fromisoformat(reviewed_at.replace("Z", "+00:00"))
-            except (TypeError, ValueError) as exc:
-                raise ValueError("Claim review timestamp must be ISO 8601") from exc
-            if timestamp.tzinfo is None:
-                raise ValueError("Claim review timestamp must include a timezone")
-        elif props.get("reviewed_by") or props.get("reviewed_at"):
-            raise ValueError("Unverified claims cannot carry reviewer metadata")
         expected_id = "claim:" + digest([
             props.get("chunk_id"), props.get("chunk_hash"), quote,
             sorted(props["concept_ids"]), props.get("subject_id"), props.get("predicate"),

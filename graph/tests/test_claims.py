@@ -4,7 +4,8 @@ from unittest.mock import patch
 from types import SimpleNamespace
 
 from graph.build import build_graph
-from graph.claims import VERSION, DEFAULT_MODEL, claim_identifier, extract, source_passages
+from graph.claims import (VERSION, DEFAULT_MODEL, catalog, claim_identifier, extract,
+                          source_passages, validate_claim)
 from graph.model import digest, validate, content_hash
 from graph.schema import GROUP_LABELS
 from graph.view import GraphView
@@ -21,8 +22,11 @@ class ClaimTests(unittest.TestCase):
                     'concept_ids': ['trait:test'], 'subject_id': 'trait:test',
                     'predicate': 'decreases', 'object_concept_id': '', 'object_text': 'ความขัดแย้ง',
                     'polarity': 'uncertain', 'qualifier_text': 'ในคู่รักบางกลุ่ม',
-                    'model': DEFAULT_MODEL, 'extractor_version': VERSION, 'review_status': 'unverified'}
+                    'model': DEFAULT_MODEL, 'extractor_version': VERSION}
         self.row['claim_id'] = claim_identifier(self.row)
+
+    def draft(self):
+        return dict(self.row)
 
     def build(self, claims):
         return build_graph(self.tax, [], [], [self.chunk], claims=claims)[0]
@@ -41,22 +45,20 @@ class ClaimTests(unittest.TestCase):
         self.assertEqual(GraphView(graph).rules, {})
         self.assertFalse(any(item.kind == 'graph_fact' for item in result.items))
 
-    def test_reviewed_claim_returns_structured_fact_with_source_path(self):
-        reviewed = {**self.row, 'review_status': 'human_verified', 'reviewed_by': 'reviewer-1',
-                    'reviewed_at': '2026-09-28T12:00:00+07:00'}
-        graph = self.build([reviewed])
+    def test_claim_returns_original_passage_with_source_path(self):
+        graph = self.build([self.row])
         with patch('graph.retrieve.concept_detector.detect', return_value={'trait:test'}):
             result = GraphKnowledge(GraphView(graph)).retrieve('การสื่อสารอาจลดความขัดแย้งได้')
-        fact = next(item for item in result.items if item.kind == 'graph_fact')
-        self.assertEqual(fact.id, self.row['claim_id'])
-        self.assertEqual(fact.meta['verification_status'], 'human_verified')
-        self.assertEqual(fact.meta['evidence_chunk_ids'], ['c1'])
-        self.assertEqual(fact.meta['evidence_paths'], [
+        item = next(item for item in result.items if self.row['claim_id'] in item.meta['claim_ids'])
+        self.assertEqual(item.kind, 'chunk')
+        self.assertEqual(item.id, self.row['claim_id'])
+        self.assertEqual(item.meta['chunk_id'], 'c1')
+        self.assertNotIn('claim_statuses', item.meta)
+        self.assertEqual(item.meta['evidence_paths'], [
             ['trait:test', '<-SUBJECT-', self.row['claim_id'],
-             'SUPPORTED_BY', 'c1', '<-HAS_CHUNK-', 'source:s1']])
-        self.assertEqual(fact.meta['predicate'], 'decreases')
-        self.assertIn(self.chunk['text'], fact.text)
-        self.assertIn('ในคู่รักบางกลุ่ม', fact.text)
+             'SUPPORTED_BY', 'c1']])
+        self.assertEqual(item.text, self.chunk['text'])
+        self.assertFalse(any(result_item.kind == 'graph_fact' for result_item in result.items))
 
     def test_source_excerpt_keeps_paragraph_conditions_and_exact_offsets(self):
         quote = self.chunk['text']
@@ -135,9 +137,7 @@ class ClaimTests(unittest.TestCase):
         self.assertEqual(item.meta['claim_ids'], [])
 
     def test_prediction_question_does_not_promote_a_different_claim(self):
-        reviewed = {**self.row, 'review_status': 'human_verified', 'reviewed_by': 'reviewer-1',
-                    'reviewed_at': '2026-09-28T12:00:00+07:00'}
-        graph = self.build([reviewed])
+        graph = self.build([self.row])
         with patch('graph.retrieve.concept_detector.detect', return_value={'trait:test'}):
             result = GraphKnowledge(GraphView(graph)).retrieve('การสื่อสารทำนายความขัดแย้งไหม')
         self.assertFalse(any(item.kind == 'graph_fact' for item in result.items))
@@ -155,7 +155,7 @@ class ClaimTests(unittest.TestCase):
         row['claim_id'] = claim_identifier(row)
         build_graph(self.tax, [], [], [chunk], claims=[row])
 
-    def test_two_hop_retrieval_returns_both_reviewed_source_claims(self):
+    def test_two_hop_retrieval_returns_both_source_claims(self):
         self.tax['traits'] = [
             {'id': 'trait:a', 'label_th': 'การสื่อสาร'},
             {'id': 'trait:b', 'label_th': 'ความขัดแย้ง'},
@@ -168,29 +168,31 @@ class ClaimTests(unittest.TestCase):
              'text': 'ความขัดแย้งลดความพึงพอใจในกลุ่มดังกล่าว'},
         ]
 
-        def reviewed(chunk, subject, predicate, object_id, object_text, concepts):
+        def source_claim(chunk, subject, predicate, object_id, object_text, concepts):
             row = {'chunk_id': chunk['chunk_id'], 'chunk_hash': digest(chunk), 'quote': chunk['text'],
                    'concept_ids': concepts, 'subject_id': subject, 'predicate': predicate,
                    'object_concept_id': object_id, 'object_text': object_text,
                    'polarity': 'affirmed', 'qualifier_text': '', 'model': DEFAULT_MODEL,
-                   'extractor_version': VERSION, 'review_status': 'human_verified',
-                   'reviewed_by': 'reviewer-1', 'reviewed_at': '2026-09-28T12:00:00+07:00'}
+                   'extractor_version': VERSION}
             row['claim_id'] = claim_identifier(row)
             return row
 
         claims = [
-            reviewed(chunks[0], 'trait:a', 'associated_with', 'trait:b', 'ความขัดแย้ง',
+            source_claim(chunks[0], 'trait:a', 'associated_with', 'trait:b', 'ความขัดแย้ง',
                      ['trait:a', 'trait:b']),
-            reviewed(chunks[1], 'trait:b', 'decreases', 'trait:c', 'ความพึงพอใจ',
+            source_claim(chunks[1], 'trait:b', 'decreases', 'trait:c', 'ความพึงพอใจ',
                      ['trait:b', 'trait:c']),
         ]
         graph, _ = build_graph(self.tax, [], [], chunks, claims=claims)
         with patch('graph.retrieve.concept_detector.detect', return_value={'trait:a', 'trait:c'}):
             result = GraphKnowledge(GraphView(graph)).retrieve('การสื่อสารสัมพันธ์กับความพึงพอใจ')
-        facts = [item for item in result.items if item.kind == 'graph_fact']
-        self.assertEqual({item.id for item in facts}, {c['claim_id'] for c in claims})
-        self.assertTrue(all(item.meta['claim_ids'] == [c['claim_id'] for c in claims] for item in facts))
-        self.assertTrue(all(len(item.meta['path']) == 2 for item in facts))
+        passages = [item for item in result.items if item.meta['two_hop_paths']]
+        self.assertEqual({item.meta['chunk_id'] for item in passages}, {c['chunk_id'] for c in claims})
+        self.assertTrue(all(item.kind == 'chunk' for item in passages))
+        self.assertTrue(all(item.meta['two_hop_paths'] == [[c['claim_id'] for c in claims]]
+                            for item in passages))
+        self.assertEqual({item.text for item in passages}, {chunk['text'] for chunk in chunks})
+        self.assertFalse(any(item.kind == 'graph_fact' for item in result.items))
 
     def test_unverified_taxonomy_rule_is_not_returned_as_evidence(self):
         self.tax['compatibility_rules'] = [{'a': 'trait:test', 'b': 'trait:test',
@@ -259,14 +261,14 @@ class ClaimTests(unittest.TestCase):
                     'polarity': 'uncertain', 'qualifier_text': 'ในคู่รักบางกลุ่ม'}
         result = SimpleNamespace(text=json.dumps({'claims': [proposal]}), model=DEFAULT_MODEL, metrics={})
         with patch('graph.claims._chat', return_value=result) as model:
-            self.assertEqual(extract(self.chunk, self.tax), [self.row])
+            self.assertEqual(extract(self.chunk, self.tax), [self.draft()])
             self.assertEqual(model.call_args.args[0], 'qwen3.5:9b')
             self.assertEqual(model.call_args.args[2]['type'], 'object')
             claim_fields = model.call_args.args[2]['properties']['claims']['items']['properties']
             self.assertIn('subject_id', claim_fields)
             self.assertIn('predicate', claim_fields)
             result.text = '```json\n' + result.text + '\n```'
-            self.assertEqual(extract(self.chunk, self.tax), [self.row])
+            self.assertEqual(extract(self.chunk, self.tax), [self.draft()])
             result.metrics = {'truncated': True}
             with self.assertRaises(ValueError):
                 extract(self.chunk, self.tax)
@@ -289,7 +291,7 @@ class ClaimTests(unittest.TestCase):
                                    model=DEFAULT_MODEL, metrics={})
         with patch('graph.claims._chat', return_value=response), self.assertWarnsRegex(
                 UserWarning, 'skipped invalid claim proposal'):
-            self.assertEqual(extract(self.chunk, self.tax), [self.row])
+            self.assertEqual(extract(self.chunk, self.tax), [self.draft()])
 
     def test_no_claims_preserves_original_graph(self):
         self.assertFalse(any(n['label'] == 'Claim' for n in self.build([])['nodes']))
@@ -332,6 +334,90 @@ class ClaimTests(unittest.TestCase):
         self.assertFalse(mentioned('ความมั่นคงทางอารมณ์', concept))
         self.assertTrue(mentioned('ความผูกพันแบบมั่นคง', concept))
 
+    def test_generic_touch_commitment_and_warmth_do_not_link_specialized_concepts(self):
+        from graph.claims import mentioned
+        self.tax['love_languages'] = [
+            {'id': 'll:touch', 'label_th': 'การสัมผัส'},
+            {'id': 'll:gifts', 'label_th': 'ของขวัญ'},
+        ]
+        self.tax['love_components'] = [
+            {'id': 'love:commitment', 'label_th': 'ความผูกมัด'},
+            {'id': 'love:intimacy', 'label_th': 'ความใกล้ชิด'},
+        ]
+        self.tax['traits'].append({'id': 'trait:kind', 'label_th': 'ใจดี ขี้เกรงใจ',
+                                   'aliases': ['ใจดี', 'อบอุ่น', 'เอาใจใส่']})
+        concepts = catalog(self.tax)
+        for cid, text in [
+            ('ll:touch', 'สิ่งแวดล้อมที่สัมผัสได้ด้วยประสาททั้ง 5 คือการสัมผัส'),
+            ('ll:gifts', 'บุคคลซื้อของขวัญให้เพื่อนในวันเกิด'),
+            ('love:commitment', 'หลักแห่งความมีใจกล้าพอ (Commitment) คือการเผชิญปัญหา'),
+            ('love:intimacy', 'ความใกล้ชิดระหว่างพนักงานเกิดจากการทำงานร่วมกัน'),
+            ('trait:kind', 'การให้ความรักเป็นการสร้างความอบอุ่นในจิตใจ'),
+            ('trait:kind', 'หัวข้อความเอาใจใส่ระหว่างบุคคล'),
+        ]:
+            with self.subTest(cid=cid, text=text):
+                self.assertFalse(mentioned(text, concepts[cid]))
+        for cid, text in [
+            ('ll:touch', '5) สัมผัสทางกาย (Physical Touch) คือการสัมผัสอย่างรักใคร่'),
+            ('ll:gifts', 'ให้ของขวัญ (Receiving Gifts) คือหนึ่งในภาษารัก'),
+            ('love:commitment', 'ความผูกมัด (Commitment) คือองค์ประกอบของความรัก'),
+            ('love:intimacy', 'Intimacy เป็นองค์ประกอบหนึ่งของความรัก'),
+            ('trait:kind', 'คนใจดีช่วยเหลือผู้อื่นเมื่อมีปัญหา'),
+        ]:
+            with self.subTest(cid=cid, text=text):
+                self.assertTrue(mentioned(text, concepts[cid]))
+
+    def test_numbered_items_and_slide_headings_do_not_share_claim_evidence(self):
+        numbered = ('แนวทางการแก้ไขพฤติกรรม 4. ไม่เอาเปรียบผู้อื่นและไม่เห็นแก่ตัว '
+                    '5. การให้ความรักแก่ผู้อื่นทำให้เกิดความสงบในสังคม '
+                    '6. การมีมนุษยสัมพันธ์')
+        passages = source_passages(numbered)
+        # This item is an instruction fragment; it must not lend its subject
+        # to the following item, which has an explicit causal statement.
+        self.assertTrue(any('ทำให้เกิดความสงบ' in p for p in passages.values()))
+        self.assertFalse(any('ไม่เอาเปรียบ' in p and 'ทำให้เกิดความสงบ' in p
+                             for p in passages.values()))
+        headings = ('การวิเคราะห์การปฏิสัมพันธ์ระหว่างบุคคล '
+                    '• โครงสร้างบุคลิกภาพ • รูปแบบการสื่อสารระหว่างบุคคล '
+                    '• ความเอาใจใส่ระหว่างบุคคล • วิธีปรับตนให้เข้ากับผู้อื่น')
+        self.assertFalse(any('ความเอาใจใส่ระหว่างบุคคล' in p
+                             for p in source_passages(headings).values()))
+        self.assertTrue(any('ช่วยลดความขัดแย้ง' in p for p in
+                            source_passages('• การสื่อสารช่วยลดความขัดแย้งในคู่รัก').values()))
+
+    def test_extraction_preserves_repetition_condition(self):
+        import json
+        self.tax['red_flags'] = [{'id': 'rf:gaslighting', 'label_th': 'Gaslighting'}]
+        chunk = {**self.chunk,
+                 'text': 'การเผชิญกับ gaslighting ซ้ำ ๆ ทำให้สูญเสียความเป็นตัวตนของตนเอง'}
+        proposal = {'passage_id': 'p0', 'concept_ids': ['rf:gaslighting'],
+                    'subject_id': 'rf:gaslighting', 'predicate': 'causes',
+                    'object_concept_id': '', 'object_text': 'สูญเสียความเป็นตัวตน',
+                    'polarity': 'affirmed', 'qualifier_text': ''}
+        result = SimpleNamespace(text=json.dumps({'claims': [proposal]}),
+                                 model=DEFAULT_MODEL, metrics={})
+        with patch('graph.claims._chat', return_value=result), self.assertWarns(UserWarning):
+            self.assertEqual(extract(chunk, self.tax), [])
+        proposal['qualifier_text'] = 'ซ้ำ ๆ'
+        result.text = json.dumps({'claims': [proposal]})
+        with patch('graph.claims._chat', return_value=result):
+            rows = extract(chunk, self.tax)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]['qualifier_text'], 'ซ้ำ ๆ')
+
+    def test_name_in_a_type_list_is_not_a_characteristic(self):
+        import json
+        self.tax['attachment_styles'] = [{'id': 'attach:secure', 'label_th': 'มั่นคง'}]
+        chunk = {**self.chunk, 'text': 'รูปแบบความผูกพันแบ่งเป็นหลายประเภท ได้แก่ secure และ fearful'}
+        proposal = {'passage_id': 'p0', 'concept_ids': ['attach:secure'],
+                    'subject_id': 'attach:secure', 'predicate': 'characterized_by',
+                    'object_concept_id': '', 'object_text': 'secure',
+                    'polarity': 'affirmed', 'qualifier_text': ''}
+        result = SimpleNamespace(text=json.dumps({'claims': [proposal]}),
+                                 model=DEFAULT_MODEL, metrics={})
+        with patch('graph.claims._chat', return_value=result), self.assertWarns(UserWarning):
+            self.assertEqual(extract(chunk, self.tax), [])
+
     def test_invalid_passage_links_are_dropped_with_warning(self):
         import json
         self.tax['traits'].append({'id': 'trait:calm', 'label_th': 'ใจเย็น'})
@@ -343,7 +429,7 @@ class ClaimTests(unittest.TestCase):
         with patch('graph.claims._chat', return_value=response), self.assertWarns(UserWarning):
             self.assertEqual(extract(chunk, self.tax), [])
 
-    def test_claim_roles_and_review_status_are_validated(self):
+    def test_claim_roles_and_source_fields_are_validated(self):
         for field, value in [('subject_id', 'unknown'), ('object_text', 'not in quote'),
                              ('predicate', 'invented'), ('polarity', 'maybe'),
                              ('qualifier_text', 'not in quote')]:
@@ -351,8 +437,13 @@ class ClaimTests(unittest.TestCase):
             row['claim_id'] = claim_identifier(row)
             with self.subTest(field=field), self.assertRaises(ValueError):
                 self.build([row])
-        with self.assertRaisesRegex(ValueError, 'reviewer and timestamp'):
-            self.build([{**self.row, 'review_status': 'human_verified'}])
+        with self.assertRaisesRegex(ValueError, 'unsupported metadata'):
+            self.build([{**self.row, 'arbitrary_status': 'human_verified'}])
+
+    def test_extracted_claim_with_valid_source_is_importable(self):
+        row = self.draft()
+        self.assertEqual(validate_claim(row, {'c1': self.chunk}, catalog(self.tax)), row)
+        self.assertEqual(validate(self.build([row]))['nodes_by_label']['Claim'], 1)
 
     def test_trial_import_does_not_publish_active_pointer(self):
         from unittest.mock import MagicMock

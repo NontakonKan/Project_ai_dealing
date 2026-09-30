@@ -11,7 +11,7 @@ class CacheTests(unittest.TestCase):
     def setUp(self):
         fixture = test_claims.ClaimTests()
         fixture.setUp()
-        self.chunk, self.tax, self.row = fixture.chunk, fixture.tax, fixture.row
+        self.chunk, self.tax, self.row = fixture.chunk, fixture.tax, fixture.draft()
         self.temp = tempfile.TemporaryDirectory()
         self.path = Path(self.temp.name) / 'cache.sqlite3'
         self.cache = ClaimCache(self.path)

@@ -1,5 +1,4 @@
 {
-  "reviewer": "assistant code-and-source review, not independent expert evaluation",
   "accepted": 7,
   "excluded": {
     "claim:acdaa9564b98dc680fdd592e": "Heading only; no assertion",

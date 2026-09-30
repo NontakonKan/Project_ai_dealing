@@ -37,6 +37,10 @@ def _write_snapshot(tx, graph, activate=True):
     # Serialize publishers of this dataset before writing the active pointer.
     tx.run("MERGE (d:DealingDataset {id:$dataset}) SET d.lock = coalesce(d.lock, 0) + 1",
            dataset=dataset).consume()
+    # Remove the retired Claim metadata from this dataset's older snapshots too.
+    tx.run("MATCH (c:DealingEntity:Claim {dataset:$dataset}) "
+           "REMOVE c.review_status, c.reviewed_by, c.reviewed_at, c.reviewer_type, "
+           "c.review_method, c.review_notes, c.assertion", dataset=dataset).consume()
     groups, edges = defaultdict(list), defaultdict(list)
     key = lambda node_id: f"{dataset}|{snapshot}|{node_id}"
     for node in graph["nodes"]:

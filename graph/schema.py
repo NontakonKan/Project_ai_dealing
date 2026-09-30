@@ -47,7 +47,6 @@ CLAIM_POLARITIES = {
     "negated": "ปฏิเสธตามข้อความ",
     "uncertain": "ยังไม่แน่ชัดตามข้อความ",
 }
-CLAIM_ASSERTIONS = {"llm_extracted_unverified", "human_verified"}
 # Domain/range checks are application-side; Neo4j uniqueness alone is insufficient.
 RELATIONS = {
     "HAS_TRAIT": ({"User"}, FEATURE_LABELS),

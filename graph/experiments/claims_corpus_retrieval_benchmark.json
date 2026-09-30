@@ -1,0 +1,72 @@
+{
+  "questions": 52,
+  "answerable": 41,
+  "unanswerable": 11,
+  "k": 8,
+  "metrics": {
+    "legacy_tag_graph": {
+      "hit_at_8": 0.146,
+      "mrr_at_8": 0.088,
+      "warm_p50_ms": 0.1,
+      "warm_p95_ms": 0.1,
+      "empty_on_unanswerable": 10
+    },
+    "graph_text_only": {
+      "hit_at_8": 0.829,
+      "mrr_at_8": 0.649,
+      "warm_p50_ms": 14.4,
+      "warm_p95_ms": 17.8,
+      "empty_on_unanswerable": 3
+    },
+    "graph_without_claims": {
+      "hit_at_8": 0.829,
+      "mrr_at_8": 0.655,
+      "warm_p50_ms": 19.4,
+      "warm_p95_ms": 223.0,
+      "empty_on_unanswerable": 3
+    },
+    "dense": {
+      "hit_at_8": 0.707,
+      "mrr_at_8": 0.602,
+      "warm_p50_ms": 107.3,
+      "warm_p95_ms": 132.2,
+      "empty_on_unanswerable": 0
+    },
+    "graph": {
+      "hit_at_8": 0.829,
+      "mrr_at_8": 0.671,
+      "warm_p50_ms": 14.8,
+      "warm_p95_ms": 16.1,
+      "empty_on_unanswerable": 3
+    },
+    "hybrid_rrf": {
+      "hit_at_8": 0.878,
+      "mrr_at_8": 0.628,
+      "warm_p50_ms": 122.6,
+      "warm_p95_ms": 143.3,
+      "empty_on_unanswerable": 0
+    }
+  },
+  "pilot_edge_recovery": [
+    "paraphrase"
+  ],
+  "graph_hits_dense_misses": [
+    "ถ้าแฟนหายไปเฉยๆ ไม่ทิ้งคำอธิบาย แบบนี้เรียกว่าอะไร และส่งผลต่ออีกฝ่ายอย่างไร",
+    "ผมควรทำไงเมื่อพูดคุยครั้งแรกตอนเดตจริง",
+    "คุยกับแฟนผ่านแชทบ่อยแค่ไหนถึงจะพอดี",
+    "คนที่คุยในแอปขอยืมเงิน ควรทำไง",
+    "ควรเรียกพี่ไหม เค้าอายุเยอะกว่า หรือเรียกเธอดี",
+    "คนคุยหายไปเฉยๆ ทำไมถึงเจ็บจัง",
+    "คบกันแบบไม่มีสถานะ ดีไหม"
+  ],
+  "dense_hits_graph_misses": [
+    "ในการวิเคราะห์การปฏิสัมพันธ์ระหว่างบุคคล บุคลิกภาพแบ่งเป็นกี่สภาวะ อะไรบ้าง",
+    "มีวิธีทางจิตวิทยาอะไรบ้างที่ช่วยจัดการตอนโกรธแฟน"
+  ],
+  "limitations": [
+    "Relevance is a keyword heuristic; answer quality is not measured.",
+    "The question set was used during development, so it is not a held-out test.",
+    "The application relevance and answer-verification gates are not run here.",
+    "Claims guide retrieval of original source chunks; they are not answer facts."
+  ]
+}
